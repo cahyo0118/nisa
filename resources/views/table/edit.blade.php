@@ -22,6 +22,10 @@
         <!-- Page content -->
         <div class="container-fluid mt--7">
 
+            {!! Form::model($item, ['route' => ['tables.update', $item->id], 'method' => 'patch', 'id' => 'tableForm']) !!}
+
+            {{ csrf_field() }}
+
             <div class="col-xl-12">
 
                 @include('partials.alert')
@@ -30,19 +34,38 @@
 
                     <div class="card-body">
 
-                        {!! Form::open(['route' => 'samples.store']) !!}
-
-                            @include('sample.fields')
-
-                        {!! Form::close() !!}
+                        @include('table.fields')
 
                     </div>
 
                 </div>
+
+                <br>
+
+                <div class="card bg-secondary shadow">
+
+                    <div class="card-body">
+
+                        @include('table.fields_forms')
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <!-- Footer -->
+            {!! Form::close() !!}
+
+        <!-- Footer -->
             @include('partials.footer')
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(function () {
+            getAllFields({{ $item->id }});
+        });
+    </script>
 @endsection

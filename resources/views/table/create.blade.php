@@ -6,7 +6,7 @@
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Samples</a>
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Tables</a>
                 <!-- User -->
                 @include('partials.user-menu')
             </div>
@@ -22,6 +22,10 @@
         <!-- Page content -->
         <div class="container-fluid mt--7">
 
+            {!! Form::open(['route' => 'tables.store', 'id' => 'tableForm']) !!}
+
+            {{ csrf_field() }}
+
             <div class="col-xl-12">
 
                 @include('partials.alert')
@@ -30,18 +34,28 @@
 
                     <div class="card-body">
 
-                        {!! Form::open(['route' => 'samples.store']) !!}
+                        @include('table.fields')
 
-                            @include('sample.fields')
+                    </div>
 
-                        {!! Form::close() !!}
+                </div>
+
+                <br>
+
+                <div class="card bg-secondary shadow">
+
+                    <div class="card-body">
+
+                        @include('table.fields_forms')
 
                     </div>
 
                 </div>
             </div>
 
-            <!-- Footer -->
+            {!! Form::close() !!}
+
+        <!-- Footer -->
             @include('partials.footer')
         </div>
     </div>

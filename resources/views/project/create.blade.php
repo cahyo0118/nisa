@@ -6,7 +6,7 @@
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Samples</a>
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Projects</a>
                 <!-- User -->
                 @include('partials.user-menu')
             </div>
@@ -30,9 +30,9 @@
 
                     <div class="card-body">
 
-                        {!! Form::open(['route' => 'samples.store']) !!}
+                        {!! Form::open(['route' => 'projects.store']) !!}
 
-                            @include('sample.fields')
+                            @include('project.fields')
 
                         {!! Form::close() !!}
 

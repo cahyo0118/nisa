@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Sample;
+use App\Project;
 use Validator;
 use Session;
 
-class SampleController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +16,15 @@ class SampleController extends Controller
      */
     public function index(Request $request)
     {
-        $samples = null;
+        $projects = null;
 
         if (empty($request->keyword)) {
-            $samples = Sample::paginate(15);
+            $projects = Project::paginate(15);
         } else {
-            $samples = Sample::orWhere('name', 'LIKE', '%'.$request->keyword.'%')->paginate(15);
+            $projects = Project::orWhere('name', 'LIKE', '%'.$request->keyword.'%')->paginate(15);
         }
 
-        return view('sample.index')->with('items', $samples);
+        return view('project.index')->with('items', $projects);
     }
 
     /**
@@ -34,7 +34,7 @@ class SampleController extends Controller
      */
     public function create()
     {
-        return view('sample.create');
+        return view('project.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class SampleController extends Controller
     public function store(Request $request)
     {
         // Validation
-        $validator = Validator::make($request->all(), Sample::$validation['store']);
+        $validator = Validator::make($request->all(), Project::$validation['store']);
 
         if ($validator->fails())
         {
@@ -56,14 +56,14 @@ class SampleController extends Controller
                 ->withInput();
         }
 
-        $sample = new Sample();
-        $sample->name = $request->name;
-        $sample->description = $request->description;
-        $sample->save();
+        $project = new Project();
+        $project->name = $request->name;
+        $project->display_name = $request->display_name;
+        $project->save();
 
         Session::flash('success', 'Successfully store data');
 
-        return redirect()->route('samples.index');
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -74,14 +74,14 @@ class SampleController extends Controller
      */
     public function show($id)
     {
-        $sample = Sample::find($id);
+        $project = Project::find($id);
 
-        if (empty($sample)) {
+        if (empty($project)) {
             Session::flash('failed', 'Data not found');
             return redirect()->back();
         }
 
-        return view('sample.show')->with('item', $sample);
+        return view('project.show')->with('item', $project);
     }
 
     /**
@@ -92,14 +92,14 @@ class SampleController extends Controller
      */
     public function edit($id)
     {
-        $sample = Sample::find($id);
+        $project = Project::find($id);
 
-        if (empty($sample)) {
+        if (empty($project)) {
             Session::flash('failed', 'Data not found');
             return redirect()->back();
         }
 
-        return view('sample.edit')->with('item', $sample);
+        return view('project.edit')->with('item', $project);
     }
 
     /**
@@ -112,7 +112,7 @@ class SampleController extends Controller
     public function update(Request $request, $id)
     {
         // Validation
-        $validator = Validator::make($request->all(), Sample::$validation['update']);
+        $validator = Validator::make($request->all(), Project::$validation['update']);
 
         if ($validator->fails())
         {
@@ -122,20 +122,20 @@ class SampleController extends Controller
                 ->withInput();
         }
 
-        $sample = Sample::find($id);
+        $project = Project::find($id);
 
-        if (empty($sample)) {
+        if (empty($project)) {
             Session::flash('failed', 'Data not found');
             return redirect()->back();
         }
 
-        $sample->name = $request->name;
-        $sample->description = $request->description;
-        $sample->save();
+        $project->name = $request->name;
+        $project->display_name = $request->display_name;
+        $project->save();
 
         Session::flash('success', 'Successfully update data');
 
-        return redirect()->route('samples.index');
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -146,26 +146,26 @@ class SampleController extends Controller
      */
     public function destroy($id)
     {
-        $sample = Sample::find($id);
+        $project = Project::find($id);
 
-        if (empty($sample)) {
+        if (empty($project)) {
             Session::flash('failed', 'Failed delete data');
-            return redirect()->route('samples.index');
+            return redirect()->route('projects.index');
         }
 
-        $sample->delete();
+        $project->delete();
 
         Session::flash('success', 'Successfully delete data');
-        return redirect()->route('samples.index');
+        return redirect()->route('projects.index');
     }
 
     public function search(Request $request)
     {
         if (empty($request->keyword)) {
-            return redirect()->route('samples.index');
+            return redirect()->route('projects.index');
         }
 
-        $samples = Sample::where('name', 'LIKE', '%'.$request->keyword.'%')->paginate(15);
-        return view('sample.index')->with('items', $samples);
+        $projects = Project::where('name', 'LIKE', '%'.$request->keyword.'%')->paginate(15);
+        return view('project.index')->with('items', $projects);
     }
 }

@@ -30,7 +30,7 @@
 
                     <div class="card-body">
 
-                        {!! Form::open(['route' => 'samples.store']) !!}
+                        {!! Form::model($item, ['route' => ['samples.update', $item->id], 'method' => 'patch']) !!}
 
                             @include('sample.fields')
 

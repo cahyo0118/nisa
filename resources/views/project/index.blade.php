@@ -6,7 +6,7 @@
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Samples</a>
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Projects</a>
                 <!-- User -->
                 @include('partials.user-menu')
             </div>
@@ -23,15 +23,15 @@
         <div class="container-fluid mt--7">
             <div class="row">
                 <div class="col">
-                    {!! Form::open(['route' => 'samples.index', 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}
-                        <div class="form-group">
-                            <div class="input-group input-group-alternative">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                </div>
-                                <input name="keyword" class="form-control" placeholder="Search" type="text">
+                    {!! Form::open(['route' => 'projects.index', 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
                             </div>
+                            <input name="keyword" class="form-control" placeholder="Search" type="text">
                         </div>
+                    </div>
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -47,19 +47,20 @@
 
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Samples List</h3>
-                            <a href="{{ route('samples.create') }}"  class="btn btn-icon btn-primary">
+                            <h3 class="mb-0">Projects List</h3>
+                            <a href="{{ route('projects.create') }}" class="btn btn-icon btn-primary">
                                 <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
                                 <span class="btn-inner--text">Create</span>
                             </a>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table align-items-center table-flush" data-toggle="dataTable" data-form="deleteForm">
+                            <table class="table align-items-center table-flush" data-toggle="dataTable"
+                                   data-form="deleteForm">
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
+                                    <th scope="col">display name</th>
                                     <th scope="col"></th>
                                 </tr>
                                 </thead>
@@ -70,23 +71,25 @@
                                             {{ $item->name }}
                                         </th>
                                         <td>
-                                            {{ $item->description }}
+                                            {{ $item->display_name }}
                                         </td>
 
                                         <td class="text-right">
-                                            {!! Form::model($item, ['method' => 'delete', 'route' => ['samples.destroy', $item->id], 'class' =>'form-inline justify-content-end']) !!}
+                                            {!! Form::model($item, ['method' => 'delete', 'route' => ['projects.destroy', $item->id], 'id' => 'form-delete', 'class' =>'form-inline justify-content-end']) !!}
 
-                                            <a href="{{ route('samples.show', $item->id) }}" class="btn btn-icon btn-info btn-sm">
+                                            <a href="{{ route('projects.show', $item->id) }}"
+                                               class="btn btn-icon btn-info btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
                                                 <span class="btn-inner--text">View</span>
                                             </a>
-                                            <a href="{{ route('samples.edit', $item->id) }}" class="btn btn-icon btn-default btn-sm">
+                                            <a href="{{ route('projects.edit', $item->id) }}"
+                                               class="btn btn-icon btn-default btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                                 <span class="btn-inner--text">Edit</span>
                                             </a>
 
                                             {!! Form::hidden('id', $item->id) !!}
-                                            {!! Form::submit('delete', ['class' => 'btn btn-danger btn-sm text-white confirm-delete', 'name' => 'delete_modal']) !!}
+                                            {!! Form::submit('delete', ['id' => 'confirm-delete', 'class' => 'btn btn-danger btn-sm text-white confirm-delete', 'name' => 'delete_modal']) !!}
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
@@ -110,11 +113,13 @@
 @section('script')
     <script>
         $(function () {
-            $('table[data-form="deleteForm"]').on('click', '.confirm-delete', function(e){
+            $('table[data-form="deleteForm"]').on('click', '.confirm-delete', function (e) {
                 e.preventDefault();
-                var $form=$(this);
-                $('#confirm').modal({ backdrop: 'static', keyboard: false })
-                    .on('click', '#delete-btn', function(){
+                var $form = $('#form-delete');
+
+                $('#confirm').modal({backdrop: 'static', keyboard: false})
+                    .on('click', '#delete-btn', function () {
+                        console.log('trying');
                         $form.submit();
                     });
             });
