@@ -77,6 +77,7 @@
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Type</th>
                                                 <th scope="col">Length</th>
+                                                <th scope="col">Default</th>
                                                 {{--<th scope="col"></th>--}}
                                             </tr>
                                             </thead>
@@ -92,28 +93,9 @@
                                                     <td>
                                                         {{ $field->length }}
                                                     </td>
-                                                    {{--<td>--}}
-                                                    {{--{{ $field->project->display_name }}--}}
-                                                    {{--</td>--}}
-
-                                                    {{--<td class="text-right">--}}
-                                                    {{--{!! Form::model($field, ['method' => 'delete', 'route' => ['tables.destroy', $field->id], 'id' => 'form-delete', 'class' =>'form-inline justify-content-end']) !!}--}}
-
-                                                    {{--<a href="{{ route('tables.show', $field->id) }}"--}}
-                                                    {{--class="btn btn-icon btn-info btn-sm">--}}
-                                                    {{--<span class="btn-inner--icon"><i class="fas fa-eye"></i></span>--}}
-                                                    {{--<span class="btn-inner--text">View</span>--}}
-                                                    {{--</a>--}}
-                                                    {{--<a href="{{ route('tables.edit', $field->id) }}"--}}
-                                                    {{--class="btn btn-icon btn-default btn-sm">--}}
-                                                    {{--<span class="btn-inner--icon"><i class="fas fa-edit"></i></span>--}}
-                                                    {{--<span class="btn-inner--text">Edit</span>--}}
-                                                    {{--</a>--}}
-
-                                                    {{--{!! Form::hidden('id', $field->id) !!}--}}
-                                                    {{--{!! Form::submit('delete', ['id' => 'confirm-delete', 'class' => 'btn btn-danger btn-sm text-white confirm-delete', 'name' => 'delete_modal']) !!}--}}
-                                                    {{--{!! Form::close() !!}--}}
-                                                    {{--</td>--}}
+                                                    <td>
+                                                        {{ $field->default }}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

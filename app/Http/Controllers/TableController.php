@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Field;
 use App\Project;
+use App\Relation;
 use Illuminate\Http\Request;
 use App\Table;
 use Validator;
@@ -18,6 +19,7 @@ class TableController extends Controller
         'number' => 'Number',
         'file' => 'File',
         'password' => 'Password',
+        'select' => 'Select',
         'date' => 'Date',
         'time' => 'Time',
         'datetime' => 'Date Time',
@@ -120,6 +122,46 @@ class TableController extends Controller
             $field->ai = $request->ai[$key];
             $field->table_id = $table->id;
             $field->save();
+
+//            Relation
+            if (!empty($request->relation_type[$key])) {
+                $relation = Relation::where('field_id', $field->id)->first();
+
+                if (empty($relation)) {
+                    $relation = new Relation();
+                }
+
+                $relation->field_id = $field->id;
+                $relation->table_id = $request->relation_table[$key];
+                $relation->local_table_id = $table->id;
+                $relation->relation_type = $request->relation_type[$key];
+                $relation->relation_foreign_key = $request->relation_foreign_key[$key];
+                $relation->relation_display = $request->relation_display[$key];
+
+                $relation->save();
+            }
+        }
+
+//        Has Many or Many to Many relation
+        foreach ($request->relation_type as $key => $field_name) {
+
+            if ($request->relation_type[$key] == 'hasmany' || $request->relation_type[$key] == 'manytomany') {
+
+                $relation = Relation::where('field_id', $field->id)->first();
+
+                if (empty($relation)) {
+                    $relation = new Relation();
+                }
+
+                $relation->field_id = 0;
+                $relation->table_id = $request->relation_table[$key];
+                $relation->local_table_id = $table->id;
+                $relation->relation_type = $request->relation_type[$key];
+                $relation->relation_foreign_key = $request->relation_foreign_key[$key];
+                $relation->relation_display = $request->relation_display[$key];
+
+                $relation->save();
+            }
         }
 
         Session::flash('success', 'Successfully store data');
@@ -180,6 +222,7 @@ class TableController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request);
         // Validation
         $validator = Validator::make($request->all(), Table::$validation['update']);
 
@@ -202,6 +245,7 @@ class TableController extends Controller
         $table->project_id = $request->table_project_id;
         $table->save();
 
+//        Fields
         foreach ($request->name as $key => $field_name) {
 
             $field = new Field();
@@ -222,6 +266,48 @@ class TableController extends Controller
             $field->ai = $request->ai[$key];
             $field->table_id = $table->id;
             $field->save();
+
+//            Relation
+            if (!empty($request->relation_type[$key])) {
+                $relation = Relation::where('field_id', $field->id)->first();
+
+                if (empty($relation)) {
+                    $relation = new Relation();
+                }
+
+                $relation->field_id = $field->id;
+                $relation->table_id = $request->relation_table[$key];
+                $relation->local_table_id = $table->id;
+                $relation->relation_type = $request->relation_type[$key];
+                $relation->relation_foreign_key = $request->relation_foreign_key[$key];
+                $relation->relation_display = $request->relation_display[$key];
+
+                $relation->save();
+            }
+        }
+
+        //        Has Many or Many to Many relation
+        foreach ($request->relation_type as $key => $field_name) {
+
+            if ($request->relation_type[$key] == 'hasmany' || $request->relation_type[$key] == 'manytomany') {
+
+//                $relation = Relation::where('field_id', $field->id)->first();
+                $relation = Relation::where('id', $request->relation_id[$key])->first();
+
+                if (empty($relation)) {
+                    $relation = new Relation();
+                }
+
+                $relation->field_id = null;
+                $relation->table_id = $request->relation_table[$key];
+                $relation->local_table_id = $table->id;
+                $relation->relation_type = $request->relation_type[$key];
+                $relation->relation_foreign_key = $request->relation_foreign_key[$key];
+                $relation->relation_local_key = !empty($request->relation_local_key[$key]) ? $request->relation_local_key[$key] : null;
+                $relation->relation_display = $request->relation_display[$key];
+
+                $relation->save();
+            }
         }
 
         Session::flash('success', 'Successfully update data');
@@ -284,12 +370,17 @@ class TableController extends Controller
     public function fields(Request $request, $id)
     {
         $value = "";
+        $randoms = [];
+        $field_ids = [];
 
         $fields = Field::where('table_id', $id)->get();
 
         foreach ($fields as $field) {
 
             $random = rand(10000, 99999);
+
+            array_push($randoms, $random);
+            array_push($field_ids, $field->id);
 
             $value .= (string)view('table.field-form')
                 ->with('item', $field)
@@ -299,6 +390,48 @@ class TableController extends Controller
         }
 
         return response()->json([
+            'random' => $randoms,
+            'field_ids' => $field_ids,
+            'view' => $value
+        ], 200);
+    }
+
+    public function relationsMany(Request $request, $id)
+    {
+        $value = "";
+        $randoms = [];
+        $relation_ids = [];
+        $field_ids = [];
+        $field_display_ids = [];
+
+        $tables = Table::pluck('display_name', 'id');
+
+        $relations = Relation::orWhere('relation_type', 'hasmany')->orWhere('relation_type', 'manytomany')->get();
+
+//        $fields = Field::where('table_id', $id)->get();
+
+        foreach ($relations as $relation) {
+
+            $random = rand(10000, 99999);
+
+            array_push($randoms, $random);
+            array_push($relation_ids, $relation->id);
+            array_push($field_ids, $relation->relation_foreign_key);
+            array_push($field_display_ids, $relation->relation_display);
+
+            $value .= (string)view(($relation->relation_type == 'hasmany') ? 'table.field-relation-hm-form' : 'table.field-relation-mtm-form')
+                ->with('item', $relation)
+                ->with('tables', $tables)
+                ->with('random', $random)
+                ->with('types', $this->types)
+                ->with('input_types', $this->input_types);
+        }
+
+        return response()->json([
+            'random' => $randoms,
+            'relation_ids' => $relation_ids,
+            'field_display_ids' => $field_display_ids,
+            'field_ids' => $field_ids,
             'view' => $value
         ], 200);
     }
@@ -362,6 +495,32 @@ class TableController extends Controller
         ], 200);
     }
 
+    /*Templates*/
+
+    public function fieldRelationTemplate(Request $request, $id, $random)
+    {
+        $tables = Table::pluck('display_name', 'id');
+
+        $item = Relation::where('field_id', $id)->first();
+
+        if (empty($item)) {
+            return response()->json([
+                'success' => false,
+                'body' => null,
+                'message' => 'Relation not found'
+            ], 204);
+        }
+
+        return response()->json([
+            'view' => (string)view('table.field-relation-form')
+                ->with('random', $random)
+                ->with('item', $item)
+                ->with('tables', $tables)
+                ->with('types', $this->types)
+                ->with('input_types', $this->input_types)
+        ], 200);
+    }
+
     public function addNewField()
     {
         $random = rand(10000, 99999);
@@ -374,4 +533,194 @@ class TableController extends Controller
                 ->with('input_types', $this->input_types)
         ], 200);
     }
+
+//    Has Many
+    public function addNewHasManyRelation()
+    {
+        $random = rand(10000, 99999);
+
+        $tables = Table::pluck('display_name', 'id');
+
+        return response()->json([
+            'random' => $random,
+            'view' => (string)view('table.field-relation-hm-form')
+                ->with('random', $random)
+                ->with('tables', $tables)
+                ->with('types', $this->types)
+                ->with('input_types', $this->input_types)
+        ], 200);
+    }
+
+//    Many to many
+    public function addNewManyToManyRelation()
+    {
+        $random = rand(10000, 99999);
+
+        $tables = Table::pluck('display_name', 'id');
+
+        return response()->json([
+            'random' => $random,
+            'view' => (string)view('table.field-relation-mtm-form')
+                ->with('random', $random)
+                ->with('tables', $tables)
+                ->with('types', $this->types)
+                ->with('input_types', $this->input_types)
+        ], 200);
+    }
+
+    public function addNewRelation(Request $request, $id, $random)
+    {
+        $tables = Table::pluck('display_name', 'id');
+//        $projects = Project::pluck('display_name', 'id');
+
+        return response()->json([
+            'view' => (string)view('table.field-relation-form')
+                ->with('random', $random)
+                ->with('tables', $tables)
+                ->with('types', $this->types)
+                ->with('input_types', $this->input_types)
+        ], 200);
+    }
+
+    public function deleteFieldRelation($id)
+    {
+//        $relation =
+        return response()->json([
+            'success' => true,
+            'body' => null,
+            'message' => 'Field relation removed !'
+        ], 200);
+    }
+
+    public function getAllTables($random)
+    {
+        $tables = Table::pluck('display_name', 'id');
+//        $projects = Project::pluck('display_name', 'id');
+
+        return response()->json([
+            'view' => (string)view('table.field-relation-form')
+                ->with('random', $random)
+                ->with('tables', $tables)
+                ->with('types', $this->types)
+                ->with('input_types', $this->input_types)
+        ], 200);
+    }
+
+    public function getAllFieldsSelectForm($random, $table_id)
+    {
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
+
+        return response()->json([
+            'view' => (string)view('table.select.foreigns')
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    public function getAllFieldsSelectFormByFieldId($random, $table_id, $field_id)
+    {
+
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
+
+        $item = Relation::where('field_id', $field_id)->first();
+
+        return response()->json([
+            'view' => (string)view('table.select.foreigns')
+                ->with('item', $item)
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    public function getAllDisplaysSelectForm($random, $table_id)
+    {
+        $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
+
+        return response()->json([
+            'view' => (string)view('table.select.displays')
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    public function getAllDisplaysSelectFormByFieldId($random, $table_id, $field_id)
+    {
+        $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
+
+        $item = Relation::where('field_id', $field_id)->first();
+
+        return response()->json([
+            'view' => (string)view('table.select.displays')
+                ->with('item', $item)
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    /* has many and many to many */
+    public function getAllManyFieldsSelectForm($random, $table_id)
+    {
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
+
+        return response()->json([
+            'view' => (string)view('table.select.foreigns')
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    public function getAllManyFieldsSelectFormByFieldId($random, $table_id, $field_id)
+    {
+
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
+
+        $item = Relation::where('table_id', $table_id)->where('relation_foreign_key', $field_id)->first();
+
+        return response()->json([
+            'view' => (string)view('table.select.foreigns')
+                ->with('item', $item)
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    public function getAllManyDisplaysSelectForm($random, $table_id)
+    {
+        $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
+
+        return response()->json([
+            'view' => (string)view('table.select.displays')
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    public function getAllManyDisplaysSelectFormByFieldId($random, $table_id, $field_id)
+    {
+        $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
+
+        $item = Relation::where('table_id', $table_id)->where('relation_display', $field_id)->first();
+
+        return response()->json([
+            'view' => (string)view('table.select.displays')
+                ->with('item', $item)
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    public function deleteManyRelation($id)
+    {
+
+        $item = Relation::where('id', $id)->first();
+
+        $item->delete();
+
+        return response()->json([
+            'success' => true,
+            'data' => null,
+            'message' => 'Successfully delete data !'
+        ], 200);
+    }
+    /* END has many and many to many */
 }

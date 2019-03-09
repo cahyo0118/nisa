@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Type</label>
                     <div class="input-group input-group-alternative">
-                        {!! Form::select("type[$random]", $types, !empty($item) ? $item->type : null, ["class" => "form-control form-control-alternative", "required" => ""]) !!}
+                        {!! Form::select("type[$random]", $types, !empty($item) ? $item->type : null, ["id" => "fieldType$random", "class" => "form-control form-control-alternative", "required" => ""]) !!}
                     </div>
                 </div>
             </div>
@@ -43,7 +43,15 @@
                 <div class="form-group">
                     <label class="form-control-label">Input Type</label>
                     <div class="input-group input-group-alternative">
-                        {!! Form::select("input_type[$random]", $input_types, !empty($item) ? $item->input_type : null, ["class" => "form-control form-control-alternative", "required" => ""]) !!}
+                        {!! Form::select("input_type[$random]",
+                            $input_types,
+                            !empty($item) ? $item->input_type : null,
+                            [
+                                "id" => "fieldInputType$random",
+                                "class" => "form-control form-control-alternative",
+                                "required" => "",
+                                "onchange" => "onInputTypeChange($random, this.value)"
+                            ]) !!}
                     </div>
                 </div>
             </div>
@@ -55,7 +63,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-sort"></i></span>
                         </div>
-                        {!! Form::number("length[$random]", !empty($item) ? $item->length : null, ["class" => "form-control form-control-alternative", "required" => ""]) !!}
+                        {!! Form::number("length[$random]", !empty($item) ? $item->length : 0, ["id" => "fieldLength$random", "class" => "form-control form-control-alternative", "required" => ""]) !!}
                     </div>
                 </div>
             </div>
@@ -87,7 +95,7 @@
             <div class="col-lg-2">
                 <div class="form-group">
                     {!! Form::hidden("notnull[$random]", 0) !!}
-                    {!! Form::checkbox("notnull[$random]", 1, !empty($item) ? $item->notnull : null) !!}
+                    {!! Form::checkbox("notnull[$random]", 1, !empty($item) ? $item->notnull : 1) !!}
                     <label class="form-control-label">Not Null</label>
                 </div>
             </div>
@@ -109,14 +117,20 @@
             </div>
         </div>
 
-        <button class="btn btn-icon btn-3 btn-danger" type="button" onclick="deleteField('{{ $random }}', {{ !empty($item) ? $item->id : 0 }})">
+        <div id="relationDiv{{ $random }}" class="row">
+
+        </div>
+
+        <button class="btn btn-icon btn-3 btn-danger" type="button"
+                onclick="deleteField('{{ $random }}', {{ !empty($item) ? $item->id : 0 }})">
             <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
 
             <span class="btn-inner--text">Delete</span>
 
         </button>
 
-        <button class="btn btn-icon btn-3 btn-info float-right" type="button" onclick="deleteField({{ $random }})">
+        <button class="btn btn-icon btn-3 btn-info float-right" type="button"
+                onclick="createRelation('{{ $random }}', {{ !empty($item) ? $item->id : 0 }})">
             <span class="btn-inner--icon"><i class="fas fa-handshake"></i></span>
 
             <span class="btn-inner--text">Create Relation</span>

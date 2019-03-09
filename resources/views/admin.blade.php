@@ -52,6 +52,7 @@
 </script>
 
 <script type="text/javascript">
+    // Configure ajax for laravel 5 (CSRF TOKEN)
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -60,33 +61,42 @@
 </script>
 
 <script>
-    function saveFieldsChanges(tableId) {
+    $(function () {
+        // Remove selectable ability in readonly select input
+        $("select[readonly]").css("pointer-events", "none");
+    });
+</script>
+<script>
 
-        // var data = $('#tableForm');
+    function onInputTypeChange(random, value) {
+
+        if (value === "select") {
+            // change field type to integer(default value for relation)
+            $(`#fieldType${random}`).val("integer");
+            $(`#fieldLength${random}`).val(11);
+
+            createRelation(random);
+
+        } else {
+            deleteRelation(random);
+        }
+
+    }
+
+    function saveFieldsChanges(tableId) {
 
         var formData = new FormData();
 
+        // ^ = get value from name array with custom index
         $("input[name^='name']").each(function (index) {
-            // var oneValue = $(this).val();
-            // var name = $(this).attr('name');
-
             console.log($(this).attr('name'));
             console.log($(this).val());
             formData.append($(this).attr('name'), $(this).val());
-            // console.log(index);
         });
-
-        // formData.append('name', $("input[name='name[]']"));
-
-
-        console.log(formData.getAll('name'));
 
         $.ajax({
             url: `/tables/${tableId}/fields/sync`,
             type: 'PUT',
-            // headers: {
-            //     'Content-Type' : 'application/form-data'
-            // },
             data: formData,
             success: function (data) {
                 $('#table_fields').replaceWith(`<div id="table_fields" class="row">${data.view}</div>`);
@@ -95,7 +105,6 @@
             error: function (error) {
                 swal("Sync Failed!", "Fields failed to be sync with cloud data!", "error");
             },
-            // dataType: 'json',
             cache: false,
             contentType: false,
             processData: false
@@ -103,14 +112,23 @@
 
     }
 
-    function getAllFields(tableId) {
-        // Get All Fields on the table
+    function createRelation(random, id = 0) {
+
+        // Add new relation into field
+
         $.ajax({
-            url: `/tables/${tableId}/fields`,
-            type: 'GET',
+            url: `/fields/${id}/add-new-relation/${random}`,
+            type: 'POST',
+            data: null,
             success: function (data) {
-                $('#table_fields').append(data.view);
+                $(`#relationDiv${random}`).replaceWith(`<div id="relationDiv${random}" class="row">${data.view}</div>`);
+                // get fields
+                getAllFieldsSelectInput(random);
+                getAllDisplayFieldsSelectInput(random);
             },
+            cache: false,
+            contentType: false,
+            processData: false
         });
     }
 
@@ -123,7 +141,6 @@
             type: 'POST',
             data: null,
             success: function (data) {
-                console.log(data.view);
                 $('#table_fields').append(data.view);
             },
             cache: false,
@@ -132,10 +149,105 @@
         });
     }
 
-    function deleteField(random, id = 0) {
+    /*Relation Section*/
 
-        console.log(`/fields/${id}/`);
-        // Delete field into table
+    function addHasManyRelation() {
+
+        // Add new many to many relation into table
+
+        $.ajax({
+            url: '/tables/add-new-has-many-relation',
+            type: 'POST',
+            data: null,
+            success: function (data) {
+                $('#table_relations').append(data.view);
+                getAllFieldsSelectInput(data.random);
+                getAllDisplayFieldsSelectInput(data.random);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    }
+
+    function addNewManyToManyRelation() {
+
+        // Add new many to many relation into table
+
+        $.ajax({
+            url: '/tables/add-new-many-to-many-relation',
+            type: 'POST',
+            data: null,
+            success: function (data) {
+                $('#table_relations').append(data.view);
+                getAllFieldsSelectInput(data.random);
+                getAllDisplayFieldsSelectInput(data.random);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    }
+
+    function deleteManyToManyRelation(random, id = 0) {
+
+        // Delete relation table
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+
+                if (id) {
+                    $.ajax({
+                        url: `/fields/${id}/relation`,
+                        type: 'DELETE',
+                        success: function (data) {
+                            $(`#relationManyToMany${random}`).remove();
+                        }
+                    });
+                } else {
+                    $(`#relationManyToMany${random}`).remove();
+                }
+            }
+        });
+
+    }
+
+    function deleteManyRelation(random, id = 0) {
+
+        // Delete relation table
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+
+                if (id) {
+                    $.ajax({
+                        url: `/relation/many/${id}`,
+                        type: 'DELETE',
+                        success: function (data) {
+                            $(`#relationManyToMany${random}`).remove();
+                        }
+                    });
+                } else {
+                    $(`#relationManyToMany${random}`).remove();
+                }
+            }
+        });
+
+    }
+
+    function deleteRelation(random, id = 0) {
+
+        // Delete relation table
 
         if (id !== 0) {
             swal({
@@ -148,21 +260,216 @@
                 if (willDelete) {
 
                     $.ajax({
-                        url: `/fields/${id}`,
+                        url: `/fields/${id}/relation`,
                         type: 'DELETE',
                         success: function (data) {
-                            $('#card' + random).remove();
-                            // console.log(data.view);
-                            // $('#table_fields').append(data.view);
+                            $(`#relationDiv${random}`).replaceWith(`<div id="relationDiv${random}" class="row"></div>`);
+
                         }
                     });
                 }
             });
 
+        } else {
+            $(`#relationDiv${random}`).replaceWith(`<div id="relationDiv${random}" class="row"></div>`);
         }
 
+    }
+
+    /* END Relation Section*/
+
+    function deleteField(random, id = 0) {
+
+        // Delete field into table
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+
+                if (id) {
+
+                    // Existing field
+                    $.ajax({
+                        url: `/fields/${id}`,
+                        type: 'DELETE',
+                        success: function (data) {
+                            $('#card' + random).remove();
+                        }
+                    });
+
+                } else {
+
+                    // Shadow field
+                    $('#card' + random).remove();
+
+                }
+            }
+        });
 
     }
+
+    /* Select Data */
+    function getAllFields(tableId) {
+        // Get All Fields on the table
+        $.ajax({
+            url: `/tables/${tableId}/fields`,
+            type: 'GET',
+            success: function (data) {
+                $('#table_fields').append(data.view);
+
+                for (let i = 0; i < data.random.length; i++) {
+
+                    getRelationByFieldId(data.random[i], data.field_ids[i]);
+                }
+
+            },
+        });
+    }
+
+    function getAllManyRelations(tableId) {
+        // Get All Fields on the table
+        $.ajax({
+            url: `/tables/${tableId}/relations/many`,
+            type: 'GET',
+            success: function (data) {
+                $('#table_relations').append(data.view);
+
+
+                for (let i = 0; i < data.random.length; i++) {
+                    getAllManyFieldsSelectInput(data.random[i], data.field_ids[i]);
+                    getAllManyDisplayFieldsSelectInput(data.random[i], data.field_display_ids[i]);
+                }
+
+            },
+        });
+    }
+
+    function getRelationByFieldId(random, fieldId) {
+        // Get All Fields on the table
+        $.ajax({
+            url: `/fields/${fieldId}/relation/${random}`,
+            type: 'GET',
+            success: function (data) {
+                $(`#relationDiv${random}`).replaceWith(`<div id="relationDiv${random}" class="row">${data.view}</div>`);
+                getAllFieldsSelectInput(random, fieldId);
+                getAllDisplayFieldsSelectInput(random, fieldId);
+            },
+        });
+    }
+
+    function getAllFieldsSelectInput(random, fieldId = 0) {
+
+        var tableId = $(`#relationTable${random}`).val();
+
+        if (fieldId !== 0) {
+
+            $.ajax({
+                url: `/relation/${random}/tables/${tableId}/fields/${fieldId}`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationForeign${random}`).replaceWith(data.view);
+                },
+            });
+
+        } else {
+
+            $.ajax({
+                url: `/relation/${random}/tables/${tableId}/fields`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationForeign${random}`).replaceWith(data.view);
+                },
+            });
+
+        }
+    }
+
+    function getAllDisplayFieldsSelectInput(random, fieldId = 0) {
+
+        var tableId = $(`#relationTable${random}`).val();
+
+        if (fieldId !== 0) {
+
+            $.ajax({
+                url: `/relation/${random}/tables/${tableId}/displays/${fieldId}`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationDisplay${random}`).replaceWith(data.view);
+                },
+            });
+
+        } else {
+
+            $.ajax({
+                url: `/relation/${random}/tables/${tableId}/displays`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationDisplay${random}`).replaceWith(data.view);
+                },
+            });
+
+        }
+    }
+
+    /* Has Many and Many to Many */
+    function getAllManyFieldsSelectInput(random, fieldId = 0) {
+
+        var tableId = $(`#relationTable${random}`).val();
+
+        if (fieldId !== 0) {
+
+            $.ajax({
+                url: `/relation/many/${random}/tables/${tableId}/fields/${fieldId}`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationForeign${random}`).replaceWith(data.view);
+                },
+            });
+
+        } else {
+
+            $.ajax({
+                url: `/relation/${random}/tables/${tableId}/fields`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationForeign${random}`).replaceWith(data.view);
+                },
+            });
+
+        }
+    }
+
+    function getAllManyDisplayFieldsSelectInput(random, fieldId = 0) {
+
+        var tableId = $(`#relationTable${random}`).val();
+
+        if (fieldId !== 0) {
+
+            $.ajax({
+                url: `/relation/many/${random}/tables/${tableId}/displays/${fieldId}`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationDisplay${random}`).replaceWith(data.view);
+                },
+            });
+
+        } else {
+
+            $.ajax({
+                url: `/relation/${random}/tables/${tableId}/displays`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationDisplay${random}`).replaceWith(data.view);
+                },
+            });
+
+        }
+    }
+
 </script>
 
 @yield('script')

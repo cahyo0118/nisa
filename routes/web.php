@@ -43,9 +43,43 @@ Route::get('tables/all/search', 'TableController@search')->name('tables.search')
 
 Route::get('tables/{id}/fields', 'TableController@fields')->name('tables.fields');
 
+Route::get('tables/{id}/relations/many', 'TableController@relationsMany')->name('tables.relations.many');
+
 Route::put('tables/{id}/fields/sync', 'TableController@syncFields')->name('tables.fields.sync');
 
-Route::post('tables/add-new-field', 'TableController@addNewField')->name('tables.addNewField');
+//templates
+Route::get('fields/{id}/relation/{code}', 'TableController@fieldRelationTemplate');
+
+Route::post('tables/add-new-field', 'TableController@addNewField');
+
+Route::post('tables/add-new-many-to-many-relation', 'TableController@addNewManyToManyRelation');
+
+Route::post('tables/add-new-has-many-relation', 'TableController@addNewHasManyRelation');
 
 //fields
 Route::delete('fields/{id}', 'TableController@destroyField')->name('fields.destroy');
+
+//relations
+Route::post('fields/{id}/add-new-relation/{code}', 'TableController@addNewRelation');
+
+Route::delete('fields/{id}/relation', 'TableController@deleteFieldRelation');
+
+Route::get('relation/{code}/tables/{table_id}/fields', 'TableController@getAllFieldsSelectForm');
+
+Route::get('relation/{code}/tables/{table_id}/fields/{field_id}', 'TableController@getAllFieldsSelectFormByFieldId');
+
+Route::get('relation/{code}/tables/{table_id}/displays', 'TableController@getAllDisplaysSelectForm');
+
+Route::get('relation/{code}/tables/{table_id}/displays/{field_id}', 'TableController@getAllDisplaysSelectFormByFieldId');
+
+// relations many
+Route::get('relation/many/{code}/tables/{table_id}/fields', 'TableController@getAllManyFieldsSelectForm');
+
+Route::get('relation/many/{code}/tables/{table_id}/fields/{field_id}', 'TableController@getAllManyFieldsSelectFormByFieldId');
+
+Route::get('relation/many/{code}/tables/{table_id}/displays', 'TableController@getAllManyDisplaysSelectForm');
+
+Route::get('relation/many/{code}/tables/{table_id}/displays/{field_id}', 'TableController@getAllManyDisplaysSelectFormByFieldId');
+
+Route::delete('relation/many/{id}', 'TableController@deleteManyRelation');
+

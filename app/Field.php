@@ -10,4 +10,9 @@ class Field extends Model
     {
         return $this->belongsTo('App\Table');
     }
+
+    public function relation()
+    {
+        return $this->hasOne('App\Relation');
+    }
 }

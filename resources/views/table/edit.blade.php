@@ -66,6 +66,7 @@
     <script>
         $(function () {
             getAllFields({{ $item->id }});
+            getAllManyRelations({{ $item->id }});
         });
     </script>
 @endsection
