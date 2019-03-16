@@ -33,9 +33,29 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
+/* Project */
 Route::resource('projects', 'ProjectController');
 
 Route::get('projects/all/search', 'ProjectController@search')->name('projects.search');
+/* END Project */
+
+/* Menus and Sub Menus */
+Route::resource('menus', 'MenuController');
+
+Route::get('menus/{id}/subs', 'MenuController@subMenus')->name('menus.subs');
+
+Route::get('menus/all/search', 'MenuController@search')->name('menus.search');
+
+Route::post('ajax/projects/{id}/menus/{parent_menu_id}', 'MenuController@ajaxStore');
+
+Route::put('ajax/projects/{id}/menus/{parent_menu_id}', 'MenuController@ajaxUpdate');
+
+Route::delete('ajax/menus/{parent_menu_id}/delete', 'MenuController@ajaxDeleteMenu');
+
+Route::get('projects/{id}/menus', 'MenuController@getAllMenuByProjectId');
+
+Route::get('projects/{id}/menus/{parent_menu_id}/sub-menus', 'MenuController@getAllSubMenuByMenuId');
+/* END Menus and Sub Menus */
 
 Route::resource('tables', 'TableController');
 
@@ -75,7 +95,11 @@ Route::get('relation/{code}/tables/{table_id}/displays/{field_id}', 'TableContro
 // relations many
 Route::get('relation/many/{code}/tables/{table_id}/fields', 'TableController@getAllManyFieldsSelectForm');
 
+Route::get('relation/many/{code}/tables/{table_id}/fields/local', 'TableController@getAllManyFieldsSelectFormLocal');
+
 Route::get('relation/many/{code}/tables/{table_id}/fields/{field_id}', 'TableController@getAllManyFieldsSelectFormByFieldId');
+
+Route::get('relation/many/{code}/tables/{table_id}/fields/{field_id}/local', 'TableController@getAllManyFieldsSelectFormByFieldIdLocal');
 
 Route::get('relation/many/{code}/tables/{table_id}/displays', 'TableController@getAllManyDisplaysSelectForm');
 

@@ -16,4 +16,9 @@ class Project extends Model
             'display_name' => 'required',
         ]
     ];
+
+    public function menus()
+    {
+        return $this->hasMany('App\Menu', 'project_id');
+    }
 }

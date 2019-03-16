@@ -47,6 +47,8 @@
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+
 <script>
     $('.timepicker').timepicker();
 </script>
@@ -161,8 +163,8 @@
             data: null,
             success: function (data) {
                 $('#table_relations').append(data.view);
-                getAllFieldsSelectInput(data.random);
-                getAllDisplayFieldsSelectInput(data.random);
+                getAllManyFieldsSelectInput(data.random);
+                getAllManyDisplayFieldsSelectInput(data.random);
             },
             cache: false,
             contentType: false,
@@ -181,6 +183,7 @@
             success: function (data) {
                 $('#table_relations').append(data.view);
                 getAllFieldsSelectInput(data.random);
+                getAllManyLocalFieldsSelectInput(data.random);
                 getAllDisplayFieldsSelectInput(data.random);
             },
             cache: false,
@@ -338,9 +341,9 @@
             success: function (data) {
                 $('#table_relations').append(data.view);
 
-
                 for (let i = 0; i < data.random.length; i++) {
                     getAllManyFieldsSelectInput(data.random[i], data.field_ids[i]);
+                    getAllManyLocalFieldsSelectInput(data.random[i], data.field_ids[i]);
                     getAllManyDisplayFieldsSelectInput(data.random[i], data.field_display_ids[i]);
                 }
 
@@ -388,6 +391,33 @@
         }
     }
 
+    function getAllLocalFieldsSelectInput(random, fieldId = 0) {
+
+        var tableId = $(`#relationTable${random}`).val();
+
+        if (fieldId !== 0) {
+
+            $.ajax({
+                url: `/relation/${random}/tables/${tableId}/fields/${fieldId}`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationLocal${random}`).replaceWith(data.view);
+                },
+            });
+
+        } else {
+
+            $.ajax({
+                url: `/relation/${random}/tables/${tableId}/fields`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationLocal${random}`).replaceWith(data.view);
+                },
+            });
+
+        }
+    }
+
     function getAllDisplayFieldsSelectInput(random, fieldId = 0) {
 
         var tableId = $(`#relationTable${random}`).val();
@@ -418,7 +448,7 @@
     /* Has Many and Many to Many */
     function getAllManyFieldsSelectInput(random, fieldId = 0) {
 
-        var tableId = $(`#relationTable${random}`).val();
+        var tableId = '{{ (!empty($item->id)) ? $item->id : 0 }}';
 
         if (fieldId !== 0) {
 
@@ -443,9 +473,37 @@
         }
     }
 
+    function getAllManyLocalFieldsSelectInput(random, fieldId = 0) {
+
+        // Local key (local field)
+        var tableId = '{{ (!empty($item->id)) ? $item->id : 0 }}';
+
+        if (fieldId !== 0) {
+
+            $.ajax({
+                url: `/relation/many/${random}/tables/${tableId}/fields/${fieldId}/local`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationLocal${random}`).replaceWith(data.view);
+                },
+            });
+
+        } else {
+
+            $.ajax({
+                url: `/relation/many/${random}/tables/${tableId}/fields/local`,
+                type: 'GET',
+                success: function (data) {
+                    $(`#relationLocal${random}`).replaceWith(data.view);
+                },
+            });
+
+        }
+    }
+
     function getAllManyDisplayFieldsSelectInput(random, fieldId = 0) {
 
-        var tableId = $(`#relationTable${random}`).val();
+        var tableId = '{{ (!empty($item->id)) ? $item->id : 0 }}';
 
         if (fieldId !== 0) {
 

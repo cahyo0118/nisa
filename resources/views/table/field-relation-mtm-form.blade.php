@@ -7,11 +7,13 @@
         </h3>
         <div class="row">
 
+            {!! Form::hidden("relation_id[$random]", !empty($item) ? $item->id : null) !!}
+
             <div class="col">
                 <div class="form-group">
                     <label class="form-control-label">Relation Type</label>
                     <div class="input-group input-group-alternative">
-                        {!! Form::select("index[$random]", ["belongstomany" => "Belongs To Many (Many To Many)"], !empty($item) ? $item->index : null, ["class" => "form-control form-control-alternative", "required" => ""]) !!}
+                        {!! Form::select("relation_type[$random]", ["belongstomany" => "Belongs to Many (Many To Many)"], !empty($item) ? $item->relation_type : null, ["class" => "form-control form-control-alternative", "required" => ""]) !!}
                     </div>
                 </div>
             </div>
@@ -20,7 +22,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Table</label>
                     <div class="input-group input-group-alternative">
-                        {!! Form::select("index[$random]", $tables, null, ["id" => "relationTable$random", "class" => "form-control form-control-alternative", "onchange" => "getAllFieldsSelectInput($random);getAllDisplayFieldsSelectInput($random);", "required" => ""]) !!}
+                        {!! Form::select("relation_table[$random]", $tables, !empty($item) ? $item->relation_table : null, ["id" => "relationTable$random", "class" => "form-control form-control-alternative", "onchange" => "getAllFieldsSelectInput($random);getAllDisplayFieldsSelectInput($random);", "required" => ""]) !!}
                     </div>
                 </div>
             </div>
@@ -29,7 +31,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Local Key</label>
                     <div class="input-group input-group-alternative">
-                        {!! Form::select("index[$random]", [], !empty($item) ? $item->index : null, ["id" => "relationLocal$random", "class" => "form-control form-control-alternative", "required" => ""]) !!}
+                        {!! Form::select("relation_local_key[$random]", [], !empty($item->relation_local_key) ? $item->relation_local_key : null, ["id" => "relationLocal$random", "class" => "form-control form-control-alternative", "required" => ""]) !!}
                     </div>
                 </div>
             </div>
@@ -38,7 +40,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Foreign Key</label>
                     <div class="input-group input-group-alternative">
-                        {!! Form::select("index[$random]", [], !empty($item) ? $item->index : null, ["id" => "relationForeign$random", "class" => "form-control form-control-alternative", "required" => ""]) !!}
+                        {!! Form::select("relation_foreign_key[$random]", [], !empty($item) ? $item->relation_foreign_key : null, ["id" => "relationForeign$random", "class" => "form-control form-control-alternative", "required" => ""]) !!}
                     </div>
                 </div>
             </div>
@@ -47,7 +49,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Display</label>
                     <div class="input-group input-group-alternative">
-                        {!! Form::select("index[$random]", [], !empty($item) ? $item->index : null, ["id" => "relationDisplay$random", "class" => "form-control form-control-alternative", "required" => ""]) !!}
+                        {!! Form::select("relation_display[$random]", [], !empty($item) ? $item->relation_display : null, ["id" => "relationDisplay$random", "class" => "form-control form-control-alternative", "required" => ""]) !!}
                     </div>
                 </div>
             </div>

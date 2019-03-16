@@ -142,26 +142,30 @@ class TableController extends Controller
             }
         }
 
+        if (!empty($request->relation_type)) {
+
 //        Has Many or Many to Many relation
-        foreach ($request->relation_type as $key => $field_name) {
+            foreach ($request->relation_type as $key => $field_name) {
 
-            if ($request->relation_type[$key] == 'hasmany' || $request->relation_type[$key] == 'manytomany') {
+                if ($request->relation_type[$key] == 'hasmany' || $request->relation_type[$key] == 'manytomany') {
 
-                $relation = Relation::where('field_id', $field->id)->first();
+                    $relation = Relation::where('field_id', $field->id)->first();
 
-                if (empty($relation)) {
-                    $relation = new Relation();
+                    if (empty($relation)) {
+                        $relation = new Relation();
+                    }
+
+                    $relation->field_id = 0;
+                    $relation->table_id = $request->relation_table[$key];
+                    $relation->local_table_id = $table->id;
+                    $relation->relation_type = $request->relation_type[$key];
+                    $relation->relation_foreign_key = $request->relation_foreign_key[$key];
+                    $relation->relation_display = $request->relation_display[$key];
+
+                    $relation->save();
                 }
-
-                $relation->field_id = 0;
-                $relation->table_id = $request->relation_table[$key];
-                $relation->local_table_id = $table->id;
-                $relation->relation_type = $request->relation_type[$key];
-                $relation->relation_foreign_key = $request->relation_foreign_key[$key];
-                $relation->relation_display = $request->relation_display[$key];
-
-                $relation->save();
             }
+
         }
 
         Session::flash('success', 'Successfully store data');
@@ -203,8 +207,6 @@ class TableController extends Controller
             Session::flash('failed', 'Data not found');
             return redirect()->back();
         }
-
-//        return response()->json([], 200);
 
         return view('table.edit')
             ->with('item', $table)
@@ -286,28 +288,32 @@ class TableController extends Controller
             }
         }
 
-        //        Has Many or Many to Many relation
-        foreach ($request->relation_type as $key => $field_name) {
+        if (!empty($request->relation_type)) {
 
-            if ($request->relation_type[$key] == 'hasmany' || $request->relation_type[$key] == 'manytomany') {
+//            Has Many or Many to Many relation
+            foreach ($request->relation_type as $key => $field_name) {
+
+                if ($request->relation_type[$key] == 'hasmany' || $request->relation_type[$key] == 'belongstomany') {
 
 //                $relation = Relation::where('field_id', $field->id)->first();
-                $relation = Relation::where('id', $request->relation_id[$key])->first();
+                    $relation = Relation::where('id', $request->relation_id[$key])->first();
 
-                if (empty($relation)) {
-                    $relation = new Relation();
+                    if (empty($relation)) {
+                        $relation = new Relation();
+                    }
+
+                    $relation->field_id = null;
+                    $relation->table_id = $request->relation_table[$key];
+                    $relation->local_table_id = $table->id;
+                    $relation->relation_type = $request->relation_type[$key];
+                    $relation->relation_foreign_key = $request->relation_foreign_key[$key];
+                    $relation->relation_local_key = !empty($request->relation_local_key[$key]) ? $request->relation_local_key[$key] : null;
+                    $relation->relation_display = $request->relation_display[$key];
+
+                    $relation->save();
                 }
-
-                $relation->field_id = null;
-                $relation->table_id = $request->relation_table[$key];
-                $relation->local_table_id = $table->id;
-                $relation->relation_type = $request->relation_type[$key];
-                $relation->relation_foreign_key = $request->relation_foreign_key[$key];
-                $relation->relation_local_key = !empty($request->relation_local_key[$key]) ? $request->relation_local_key[$key] : null;
-                $relation->relation_display = $request->relation_display[$key];
-
-                $relation->save();
             }
+
         }
 
         Session::flash('success', 'Successfully update data');
@@ -406,7 +412,7 @@ class TableController extends Controller
 
         $tables = Table::pluck('display_name', 'id');
 
-        $relations = Relation::orWhere('relation_type', 'hasmany')->orWhere('relation_type', 'manytomany')->get();
+        $relations = Relation::orWhere('relation_type', 'hasmany')->orWhere('relation_type', 'belongstomany')->get();
 
 //        $fields = Field::where('table_id', $id)->get();
 
@@ -669,6 +675,17 @@ class TableController extends Controller
         ], 200);
     }
 
+    public function getAllManyFieldsSelectFormLocal($random, $table_id)
+    {
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
+
+        return response()->json([
+            'view' => (string)view('table.select.locals')
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
     public function getAllManyFieldsSelectFormByFieldId($random, $table_id, $field_id)
     {
 
@@ -678,6 +695,21 @@ class TableController extends Controller
 
         return response()->json([
             'view' => (string)view('table.select.foreigns')
+                ->with('item', $item)
+                ->with('random', $random)
+                ->with('fields', $fields)
+        ], 200);
+    }
+
+    public function getAllManyFieldsSelectFormByFieldIdLocal($random, $table_id, $field_id)
+    {
+
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
+
+        $item = Relation::where('table_id', $table_id)->where('relation_foreign_key', $field_id)->first();
+
+        return response()->json([
+            'view' => (string)view('table.select.locals')
                 ->with('item', $item)
                 ->with('random', $random)
                 ->with('fields', $fields)

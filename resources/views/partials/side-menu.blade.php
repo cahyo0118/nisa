@@ -59,6 +59,12 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('menus.index') }}">
+                        <i class="fas fa-file text-primary"></i> Menus
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
