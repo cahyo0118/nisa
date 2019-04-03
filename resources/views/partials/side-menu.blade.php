@@ -35,17 +35,17 @@
 
             <!-- Navigation -->
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="./index.html">
-                        <i class="ni ni-tv-2 text-primary"></i> Dashboard
-                    </a>
-                </li>
+                {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="./index.html">--}}
+                        {{--<i class="ni ni-tv-2 text-primary"></i> Dashboard--}}
+                    {{--</a>--}}
+                {{--</li>--}}
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('samples.index') }}">
-                        <i class="fas fa-file text-primary"></i> Sample
-                    </a>
-                </li>
+                {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="{{ route('samples.index') }}">--}}
+                        {{--<i class="fas fa-file text-primary"></i> Sample--}}
+                    {{--</a>--}}
+                {{--</li>--}}
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('projects.index') }}">
@@ -53,17 +53,17 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('tables.index') }}">
-                        <i class="fas fa-file text-primary"></i> Tables
-                    </a>
-                </li>
+                {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="{{ route('tables.index') }}">--}}
+                        {{--<i class="fas fa-file text-primary"></i> Tables--}}
+                    {{--</a>--}}
+                {{--</li>--}}
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('menus.index') }}">
-                        <i class="fas fa-file text-primary"></i> Menus
-                    </a>
-                </li>
+                {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="{{ route('menus.index') }}">--}}
+                        {{--<i class="fas fa-file text-primary"></i> Menus--}}
+                    {{--</a>--}}
+                {{--</li>--}}
 
             </ul>
         </div>

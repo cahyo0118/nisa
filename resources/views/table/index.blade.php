@@ -23,7 +23,7 @@
         <div class="container-fluid mt--7">
             <div class="row">
                 <div class="col">
-                    {!! Form::open(['route' => 'tables.index', 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}
+                    {!! Form::open(['route' => ['tables.index', $id], 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}
                     <div class="form-group">
                         <div class="input-group input-group-alternative">
                             <div class="input-group-prepend">
@@ -48,7 +48,7 @@
                     <div class="card shadow">
                         <div class="card-header border-0">
                             <h3 class="mb-0">Tables List</h3>
-                            <a href="{{ route('tables.create') }}" class="btn btn-icon btn-primary">
+                            <a href="{{ route('tables.create', $id) }}" class="btn btn-icon btn-primary">
                                 <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
                                 <span class="btn-inner--text">Create</span>
                             </a>
@@ -67,6 +67,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($items as $item)
+
                                     <tr>
                                         <th scope="row">
                                             {{ $item->name }}
@@ -79,22 +80,22 @@
                                         </td>
 
                                         <td class="text-right">
-                                            {!! Form::model($item, ['method' => 'delete', 'route' => ['tables.destroy', $item->id], 'id' => 'form-delete', 'class' =>'form-inline justify-content-end']) !!}
 
-                                            <a href="{{ route('tables.show', $item->id) }}"
+                                            <a href="{{ route('tables.show', [$id, $item->id]) }}"
                                                class="btn btn-icon btn-info btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
                                                 <span class="btn-inner--text">View</span>
                                             </a>
-                                            <a href="{{ route('tables.edit', $item->id) }}"
+                                            <a href="{{ route('tables.edit', [$id, $item->id]) }}"
                                                class="btn btn-icon btn-default btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                                 <span class="btn-inner--text">Edit</span>
                                             </a>
-
-                                            {!! Form::hidden('id', $item->id) !!}
-                                            {!! Form::submit('delete', ['id' => 'confirm-delete', 'class' => 'btn btn-danger btn-sm text-white confirm-delete', 'name' => 'delete_modal']) !!}
-                                            {!! Form::close() !!}
+                                            <button type="button" onclick="deleteTable({{ $item->id }})"
+                                               class="btn btn-icon btn-danger btn-sm">
+                                                <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                                                <span class="btn-inner--text">Delete</span>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -116,18 +117,32 @@
 
 @section('script')
     <script>
-        $(function () {
-            $('table[data-form="deleteForm"]').on('click', '.confirm-delete', function (e) {
-                e.preventDefault();
-                var $form = $('#form-delete');
+        function deleteTable(tableId = 0) {
 
-                $('#confirm').modal({backdrop: 'static', keyboard: false})
-                    .on('click', '#delete-btn', function () {
-                        console.log('trying');
-                        $form.submit();
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+
+                if (willDelete) {
+                    $.ajax({
+                        url: `/ajax/tables/${tableId}/delete`,
+                        type: 'DELETE',
+                        success: function (data) {
+                            location.reload();
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
                     });
-            });
-        });
+                }
 
+            });
+
+
+        }
     </script>
 @endsection

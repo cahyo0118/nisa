@@ -22,7 +22,7 @@
         <!-- Page content -->
         <div class="container-fluid mt--7">
 
-            {!! Form::open(['route' => 'tables.store', 'id' => 'tableForm']) !!}
+            {!! Form::open(['route' => ['tables.store', $project_id], 'id' => 'tableForm']) !!}
 
             {{ csrf_field() }}
 

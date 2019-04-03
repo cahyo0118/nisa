@@ -21,94 +21,22 @@
 
         <!-- Page content -->
         <div class="container-fluid mt--7">
-            <div class="row">
-                <div class="col">
-                    {!! Form::open(['route' => 'menus.index', 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}
-                    <div class="form-group">
-                        <div class="input-group input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-search"></i></span>
-                            </div>
-                            <input name="keyword" class="form-control" placeholder="Search" type="text">
-                        </div>
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
-
-            <br>
-            <!-- Table -->
             {{--<div class="row">--}}
-            {{--<div class="col">--}}
-
-            {{--@include('partials.modal-delete')--}}
-
-            {{--@include('partials.alert')--}}
-
-            {{--<div class="card shadow">--}}
-            {{--<div class="card-header border-0">--}}
-            {{--<h3 class="mb-0">Menus List</h3>--}}
-            {{--<a href="{{ route('menus.create') }}" class="btn btn-icon btn-primary">--}}
-            {{--<span class="btn-inner--icon"><i class="fas fa-plus"></i></span>--}}
-            {{--<span class="btn-inner--text">Create</span>--}}
-            {{--</a>--}}
+                {{--<div class="col">--}}
+                    {{--{!! Form::open(['route' => 'menus.index', 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}--}}
+                    {{--<div class="form-group">--}}
+                        {{--<div class="input-group input-group-alternative">--}}
+                            {{--<div class="input-group-prepend">--}}
+                                {{--<span class="input-group-text"><i class="fas fa-search"></i></span>--}}
+                            {{--</div>--}}
+                            {{--<input name="keyword" class="form-control" placeholder="Search" type="text">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--{!! Form::close() !!}--}}
+                {{--</div>--}}
             {{--</div>--}}
 
-            {{--<div class="table-responsive">--}}
-            {{--<table class="table align-items-center table-flush" data-toggle="dataTable"--}}
-            {{--data-form="deleteForm">--}}
-            {{--<thead class="thead-light">--}}
-            {{--<tr>--}}
-            {{--<th scope="col">Name</th>--}}
-            {{--<th scope="col">display name</th>--}}
-            {{--<th scope="col"></th>--}}
-            {{--</tr>--}}
-            {{--</thead>--}}
-            {{--<tbody>--}}
-            {{--@foreach($items as $item)--}}
-            {{--<tr>--}}
-            {{--<th scope="row">--}}
-            {{--{{ $item->name }}--}}
-            {{--</th>--}}
-            {{--<td>--}}
-            {{--{{ $item->display_name }}--}}
-            {{--</td>--}}
-
-            {{--<td class="text-right">--}}
-            {{--{!! Form::model($item, ['method' => 'delete', 'route' => ['menus.destroy', $item->id], 'id' => 'form-delete', 'class' =>'form-inline justify-content-end']) !!}--}}
-
-            {{--<a href="{{ route('menus.subs', $item->id) }}"--}}
-            {{--class="btn btn-icon btn-secondary btn-sm">--}}
-            {{--<span class="btn-inner--icon"><i class="fas fa-list"></i></span>--}}
-            {{--<span class="btn-inner--text">Sub Menus</span>--}}
-            {{--</a>--}}
-
-            {{--<a href="{{ route('menus.show', $item->id) }}"--}}
-            {{--class="btn btn-icon btn-info btn-sm">--}}
-            {{--<span class="btn-inner--icon"><i class="fas fa-eye"></i></span>--}}
-            {{--<span class="btn-inner--text">View</span>--}}
-            {{--</a>--}}
-            {{--<a href="{{ route('menus.edit', $item->id) }}"--}}
-            {{--class="btn btn-icon btn-default btn-sm">--}}
-            {{--<span class="btn-inner--icon"><i class="fas fa-edit"></i></span>--}}
-            {{--<span class="btn-inner--text">Edit</span>--}}
-            {{--</a>--}}
-
-            {{--{!! Form::hidden('id', $item->id) !!}--}}
-            {{--{!! Form::submit('delete', ['id' => 'confirm-delete', 'class' => 'btn btn-danger btn-sm text-white confirm-delete', 'name' => 'delete_modal']) !!}--}}
-            {{--{!! Form::close() !!}--}}
-            {{--</td>--}}
-            {{--</tr>--}}
-            {{--@endforeach--}}
-            {{--</tbody>--}}
-            {{--</table>--}}
-            {{--</div>--}}
-            {{--<div class="card-footer py-4">--}}
-            {{--{!! $items->appends(['keyword' => Request::get('keyword')])->links() !!}--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
+            {{--<br>--}}
 
             <div class="row" style="margin-top: 30px;">
                 <div class="col">
@@ -117,10 +45,74 @@
                         <div class="card-header border-0">
                             <h3 class="mb-0">Menus List</h3>
 
-                            <a href="{{ route('menus.create') }}" class="btn btn-icon btn-primary">
+                            <div class="modal fade" id="addParentMenuModal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Menu</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {!! Form::open(['route' => 'menus.store', "id" => "addParentMenuForm", "onsubmit" => "onSubmitParentMenu($id);return false;"]) !!}
+
+                                            {{ csrf_field() }}
+
+                                            <div class="row">
+
+                                                <input type="hidden">
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Name</label>
+                                                        <div class="input-group input-group-alternative">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="fas fa-pen"></i></span>
+                                                            </div>
+                                                            {!! Form::text('name', null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Display Name</label>
+                                                        <div class="input-group input-group-alternative">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="fas fa-pen"></i></span>
+                                                            </div>
+                                                            {!! Form::text('display_name', null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {!! Form::hidden('parent_menu_id', null) !!}
+
+                                                {!! Form::hidden('project_id', $id) !!}
+
+                                            </div>
+
+                                            <button class="btn btn-icon btn-3 btn-primary" type="submit"
+                                                    [disabled]="!voteForm.valid">
+                                                <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+
+                                                <span class="btn-inner--text">Send</span>
+
+                                            </button>
+
+
+                                            {!! Form::close() !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#addParentMenuModal">
                                 <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
                                 <span class="btn-inner--text">Create</span>
-                            </a>
+                            </button>
 
                         </div>
 
@@ -140,7 +132,7 @@
 @section('script')
     <script>
         $(function () {
-            getAllMenus(1);
+            getAllMenus({{ $id }});
 
             $('table[data-form="deleteForm"]').on('click', '.confirm-delete', function (e) {
                 e.preventDefault();
@@ -157,6 +149,10 @@
     </script>
 
     <script>
+        function addCriteria() {
+
+        }
+
         function getAllMenus(projectId, parentMenuId = 0) {
             $.ajax({
                 url: `/projects/${projectId}/menus`,
@@ -194,6 +190,30 @@
                 });
 
             }
+        }
+
+        function onSubmitParentMenu(projectId, menuId = 0) {
+
+            let form = $(`#addParentMenuForm`);
+            let value = form.serializeJSON();
+
+            console.log(value);
+
+            $.ajax({
+                url: `/ajax/projects/${projectId}/menus/${menuId}`,
+                type: 'POST',
+                data: JSON.stringify(value),
+                success: function (data) {
+                    $(`#menus_list`).append(data.view);
+
+                    swal("Success!", data.message, "success");
+
+                    $(`#addParentMenuModal`).modal('hide');
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
         }
 
         function onSubmitMenu(projectId, menuId = 0) {
@@ -239,6 +259,31 @@
                         swal("Success!", data.message, "success");
 
                         $(`#menuItemCard${menuId}`).replaceWith(data.view);
+                    });
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
+
+        function onUpdateDatasetMenu(menuId = 0) {
+
+            let value = $(`#tableIdInputMenu${menuId}`).val();
+
+            console.log(value);
+
+            $.ajax({
+                url: `/ajax/menus/${menuId}/datasets/${value}/update`,
+                type: 'PUT',
+                data: {},
+                success: function (data) {
+
+                    $(`#customizeMenuModal${menuId}`).modal("hide");
+
+                    // this will be some ui/ux problem
+                    $(`#customizeMenuModal${menuId}`).on('hidden.bs.modal', function () {
+                        swal("Success!", data.message, "success");
                     });
                 },
                 cache: false,

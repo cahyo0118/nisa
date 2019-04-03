@@ -13,7 +13,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button id="delete-btn" type="button" class="btn btn-primary">Confirm</button>
-{{--                {!! Form::submit('delete', ['id' => 'delete-btn', 'class' => 'btn btn-primary', 'name' => 'delete_modal']) !!}--}}
             </div>
         </div>
     </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Menu;
+use App\Table;
 use Illuminate\Http\Request;
 use App\Project;
 use Validator;
@@ -21,10 +23,29 @@ class ProjectController extends Controller
         if (empty($request->keyword)) {
             $projects = Project::paginate(15);
         } else {
-            $projects = Project::orWhere('name', 'LIKE', '%'.$request->keyword.'%')->paginate(15);
+            $projects = Project::orWhere('name', 'LIKE', '%' . $request->keyword . '%')->paginate(15);
         }
 
         return view('project.index')->with('items', $projects);
+    }
+
+    public function menus(Request $request, $project_id)
+    {
+        return view('menu.index')->with('id', $project_id);
+    }
+
+    public function tables(Request $request, $project_id)
+    {
+
+        $tables = null;
+
+        if (empty($request->keyword)) {
+            $tables = Table::where('project_id', $project_id)->paginate(15);
+        } else {
+            $tables = Table::orWhere('name', 'LIKE', '%' . $request->keyword . '%')->where('project_id', $project_id)->paginate(15);
+        }
+
+        return view('table.index')->with('items', $tables)->with('id', $project_id);
     }
 
     /**
@@ -40,7 +61,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,8 +69,7 @@ class ProjectController extends Controller
         // Validation
         $validator = Validator::make($request->all(), Project::$validation['store']);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return redirect()
                 ->back()
                 ->withErrors($validator)
@@ -69,7 +89,7 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -87,7 +107,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -105,8 +125,8 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -114,8 +134,7 @@ class ProjectController extends Controller
         // Validation
         $validator = Validator::make($request->all(), Project::$validation['update']);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return redirect()
                 ->back()
                 ->withErrors($validator)
@@ -141,7 +160,7 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -165,7 +184,7 @@ class ProjectController extends Controller
             return redirect()->route('projects.index');
         }
 
-        $projects = Project::where('name', 'LIKE', '%'.$request->keyword.'%')->paginate(15);
+        $projects = Project::where('name', 'LIKE', '%' . $request->keyword . '%')->paginate(15);
         return view('project.index')->with('items', $projects);
     }
 }

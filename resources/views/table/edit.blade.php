@@ -22,7 +22,7 @@
         <!-- Page content -->
         <div class="container-fluid mt--7">
 
-            {!! Form::model($item, ['route' => ['tables.update', $item->id], 'method' => 'patch', 'id' => 'tableForm']) !!}
+            {!! Form::model($item, ['route' => ['tables.update', $item->project_id, $item->id], 'method' => 'patch', 'id' => 'tableForm']) !!}
 
             {{ csrf_field() }}
 

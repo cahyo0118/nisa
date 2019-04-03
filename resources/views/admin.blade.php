@@ -20,6 +20,12 @@
     <link type="text/css" href="{{ asset('/assets/css/argon.css?v=1.0.0') }}" rel="stylesheet">
 
     <link type="text/css" href="{{ asset('/css/bootstrap-timepicker.css') }}" rel="stylesheet">
+
+    <style>
+        select[readonly] {
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>

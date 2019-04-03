@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label class="form-control-label">Project</label>
                 <div class="input-group input-group-alternative">
-                    {!! Form::select('table_project_id', $projects, !empty($item) ? $item->project_id : null, ['class' => 'form-control form-control-alternative']) !!}
+                    {!! Form::select('table_project_id', $projects, !empty($item) ? $item->project_id : $project_id, ['class' => 'form-control form-control-alternative', 'readonly' => '']) !!}
                 </div>
             </div>
         </div>

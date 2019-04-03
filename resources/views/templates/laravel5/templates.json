@@ -1,0 +1,66 @@
+{
+    "template_name": "laravel5",
+    "template_display_name": "Laravel 5 API",
+    "template_base_directory": "laravel5",
+    "files": {
+        "core": [
+            {
+                "resource_filename": "composer.json",
+                "resource_path": "/",
+                "target_filename": "composer.json",
+                "target_path": "/"
+            },
+            {
+                "resource_filename": "package.json",
+                "resource_path": "/",
+                "target_filename": "package.json",
+                "target_path": "/"
+            },
+            {
+                "resource_filename": ".env",
+                "resource_path": "/",
+                "target_filename": ".env",
+                "target_path": "/"
+            },
+            {
+                "resource_filename": "api.php",
+                "resource_path": "/routes",
+                "target_filename": "api.php",
+                "target_path": "/routes"
+            },
+            {
+                "resource_filename": "CheckPermission.php",
+                "resource_path": "/app/Http/Middleware",
+                "target_filename": "CheckPermission.php",
+                "target_path": "/app/Http/Middleware"
+            },
+            {
+                "resource_filename": "Cors.php",
+                "resource_path": "/app/Http/Middleware",
+                "target_filename": "Cors.php",
+                "target_path": "/app/Http/Middleware"
+            },
+            {
+                "resource_filename": "UserProfileController.php",
+                "resource_path": "/app/Http/Controllers/api",
+                "target_filename": "UserProfileController.php",
+                "target_path": "/app/Http/Controllers/api"
+            },
+            {
+                "resource_filename": "Kernel.php.blade.php",
+                "resource_path": "/app/Http",
+                "target_filename": "Kernel.php",
+                "target_path": "/app/Http"
+            },
+            {
+                "resource_filename": "User.php.blade.php",
+                "resource_path": "/app",
+                "target_filename": "User.php",
+                "target_path": "/app"
+            }
+        ],
+        "menus": [
+
+        ]
+    }
+}

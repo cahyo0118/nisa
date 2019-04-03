@@ -77,6 +77,18 @@
                                         <td class="text-right">
                                             {!! Form::model($item, ['method' => 'delete', 'route' => ['projects.destroy', $item->id], 'id' => 'form-delete', 'class' =>'form-inline justify-content-end']) !!}
 
+                                            <a href="{{ route('projects.tables', $item->id) }}"
+                                               class="btn btn-icon btn-primary btn-sm">
+                                                <span class="btn-inner--icon"><i class="fas fa-table"></i></span>
+                                                <span class="btn-inner--text">Tables</span>
+                                            </a>
+
+                                            <a href="{{ route('projects.menus', $item->id) }}"
+                                               class="btn btn-icon btn-secondary btn-sm">
+                                                <span class="btn-inner--icon"><i class="fas fa-ellipsis-v"></i></span>
+                                                <span class="btn-inner--text">Menus</span>
+                                            </a>
+
                                             <a href="{{ route('projects.show', $item->id) }}"
                                                class="btn btn-icon btn-info btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>

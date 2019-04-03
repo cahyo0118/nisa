@@ -37,10 +37,17 @@ Route::group(['middleware' => 'auth'], function () {
 Route::resource('projects', 'ProjectController');
 
 Route::get('projects/all/search', 'ProjectController@search')->name('projects.search');
+
+//Menus
+Route::get('projects/{id}/menus/interface', 'ProjectController@menus')->name('projects.menus');
+
+//Tables
+Route::get('projects/{id}/tables/interface', 'ProjectController@tables')->name('projects.tables');
 /* END Project */
 
 /* Menus and Sub Menus */
 Route::resource('menus', 'MenuController');
+//Route::resource('projects/{project_id}/menus', 'MenuController');
 
 Route::get('menus/{id}/subs', 'MenuController@subMenus')->name('menus.subs');
 
@@ -50,6 +57,8 @@ Route::post('ajax/projects/{id}/menus/{parent_menu_id}', 'MenuController@ajaxSto
 
 Route::put('ajax/projects/{id}/menus/{parent_menu_id}', 'MenuController@ajaxUpdate');
 
+Route::put('ajax/menus/{menu_id}/datasets/{table_id}/update', 'MenuController@ajaxUpdateDataset');
+
 Route::delete('ajax/menus/{parent_menu_id}/delete', 'MenuController@ajaxDeleteMenu');
 
 Route::get('projects/{id}/menus', 'MenuController@getAllMenuByProjectId');
@@ -57,7 +66,7 @@ Route::get('projects/{id}/menus', 'MenuController@getAllMenuByProjectId');
 Route::get('projects/{id}/menus/{parent_menu_id}/sub-menus', 'MenuController@getAllSubMenuByMenuId');
 /* END Menus and Sub Menus */
 
-Route::resource('tables', 'TableController');
+Route::resource('projects/{project_id}/tables', 'TableController');
 
 Route::get('tables/all/search', 'TableController@search')->name('tables.search');
 
@@ -66,6 +75,8 @@ Route::get('tables/{id}/fields', 'TableController@fields')->name('tables.fields'
 Route::get('tables/{id}/relations/many', 'TableController@relationsMany')->name('tables.relations.many');
 
 Route::put('tables/{id}/fields/sync', 'TableController@syncFields')->name('tables.fields.sync');
+
+Route::delete('ajax/tables/{table_id}/delete', 'TableController@ajaxDeleteTable');
 
 //templates
 Route::get('fields/{id}/relation/{code}', 'TableController@fieldRelationTemplate');

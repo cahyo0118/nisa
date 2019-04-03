@@ -55,7 +55,7 @@ class TableController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $project_id)
     {
         $tables = null;
 
@@ -73,11 +73,12 @@ class TableController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($project_id)
     {
         $projects = Project::pluck('display_name', 'id');
 
         return view('table.create')
+            ->with('project_id', $project_id)
             ->with('types', $this->types)
             ->with('input_types', $this->input_types)
             ->with('projects', $projects);
@@ -89,9 +90,8 @@ class TableController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $project_id)
     {
-//        dd($request);
         // Validation
         $validator = Validator::make($request->all(), Table::$validation['store']);
 
@@ -170,7 +170,7 @@ class TableController extends Controller
 
         Session::flash('success', 'Successfully store data');
 
-        return redirect()->route('tables.index');
+        return redirect()->route('projects.tables', ['id' => $table->project_id]);
     }
 
     /**
@@ -179,7 +179,7 @@ class TableController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($project_id, $id)
     {
         $table = Table::with('fields')->find($id);
 
@@ -197,7 +197,7 @@ class TableController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($project_id, $id)
     {
         $table = Table::find($id);
 
@@ -222,7 +222,7 @@ class TableController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $project_id, $id)
     {
 //        dd($request);
         // Validation
@@ -318,7 +318,7 @@ class TableController extends Controller
 
         Session::flash('success', 'Successfully update data');
 
-        return redirect()->route('tables.index');
+        return redirect()->back();
     }
 
     /**
@@ -327,19 +327,38 @@ class TableController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($project_id, $id)
     {
         $table = Table::find($id);
 
         if (empty($table)) {
             Session::flash('failed', 'Failed delete data');
-            return redirect()->route('tables.index');
+            return redirect()->back();
         }
 
         $table->delete();
 
         Session::flash('success', 'Successfully delete data');
-        return redirect()->route('tables.index');
+        return redirect()->back();
+    }
+
+    public function ajaxDeleteTable($id)
+    {
+        $table = Table::find($id);
+
+        if (empty($table)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed delete data'
+            ], 400);
+        }
+
+        $table->delete();
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Successfully delete data'
+        ], 200);
     }
 
     public function destroyField($field_id)

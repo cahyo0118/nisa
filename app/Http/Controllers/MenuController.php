@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Menu;
 use App\Project;
+use App\Table;
 use Illuminate\Http\Request;
 use Validator;
 use Session;
@@ -89,7 +90,7 @@ class MenuController extends Controller
         $menu = new Menu();
         $menu->name = $request['name'];
         $menu->display_name = $request['display_name'];
-        $menu->parent_menu_id = $request['parent_menu_id'];
+        $menu->parent_menu_id = !empty($request['parent_menu_id']) ? $request['parent_menu_id'] : null;
         $menu->project_id = $request['project_id'];
         $menu->save();
 
@@ -210,6 +211,29 @@ class MenuController extends Controller
         Session::flash('success', 'Successfully update data');
 
         return redirect()->route('menus.index');
+    }
+
+    public function ajaxUpdateDataset($id, $table_id)
+    {
+
+        $menu = Menu::find($id);
+
+        $table = Table::find($table_id);
+
+        if (empty($menu) || empty($table)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed delete data'
+            ], 400);
+        }
+
+        $menu->table_id = $table_id;
+        $menu->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully update data'
+        ], 200);
     }
 
     /**
