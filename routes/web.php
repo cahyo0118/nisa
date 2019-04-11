@@ -118,3 +118,6 @@ Route::get('relation/many/{code}/tables/{table_id}/displays/{field_id}', 'TableC
 
 Route::delete('relation/many/{id}', 'TableController@deleteManyRelation');
 
+//Generate
+Route::post('ajax/projects/{id}/{template}/generate', 'ProjectController@ajaxGenerateProject');
+

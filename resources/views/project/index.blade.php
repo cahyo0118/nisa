@@ -77,6 +77,23 @@
                                         <td class="text-right">
                                             {!! Form::model($item, ['method' => 'delete', 'route' => ['projects.destroy', $item->id], 'id' => 'form-delete', 'class' =>'form-inline justify-content-end']) !!}
 
+                                            {{--<button--}}
+                                            {{--type="button"--}}
+                                            {{--data-toggle="modal"--}}
+                                            {{--data-target="#generateOptionsModal"--}}
+                                            {{--class="btn btn-icon btn-dark btn-sm">--}}
+                                            {{--<span class="btn-inner--icon"><i class="fas fa-cogs"></i></span>--}}
+                                            {{--<span class="btn-inner--text">Generate</span>--}}
+                                            {{--</button>--}}
+
+                                            {{--@include('project.modals.generate-options-modal')--}}
+
+                                            <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
+                                                    class="btn btn-icon btn-dark btn-sm">
+                                                <span class="btn-inner--icon"><i class="fas fa-cog"></i></span>
+                                                <span class="btn-inner--text">Generate Laravel 5</span>
+                                            </button>
+
                                             <a href="{{ route('projects.tables', $item->id) }}"
                                                class="btn btn-icon btn-primary btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-table"></i></span>
@@ -137,5 +154,40 @@
             });
         });
 
+    </script>
+
+    <script>
+        function onGenerateLaravel5(projectId = 0) {
+
+            swal({
+                title: "Generate Now?",
+                text: "some files might be rewritten!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: false,
+            }).then((execute) => {
+
+                if (execute) {
+
+                    $.ajax({
+                        url: `/ajax/projects/${projectId}/laravel5/generate`,
+                        type: 'POST',
+                        data: null,
+                        success: function (data) {
+                            swal("Success!", data.message, "success");
+                        },
+                        error: function (error) {
+                            console.log(error.data);
+                            // swal("Failed !", data.data.message, "success");
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+
+                }
+            });
+
+        }
     </script>
 @endsection

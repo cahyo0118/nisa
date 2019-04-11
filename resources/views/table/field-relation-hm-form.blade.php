@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label class="form-control-label">Table</label>
                     <div class="input-group input-group-alternative">
-                        {!! Form::select("relation_table[$random]", $tables, !empty($item) ? $item->relation_table : null, ["id" => "relationTable$random", "class" => "form-control form-control-alternative", "onchange" => "getAllFieldsSelectInput($random);getAllDisplayFieldsSelectInput($random);", "required" => ""]) !!}
+                        {!! Form::select("relation_table[$random]", $tables, !empty($item) ? $item->table_id : null, ["id" => "relationTable$random", "class" => "form-control form-control-alternative", "onchange" => "getAllFieldsSelectInput($random);getAllDisplayFieldsSelectInput($random);", "required" => ""]) !!}
                     </div>
                 </div>
             </div>

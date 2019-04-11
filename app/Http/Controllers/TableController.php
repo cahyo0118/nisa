@@ -431,9 +431,13 @@ class TableController extends Controller
 
         $tables = Table::pluck('display_name', 'id');
 
-        $relations = Relation::orWhere('relation_type', 'hasmany')->orWhere('relation_type', 'belongstomany')->get();
-
-//        $fields = Field::where('table_id', $id)->get();
+        $relations = Relation::where([
+            'local_table_id' => $id,
+            'relation_type' => 'hasmany',
+        ])->orWhere([
+            'local_table_id' => $id,
+            'relation_type' => 'belongstomany',
+        ])->get();
 
         foreach ($relations as $relation) {
 
@@ -444,12 +448,16 @@ class TableController extends Controller
             array_push($field_ids, $relation->relation_foreign_key);
             array_push($field_display_ids, $relation->relation_display);
 
-            $value .= (string)view(($relation->relation_type == 'hasmany') ? 'table.field-relation-hm-form' : 'table.field-relation-mtm-form')
-                ->with('item', $relation)
-                ->with('tables', $tables)
-                ->with('random', $random)
-                ->with('types', $this->types)
-                ->with('input_types', $this->input_types);
+            error_log($relation->relation_type);
+
+            if ($relation->relation_type == 'hasmany' || $relation->relation_type == 'belongstomany') {
+                $value .= (string)view(($relation->relation_type == 'hasmany') ? 'table.field-relation-hm-form' : 'table.field-relation-mtm-form')
+                    ->with('item', $relation)
+                    ->with('tables', $tables)
+                    ->with('random', $random)
+                    ->with('types', $this->types)
+                    ->with('input_types', $this->input_types);
+            }
         }
 
         return response()->json([

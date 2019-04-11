@@ -5,62 +5,63 @@
     "files": {
         "core": [
             {
-                "resource_filename": "composer.json",
-                "resource_path": "/",
-                "target_filename": "composer.json",
-                "target_path": "/"
-            },
-            {
-                "resource_filename": "package.json",
-                "resource_path": "/",
-                "target_filename": "package.json",
-                "target_path": "/"
-            },
-            {
-                "resource_filename": ".env",
+                "resource_filename": "env",
                 "resource_path": "/",
                 "target_filename": ".env",
                 "target_path": "/"
             },
             {
-                "resource_filename": "api.php",
+                "resource_filename": "api",
                 "resource_path": "/routes",
                 "target_filename": "api.php",
                 "target_path": "/routes"
             },
             {
-                "resource_filename": "CheckPermission.php",
-                "resource_path": "/app/Http/Middleware",
-                "target_filename": "CheckPermission.php",
-                "target_path": "/app/Http/Middleware"
-            },
-            {
-                "resource_filename": "Cors.php",
-                "resource_path": "/app/Http/Middleware",
-                "target_filename": "Cors.php",
-                "target_path": "/app/Http/Middleware"
-            },
-            {
-                "resource_filename": "UserProfileController.php",
+                "resource_filename": "UserProfileController",
                 "resource_path": "/app/Http/Controllers/api",
                 "target_filename": "UserProfileController.php",
                 "target_path": "/app/Http/Controllers/api"
             },
             {
-                "resource_filename": "Kernel.php.blade.php",
+                "resource_filename": "RegisterController",
+                "resource_path": "/app/Http/Controllers/api",
+                "target_filename": "RegisterController.php",
+                "target_path": "/app/Http/Controllers/api"
+            },
+            {
+                "resource_filename": "Kernel",
                 "resource_path": "/app/Http",
                 "target_filename": "Kernel.php",
                 "target_path": "/app/Http"
             },
             {
-                "resource_filename": "User.php.blade.php",
+                "resource_filename": "User",
                 "resource_path": "/app",
                 "target_filename": "User.php",
                 "target_path": "/app"
             }
         ],
         "menus": [
-
+            {
+                "resource_filename": "ModelController",
+                "resource_path": "/app/Http/Controllers/api",
+                "target_filename": "{!! ucfirst(camel_case($menu->name)) !!}Controller.php",
+                "target_path": "/app/Http/Controllers/api"
+            }
+        ],
+        "tables": [
+            {
+                "resource_filename": "2014_10_12_000000_create_tables_table",
+                "resource_path": "/database/migrations",
+                "target_filename": "2014_10_12_{{ (000000 + $table_index) }}_create_{{ $table->name }}_table.php",
+                "target_path": "/database/migrations"
+            },
+            {
+                "resource_filename": "Model",
+                "resource_path": "/app",
+                "target_filename": "{!! ucfirst(camel_case(str_singular($table->name))) !!}.php",
+                "target_path": "/app"
+            }
         ]
     }
 }

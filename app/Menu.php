@@ -21,4 +21,10 @@ class Menu extends Model
     {
         return $this->hasMany('App\Menu', 'parent_menu_id');
     }
+
+    public function table()
+    {
+        return $this->belongsTo('App\Table', 'table_id');
+    }
+
 }

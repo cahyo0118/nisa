@@ -28,4 +28,9 @@ class Table extends Model
     {
         return $this->hasMany('App\Field');
     }
+
+    public function menus()
+    {
+        return $this->hasMany('App\Menu', 'table_id');
+    }
 }

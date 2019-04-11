@@ -21,4 +21,9 @@ class Project extends Model
     {
         return $this->hasMany('App\Menu', 'project_id');
     }
+
+    public function tables()
+    {
+        return $this->hasMany('App\Table', 'project_id');
+    }
 }
