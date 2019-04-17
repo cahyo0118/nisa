@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1db60d7d6dec41353a158dac1f6c2ae7",
+    "content-hash": "a6882a4db3c2b4f49bde49eebff90289",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2109,6 +2109,42 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
+        },
+        {
+            "name": "slydeath/laravel5-blade-spaceless",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SlyDeath/laravel5-blade-spaceless.git",
+                "reference": "3f1d400e0fcdfa01f866372215627d9182ff49d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SlyDeath/laravel5-blade-spaceless/zipball/3f1d400e0fcdfa01f866372215627d9182ff49d3",
+                "reference": "3f1d400e0fcdfa01f866372215627d9182ff49d3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SlyDeath\\Spaceless\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SlyDeath",
+                    "email": "slyrs@yandex.ru"
+                }
+            ],
+            "description": "Минификация шаблонов Blade",
+            "time": "2017-01-16T08:42:29+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

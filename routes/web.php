@@ -33,10 +33,15 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
+/*Generate Options*/
+Route::get('generate-options', 'GenerateOptionController@index')->name('generate_options.index');
+
 /* Project */
 Route::resource('projects', 'ProjectController');
 
 Route::get('projects/all/search', 'ProjectController@search')->name('projects.search');
+
+Route::delete('ajax/projects/{id}/delete', 'ProjectController@ajaxDeleteProject');
 
 //Menus
 Route::get('projects/{id}/menus/interface', 'ProjectController@menus')->name('projects.menus');
@@ -83,7 +88,7 @@ Route::get('fields/{id}/relation/{code}', 'TableController@fieldRelationTemplate
 
 Route::post('tables/add-new-field', 'TableController@addNewField');
 
-Route::post('tables/add-new-many-to-many-relation', 'TableController@addNewManyToManyRelation');
+Route::post('projects/{project_id}/tables/add-new-many-to-many-relation', 'TableController@addNewManyToManyRelation');
 
 Route::post('tables/add-new-has-many-relation', 'TableController@addNewHasManyRelation');
 

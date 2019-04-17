@@ -210,6 +210,11 @@
 
                     $(`#addParentMenuModal`).modal('hide');
                 },
+                error: function (error) {
+                    var data = error.responseJSON;
+
+                    swal("Failed!", data.message, "error");
+                },
                 cache: false,
                 contentType: false,
                 processData: false
@@ -233,6 +238,11 @@
                     swal("Success!", data.message, "success");
 
                     $(`#addMenuModal${menuId}`).modal('hide');
+                },
+                error: function (error) {
+                    var data = error.responseJSON;
+
+                    swal("Failed!", data.message, "error");
                 },
                 cache: false,
                 contentType: false,
@@ -261,6 +271,11 @@
                         $(`#menuItemCard${menuId}`).replaceWith(data.view);
                     });
                 },
+                error: function (error) {
+                    var data = error.responseJSON;
+
+                    swal("Failed!", data.message, "error");
+                },
                 cache: false,
                 contentType: false,
                 processData: false
@@ -285,6 +300,11 @@
                     $(`#customizeMenuModal${menuId}`).on('hidden.bs.modal', function () {
                         swal("Success!", data.message, "success");
                     });
+                },
+                error: function (error) {
+                    var data = error.responseJSON;
+
+                    swal("Failed!", data.message, "error");
                 },
                 cache: false,
                 contentType: false,
@@ -312,6 +332,11 @@
                             $(`#addMenuModal${menuId}`).remove();
 
                             swal("Success!", data.message, "success");
+                        },
+                        error: function (error) {
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
                         },
                         cache: false,
                         contentType: false,

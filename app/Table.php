@@ -33,4 +33,9 @@ class Table extends Model
     {
         return $this->hasMany('App\Menu', 'table_id');
     }
+
+    public function relations()
+    {
+        return $this->hasMany('App\Relation', 'local_table_id');
+    }
 }

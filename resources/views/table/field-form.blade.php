@@ -115,13 +115,22 @@
                     <label class="form-control-label">Auto Increment</label>
                 </div>
             </div>
+
+            <div class="col-lg-2">
+                <div class="form-group">
+                    {!! Form::hidden("searchable[$random]", 0) !!}
+                    {!! Form::checkbox("searchable[$random]", 1, !empty($item) ? $item->searchable : null) !!}
+                    <label class="form-control-label">Searchable</label>
+                </div>
+            </div>
+
         </div>
 
         <div id="relationDiv{{ $random }}" class="row">
 
         </div>
 
-        <button class="btn btn-icon btn-3 btn-danger" type="button"
+        <button class="btn btn-icon btn-3 btn-danger btn-sm" type="button"
                 onclick="deleteField('{{ $random }}', {{ !empty($item) ? $item->id : 0 }})">
             <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
 
@@ -129,7 +138,7 @@
 
         </button>
 
-        <button class="btn btn-icon btn-3 btn-info float-right" type="button"
+        <button class="btn btn-icon btn-3 btn-info btn-sm float-right" type="button"
                 onclick="createRelation('{{ $random }}', {{ !empty($item) ? $item->id : 0 }})">
             <span class="btn-inner--icon"><i class="fas fa-handshake"></i></span>
 

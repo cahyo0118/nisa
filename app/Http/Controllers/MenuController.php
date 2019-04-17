@@ -87,6 +87,15 @@ class MenuController extends Controller
 
         $request = $request->json()->all();
 
+        $menu = Menu::where('name', $request['name'])->where('project_id', $project_id)->first();
+
+        if (!empty($menu)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Menu name already taken'
+            ], 400);
+        }
+
         $menu = new Menu();
         $menu->name = $request['name'];
         $menu->display_name = $request['display_name'];
@@ -114,6 +123,15 @@ class MenuController extends Controller
         $random = rand(10000, 99999);
 
         $request = $request->json()->all();
+
+        $menu = Menu::where('name', $request['name'])->where('project_id', $project_id)->first();
+
+        if (!empty($menu) && $menu->id != $parent_menu_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Menu name already taken'
+            ], 400);
+        }
 
         $menu = Menu::find($parent_menu_id);
         $menu->name = $request['name'];

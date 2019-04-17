@@ -178,12 +178,12 @@
         });
     }
 
-    function addNewManyToManyRelation() {
+    function addNewManyToManyRelation(projectId = 0) {
 
         // Add new many to many relation into table
 
         $.ajax({
-            url: '/tables/add-new-many-to-many-relation',
+            url: `/projects/${projectId}/tables/add-new-many-to-many-relation`,
             type: 'POST',
             data: null,
             success: function (data) {
@@ -340,6 +340,7 @@
     }
 
     function getAllManyRelations(tableId) {
+
         // Get All Fields on the table
         $.ajax({
             url: `/tables/${tableId}/relations/many`,
@@ -350,7 +351,7 @@
                 for (let i = 0; i < data.random.length; i++) {
                     getAllManyFieldsSelectInput(data.random[i], data.field_ids[i]);
                     getAllManyLocalFieldsSelectInput(data.random[i], data.field_ids[i]);
-                    getAllManyDisplayFieldsSelectInput(data.random[i], data.field_display_ids[i]);
+                    getAllManyDisplayFieldsSelectInput(data.random[i], data.relation_tables[i], data.field_display_ids[i]);
                 }
 
             },
@@ -507,9 +508,9 @@
         }
     }
 
-    function getAllManyDisplayFieldsSelectInput(random, fieldId = 0) {
+    function getAllManyDisplayFieldsSelectInput(random, tableId = 0, fieldId = 0) {
 
-        var tableId = '{{ (!empty($item->id)) ? $item->id : 0 }}';
+        console.log(tableId);
 
         if (fieldId !== 0) {
 

@@ -46,7 +46,7 @@
 
             </div>
 
-            <button class="btn btn-icon btn-3 btn-danger" type="button"
+            <button class="btn btn-icon btn-3 btn-danger btn-sm" type="button"
                     onclick="deleteRelation('{{ $random }}', {{ !empty($item) ? $item->id : 0 }})">
                 <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
 

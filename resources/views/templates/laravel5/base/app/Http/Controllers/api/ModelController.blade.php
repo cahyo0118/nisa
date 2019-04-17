@@ -21,17 +21,29 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
         return response()->json([
             'success' => true,
             'data' => $data,
-            'message' => 'Awesome, successfully get {!! str_plural($menu->name) !!} data !',
+            'message' => 'Awesome, successfully get {!! title_case(str_replace('_', ' ', str_plural($menu->name))) !!} data !',
         ], 200);
     }
 
     public function getAllByKeyword($keyword)
     {
-        ${!! str_plural($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::@foreach($menu->table->fields as $field_index => $field)
-@if($field_index == 0)where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
+@if(count($menu->table->fields()->where('searchable', true)->get()) > 0)
+        ${!! str_plural($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@if($field_index == 0)@if(!empty($field->relation))whereHas('{!! $field->relation->table->name !!}', function ($query) use ($keyword) {
+            $query->where('{!! $field->relation->foreign_key_field->name !!}', 'like', '%' . $keyword . '%');
+        })
+@else
+where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
+@endif
 @endif
 @if($field_index > 0)
+@if(!empty($field->relation))
+            ->orWhereHas('{!! $field->relation->table->name !!}', function ($query) use ($keyword) {
+                $query->where('{!! $field->relation->foreign_key_display_field->name !!}', 'like', '%' . $keyword . '%');
+            })
+@else
             ->orWhere('{!! $field->name !!}', 'like', '%' . $keyword . '%')
+@endif
 @endif
 @endforeach
             ->paginate(15);
@@ -39,8 +51,15 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
         return response()->json([
             'success' => true,
             'data' => ${!! str_plural($menu->name) !!},
-            'message' => 'Awesome, successfully get {!! str_plural($menu->name) !!} data !',
+            'message' => 'Awesome, successfully get {!! title_case(str_replace('_', ' ', str_plural($menu->name))) !!} data !',
         ], 200);
+@else
+        return response()->json([
+            'success' => false,
+            'data' => null,
+            'message' => 'This menu cannot be searched',
+        ], 400);
+@endif
     }
 
     public function getOne($id)
@@ -59,7 +78,7 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
         return response()->json([
             'success' => true,
             'data' => ${!! $menu->name !!},
-            'message' => 'Awesome, successfully get {!! $menu->name !!} data !',
+            'message' => 'Awesome, successfully get {!! title_case(str_replace('_', ' ', $menu->name)) !!} data !',
         ], 200);
     }
 
@@ -70,7 +89,18 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
 @foreach($menu->table->fields as $field_index => $field)
 @if ($field->ai || $field->input_type == "hidden")
 @else
-            '{!! $field->name !!}' => '@if($field->notnull) required @endif @if($field->length > 0) | max:{!! $field->length !!} @endif',
+            "{!! $field->name !!}" => "@php echo str_replace(
+            ' ',
+            '',
+            \App\DefaultHelpers::render(\Illuminate\Support\Facades\Blade::compileString('
+            @if($field->notnull)required @endif
+            @if($field->index == "unique")|unique:{!! $menu->table->name !!}, {!! $field->name !!} @endif
+            @if($field->length > 0)|max:{!! $field->length !!} @endif
+            @if($field->input_type == "email")|email @endif
+            @if($field->input_type == "number")|numeric @endif
+            @if($field->input_type == "url")|url @endif
+            '),
+            ['field' => $field, 'menu' => $menu])) @endphp",
 @endif
 @endforeach
         ]);
@@ -98,7 +128,7 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
         return response()->json([
             'success' => true,
             'data' => ${!! $menu->name !!},
-            'message' => 'Awesome, successfully create new {!! $menu->name !!} !',
+            'message' => 'Awesome, successfully create new {!! title_case(str_replace('_', ' ', $menu->name)) !!} !',
         ], 200);
 
     }
@@ -107,14 +137,19 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
     {
         // Validation
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:50',
+@foreach($menu->table->fields as $field_index => $field)
+@if ($field->ai || $field->input_type == "hidden")
+@else
+            "{!! $field->name !!}" => "@php echo str_replace(' ', '', \App\DefaultHelpers::render(\Illuminate\Support\Facades\Blade::compileString('@if($field->notnull)required @endif @if($field->index == "unique")|unique:{!! $menu->table->name !!}, {!! $field->name !!}, {$id} @endif @if($field->length > 0)|max:{!! $field->length !!}@endif'), ['field' => $field, 'menu' => $menu])) @endphp",
+@endif
+@endforeach
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'data' => $validator->errors(),
-                'message' => 'Failed update {!! $menu->name !!} !',
+                'message' => 'Failed update {!! title_case(str_replace('_', ' ', $menu->name)) !!} !',
             ], 400);
         }
 
@@ -133,7 +168,7 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
         return response()->json([
             'success' => true,
             'data' => ${!! $menu->name !!},
-            'message' => 'Awesome, successfully update {!! $menu->name !!} !',
+            'message' => 'Awesome, successfully update {!! title_case(str_replace('_', ' ', $menu->name)) !!} !',
         ], 200);
 
     }
@@ -146,7 +181,7 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
             return response()->json([
                 'success' => false,
                 'data' => null,
-                'message' => '{!! ucfirst($menu->name) !!} not found !',
+                'message' => '{!! title_case(str_replace('_', ' ', $menu->name)) !!} not found !',
             ], 400);
 
         }
@@ -156,7 +191,7 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
         return response()->json([
             'success' => true,
             'data' => null,
-            'message' => 'Awesome, successfully delete {!! $menu->name !!} !',
+            'message' => 'Awesome, successfully delete {!! title_case(str_replace('_', ' ', $menu->name)) !!} !',
         ], 200);
     }
 
@@ -168,7 +203,7 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
         return response()->json([
             'success' => true,
             'data' => $request->ids,
-            'message' => 'Awesome, successfully delete {!! str_plural($menu->name) !!} !',
+            'message' => 'Awesome, successfully delete {!! title_case(str_replace('_', ' ', str_plural($menu->name))) !!} !',
         ], 200);
 
     }

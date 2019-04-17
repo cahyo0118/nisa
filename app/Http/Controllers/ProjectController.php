@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DefaultHelpers;
+use App\Field;
 use App\Menu;
+use App\Relation;
 use App\Table;
 use Illuminate\Http\Request;
 use App\Project;
@@ -83,6 +85,433 @@ class ProjectController extends Controller
         $project->name = $request->name;
         $project->display_name = $request->display_name;
         $project->save();
+
+        /*Default table for new project*/
+        $user_role_relation = new Relation();
+        $role_permission_relation = new Relation();
+
+//        users table
+        $table_users = new Table();
+        $table_users->name = "users";
+        $table_users->display_name = "Users";
+        $table_users->project_id = $project->id;
+        $table_users->save();
+
+        $user_role_relation->local_table_id = $table_users->id;
+
+        $field = new Field();
+        $field->name = "id";
+        $field->display_name = "ID";
+        $field->type = "integer";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = "primary";
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = true;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $user_role_relation->relation_local_key = $field->id;
+
+        $field = new Field();
+        $field->name = "created_at";
+        $field->display_name = "Created At";
+        $field->type = "timestamp";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "updated_at";
+        $field->display_name = "Updated At";
+        $field->type = "timestamp";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "active_flag";
+        $field->display_name = "Active Flag";
+        $field->type = "boolean";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = "false";
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "updated_by";
+        $field->display_name = "Updated By";
+        $field->type = "integer";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "name";
+        $field->display_name = "Name";
+        $field->type = "varchar";
+        $field->input_type = "text";
+        $field->length = 100;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = true;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "email";
+        $field->display_name = "Email";
+        $field->type = "varchar";
+        $field->input_type = "email";
+        $field->length = 100;
+        $field->index = "unique";
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = true;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "address";
+        $field->display_name = "Address";
+        $field->type = "varchar";
+        $field->input_type = "text";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "password";
+        $field->display_name = "Password";
+        $field->type = "varchar";
+        $field->input_type = "password";
+        $field->length = 100;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "photo";
+        $field->display_name = "Photo";
+        $field->type = "varchar";
+        $field->input_type = "file";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "email_verified_at";
+        $field->display_name = "Email Verified At";
+        $field->type = "timestamp";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_users->id;
+        $field->save();
+
+        //        roles table
+        $table_roles = new Table();
+        $table_roles->name = "roles";
+        $table_roles->display_name = "Roles";
+        $table_roles->project_id = $project->id;
+        $table_roles->save();
+
+        $user_role_relation->table_id = $table_roles->id;
+        $role_permission_relation->local_table_id = $table_roles->id;
+
+        $field = new Field();
+        $field->name = "id";
+        $field->display_name = "ID";
+        $field->type = "integer";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = "primary";
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = true;
+        $field->searchable = false;
+        $field->table_id = $table_roles->id;
+        $field->save();
+
+        $user_role_relation->relation_foreign_key = $field->id;
+        $role_permission_relation->relation_local_key = $field->id;
+
+        $field = new Field();
+        $field->name = "created_at";
+        $field->display_name = "Created At";
+        $field->type = "timestamp";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_roles->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "updated_at";
+        $field->display_name = "Updated At";
+        $field->type = "timestamp";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_roles->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "active_flag";
+        $field->display_name = "Active Flag";
+        $field->type = "boolean";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = "false";
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_roles->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "updated_by";
+        $field->display_name = "Updated By";
+        $field->type = "integer";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_roles->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "name";
+        $field->display_name = "Name";
+        $field->type = "varchar";
+        $field->input_type = "text";
+        $field->length = 100;
+        $field->index = "unique";
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = true;
+        $field->table_id = $table_roles->id;
+        $field->save();
+
+        $user_role_relation->relation_display = $field->id;
+
+        $field = new Field();
+        $field->name = "description";
+        $field->display_name = "Description";
+        $field->type = "varchar";
+        $field->input_type = "textarea";
+        $field->length = 100;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = true;
+        $field->table_id = $table_roles->id;
+        $field->save();
+
+        //        permissions table
+        $table_permissions = new Table();
+        $table_permissions->name = "permissions";
+        $table_permissions->display_name = "Permissions";
+        $table_permissions->project_id = $project->id;
+        $table_permissions->save();
+
+        $role_permission_relation->table_id = $table_permissions->id;
+
+        $field = new Field();
+        $field->name = "id";
+        $field->display_name = "ID";
+        $field->type = "integer";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = "primary";
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = true;
+        $field->searchable = false;
+        $field->table_id = $table_permissions->id;
+        $field->save();
+
+        $role_permission_relation->relation_foreign_key = $field->id;
+
+        $field = new Field();
+        $field->name = "created_at";
+        $field->display_name = "Created At";
+        $field->type = "timestamp";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_permissions->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "updated_at";
+        $field->display_name = "Updated At";
+        $field->type = "timestamp";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_permissions->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "active_flag";
+        $field->display_name = "Active Flag";
+        $field->type = "boolean";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = "false";
+        $field->notnull = false;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_permissions->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "updated_by";
+        $field->display_name = "Updated By";
+        $field->type = "integer";
+        $field->input_type = "hidden";
+        $field->length = 0;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = false;
+        $field->table_id = $table_permissions->id;
+        $field->save();
+
+        $field = new Field();
+        $field->name = "name";
+        $field->display_name = "Name";
+        $field->type = "varchar";
+        $field->input_type = "text";
+        $field->length = 100;
+        $field->index = "unique";
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = true;
+        $field->table_id = $table_permissions->id;
+        $field->save();
+
+        $role_permission_relation->relation_display = $field->id;
+
+        $field = new Field();
+        $field->name = "description";
+        $field->display_name = "Description";
+        $field->type = "varchar";
+        $field->input_type = "textarea";
+        $field->length = 100;
+        $field->index = 0;
+        $field->default = null;
+        $field->notnull = true;
+        $field->unsigned = false;
+        $field->ai = false;
+        $field->searchable = true;
+        $field->table_id = $table_permissions->id;
+        $field->save();
+
+        $user_role_relation->field_id = null;
+        $user_role_relation->relation_type = "belongstomany";
+
+        $role_permission_relation->field_id = null;
+        $role_permission_relation->relation_type = "belongstomany";
+
+        $user_role_relation->save();
+        $role_permission_relation->save();
 
         Session::flash('success', 'Successfully store data');
 
@@ -190,6 +619,48 @@ class ProjectController extends Controller
                 }
             }
 
+            //            Generate relation tables file
+            foreach ($template_maps->files->relations as $relation_file) {
+
+                foreach ($project->tables as $table_index => $table) {
+
+//                    error_log($table->name);
+//                    error_log("=====================================");
+
+                    foreach (Relation::where([
+                        'local_table_id' => $table->id,
+                        'relation_type' => 'belongstomany',
+                    ])->get() as $relation_index => $relation) {
+
+                        error_log($relation->local_table->name);
+                        error_log("=====================================");
+
+//                Create file and directory
+                        if (!is_dir($project_directory . $relation_file->target_path))
+                            mkdir($project_directory . $relation_file->target_path, 0777, true);
+
+                        file_put_contents(
+                            $project_directory . $relation_file->target_path . "/" . DefaultHelpers::render(
+                                Blade::compileString($relation_file->target_filename), [
+                                    'relation' => $relation,
+                                    'relation_index' => $relation_index,
+                                    'table_index' => $table_index
+                                ]
+                            ),
+                            (string)view(
+                                $blade_directory
+                                . str_replace("/", ".", $relation_file->resource_path) // change ordinary path to blade format
+                                . ($relation_file->resource_path !== "/" ? "." : "") // if resource path is base path
+                                . $relation_file->resource_filename // template file name
+                            )->with('relation', $relation)->with('project', $project)->with('php_prefix', $php_prefix)
+
+                        );
+
+                    }
+                }
+
+            }
+
 
         } catch (\Exception $exception) {
             return response()->json([
@@ -295,6 +766,25 @@ class ProjectController extends Controller
 
         Session::flash('success', 'Successfully delete data');
         return redirect()->route('projects.index');
+    }
+
+    public function ajaxDeleteProject($id)
+    {
+        $project = Project::find($id);
+
+        if (empty($project)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed delete data'
+            ], 400);
+        }
+
+        $project->delete();
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Successfully delete data'
+        ], 200);
     }
 
     public function search(Request $request)

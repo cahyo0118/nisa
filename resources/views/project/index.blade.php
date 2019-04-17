@@ -66,7 +66,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($items as $item)
-                                    <tr>
+                                    <tr id="project{!! $item->id !!}">
                                         <th scope="row">
                                             {{ $item->name }}
                                         </th>
@@ -75,24 +75,17 @@
                                         </td>
 
                                         <td class="text-right">
-                                            {!! Form::model($item, ['method' => 'delete', 'route' => ['projects.destroy', $item->id], 'id' => 'form-delete', 'class' =>'form-inline justify-content-end']) !!}
 
-                                            {{--<button--}}
-                                            {{--type="button"--}}
-                                            {{--data-toggle="modal"--}}
-                                            {{--data-target="#generateOptionsModal"--}}
-                                            {{--class="btn btn-icon btn-dark btn-sm">--}}
-                                            {{--<span class="btn-inner--icon"><i class="fas fa-cogs"></i></span>--}}
-                                            {{--<span class="btn-inner--text">Generate</span>--}}
-                                            {{--</button>--}}
-
-                                            {{--@include('project.modals.generate-options-modal')--}}
-
-                                            <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
-                                                    class="btn btn-icon btn-dark btn-sm">
-                                                <span class="btn-inner--icon"><i class="fas fa-cog"></i></span>
-                                                <span class="btn-inner--text">Generate Laravel 5</span>
+                                            <button
+                                                type="button"
+                                                data-toggle="modal"
+                                                data-target="#generateOptionsModal{!! $item->id !!}"
+                                                class="btn btn-icon btn-dark btn-sm">
+                                                <span class="btn-inner--icon"><i class="fas fa-cogs"></i></span>
+                                                <span class="btn-inner--text">Generate</span>
                                             </button>
+
+                                            @include('project.modals.generate-options-modal')
 
                                             <a href="{{ route('projects.tables', $item->id) }}"
                                                class="btn btn-icon btn-primary btn-sm">
@@ -116,10 +109,13 @@
                                                 <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                                 <span class="btn-inner--text">Edit</span>
                                             </a>
-
-                                            {!! Form::hidden('id', $item->id) !!}
-                                            {!! Form::submit('delete', ['id' => 'confirm-delete', 'class' => 'btn btn-danger btn-sm text-white confirm-delete', 'name' => 'delete_modal']) !!}
-                                            {!! Form::close() !!}
+                                            <button
+                                                type="button"
+                                                class="btn btn-icon btn-danger btn-sm"
+                                                onclick="deleteProject({!! $item->id !!})">
+                                                <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                                                <span class="btn-inner--text">Delete</span>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -177,8 +173,9 @@
                             swal("Success!", data.message, "success");
                         },
                         error: function (error) {
-                            console.log(error.data);
-                            // swal("Failed !", data.data.message, "success");
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
                         },
                         cache: false,
                         contentType: false,
@@ -187,6 +184,41 @@
 
                 }
             });
+
+        }
+
+        function deleteProject(projectId = 0) {
+
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+
+                if (willDelete) {
+                    $.ajax({
+                        url: `/ajax/projects/${projectId}/delete`,
+                        type: 'DELETE',
+                        success: function (data) {
+                            $(`#project${projectId}`).remove();
+
+                            swal("Success!", data.message, "success");
+                        },
+                        error: function (error) {
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
+
+            });
+
 
         }
     </script>

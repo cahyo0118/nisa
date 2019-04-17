@@ -62,10 +62,14 @@ class TableController extends Controller
         if (empty($request->keyword)) {
             $tables = Table::paginate(15);
         } else {
-            $tables = Table::orWhere('name', 'LIKE', '%' . $request->keyword . '%')->paginate(15);
+            $tables = Table::where('name', 'LIKE', '%' . $request->keyword . '%')
+                ->where('project_id', $project_id)
+                ->paginate(15);
         }
 
-        return view('table.index')->with('items', $tables);
+        return view('table.index')
+            ->with('id', $project_id)
+            ->with('items', $tables);
     }
 
     /**
@@ -81,6 +85,7 @@ class TableController extends Controller
             ->with('project_id', $project_id)
             ->with('types', $this->types)
             ->with('input_types', $this->input_types)
+            ->with('id', $project_id)
             ->with('projects', $projects);
     }
 
@@ -102,6 +107,17 @@ class TableController extends Controller
                 ->withInput();
         }
 
+        $table = Table::where('name', $request->table_name)->where('project_id', $project_id)->first();
+
+        if (!empty($table)) {
+
+            Session::flash('failed', 'Table name already taken');
+
+            return redirect()
+                ->back()
+                ->withInput();
+        }
+
         $table = new Table();
         $table->name = $request->table_name;
         $table->display_name = $request->table_display_name;
@@ -120,6 +136,7 @@ class TableController extends Controller
             $field->notnull = $request->notnull[$key];
             $field->unsigned = $request->unsigned[$key];
             $field->ai = $request->ai[$key];
+            $field->searchable = $request->searchable[$key];
             $field->table_id = $table->id;
             $field->save();
 
@@ -188,7 +205,9 @@ class TableController extends Controller
             return redirect()->back();
         }
 
-        return view('table.show')->with('item', $table);
+        return view('table.show')
+            ->with('id', $project_id)
+            ->with('item', $table);
     }
 
     /**
@@ -212,6 +231,7 @@ class TableController extends Controller
             ->with('item', $table)
             ->with('types', $this->types)
             ->with('input_types', $this->input_types)
+            ->with('id', $project_id)
             ->with('projects', $projects);
     }
 
@@ -266,6 +286,7 @@ class TableController extends Controller
             $field->notnull = $request->notnull[$key];
             $field->unsigned = $request->unsigned[$key];
             $field->ai = $request->ai[$key];
+            $field->searchable = $request->searchable[$key];
             $field->table_id = $table->id;
             $field->save();
 
@@ -425,19 +446,18 @@ class TableController extends Controller
     {
         $value = "";
         $randoms = [];
+        $relation_tables = [];
         $relation_ids = [];
         $field_ids = [];
         $field_display_ids = [];
 
         $tables = Table::pluck('display_name', 'id');
 
-        $relations = Relation::where([
-            'local_table_id' => $id,
-            'relation_type' => 'hasmany',
-        ])->orWhere([
-            'local_table_id' => $id,
-            'relation_type' => 'belongstomany',
-        ])->get();
+        $relations = Relation::where('local_table_id', $id)
+            ->where('relation_type', 'hasmany')
+            ->orWhere('local_table_id', $id)
+            ->where('relation_type', 'belongstomany')
+            ->get();
 
         foreach ($relations as $relation) {
 
@@ -447,8 +467,7 @@ class TableController extends Controller
             array_push($relation_ids, $relation->id);
             array_push($field_ids, $relation->relation_foreign_key);
             array_push($field_display_ids, $relation->relation_display);
-
-            error_log($relation->relation_type);
+            array_push($relation_tables, $relation->table_id);
 
             if ($relation->relation_type == 'hasmany' || $relation->relation_type == 'belongstomany') {
                 $value .= (string)view(($relation->relation_type == 'hasmany') ? 'table.field-relation-hm-form' : 'table.field-relation-mtm-form')
@@ -465,6 +484,7 @@ class TableController extends Controller
             'relation_ids' => $relation_ids,
             'field_display_ids' => $field_display_ids,
             'field_ids' => $field_ids,
+            'relation_tables' => $relation_tables,
             'view' => $value
         ], 200);
     }
@@ -585,11 +605,11 @@ class TableController extends Controller
     }
 
 //    Many to many
-    public function addNewManyToManyRelation()
+    public function addNewManyToManyRelation($project_id)
     {
         $random = rand(10000, 99999);
 
-        $tables = Table::pluck('display_name', 'id');
+        $tables = Table::where('project_id', $project_id)->pluck('display_name', 'id');
 
         return response()->json([
             'random' => $random,
@@ -759,6 +779,9 @@ class TableController extends Controller
         $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
 
         $item = Relation::where('table_id', $table_id)->where('relation_display', $field_id)->first();
+
+        error_log($table_id);
+        error_log($fields);
 
         return response()->json([
             'view' => (string)view('table.select.displays')

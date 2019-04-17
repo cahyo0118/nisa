@@ -111,6 +111,15 @@
                     <label class="form-control-label">Auto Increment</label>
                 </div>
             </div>
+
+            <div class="col-lg-2">
+                <div class="form-group">
+                    {!! Form::hidden("searchable[$random]", 0) !!}
+                    {!! Form::checkbox("searchable[$random]", 1, false, ["onclick" => "return false"]) !!}
+                    <label class="form-control-label">Searchable</label>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -228,6 +237,14 @@
                     {!! Form::hidden("ai[$random]", 0) !!}
                     {!! Form::checkbox("ai[$random]", 1, false, ["onclick" => "return false"]) !!}
                     <label class="form-control-label">Auto Increment</label>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <div class="form-group">
+                    {!! Form::hidden("searchable[$random]", 0) !!}
+                    {!! Form::checkbox("searchable[$random]", 1, false, ["onclick" => "return false"]) !!}
+                    <label class="form-control-label">Searchable</label>
                 </div>
             </div>
         </div>
@@ -349,6 +366,14 @@
                     <label class="form-control-label">Auto Increment</label>
                 </div>
             </div>
+
+            <div class="col-lg-2">
+                <div class="form-group">
+                    {!! Form::hidden("searchable[$random]", 0) !!}
+                    {!! Form::checkbox("searchable[$random]", 1, false, ["onclick" => "return false"]) !!}
+                    <label class="form-control-label">Searchable</label>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -468,6 +493,14 @@
                     <label class="form-control-label">Auto Increment</label>
                 </div>
             </div>
+
+            <div class="col-lg-2">
+                <div class="form-group">
+                    {!! Form::hidden("searchable[$random]", 0) !!}
+                    {!! Form::checkbox("searchable[$random]", 1, false, ["onclick" => "return false"]) !!}
+                    <label class="form-control-label">Searchable</label>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -585,6 +618,14 @@
                     {!! Form::hidden("ai[$random]", 0) !!}
                     {!! Form::checkbox("ai[$random]", 1, false, ["onclick" => "return false"]) !!}
                     <label class="form-control-label">Auto Increment</label>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <div class="form-group">
+                    {!! Form::hidden("searchable[$random]", 0) !!}
+                    {!! Form::checkbox("searchable[$random]", 1, false, ["onclick" => "return false"]) !!}
+                    <label class="form-control-label">Searchable</label>
                 </div>
             </div>
         </div>
