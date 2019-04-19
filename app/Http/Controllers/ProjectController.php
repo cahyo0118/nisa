@@ -7,9 +7,11 @@ use App\Field;
 use App\Menu;
 use App\Relation;
 use App\Table;
+use Chumper\Zipper\Zipper;
 use Illuminate\Http\Request;
 use App\Project;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Validator;
 use Session;
@@ -84,6 +86,24 @@ class ProjectController extends Controller
         $project = new Project();
         $project->name = $request->name;
         $project->display_name = $request->display_name;
+
+//        Optionals
+        $project->db_connection = $request->db_connection;
+        $project->db_host = $request->db_host;
+        $project->db_port = $request->db_port;
+        $project->db_name = $request->db_name;
+        $project->db_username = $request->db_username;
+        $project->db_password = $request->db_password;
+
+        $project->mail_driver = $request->mail_driver;
+        $project->mail_host = $request->mail_host;
+        $project->mail_port = $request->mail_port;
+        $project->mail_username = $request->mail_username;
+        $project->mail_password = $request->mail_password;
+        $project->mail_encryption = $request->mail_encryption;
+
+        $project->item_per_page = $request->item_per_page;
+
         $project->save();
 
         /*Default table for new project*/
@@ -153,7 +173,7 @@ class ProjectController extends Controller
         $field->input_type = "hidden";
         $field->length = 0;
         $field->index = 0;
-        $field->default = "false";
+        $field->default = "true";
         $field->notnull = false;
         $field->unsigned = false;
         $field->ai = false;
@@ -169,7 +189,7 @@ class ProjectController extends Controller
         $field->length = 0;
         $field->index = 0;
         $field->default = null;
-        $field->notnull = true;
+        $field->notnull = false;
         $field->unsigned = false;
         $field->ai = false;
         $field->searchable = false;
@@ -331,7 +351,7 @@ class ProjectController extends Controller
         $field->input_type = "hidden";
         $field->length = 0;
         $field->index = 0;
-        $field->default = "false";
+        $field->default = "true";
         $field->notnull = false;
         $field->unsigned = false;
         $field->ai = false;
@@ -347,7 +367,7 @@ class ProjectController extends Controller
         $field->length = 0;
         $field->index = 0;
         $field->default = null;
-        $field->notnull = true;
+        $field->notnull = false;
         $field->unsigned = false;
         $field->ai = false;
         $field->searchable = false;
@@ -449,7 +469,7 @@ class ProjectController extends Controller
         $field->input_type = "hidden";
         $field->length = 0;
         $field->index = 0;
-        $field->default = "false";
+        $field->default = "true";
         $field->notnull = false;
         $field->unsigned = false;
         $field->ai = false;
@@ -465,7 +485,7 @@ class ProjectController extends Controller
         $field->length = 0;
         $field->index = 0;
         $field->default = null;
-        $field->notnull = true;
+        $field->notnull = false;
         $field->unsigned = false;
         $field->ai = false;
         $field->searchable = false;
@@ -480,7 +500,7 @@ class ProjectController extends Controller
         $field->length = 100;
         $field->index = "unique";
         $field->default = null;
-        $field->notnull = true;
+        $field->notnull = false;
         $field->unsigned = false;
         $field->ai = false;
         $field->searchable = true;
@@ -520,6 +540,9 @@ class ProjectController extends Controller
 
     public function ajaxGenerateProject(Request $request, $id, $template)
     {
+        set_time_limit(0);
+//        error_log(storage_path('template'));
+        $zipper = new Zipper;
 
         $php_prefix = "<?php";
 
@@ -539,6 +562,11 @@ class ProjectController extends Controller
             $project_directory = "outputs/$project->name";
             if (!is_dir($project_directory)) mkdir($project_directory, 0777, true);
 
+//            Storage::copy('templates/laravel5.zip', $project_directory . '/laravel5.zip');
+//
+//            $zipper->make($project_directory . '/laravel5.zip')->extractTo($project_directory);
+//
+//            Storage::delete($project_directory . '/laravel5.zip');
 //            Read templates map
             $template_maps = json_decode(file_get_contents(base_path($template_directory . "/templates.json")));
 
@@ -604,6 +632,7 @@ class ProjectController extends Controller
                         $project_directory . $table_file->target_path . "/" . DefaultHelpers::render(
                             Blade::compileString($table_file->target_filename), [
                                 'table' => $table,
+                                'project' => $project,
                                 'table_index' => $table_index
                             ]
                         ),
@@ -616,6 +645,10 @@ class ProjectController extends Controller
 
                     );
 
+                    error_log("++++++++++++++++++++++++++++++++++++++");
+                    error_log(100000 + $project->id + $table_index);
+//                    error_log(floor(('%' . str_replace(':', '', date('h:i:s'))) . "1"));
+//                    error_log(sprintf('%06d', str_replace(':', '', date('h:i:s')) . $table_index));
                 }
             }
 
@@ -624,16 +657,10 @@ class ProjectController extends Controller
 
                 foreach ($project->tables as $table_index => $table) {
 
-//                    error_log($table->name);
-//                    error_log("=====================================");
-
                     foreach (Relation::where([
                         'local_table_id' => $table->id,
                         'relation_type' => 'belongstomany',
                     ])->get() as $relation_index => $relation) {
-
-                        error_log($relation->local_table->name);
-                        error_log("=====================================");
 
 //                Create file and directory
                         if (!is_dir($project_directory . $relation_file->target_path))
@@ -643,6 +670,7 @@ class ProjectController extends Controller
                             $project_directory . $relation_file->target_path . "/" . DefaultHelpers::render(
                                 Blade::compileString($relation_file->target_filename), [
                                     'relation' => $relation,
+                                    'project' => $project,
                                     'relation_index' => $relation_index,
                                     'table_index' => $table_index
                                 ]
@@ -740,6 +768,24 @@ class ProjectController extends Controller
 
         $project->name = $request->name;
         $project->display_name = $request->display_name;
+
+        //        Optionals
+        $project->db_connection = $request->db_connection;
+        $project->db_host = $request->db_host;
+        $project->db_port = $request->db_port;
+        $project->db_name = $request->db_name;
+        $project->db_username = $request->db_username;
+        $project->db_password = $request->db_password;
+
+        $project->mail_driver = $request->mail_driver;
+        $project->mail_host = $request->mail_host;
+        $project->mail_port = $request->mail_port;
+        $project->mail_username = $request->mail_username;
+        $project->mail_password = $request->mail_password;
+        $project->mail_encryption = $request->mail_encryption;
+
+        $project->item_per_page = $request->item_per_page;
+
         $project->save();
 
         Session::flash('success', 'Successfully update data');

@@ -8,12 +8,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table>
+                <table class="table-borderless">
                     <tbody>
                     <tr>
                         <td class="float-left">
                             <span class="fas fa-project-diagram"></span>
                             Laravel 5
+                        </td>
+                        <td>
+                            <label class="form-control-label">
+                                {!! Form::hidden("generate_directory", 0) !!}
+                                {!! Form::checkbox("generate_directory", 1, null) !!}
+                                Generate project directory
+                            </label>
                         </td>
                         <td class="w-100 justify-content-end">
                             <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
@@ -30,6 +37,13 @@
                             Android Native ( JAVA )
                             <span class="badge badge-primary">PRO</span>
                         </td>
+                        <td>
+                            <label class="form-control-label">
+                                {!! Form::hidden("generate_directory", 0) !!}
+                                {!! Form::checkbox("generate_directory", 1, null) !!}
+                                Generate project directory
+                            </label>
+                        </td>
                         <td class="w-100 justify-content-end">
                             <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
                                     class="btn btn-icon btn-dark btn-sm">
@@ -43,6 +57,13 @@
                         <td class="float-left">
                             <span class="fas fa-project-diagram"></span>
                             Ionic 4
+                        </td>
+                        <td>
+                            <label class="form-control-label">
+                                {!! Form::hidden("generate_directory", 0) !!}
+                                {!! Form::checkbox("generate_directory", 1, null) !!}
+                                Generate project directory
+                            </label>
                         </td>
                         <td class="w-100 justify-content-end">
                             <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
@@ -58,6 +79,13 @@
                             <span class="fas fa-project-diagram"></span>
                             Angular 7
                         </td>
+                        <td>
+                            <label class="form-control-label">
+                                {!! Form::hidden("generate_directory", 0) !!}
+                                {!! Form::checkbox("generate_directory", 1, null) !!}
+                                Generate project directory
+                            </label>
+                        </td>
                         <td class="w-100 justify-content-end">
                             <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
                                     class="btn btn-icon btn-dark btn-sm">
@@ -66,6 +94,7 @@
                             </button>
                         </td>
                     </tr>
+
                     </tbody>
                 </table>
             </div>

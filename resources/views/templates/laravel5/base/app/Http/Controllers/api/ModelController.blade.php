@@ -9,6 +9,8 @@ use App\{!! ucfirst(str_singular($menu->table->name)) !!};
 @endif
 use Illuminate\Http\Request;
 use Validator;
+use Auth;
+use Hash;
 
 class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
 {
@@ -116,7 +118,12 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
         ${!! $menu->name !!} = new {!! ucfirst(str_singular($menu->table->name)) !!};
 
 @foreach($menu->table->fields as $field)
-@if ($field->ai || $field->input_type == "hidden")
+@if ($field->ai)
+@elseif($field->name == "updated_by")
+        ${!! $menu->name !!}->{!! $field->name !!} = Auth::id();
+@elseif($field->input_type == "hidden")
+@elseif($field->input_type == "password")
+        ${!! $menu->name !!}->{!! $field->name !!} = Hash::make($request->{!! $field->name !!});
 @elseif($field->type == "varchar")
         ${!! $menu->name !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @else
@@ -156,7 +163,12 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
         ${!! $menu->name !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
 
 @foreach($menu->table->fields as $field)
-@if ($field->ai || $field->input_type == "hidden")
+@if ($field->ai)
+@elseif($field->name == "updated_by")
+        ${!! $menu->name !!}->{!! $field->name !!} = Auth::id();
+@elseif($field->input_type == "hidden")
+@elseif($field->input_type == "password")
+        ${!! $menu->name !!}->{!! $field->name !!} = Hash::make($request->{!! $field->name !!});
 @elseif($field->type == "varchar")
         ${!! $menu->name !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @else

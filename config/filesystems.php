@@ -43,9 +43,10 @@ return [
 
     'disks' => [
 
+//        change to this because "file not found at path"
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => public_path(),
         ],
 
         'public' => [

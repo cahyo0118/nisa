@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Create{!! ucfirst($relation->table->name) !!}Table extends Migration
+class Create{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}Table extends Migration
 {
     /**
      * Run the migrations.

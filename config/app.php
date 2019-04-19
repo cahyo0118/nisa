@@ -164,6 +164,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         hedronium\SpacelessBlade\SpacelessBladeProvider::class,
         SlyDeath\Spaceless\SpacelessServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Zipper' => Chumper\Zipper\Zipper::class,
     ],
 
 ];
