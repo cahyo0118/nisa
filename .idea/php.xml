@@ -93,6 +93,7 @@
       <path value="$PROJECT_DIR$/vendor/hedronium/spaceless-blade" />
       <path value="$PROJECT_DIR$/vendor/slydeath/laravel5-blade-spaceless" />
       <path value="$PROJECT_DIR$/vendor/chumper/zipper" />
+      <path value="$PROJECT_DIR$/vendor/zanysoft/laravel-zip" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

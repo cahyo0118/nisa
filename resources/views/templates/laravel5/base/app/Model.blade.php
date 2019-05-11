@@ -41,6 +41,11 @@ Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'updated_by');
+    }
 @endif
 @foreach($table->fields as $field)
 @if(!empty($field->relation))

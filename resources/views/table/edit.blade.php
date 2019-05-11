@@ -67,7 +67,6 @@
         $(function () {
             getAllFields({{ $item->id }});
             getAllManyRelations({{ $item->id }});
-            console.log({{ $item->id }});
         });
     </script>
 @endsection

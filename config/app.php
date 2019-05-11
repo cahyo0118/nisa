@@ -165,6 +165,7 @@ return [
         hedronium\SpacelessBlade\SpacelessBladeProvider::class,
         SlyDeath\Spaceless\SpacelessServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
+        ZanySoft\Zip\ZipServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -231,6 +232,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Zipper' => Chumper\Zipper\Zipper::class,
+        'Zip' => ZanySoft\Zip\ZipFacade::class,
     ],
 
 ];

@@ -1,0 +1,81 @@
+{
+    "template_name": "angular7",
+    "template_display_name": "Angular 7 Back Office",
+    "template_base_directory": "angular7",
+    "files": {
+        "core": [
+            {
+                "resource_filename": "app-module",
+                "resource_path": "/src/app",
+                "target_filename": "app.module.ts",
+                "target_path": "/src/app"
+            },
+            {
+                "resource_filename": "sidenav-component-html",
+                "resource_path": "/src/app/sidenav",
+                "target_filename": "sidenav.component.html",
+                "target_path": "/src/app/sidenav"
+            },
+            {
+                "resource_filename": "user-profile-component-ts",
+                "resource_path": "/src/app/user-profile",
+                "target_filename": "user-profile.component.ts",
+                "target_path": "/src/app/user-profile"
+            },
+            {
+                "resource_filename": "user-profile-component-html",
+                "resource_path": "/src/app/user-profile",
+                "target_filename": "user-profile.component.html",
+                "target_path": "/src/app/user-profile"
+            }
+        ],
+        "menus": [
+            {
+                "resource_filename": "service",
+                "resource_path": "/src/app/services",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}.service.ts",
+                "target_path": "/src/app/services"
+            },
+            {
+                "resource_filename": "component-ts",
+                "resource_path": "/src/app/pages/list",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}.component.ts",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}"
+            },
+            {
+                "resource_filename": "component-html",
+                "resource_path": "/src/app/pages/list",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}.component.html",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}"
+            },
+            {
+                "resource_filename": "component-css",
+                "resource_path": "/src/app/pages/list",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}.component.css",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}"
+            },
+            {
+                "resource_filename": "component-ts",
+                "resource_path": "/src/app/pages/form",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-form.component.ts",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-form"
+            },
+            {
+                "resource_filename": "component-html",
+                "resource_path": "/src/app/pages/form",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-form.component.html",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-form"
+            },
+            {
+                "resource_filename": "component-css",
+                "resource_path": "/src/app/pages/form",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-form.component.css",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-form"
+            }
+        ],
+        "tables": [
+        ],
+        "relations": [
+        ]
+    }
+}

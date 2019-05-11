@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+
+  <base href="/">
+
+  <!-- Favicon -->
+  <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="./assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+  <link href="./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <!-- Argon CSS -->
+  <link type="text/css" href="./assets/css/argon.css?v=1.0.0" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/vendor/timepicker/bootstrap-timepicker.min.css">
+  <!-- Docs CSS -->
+  <link type="text/css" href="./assets/css/docs.min.css" rel="stylesheet">
+
+  <!-- <link type="text/css" href="./assets/css/argon.landing.css?v=1.0.1" rel="stylesheet"> -->
+<link rel="stylesheet" href="styles.2c29bf69d859c922a722.css"></head>
+
+<body>
+
+  <app-root></app-root>
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="./assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Optional JS -->
+  <script src="./assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="./assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <!-- Argon JS -->
+  <script src="./assets/js/argon.js?v=1.0.0"></script>
+
+  <!-- Datepicker -->
+  <script src="./assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+  <script src="./assets/vendor/timepicker/bootstrap-timepicker.min.js"></script>
+  <!-- lending js -->
+  <script src="./assets/vendor/headroom.js/dist/headroom.min.js"></script>
+  <script src="./assets/vendor/popper/popper.min.js"></script>
+  <script src="./assets/js/argon.js?v=1.0.0"></script>
+  <script>
+  "use strict";
+  $(document).ready(function() {
+
+      // Collapse navigation
+      $('.navbar-main .collapse').on('hide.bs.collapse', function () {
+          var $this = $(this);
+          $this.addClass('collapsing-out');
+      });
+
+      $('.navbar-main .collapse').on('hidden.bs.collapse', function () {
+          var $this = $(this);
+          $this.removeClass('collapsing-out');
+      });
+
+      $('.navbar-main .dropdown').on('hide.bs.dropdown', function () {
+          var $this = $(this).find('.dropdown-menu');
+
+          $this.addClass('close');
+
+          setTimeout(function(){
+              $this.removeClass('close');
+          }, 200);
+
+      });
+
+      // Additional .focus class on form-groups
+      $('.form-control').on('focus blur', function(e) {
+          // $(this).parents('.form-group').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
+      }).trigger('blur');
+
+      // When in viewport
+      $('[data-toggle="on-screen"]')[0] && $('[data-toggle="on-screen"]').onScreen({
+          container: window,
+          direction: 'vertical',
+          doIn: function() {
+              //alert();
+          },
+          doOut: function() {
+              // Do something to the matched elements as they get off scren
+          },
+          tolerance: 200,
+          throttle: 50,
+          toggleClass: 'on-screen',
+          debug: false
+      });
+
+      // Scroll to anchor with scroll animation
+      $('[data-toggle="scroll"]').on('click', function(event) {
+          var hash = $(this).attr('href');
+          var offset = $(this).data('offset') ? $(this).data('offset') : 0;
+
+          // Animate scroll to the selected section
+          $('html, body').stop(true, true).animate({
+              scrollTop: $(hash).offset().top - offset
+          }, 600);
+
+          event.preventDefault();
+      });
+   });
+
+  </script>
+<script type="text/javascript" src="runtime.26209474bfa8dc87a77c.js"></script><script type="text/javascript" src="polyfills.0fa3e9588b07b25d43c2.js"></script><script type="text/javascript" src="main.420c907c5aa750d2e9aa.js"></script></body>
+
+</html>

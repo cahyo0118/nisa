@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
 use Validator;
+use Auth;
+use Hash;
 
 class PostsController extends Controller
 {
@@ -75,6 +77,7 @@ class PostsController extends Controller
 
         $posts = new Post;
 
+        $posts->updated_by = Auth::id();
         $posts->title = $request->title;
         $posts->category_id = $request->category_id;
         $posts->save();
@@ -105,6 +108,7 @@ class PostsController extends Controller
 
         $posts = Post::find($id);
 
+        $posts->updated_by = Auth::id();
         $posts->title = $request->title;
         $posts->category_id = $request->category_id;
         $posts->save();

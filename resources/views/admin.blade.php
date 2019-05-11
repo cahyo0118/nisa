@@ -364,6 +364,7 @@
             url: `/fields/${fieldId}/relation/${random}`,
             type: 'GET',
             success: function (data) {
+                console.log('getRelationByFieldId', data);
                 $(`#relationDiv${random}`).replaceWith(`<div id="relationDiv${random}" class="row">${data.view}</div>`);
                 getAllFieldsSelectInput(random, fieldId);
                 getAllDisplayFieldsSelectInput(random, fieldId);

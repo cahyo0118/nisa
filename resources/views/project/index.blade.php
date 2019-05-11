@@ -165,10 +165,52 @@
 
                 if (execute) {
 
+                    var generateCoreSelector = $(`input[name=generate_directory_laravel5_${projectId}]`).is(":checked");
+
                     $.ajax({
                         url: `/ajax/projects/${projectId}/laravel5/generate`,
                         type: 'POST',
-                        data: null,
+                        data: JSON.stringify({
+                            "generate_directory": generateCoreSelector
+                        }),
+                        success: function (data) {
+                            swal("Success!", data.message, "success");
+                        },
+                        error: function (error) {
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+
+                }
+            });
+
+        }
+
+        function onGenerateAngular7(projectId = 0) {
+
+            swal({
+                title: "Generate Now?",
+                text: "some files might be rewritten!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: false,
+            }).then((execute) => {
+
+                if (execute) {
+
+                    var generateCoreSelector = $(`input[name=generate_directory_angular7_${projectId}]`).is(":checked");
+
+                    $.ajax({
+                        url: `/ajax/projects/${projectId}/angular7/generate`,
+                        type: 'POST',
+                        data: JSON.stringify({
+                            "generate_directory": generateCoreSelector
+                        }),
                         success: function (data) {
                             swal("Success!", data.message, "success");
                         },

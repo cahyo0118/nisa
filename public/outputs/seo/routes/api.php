@@ -75,5 +75,42 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
     ]);
 
 
+    // sentence two Routes
+    Route::get('sentence two', [
+        'middleware' => 'permission:sentence two_read',
+        'uses' => 'api\Sentence twoController@getAll',
+    ]);
+
+    Route::get('sentence two/search/{keyword}', [
+        'middleware' => 'permission:sentence two_read',
+        'uses' => 'api\Sentence twoController@getAllByKeyword',
+    ]);
+
+    Route::get('sentence two/{id}', [
+        'middleware' => 'permission:sentence two_read',
+        'uses' => 'api\Sentence twoController@getOne',
+    ]);
+
+    Route::post('sentence two/store', [
+        'middleware' => 'permission:sentence two_create',
+        'uses' => 'api\Sentence twoController@store',
+    ]);
+
+    Route::put('sentence two/{id}/update', [
+        'middleware' => 'permission:sentence two_update',
+        'uses' => 'api\Sentence twoController@update',
+    ]);
+
+    Route::delete('sentence two/{id}/delete', [
+        'middleware' => 'permission:sentence two_delete',
+        'uses' => 'api\Sentence twoController@destroy',
+    ]);
+
+    Route::delete('sentence two/delete/multiple', [
+        'middleware' => 'permission:sentence two_delete',
+        'uses' => 'api\Sentence twoController@deleteMultiple',
+    ]);
+
+
 
 });

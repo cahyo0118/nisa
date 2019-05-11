@@ -1,0 +1,215 @@
+<!-- Sidenav -->
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <app-sidebar></app-sidebar>
+</nav>
+
+<!-- Main content -->
+<div class="main-content">
+  <!-- Top navbar -->
+  <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+    <div class="container-fluid">
+
+      <form [formGroup]="searchForm" (submit)="onSearch()"
+            class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        <div class="form-group mb-0">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input formControlName="keyword" class="form-control" placeholder="Search" type="text">
+          </div>
+        </div>
+      </form>
+
+      <app-account-navbar></app-account-navbar>
+
+    </div>
+  </nav>
+  <!-- Header -->
+  <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-12">
+        <h1 class="text-white">
+          <i class="fas fa-user-tag"></i>
+          Roles
+        </h1>
+      </div>
+
+      <div class="col-xl-12">
+        <!-- Actions -->
+        <a class="btn btn-icon btn-3 btn-secondary" [routerLink]="['/roles/create']">
+          <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+          <span class="btn-inner--text">New</span>
+        </a>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="col-xl-12">
+        <div class="card shadow">
+          <div class="table-responsive">
+            <table class="table align-items-center">
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of items; let i = index">
+                <td>
+                  {{ (item?.name.length > 20) ? (item?.name | slice:0:20) + '...' : (item?.name) }}
+                </td>
+                <td>
+                  {{ (item?.description.length > 35) ? (item?.description | slice:0:35) + '...' : (item?.description) }}
+                </td>
+                <td>
+                  <button type="button"
+                          data-toggle="modal"
+                          [attr.data-target]="'#' + 'addRolesModal' + item?.id"
+                          class="btn btn-secondary btn-sm btn-icon">
+                    <span class="btn-inner--icon"><i class="fas fa-key"></i></span>
+                    <span class="btn-inner--text">Permissions List</span>
+                  </button>
+
+                  <button type="button"
+                          class="btn btn-secondary btn-sm btn-icon"
+                          [routerLink]="['/roles', item?.id, 'update']">
+                    <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
+                    <span class="btn-inner--text">Edit</span>
+                  </button>
+
+                  <button type="button" class="btn btn-danger btn-sm btn-icon"
+                          (click)="deleteConfirmation(item.id)">
+                    <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                    <span class="btn-inner--text">Delete</span>
+                  </button>
+
+                  <div class="modal fade" id="addRolesModal{{ item?.id }}" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Roles</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-12 w-100">
+                              <button type="button"
+                                      class="btn btn-primary btn-sm btn-icon float-right"
+                                      (click)="updateRolePermissions(i)">
+                                <span class="btn-inner--icon"><i class="fas fa-save"></i></span>
+                                <span class="btn-inner--text">Save Changes</span>
+                              </button>
+
+                              <br>
+                              <br>
+                              <br>
+                            </div>
+
+                            <div class="col-4">
+                              <label class="w-100">
+                                Permit All
+                                <input type="checkbox"
+                                       class="float-right"
+                                       value="true"
+                                       [checked]="item?.permissions.length === permissionsItems.length"
+                                       (change)="onPermitAll(i)">
+                              </label>
+                              <br>
+                              <br>
+                            </div>
+
+                            <div class="col-12"></div>
+
+                            <div class="col-4"
+                                 *ngFor="let permissions of permissionsItems; let permissionIndex = index">
+                              <label class="w-100">
+                                <span class="badge badge-primary">{{ permissions?.name }}</span>
+                                <input type="checkbox"
+                                       class="float-right"
+                                       (change)="onCheck(i, permissions?.name)"
+                                       [value]="permissions?.name"
+                                       [checked]="isPermitted(item?.permissions, permissions?.name)">
+                              </label>
+                              <br>
+                              <br>
+                            </div>
+
+                            <div class="col-12 w-100">
+                              <button type="button"
+                                      class="btn btn-primary btn-sm btn-icon float-right"
+                                      (click)="updateRolePermissions(i)">
+                                <span class="btn-inner--icon"><i class="fas fa-save"></i></span>
+                                <span class="btn-inner--text">Save Changes</span>
+                              </button>
+
+                              <br>
+                              <br>
+                              <br>
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+          <div class="card-footer py-4">
+            <nav aria-label="...">
+              <ul class="pagination justify-content-end mb-0">
+                <li class="page-item" [ngClass]="currentPage === 1 ? 'disabled' : ''">
+                  <a class="page-link" (click)="getAllData(currentPage - 1)">
+                    <i class="fas fa-angle-left"></i>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li *ngFor="let page of totalPage" class="page-item"
+                    [ngClass]="(page + 1 === currentPage) ? 'active' : ''">
+                  <a class="page-link" (click)="getAllData(page + 1)">{{ page + 1 }}</a>
+                </li>
+                <li class="page-item" [ngClass]="currentPage >= lastPage ? 'disabled' : ''">
+                  <a class="page-link" (click)="getAllData(currentPage + 1)">
+                    <i class="fas fa-angle-right"></i>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+
+        <!-- End Content -->
+
+        <app-footer></app-footer>
+
+      </div>
+
+    </div>
+    <!-- End Row -->
+
+  </div>
+
+</div>

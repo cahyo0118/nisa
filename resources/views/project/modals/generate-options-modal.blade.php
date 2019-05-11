@@ -17,9 +17,9 @@
                         </td>
                         <td>
                             <label class="form-control-label">
-                                {!! Form::hidden("generate_directory", 0) !!}
-                                {!! Form::checkbox("generate_directory", 1, null) !!}
-                                Generate project directory
+                                {!! Form::hidden("generate_directory_laravel5_$item->id", 0) !!}
+                                {!! Form::checkbox("generate_directory_laravel5_$item->id", 1, null) !!}
+                                Generate project core
                             </label>
                         </td>
                         <td class="w-100 justify-content-end">
@@ -39,9 +39,9 @@
                         </td>
                         <td>
                             <label class="form-control-label">
-                                {!! Form::hidden("generate_directory", 0) !!}
-                                {!! Form::checkbox("generate_directory", 1, null) !!}
-                                Generate project directory
+                                {!! Form::hidden("generate_directory_android_native_$item->id", 0) !!}
+                                {!! Form::checkbox("generate_directory_android_native_$item->id", 1, null) !!}
+                                Generate project core
                             </label>
                         </td>
                         <td class="w-100 justify-content-end">
@@ -60,9 +60,9 @@
                         </td>
                         <td>
                             <label class="form-control-label">
-                                {!! Form::hidden("generate_directory", 0) !!}
-                                {!! Form::checkbox("generate_directory", 1, null) !!}
-                                Generate project directory
+                                {!! Form::hidden("generate_directory_ionic4_$item->id", 0) !!}
+                                {!! Form::checkbox("generate_directory_ionic4_$item->id", 1, null) !!}
+                                Generate project core
                             </label>
                         </td>
                         <td class="w-100 justify-content-end">
@@ -81,13 +81,13 @@
                         </td>
                         <td>
                             <label class="form-control-label">
-                                {!! Form::hidden("generate_directory", 0) !!}
-                                {!! Form::checkbox("generate_directory", 1, null) !!}
-                                Generate project directory
+                                {!! Form::hidden("generate_directory_angular7_$item->id", 0) !!}
+                                {!! Form::checkbox("generate_directory_angular7_$item->id", 1, null) !!}
+                                Generate project core
                             </label>
                         </td>
                         <td class="w-100 justify-content-end">
-                            <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
+                            <button onclick="onGenerateAngular7({{ $item->id }})" type="button"
                                     class="btn btn-icon btn-dark btn-sm">
                                 <span class="btn-inner--icon"><i class="fas fa-cog"></i></span>
                                 <span class="btn-inner--text">Generate</span>

@@ -1,0 +1,199 @@
+<!-- Sidenav -->
+<nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <app-sidebar></app-sidebar>
+</nav>
+
+<!-- Main content -->
+<div class="main-content">
+  <!-- Top navbar -->
+  <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+    <div class="container-fluid">
+
+      <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"></a>
+
+      <app-account-navbar></app-account-navbar>
+
+    </div>
+  </nav>
+  <!-- Header -->
+  <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-12">
+        <h1 class="text-white">{{ editMode ? 'Update' : 'Add New' }} User</h1>
+      </div>
+
+      <!-- Actions -->
+      <div class="col-xl-12">
+
+        <a class="btn btn-icon btn-3 btn-secondary" [routerLink]="['/users']">
+          <span class="btn-inner--icon"><i class="fas fa-chevron-left"></i></span>
+          <span class="btn-inner--text">Back</span>
+        </a>
+
+        <a class="btn btn-icon btn-3 btn-primary" (click)="checkData()">
+          <span class="btn-inner--icon"><i class="ni ni-bold-left"></i></span>
+          <span class="btn-inner--text">TEST</span>
+        </a>
+
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div class="col-xl-12">
+
+        <div class="card bg-secondary shadow">
+
+          <div class="card-body">
+
+            <form [formGroup]="userForm" (submit)="onSubmit()">
+
+              <h6 class="heading-small text-muted mb-4">General</h6>
+
+              <div class="pl-lg-4">
+
+                <div class="row">
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label">Name</label>
+                      <input type="text"
+                             class="form-control form-control-alternative"
+                             formControlName="name"
+                             placeholder="Name...">
+                    </div>
+
+                    <app-form-error-message
+                      [apiValidationErrors]="apiValidationErrors?.name"
+                      [errors]="userForm?.controls?.name?.errors"
+                      [label]="'Name'"></app-form-error-message>
+
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label">Email</label>
+                      <input type="email"
+                             class="form-control form-control-alternative"
+                             formControlName="email"
+                             placeholder="Email...">
+                    </div>
+
+                    <app-form-error-message
+                      [apiValidationErrors]="apiValidationErrors?.email"
+                      [errors]="userForm.controls.email.errors"
+                      [label]="'Email'"></app-form-error-message>
+                  </div>
+
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label">Address</label>
+                      <textarea class="form-control form-control-alternative"
+                                rows="4"
+                                formControlName="address"
+                                placeholder="Address...">
+                      </textarea>
+                    </div>
+
+                    <app-form-error-message
+                      [apiValidationErrors]="apiValidationErrors?.address"
+                      [errors]="userForm.controls.address.errors"
+                      [label]="'Address'"></app-form-error-message>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label">Password</label>
+                      <input type="password"
+                             class="form-control form-control-alternative"
+                             formControlName="password"
+                             placeholder="Password...">
+                    </div>
+
+                    <app-form-error-message
+                      [apiValidationErrors]="apiValidationErrors?.password"
+                      [errors]="userForm.controls.password.errors"
+                      [label]="'Password'"></app-form-error-message>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label">Photo</label>
+                    </div>
+
+                    <img src="{{ userForm.value.photo }}"
+                         class="mw-100 margin-v-5"
+                         onError="this.src='../../assets/img/defaults/picture-128px.png'">
+                    <br>
+                    <br>
+
+                    <input type="hidden"
+                           formControlName="photo"
+                           [(ngModel)]="userForm.value.photo">
+
+                    <input #photoInput
+                           type="file"
+                           accept="image/*"
+                           style="display: none;"
+                           (change)="onUpdatePicture($event, 'photo')">
+
+                    <button type="button" class="btn btn-icon btn-3 btn-default btn-sm" (click)="photoInput.click()">
+                      <span class="btn-inner--icon"><i class="fas fa-image"></i></span>
+                      <span class="btn-inner--text">Change Photo</span>
+                    </button>
+
+                    <button type="button"
+                            *ngIf="userForm.value.photo"
+                            class="btn btn-icon btn-3 btn-danger btn-sm"
+                            (click)="onRemovePicture('photo')">
+                      <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                      <span class="btn-inner--text">Remove</span>
+                    </button>
+
+                    <br><br>
+
+                    <app-form-error-message
+                      [apiValidationErrors]="apiValidationErrors?.photo"
+                      [errors]="userForm.controls.photo.errors"
+                      [label]="'Photo'"></app-form-error-message>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <hr class="my-4"/>
+
+              <button class="btn btn-icon btn-3 btn-primary" type="submit" [disabled]="!userForm.valid">
+                <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+
+                <span class="btn-inner--text">Send</span>
+
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- End Content -->
+      <div class="col-xl-12">
+        <app-footer></app-footer>
+      </div>
+
+    </div>
+  </div>
+
+</div>

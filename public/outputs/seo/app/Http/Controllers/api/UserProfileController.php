@@ -55,12 +55,12 @@ class UserProfileController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->updated_by = Auth::id();
         $user->name = $request->name;
-        $user->username = $request->username;
+        $user->email = $request->email;
         $user->address = $request->address;
-        $user->organization = $request->organization;
-        $user->about = $request->about;
-
+        $user->password = Hash::make($request->password);
+        $user->photo = $request->photo;
         $user->save();
 
         return response()->json([

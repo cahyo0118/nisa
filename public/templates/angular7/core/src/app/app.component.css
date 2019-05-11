@@ -1,0 +1,15 @@
+.pointer {
+  cursor: pointer;
+}
+
+.swal2-container {
+  z-index: 19060 !important;
+}
+
+:host /deep/ .ngx-datepicker-calendar-container {
+  z-index: 19059 !important;
+}
+
+:host /deep/ .ngx-datepicker-input {
+  border: none !important;
+}

@@ -8,6 +8,7 @@ use App\Menu;
 use App\Relation;
 use App\Table;
 use Chumper\Zipper\Zipper;
+use Zip;
 use Illuminate\Http\Request;
 use App\Project;
 use Illuminate\Support\Facades\Blade;
@@ -540,8 +541,11 @@ class ProjectController extends Controller
 
     public function ajaxGenerateProject(Request $request, $id, $template)
     {
+//        return response()->json($request->json()->all());
+        $inputs = $request->json()->all();
+//        return response()->json($inputs['generate_directory']);
         set_time_limit(0);
-//        error_log(storage_path('template'));
+        error_log($template);
         $zipper = new Zipper;
 
         $php_prefix = "<?php";
@@ -557,16 +561,24 @@ class ProjectController extends Controller
 
         try {
 //            Creating Folder
-            $blade_directory = "templates.laravel5.base";
-            $template_directory = "resources/views/templates/laravel5";
-            $project_directory = "outputs/$project->name";
+            $blade_directory = "templates.$template.base";
+            $template_directory = "resources/views/templates/$template";
+            $project_directory = "outputs/$project->name-$template";
             if (!is_dir($project_directory)) mkdir($project_directory, 0777, true);
 
-//            Storage::copy('templates/laravel5.zip', $project_directory . '/laravel5.zip');
-//
-//            $zipper->make($project_directory . '/laravel5.zip')->extractTo($project_directory);
-//
-//            Storage::delete($project_directory . '/laravel5.zip');
+            if ($inputs['generate_directory']) {
+
+                Storage::copy("templates/$template/core.zip", $project_directory . "/core.zip");
+
+                $zip = Zip::open($project_directory . '/core.zip');
+
+                $zip->extract($project_directory);
+
+//                $zipper->make($project_directory . '/core.zip')->extractTo($project_directory);
+
+                Storage::delete($project_directory . '/core.zip');
+            }
+
 //            Read templates map
             $template_maps = json_decode(file_get_contents(base_path($template_directory . "/templates.json")));
 
@@ -597,12 +609,31 @@ class ProjectController extends Controller
                 foreach ($project->menus as $menu) {
 
 //                Create file and directory
-                    if (!is_dir($project_directory . $menu_file->target_path))
-                        mkdir($project_directory . $menu_file->target_path, 0777, true);
+                    if (!is_dir(
+                        $project_directory
+                        . DefaultHelpers::render(
+                            Blade::compileString($menu_file->target_path), [
+                                'menu' => $menu,
+                                'project' => $project
+                            ]
+                        )))
+                        mkdir(
+                            $project_directory
+                            . DefaultHelpers::render(
+                                Blade::compileString($menu_file->target_path), [
+                                    'menu' => $menu,
+                                    'project' => $project
+                                ]
+                            ), 0777, true);
 
                     file_put_contents(
                         $project_directory
-                        . $menu_file->target_path
+                        . DefaultHelpers::render(
+                            Blade::compileString($menu_file->target_path), [
+                                'menu' => $menu,
+                                'project' => $project
+                            ]
+                        )
                         . "/"
                         . DefaultHelpers::render(Blade::compileString($menu_file->target_filename), ['menu' => $menu]),
                         (string)view(

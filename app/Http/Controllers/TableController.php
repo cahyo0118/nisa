@@ -262,79 +262,86 @@ class TableController extends Controller
             return redirect()->back();
         }
 
-        $table->name = $request->table_name;
-        $table->display_name = $request->table_display_name;
-        $table->project_id = $request->table_project_id;
-        $table->save();
+        try {
+
+            $table->name = $request->table_name;
+            $table->display_name = $request->table_display_name;
+            $table->project_id = $request->table_project_id;
+            $table->save();
 
 //        Fields
-        foreach ($request->name as $key => $field_name) {
+            foreach ($request->name as $key => $field_name) {
 
-            $field = new Field();
+                $field = new Field();
 
-            if (!empty($request->id[$key])) {
-                $field = Field::where('id', $request->id[$key])->first();
-            }
-
-            $field->name = $request->name[$key];
-            $field->display_name = $request->display_name[$key];
-            $field->type = $request->type[$key];
-            $field->input_type = $request->input_type[$key];
-            $field->length = $request->length[$key];
-            $field->index = $request->index[$key];
-            $field->default = $request->default[$key];
-            $field->notnull = $request->notnull[$key];
-            $field->unsigned = $request->unsigned[$key];
-            $field->ai = $request->ai[$key];
-            $field->searchable = $request->searchable[$key];
-            $field->table_id = $table->id;
-            $field->save();
-
-//            Relation
-            if (!empty($request->relation_type[$key])) {
-                $relation = Relation::where('field_id', $field->id)->first();
-
-                if (empty($relation)) {
-                    $relation = new Relation();
+                if (!empty($request->id[$key])) {
+                    $field = Field::where('id', $request->id[$key])->first();
                 }
 
-                $relation->field_id = $field->id;
-                $relation->table_id = $request->relation_table[$key];
-                $relation->local_table_id = $table->id;
-                $relation->relation_type = $request->relation_type[$key];
-                $relation->relation_foreign_key = $request->relation_foreign_key[$key];
-                $relation->relation_display = $request->relation_display[$key];
+                $field->name = $request->name[$key];
+                $field->display_name = $request->display_name[$key];
+                $field->type = $request->type[$key];
+                $field->input_type = $request->input_type[$key];
+                $field->length = $request->length[$key];
+                $field->index = $request->index[$key];
+                $field->default = $request->default[$key];
+                $field->notnull = $request->notnull[$key];
+                $field->unsigned = $request->unsigned[$key];
+                $field->ai = $request->ai[$key];
+                $field->searchable = $request->searchable[$key];
+                $field->table_id = $table->id;
+                $field->save();
 
-                $relation->save();
-            }
-        }
-
-        if (!empty($request->relation_type)) {
-
-//            Has Many or Many to Many relation
-            foreach ($request->relation_type as $key => $field_name) {
-
-                if ($request->relation_type[$key] == 'hasmany' || $request->relation_type[$key] == 'belongstomany') {
-
-//                $relation = Relation::where('field_id', $field->id)->first();
-                    $relation = Relation::where('id', $request->relation_id[$key])->first();
+//            Relation
+                if (!empty($request->relation_type[$key])) {
+                    $relation = Relation::where('field_id', $field->id)->first();
 
                     if (empty($relation)) {
                         $relation = new Relation();
                     }
 
-                    $relation->field_id = null;
+                    $relation->field_id = $field->id;
                     $relation->table_id = $request->relation_table[$key];
                     $relation->local_table_id = $table->id;
                     $relation->relation_type = $request->relation_type[$key];
                     $relation->relation_foreign_key = $request->relation_foreign_key[$key];
-                    $relation->relation_local_key = !empty($request->relation_local_key[$key]) ? $request->relation_local_key[$key] : null;
                     $relation->relation_display = $request->relation_display[$key];
 
                     $relation->save();
                 }
             }
 
+            if (!empty($request->relation_type)) {
+
+//            Has Many or Many to Many relation
+                foreach ($request->relation_type as $key => $field_name) {
+
+                    if ($request->relation_type[$key] == 'hasmany' || $request->relation_type[$key] == 'belongstomany') {
+
+//                $relation = Relation::where('field_id', $field->id)->first();
+                        $relation = Relation::where('id', $request->relation_id[$key])->first();
+
+                        if (empty($relation)) {
+                            $relation = new Relation();
+                        }
+
+                        $relation->field_id = null;
+                        $relation->table_id = $request->relation_table[$key];
+                        $relation->local_table_id = $table->id;
+                        $relation->relation_type = $request->relation_type[$key];
+                        $relation->relation_foreign_key = $request->relation_foreign_key[$key];
+                        $relation->relation_local_key = !empty($request->relation_local_key[$key]) ? $request->relation_local_key[$key] : null;
+                        $relation->relation_display = $request->relation_display[$key];
+
+                        $relation->save();
+                    }
+                }
+
+            }
+
+        } catch (\Exception $e) {
+            Session::flash('failed', $e->getMessage());
+            return redirect()->back();
         }
 
         Session::flash('success', 'Successfully update data');
@@ -623,6 +630,15 @@ class TableController extends Controller
 
     public function addNewRelation(Request $request, $id, $random)
     {
+//        $field = Field::find($id);
+//
+//        if (empty($field)) {
+//            return response()->json([
+//                'success' => false,
+//                'message' => 'Data not found !'
+//            ], 400);
+//        }
+
         $tables = Table::pluck('display_name', 'id');
 //        $projects = Project::pluck('display_name', 'id');
 

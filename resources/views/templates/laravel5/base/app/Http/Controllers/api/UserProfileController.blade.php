@@ -20,11 +20,21 @@ class UserProfileController extends Controller
     public function getCurrentUser()
     {
         $user = Auth::user();
-        // $user->photo = $user->photo !== null ? "users/photos/" . $user->photo : null;
+        $permissions = [];
+
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions as $permission) {
+                if (!array_search($permission->name, $permissions))
+                    array_push($permissions, $permission->name);
+            }
+        }
+
+        $user = User::where('id', Auth::id())->first();
+        $user->setAttribute('permissions', $permissions);
 
         return response()->json([
             'success' => true,
-            'data' => Auth::user(),
+            'data' => $user,
             'message' => 'Awesome, successfully get current user data !',
         ], 200);
     }
@@ -55,12 +65,19 @@ class UserProfileController extends Controller
         ]);
 
         $user = Auth::user();
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->address = $request->address;
-        $user->organization = $request->organization;
-        $user->about = $request->about;
-
+@foreach(\App\Table::with(['fields'])->where('project_id', $project->id)->where('name', 'users')->first()->fields as $field)
+@if ($field->ai)
+@elseif($field->name == "updated_by")
+        $user->{!! $field->name !!} = Auth::id();
+@elseif($field->input_type == "hidden")
+@elseif($field->input_type == "password")
+        $user->{!! $field->name !!} = Hash::make($request->{!! $field->name !!});
+@elseif($field->type == "varchar")
+        $user->{!! $field->name !!} = $request->{!! $field->name !!};
+@else
+        $user->{!! $field->name !!} = $request->{!! $field->name !!};
+@endif
+@endforeach
         $user->save();
 
         return response()->json([
@@ -313,6 +330,28 @@ class UserProfileController extends Controller
     {
         return response('Hello World', 200);
 
+    }
+
+    public function getAllPermissions(Request $request)
+    {
+        $permissions = QueryHelpers::getData($request, new Permission());
+
+        return response()->json([
+            'success' => true,
+            'data' => $permissions,
+            'message' => 'Awesome, successfully get data !',
+        ], 200);
+    }
+
+    public function getAllRoles(Request $request)
+    {
+        $permissions = QueryHelpers::getData($request, new Role());
+
+        return response()->json([
+            'success' => true,
+            'data' => $permissions,
+            'message' => 'Awesome, successfully get data !',
+        ], 200);
     }
 
 }

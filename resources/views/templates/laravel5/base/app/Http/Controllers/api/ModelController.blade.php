@@ -30,8 +30,8 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
     public function getAllByKeyword($keyword)
     {
 @if(count($menu->table->fields()->where('searchable', true)->get()) > 0)
-        ${!! str_plural($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
-@if($field_index == 0)@if(!empty($field->relation))whereHas('{!! $field->relation->table->name !!}', function ($query) use ($keyword) {
+        ${!! snake_case(str_plural($menu->name)) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@if($field_index == 0)@if(!empty($field->relation))whereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
             $query->where('{!! $field->relation->foreign_key_field->name !!}', 'like', '%' . $keyword . '%');
         })
 @else
@@ -52,7 +52,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 
         return response()->json([
             'success' => true,
-            'data' => ${!! str_plural($menu->name) !!},
+            'data' => ${!! snake_case(str_plural($menu->name)) !!},
             'message' => 'Awesome, successfully get {!! title_case(str_replace('_', ' ', str_plural($menu->name))) !!} data !',
         ], 200);
 @else
@@ -66,10 +66,10 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 
     public function getOne($id)
     {
-        ${!! $menu->name !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
+        ${!! snake_case($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
 
         // Data not found
-        if (${!! $menu->name !!} === null) {
+        if (${!! snake_case($menu->name) !!} === null) {
             return response()->json([
                 'success' => false,
                 'data' => null,
@@ -79,7 +79,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 
         return response()->json([
             'success' => true,
-            'data' => ${!! $menu->name !!},
+            'data' => ${!! snake_case($menu->name) !!},
             'message' => 'Awesome, successfully get {!! title_case(str_replace('_', ' ', $menu->name)) !!} data !',
         ], 200);
     }
@@ -115,26 +115,26 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
             ], 400);
         }
 
-        ${!! $menu->name !!} = new {!! ucfirst(str_singular($menu->table->name)) !!};
+        ${!! snake_case($menu->name) !!} = new {!! ucfirst(str_singular($menu->table->name)) !!};
 
 @foreach($menu->table->fields as $field)
 @if ($field->ai)
 @elseif($field->name == "updated_by")
-        ${!! $menu->name !!}->{!! $field->name !!} = Auth::id();
+        ${!! snake_case($menu->name) !!}->{!! $field->name !!} = Auth::id();
 @elseif($field->input_type == "hidden")
 @elseif($field->input_type == "password")
-        ${!! $menu->name !!}->{!! $field->name !!} = Hash::make($request->{!! $field->name !!});
+        ${!! snake_case($menu->name) !!}->{!! $field->name !!} = Hash::make($request->{!! $field->name !!});
 @elseif($field->type == "varchar")
-        ${!! $menu->name !!}->{!! $field->name !!} = $request->{!! $field->name !!};
+        ${!! snake_case($menu->name) !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @else
-        ${!! $menu->name !!}->{!! $field->name !!} = $request->{!! $field->name !!};
+        ${!! snake_case($menu->name) !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @endif
 @endforeach
-        ${!! $menu->name !!}->save();
+        ${!! snake_case($menu->name) !!}->save();
 
         return response()->json([
             'success' => true,
-            'data' => ${!! $menu->name !!},
+            'data' => ${!! snake_case($menu->name) !!},
             'message' => 'Awesome, successfully create new {!! title_case(str_replace('_', ' ', $menu->name)) !!} !',
         ], 200);
 
@@ -160,26 +160,26 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
             ], 400);
         }
 
-        ${!! $menu->name !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
+        ${!! snake_case($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
 
 @foreach($menu->table->fields as $field)
 @if ($field->ai)
 @elseif($field->name == "updated_by")
-        ${!! $menu->name !!}->{!! $field->name !!} = Auth::id();
+        ${!! snake_case($menu->name) !!}->{!! $field->name !!} = Auth::id();
 @elseif($field->input_type == "hidden")
 @elseif($field->input_type == "password")
-        ${!! $menu->name !!}->{!! $field->name !!} = Hash::make($request->{!! $field->name !!});
+        ${!! snake_case($menu->name) !!}->{!! $field->name !!} = Hash::make($request->{!! $field->name !!});
 @elseif($field->type == "varchar")
-        ${!! $menu->name !!}->{!! $field->name !!} = $request->{!! $field->name !!};
+        ${!! snake_case($menu->name) !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @else
-        ${!! $menu->name !!}->{!! $field->name !!} = $request->{!! $field->name !!};
+        ${!! snake_case($menu->name) !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @endif
 @endforeach
-        ${!! $menu->name !!}->save();
+        ${!! snake_case($menu->name) !!}->save();
 
         return response()->json([
             'success' => true,
-            'data' => ${!! $menu->name !!},
+            'data' => ${!! snake_case($menu->name) !!},
             'message' => 'Awesome, successfully update {!! title_case(str_replace('_', ' ', $menu->name)) !!} !',
         ], 200);
 
@@ -187,9 +187,9 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 
     public function destroy($id)
     {
-        ${!! $menu->name !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
+        ${!! snake_case($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
 
-        if (${!! $menu->name !!} === null) {
+        if (${!! snake_case($menu->name) !!} === null) {
             return response()->json([
                 'success' => false,
                 'data' => null,
@@ -198,7 +198,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 
         }
 
-        ${!! $menu->name !!}->delete();
+        ${!! snake_case($menu->name) !!}->delete();
 
         return response()->json([
             'success' => true,
@@ -210,7 +210,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
     public function deleteMultiple(Request $request)
     {
 
-        ${!! str_plural($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::whereIn('id', json_decode($request->ids))->delete();
+        ${!! snake_case(str_plural($menu->name)) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::whereIn('id', json_decode($request->ids))->delete();
 
         return response()->json([
             'success' => true,
