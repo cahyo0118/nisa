@@ -25,6 +25,10 @@
         select[readonly] {
             pointer-events: none;
         }
+
+        .modal {
+            overflow-y:auto;
+        }
     </style>
 </head>
 

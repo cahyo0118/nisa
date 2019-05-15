@@ -26,6 +26,8 @@
 
                 @include('partials.alert')
 
+                @include('project.modals.global-variables-modal')
+
                 <div class="card bg-secondary shadow">
 
                     <div class="card-body">
@@ -45,4 +47,32 @@
             @include('partials.footer')
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        function onAddNewVariable(projectId = 0, variableId = 0) {
+            let form = $(`#addNewVariableForm`);
+            let value = form.serializeJSON();
+
+            $.ajax({
+                url: `/ajax/projects/${projectId}/variables`,
+                type: 'POST',
+                data: JSON.stringify(value),
+                success: function (data) {
+                    swal("Success!", data.message, "success");
+
+                    $(`#addNewVariable`).modal('hide');
+                },
+                error: function (error) {
+                    var data = error.responseJSON;
+
+                    swal("Failed!", data.message, "error");
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
+    </script>
 @endsection

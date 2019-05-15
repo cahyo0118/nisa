@@ -32,7 +32,7 @@
 
                         {!! Form::model($item, ['route' => ['projects.update', $item->id], 'method' => 'patch']) !!}
 
-                            @include('project.fields')
+                        @include('project.fields')
 
                         {!! Form::close() !!}
 

@@ -32,9 +32,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('samples/all/search', 'SampleController@search')->name('samples.search');
 
 });
+/*Global Variable*/
+Route::post('ajax/generate-options/{id}/variables/{variable_id}', 'GlobalVariableController@ajaxStore');
+
+Route::delete('ajax/variables/{variable_id}/delete', 'GlobalVariableController@ajaxDelete');
+
+//Route::post('ajax/projects/{id}/variables', 'GlobalVariableController@ajaxStore');
 
 /*Generate Options*/
 Route::get('generate-options', 'GenerateOptionController@index')->name('generate_options.index');
+
+Route::post('ajax/generate-options/store', 'GenerateOptionController@ajaxStore');
+
+Route::delete('ajax/generate-options/{id}/delete', 'GenerateOptionController@ajaxDelete');
 
 /* Project */
 Route::resource('projects', 'ProjectController');

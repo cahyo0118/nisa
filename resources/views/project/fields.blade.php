@@ -258,3 +258,49 @@
 
     </button>
 </div>
+
+
+<hr>
+
+<h6 class="heading-small text-muted mb-4">Global Variables</h6>
+
+<div class="pl-lg-4">
+
+    <button type="button"
+            class="btn btn-icon btn-3 btn-primary btn-sm"
+            data-toggle="modal"
+            data-target="#addNewVariable">
+        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+
+        <span class="btn-inner--text">Add variable</span>
+
+    </button>
+
+    <br>
+    <br>
+
+    <div class="row">
+
+        <input type="hidden">
+
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label class="form-control-label">Item Per Page</label>
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-file"></i></span>
+                    </div>
+                    {!! Form::number('item_per_page', !empty($item->item_per_page) ? $item->item_per_page : 15, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="btn btn-icon btn-3 btn-primary" type="submit">
+        <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+
+        <span class="btn-inner--text">Send</span>
+
+    </button>
+</div>

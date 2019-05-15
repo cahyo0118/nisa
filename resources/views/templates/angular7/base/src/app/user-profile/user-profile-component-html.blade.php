@@ -216,7 +216,7 @@
                                                     <label class="form-control-label">{{ $field->display_name }}</label>
                                                 </div>
 
-                                                <img src="@{{ userForm.value.photo }}"
+                                                <img src="@{{ userForm.value.{!! $field->name !!} }}"
                                                      class="mw-100 margin-v-5"
                                                      onError="this.src='../../assets/img/defaults/picture-128px.png'">
                                                 <br>
@@ -226,7 +226,7 @@
                                                        formControlName="{{ $field->name }}"
                                                        [(ngModel)]="userForm.value.{{ $field->name }}">
 
-                                                <input #photoInput
+                                                <input #{{ $field->name }}Input
                                                        type="file"
                                                        accept="image/*"
                                                        style="display: none;"

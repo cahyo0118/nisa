@@ -27,6 +27,42 @@
                 "resource_path": "/src/app/user-profile",
                 "target_filename": "user-profile.component.html",
                 "target_path": "/src/app/user-profile"
+            },
+            {
+                "resource_filename": "users-component-ts",
+                "resource_path": "/src/app/pages/users",
+                "target_filename": "users.component.ts",
+                "target_path": "/src/app/pages/users"
+            },
+            {
+                "resource_filename": "users-component-html",
+                "resource_path": "/src/app/pages/users",
+                "target_filename": "users.component.html",
+                "target_path": "/src/app/pages/users"
+            },
+            {
+                "resource_filename": "users-component-css",
+                "resource_path": "/src/app/pages/users",
+                "target_filename": "users.component.css",
+                "target_path": "/src/app/pages/users"
+            },
+            {
+                "resource_filename": "users-form-component-ts",
+                "resource_path": "/src/app/pages/users-form",
+                "target_filename": "users-form.component.ts",
+                "target_path": "/src/app/pages/users-form"
+            },
+            {
+                "resource_filename": "users-form-component-html",
+                "resource_path": "/src/app/pages/users-form",
+                "target_filename": "users-form.component.html",
+                "target_path": "/src/app/pages/users-form"
+            },
+            {
+                "resource_filename": "users-form-component-css",
+                "resource_path": "/src/app/pages/users-form",
+                "target_filename": "users-form.component.css",
+                "target_path": "/src/app/pages/users-form"
             }
         ],
         "menus": [

@@ -6,7 +6,8 @@
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Generate Options</a>
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Generate
+                    Options</a>
                 <!-- User -->
                 @include('partials.user-menu')
             </div>
@@ -41,7 +42,7 @@
             <div class="row">
                 <div class="col">
 
-                    @include('partials.modal-delete')
+                    {{--                    @include('partials.modal-delete')--}}
 
                     @include('partials.alert')
 
@@ -50,71 +51,10 @@
                         <div class="card-header border-0">
                             <h3 class="mb-0">Generate Options</h3>
 
-                            <div class="modal fade" id="addParentMenuModal" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Add Options</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            {{--{!! Form::open(['route' => 'menus.store', "id" => "addParentMenuForm", "onsubmit" => "onSubmitParentMenu($id);return false;"]) !!}--}}
-
-                                            {{--{{ csrf_field() }}--}}
-
-                                            <div class="row">
-
-                                                <input type="hidden">
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label class="form-control-label">Name</label>
-                                                        <div class="input-group input-group-alternative">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="fas fa-pen"></i></span>
-                                                            </div>
-                                                            {!! Form::text('name', null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label class="form-control-label">Display Name</label>
-                                                        <div class="input-group input-group-alternative">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="fas fa-pen"></i></span>
-                                                            </div>
-                                                            {!! Form::text('display_name', null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                {{--{!! Form::hidden('parent_menu_id', null) !!}--}}
-
-                                                {{--{!! Form::hidden('project_id', $id) !!}--}}
-
-                                            </div>
-
-                                            <button class="btn btn-icon btn-3 btn-primary" type="submit"
-                                                    [disabled]="!voteForm.valid">
-                                                <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
-
-                                                <span class="btn-inner--text">Send</span>
-
-                                            </button>
-
-
-{{--                                            {!! Form::close() !!}--}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @include('generate-options.modals.generate-options-modal')
 
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#addParentMenuModal">
+                                    data-target="#addNewOptionModal">
                                 <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
                                 <span class="btn-inner--text">Create</span>
                             </button>
@@ -134,7 +74,8 @@
                                 </thead>
                                 <tbody>
                                 @foreach($items as $item)
-                                    <tr id="genarate_option{!! $item->id !!}">
+
+                                    <tr id="generate_option{!! $item->id !!}">
                                         <th scope="row">
                                             {{ $item->name }}
                                         </th>
@@ -142,51 +83,31 @@
                                             {{ $item->display_name }}
                                         </td>
 
-                                        <td class="text-right">
+                                        <td class="row w-100 justify-content-end">
 
-                                            <button
-                                                type="button"
-                                                data-toggle="modal"
-                                                data-target="#generateOptionsModal"
-                                                class="btn btn-icon btn-dark btn-sm">
-                                                <span class="btn-inner--icon"><i class="fas fa-cogs"></i></span>
-                                                <span class="btn-inner--text">Generate</span>
-                                            </button>
+                                            @include('generate-options.modals.edit-generate-options-modal')
 
-                                            @include('genarate-options.modals.generate-options-modal')
+                                            @include('generate-options.modals.add-global-variable-modal')
 
-                                            <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
-                                                    class="btn btn-icon btn-dark btn-sm">
-                                                <span class="btn-inner--icon"><i class="fas fa-cog"></i></span>
-                                                <span class="btn-inner--text">Generate Laravel 5</span>
-                                            </button>
-
-                                            <a href="{{ route('generate_options.tables', $item->id) }}"
-                                               class="btn btn-icon btn-primary btn-sm">
-                                                <span class="btn-inner--icon"><i class="fas fa-table"></i></span>
-                                                <span class="btn-inner--text">Tables</span>
-                                            </a>
-
-                                            <a href="{{ route('generate_options.menus', $item->id) }}"
-                                               class="btn btn-icon btn-secondary btn-sm">
-                                                <span class="btn-inner--icon"><i class="fas fa-ellipsis-v"></i></span>
-                                                <span class="btn-inner--text">Menus</span>
-                                            </a>
-
-                                            <a href="{{ route('generate_options.show', $item->id) }}"
-                                               class="btn btn-icon btn-info btn-sm">
-                                                <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
-                                                <span class="btn-inner--text">View</span>
-                                            </a>
-                                            <a href="{{ route('generate_options.edit', $item->id) }}"
-                                               class="btn btn-icon btn-default btn-sm">
+                                            {{--<a href="{{ route('generate_options.show', $item->id) }}"--}}
+                                            {{--class="btn btn-icon btn-info btn-sm">--}}
+                                            {{--<span class="btn-inner--icon"><i class="fas fa-eye"></i></span>--}}
+                                            {{--<span class="btn-inner--text">View</span>--}}
+                                            {{--</a>--}}
+                                            {{--<a href="{{ route('generate_options.edit', $item->id) }}"--}}
+                                            {{--class="btn btn-icon btn-default btn-sm">--}}
+                                            {{--<span class="btn-inner--icon"><i class="fas fa-edit"></i></span>--}}
+                                            {{--<span class="btn-inner--text">Edit</span>--}}
+                                            {{--</a>--}}
+                                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
+                                                    data-target="#editGenerateOptionsModal{{ $item->id }}">
                                                 <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                                 <span class="btn-inner--text">Edit</span>
-                                            </a>
+                                            </button>
                                             <button
                                                 type="button"
                                                 class="btn btn-icon btn-danger btn-sm"
-                                                onclick="deleteProject({!! $item->id !!})">
+                                                onclick="deleteOption({!! $item->id !!})">
                                                 <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                                 <span class="btn-inner--text">Delete</span>
                                             </button>
@@ -227,11 +148,11 @@
     </script>
 
     <script>
-        function onGenerateLaravel5(generateOptionId = 0) {
+        function onSubmit(generateOptionId = 0) {
 
             swal({
-                title: "Generate Now?",
-                text: "some files might be rewritten!",
+                title: "Save Options ?",
+                text: "Are you sure want to save this data !",
                 icon: "warning",
                 buttons: true,
                 dangerMode: false,
@@ -239,11 +160,101 @@
 
                 if (execute) {
 
+                    let form = $(`#addNewOptionForm`);
+                    let value = form.serializeJSON();
+
                     $.ajax({
-                        url: `/ajax/generate_options/${projectId}/laravel5/generate`,
+                        url: `/ajax/generate-options/store`,
                         type: 'POST',
-                        data: null,
+                        data: JSON.stringify(value),
                         success: function (data) {
+                            $(`#addNewOptionModal`).modal('hide');
+                            swal("Success!", data.message, "success");
+                            location.reload();
+                        },
+                        error: function (error) {
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+
+                }
+            });
+
+        }
+
+        function deleteOption(id = 0) {
+
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+
+                if (willDelete) {
+                    $.ajax({
+                        url: `/ajax/generate-options/${id}/delete`,
+                        type: 'DELETE',
+                        success: function (data) {
+                            $(`#generate_option${id}`).remove();
+
+                            $(`#addNewOptionModal`).modal('hide');
+                            swal("Success!", data.message, "success");
+                        },
+                        error: function (error) {
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
+
+            });
+
+        }
+
+        function onSubmitVariable(projectId = 0, variableId = 0) {
+
+            swal({
+                title: "Save Global Variable ?",
+                text: "Are you sure want to save this data !",
+                icon: "warning",
+                buttons: true,
+                dangerMode: false,
+            }).then((execute) => {
+
+                if (execute) {
+                    let form = null;
+                    let value = null;
+
+                    if (variableId !== 0) {
+                        form = $(`#editGlobalVariable${variableId}`);
+                        value = form.serializeJSON();
+                    } else {
+                        form = $(`#addNewVariableForm`);
+                        value = form.serializeJSON();
+                    }
+
+                    $.ajax({
+                        url: `/ajax/generate-options/${projectId}/variables/${variableId}`,
+                        type: 'POST',
+                        data: JSON.stringify(value),
+                        success: function (data) {
+                            $(`#addGlobalVariableModal${projectId}`).modal('hide');
+                            if (variableId !== 0) {
+                                $(`#global_variable${data.data.id}`).replaceWith(data.view);
+                            } else {
+                                $(`#project_variables${projectId}`).append(data.view);
+                            }
                             swal("Success!", data.message, "success");
                         },
                         error: function (error) {
@@ -261,7 +272,7 @@
 
         }
 
-        function deleteProject(projectId = 0) {
+        function deleteVariable(id = 0) {
 
             swal({
                 title: "Are you sure?",
@@ -273,11 +284,10 @@
 
                 if (willDelete) {
                     $.ajax({
-                        url: `/ajax/generate_options/${projectId}/delete`,
+                        url: `/ajax/variables/${id}/delete`,
                         type: 'DELETE',
                         success: function (data) {
-                            $(`#project${projectId}`).remove();
-
+                            $(`#global_variable${id}`).remove();
                             swal("Success!", data.message, "success");
                         },
                         error: function (error) {
@@ -292,7 +302,6 @@
                 }
 
             });
-
 
         }
     </script>
