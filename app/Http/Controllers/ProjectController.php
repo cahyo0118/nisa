@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DefaultHelpers;
 use App\Field;
+use QueryHelpers;
 use App\Menu;
 use App\Relation;
 use App\Table;
@@ -598,7 +599,11 @@ class ProjectController extends Controller
                         . str_replace("/", ".", $core_file->resource_path) // change ordinary path to blade format
                         . ($core_file->resource_path !== "/" ? "." : "") // if resource path is base path
                         . $core_file->resource_filename // template file name
-                    )->with('project', $project)->with('php_prefix', $php_prefix)
+                    )
+                        ->with('project', $project)
+                        ->with('php_prefix', $php_prefix)
+                        ->with('php_prefix', $php_prefix)
+                        ->with('template_name', $template)
 
                 );
             }

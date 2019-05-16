@@ -10,90 +10,29 @@
             <div class="modal-body">
                 <table class="table-borderless">
                     <tbody>
-                    <tr>
-                        <td class="float-left">
-                            <span class="fas fa-project-diagram"></span>
-                            Laravel 5
-                        </td>
-                        <td>
-                            <label class="form-control-label">
-                                {!! Form::hidden("generate_directory_laravel5_$item->id", 0) !!}
-                                {!! Form::checkbox("generate_directory_laravel5_$item->id", 1, null) !!}
-                                Generate project core
-                            </label>
-                        </td>
-                        <td class="w-100 justify-content-end">
-                            <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
-                                    class="btn btn-icon btn-dark btn-sm">
-                                <span class="btn-inner--icon"><i class="fas fa-cog"></i></span>
-                                <span class="btn-inner--text">Generate</span>
-                            </button>
-                        </td>
-                    </tr>
 
+                    @foreach (App\GenerateOption::all() as $option)
                     <tr>
                         <td class="float-left">
-                            <span class="fas fa-project-diagram"></span>
-                            Android Native ( JAVA )
-                            <span class="badge badge-primary">PRO</span>
+                            <span class="fab fas fa-{{ $option->icon }}"></span>
+                            {{ $option->display_name }}
                         </td>
                         <td>
                             <label class="form-control-label">
-                                {!! Form::hidden("generate_directory_android_native_$item->id", 0) !!}
-                                {!! Form::checkbox("generate_directory_android_native_$item->id", 1, null) !!}
+                                {!! Form::hidden("generate_directory_{$option->name}_{$item->id}", 0) !!}
+                                {!! Form::checkbox("generate_directory_{$option->name}_{$item->id}", 1, null) !!}
                                 Generate project core
                             </label>
                         </td>
                         <td class="w-100 justify-content-end">
-                            <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
+                            <button onclick="onGenerate({{ $item->id }}, '{{ $option->name }}')" type="button"
                                     class="btn btn-icon btn-dark btn-sm">
                                 <span class="btn-inner--icon"><i class="fas fa-cog"></i></span>
                                 <span class="btn-inner--text">Generate</span>
                             </button>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td class="float-left">
-                            <span class="fas fa-project-diagram"></span>
-                            Ionic 4
-                        </td>
-                        <td>
-                            <label class="form-control-label">
-                                {!! Form::hidden("generate_directory_ionic4_$item->id", 0) !!}
-                                {!! Form::checkbox("generate_directory_ionic4_$item->id", 1, null) !!}
-                                Generate project core
-                            </label>
-                        </td>
-                        <td class="w-100 justify-content-end">
-                            <button onclick="onGenerateLaravel5({{ $item->id }})" type="button"
-                                    class="btn btn-icon btn-dark btn-sm">
-                                <span class="btn-inner--icon"><i class="fas fa-cog"></i></span>
-                                <span class="btn-inner--text">Generate</span>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="float-left">
-                            <span class="fas fa-project-diagram"></span>
-                            Angular 7
-                        </td>
-                        <td>
-                            <label class="form-control-label">
-                                {!! Form::hidden("generate_directory_angular7_$item->id", 0) !!}
-                                {!! Form::checkbox("generate_directory_angular7_$item->id", 1, null) !!}
-                                Generate project core
-                            </label>
-                        </td>
-                        <td class="w-100 justify-content-end">
-                            <button onclick="onGenerateAngular7({{ $item->id }})" type="button"
-                                    class="btn btn-icon btn-dark btn-sm">
-                                <span class="btn-inner--icon"><i class="fas fa-cog"></i></span>
-                                <span class="btn-inner--text">Generate</span>
-                            </button>
-                        </td>
-                    </tr>
+                    @endforeach
 
                     </tbody>
                 </table>

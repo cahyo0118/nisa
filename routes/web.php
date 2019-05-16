@@ -37,6 +37,8 @@ Route::post('ajax/generate-options/{id}/variables/{variable_id}', 'GlobalVariabl
 
 Route::delete('ajax/variables/{variable_id}/delete', 'GlobalVariableController@ajaxDelete');
 
+Route::put('ajax/projects/{id}/variables/{variable_id}', 'GlobalVariableController@ajaxFillVariable');
+
 //Route::post('ajax/projects/{id}/variables', 'GlobalVariableController@ajaxStore');
 
 /*Generate Options*/

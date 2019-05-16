@@ -34,7 +34,30 @@ class QueryHelpers
         return $data;
     }
 
-    public static function getGlobalVariable($template_name, $variable_name, $project_id)
+    public static function getVariable($template_name, $variable_name, $project_id)
+    {
+
+        $project = Project::find($project_id);
+
+        if (empty($project)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ], 400);
+        }
+
+        $variable = $project->variables()->whereHas('generate_option', function ($query) use ($template_name) {
+            $query->where('name', $template_name);
+        })->where('name', $variable_name)->first();
+
+        if (!empty($variable)) {
+            return $variable->pivot->value;
+        } else {
+            return QueryHelpers::getDefaultVariable($template_name, 'CLIENT_ID', $project->id);
+        }
+    }
+
+    public static function getDefaultVariable($template_name, $variable_name, $project_id)
     {
 
         $project = Project::find($project_id);
@@ -50,14 +73,6 @@ class QueryHelpers
             $query->where('name', $template_name);
         })->where('name', $variable_name)->first();
 
-        $variable = $project->variables()->whereHas('generate_option', function ($query) use ($template_name) {
-            $query->where('name', $template_name);
-        })->where('name', $variable_name)->first();
-
-        $object = new \stdClass();
-        $object->name = $variable;
-        $object->default_variable = $default_variable;
-
-        return $object;
+        return $default_variable->value;
     }
 }

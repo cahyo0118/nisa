@@ -99,16 +99,12 @@
                                                 <span class="btn-inner--text">Menus</span>
                                             </a>
 
-                                            <a href="{{ route('projects.show', $item->id) }}"
-                                               class="btn btn-icon btn-info btn-sm">
-                                                <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
-                                                <span class="btn-inner--text">View</span>
-                                            </a>
                                             <a href="{{ route('projects.edit', $item->id) }}"
                                                class="btn btn-icon btn-default btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                                 <span class="btn-inner--text">Edit</span>
                                             </a>
+
                                             <button
                                                 type="button"
                                                 class="btn btn-icon btn-danger btn-sm"
@@ -153,6 +149,44 @@
     </script>
 
     <script>
+        function onGenerate(projectId = 0, templateName = '') {
+
+            swal({
+                title: "Generate Now?",
+                text: "some files might be rewritten!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: false,
+            }).then((execute) => {
+
+                if (execute) {
+
+                    var generateCoreSelector = $(`input[name=generate_directory_${templateName}_${projectId}]`).is(":checked");
+
+                    $.ajax({
+                        url: `/ajax/projects/${projectId}/${templateName}/generate`,
+                        type: 'POST',
+                        data: JSON.stringify({
+                            "generate_directory": generateCoreSelector
+                        }),
+                        success: function (data) {
+                            swal("Success!", data.message, "success");
+                        },
+                        error: function (error) {
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+
+                }
+            });
+
+        }
+
         function onGenerateLaravel5(projectId = 0) {
 
             swal({

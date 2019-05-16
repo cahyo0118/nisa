@@ -266,33 +266,74 @@
 
 <div class="pl-lg-4">
 
-    <button type="button"
-            class="btn btn-icon btn-3 btn-primary btn-sm"
-            data-toggle="modal"
-            data-target="#addNewVariable">
-        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
-
-        <span class="btn-inner--text">Add variable</span>
-
-    </button>
-
-    <br>
-    <br>
-
     <div class="row">
 
-        <input type="hidden">
+        <div class="col-lg-12">
 
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label class="form-control-label">Item Per Page</label>
-                <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-file"></i></span>
-                    </div>
-                    {!! Form::number('item_per_page', !empty($item->item_per_page) ? $item->item_per_page : 15, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+            @foreach (App\GenerateOption::all() as $option)
+
+                <h3>
+                    <i class="fas fa-{{ $option->icon }}"></i>
+                    {{ $option->display_name }}
+                </h3>
+
+                <div class="table-responsive">
+
+                    @if(count(DB::table('global_variables')->where('generate_option_id', $option->id)->get()) < 1)
+                        <h5 class="text-center">
+                            Global Variable not found
+                        </h5>
+                    @else
+                        <table class="table align-items-center" data-toggle="dataTable"
+                               data-form="deleteForm">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Value</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody id="project_variables{{ $item->id }}">
+                            @foreach(DB::table('global_variables')->where('generate_option_id', $option->id)->get() as $global_variable)
+
+                                @php
+                                    $variable = $item->variables()->where('variable_id', $global_variable->id)->first()
+                                @endphp
+
+                                <tr id="global_variable{!! $global_variable->id !!}">
+                                    <td>
+                                        <h5>
+                                            {{ $global_variable->name }}
+                                        </h5>
+{{--                                        {!! Form::text('name', $global_variable->name, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}--}}
+                                    </td>
+                                    <td class="w-100">
+                                        {!! Form::text('value', !empty($variable->pivot->value) ? $variable->pivot->value : $global_variable->value, ['id' => "variable{$global_variable->id}ValueInput", 'class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+                                    </td>
+
+                                    <td>
+                                        <button
+                                            type="button"
+                                            class="btn btn-icon btn-primary btn-sm"
+                                            onclick="onFillVariable({!! $item->id !!}, {!! $global_variable->id !!})">
+                                            <span class="btn-inner--icon"><i class="fas fa-save"></i></span>
+                                            <span class="btn-inner--text">Save</span>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                {{--@include('generate-options.partials.global-variable-item')--}}
+                            @endforeach
+
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
-            </div>
+
+                <hr>
+
+            @endforeach
+
         </div>
 
     </div>

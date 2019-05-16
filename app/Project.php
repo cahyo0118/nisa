@@ -26,4 +26,10 @@ class Project extends Model
     {
         return $this->hasMany('App\Table', 'project_id');
     }
+
+    public function variables()
+    {
+        return $this->belongsToMany('App\GlobalVariable', 'variable_project', 'project_id', 'variable_id')->withPivot(['value']);
+    }
+
 }

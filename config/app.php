@@ -166,6 +166,7 @@ return [
         SlyDeath\Spaceless\SpacelessServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
         ZanySoft\Zip\ZipServiceProvider::class,
+//        App\Helpers\QueryHelpers::class,
 
         /*
          * Package Service Providers...
@@ -233,6 +234,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Zipper' => Chumper\Zipper\Zipper::class,
         'Zip' => ZanySoft\Zip\ZipFacade::class,
+        'QueryHelpers' => App\Helpers\QueryHelpers::class,
     ],
 
 ];

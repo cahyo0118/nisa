@@ -51,28 +51,39 @@
 
 @section('script')
     <script>
-        function onAddNewVariable(projectId = 0, variableId = 0) {
-            let form = $(`#addNewVariableForm`);
-            let value = form.serializeJSON();
+        function onFillVariable(projectId = 0, variableId = 0) {
 
-            $.ajax({
-                url: `/ajax/projects/${projectId}/variables`,
-                type: 'POST',
-                data: JSON.stringify(value),
-                success: function (data) {
-                    swal("Success!", data.message, "success");
+            swal({
+                title: "Save Global Variable ?",
+                text: "Are you sure want to save this data !",
+                icon: "warning",
+                buttons: true,
+                dangerMode: false,
+            }).then((execute) => {
 
-                    $(`#addNewVariable`).modal('hide');
-                },
-                error: function (error) {
-                    var data = error.responseJSON;
+                if (execute) {
+                    let value = $(`#variable${variableId}ValueInput`).val();
 
-                    swal("Failed!", data.message, "error");
-                },
-                cache: false,
-                contentType: false,
-                processData: false
+                    $.ajax({
+                        url: `/ajax/projects/${projectId}/variables/${variableId}`,
+                        type: 'PUT',
+                        data: JSON.stringify({'value': value}),
+                        success: function (data) {
+                            swal("Success!", data.message, "success");
+                        },
+                        error: function (error) {
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+
+                }
             });
+
         }
     </script>
 @endsection
