@@ -1,227 +1,243 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {StringUtil} from '../../utils/string.util';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DatepickerOptions } from 'ng2-datepicker';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe, formatDate } from '@angular/common';
+import { Environment } from '../../utils/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { StringUtil } from '../../utils/string.util';
 import swal from 'sweetalert2';
-import {UsersService} from '../../services/users.service';
-import {RolesService} from '../../services/roles.service';
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! kebab_case(str_plural($menu->name)) !!}.service';
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+import { {!! ucfirst(camel_case(str_plural($menu->table->name))) !!}TableService } from '../../services/tables/{!! kebab_case(str_plural($menu->table->name)) !!}-table.service';
+@endif
+@endif
+@endforeach
+@endif
 
 {{ '@' }}Component({
-  selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}-form',
-  templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}-form.component.html',
-  styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}-form.component.css']
+    selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}-form',
+    templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}-form.component.html',
+    styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}-form.component.css']
 })
 export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent implements OnInit {
 
-    searchForm: FormGroup;
-    totalPage;
-    currentPage = 1;
-    lastPage = 1;
-    keyword = '';
-    items = [];
-    searchMode = false;
+    {!! camel_case(str_singular($menu->name)) !!}Form: FormGroup;
+    apiValidationErrors;
+    data: any;
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+    {!! camel_case(str_plural($field->relation->table->name)) !!}Data: any;
+@endif
+@endif
+@endforeach
+@endif
+    id: number;
+    editMode = false;
 
-    // Roles
-    rolesSearchForm: FormGroup;
-    rolesTotalPage;
-    rolesCurrentPage = 1;
-    rolesLastPage = 1;
-    rolesKeyword = '';
-    rolesItems = [];
-    rolesSearchMode = false;
+    SERVER_URL = Environment.SERVER_URL;
 
     constructor(
-        private service: UsersService,
-        private rolesService: RolesService,
-        private spinner: NgxSpinnerService,
         private formBuilder: FormBuilder,
+        private service: {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service,
+        private spinner: NgxSpinnerService,
+        private activeRoute: ActivatedRoute,
+        private route: Router,
+        private sanitizer: DomSanitizer,
+        private env: Environment
     ) {
+        // Get Params from route
+        const routeParams = this.activeRoute.snapshot.params;
 
-    this.searchForm = formBuilder.group({
-        keyword: [
-            '',
-            [
-                Validators.maxLength(50),
-                Validators.required,
-            ]
-        ],
-    });
+        this.id = routeParams.id;
 
+        this.{!! camel_case(str_singular($menu->name)) !!}Form = formBuilder.group({
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field_index => $field)
+@if ($field->ai || $field->input_type == "hidden")
+@else
+            {!! $field->name !!}: [
+                '',
+                [
+@if($field->notnull)
+                    Validators.required,
+@endif
+@if($field->length > 0)
+                    Validators.maxLength({!! $field->length !!}),
+@endif
+@if($field->input_type == "email")
+                    Validators.email,
+@endif
+                ]
+            ],
+@endif
+@endforeach
+@endif
+        });
     }
 
     ngOnInit() {
-        this.spinner.show();
-
-        this.getAllData();
-
-        this.getAllRolesData();
-    }
-
-    getAllData(page = 1) {
-        if (this.searchMode) {
-            this.service.getAllByKeyword(this.searchForm.value.keyword, page)
+        if (this.id) {
+            this.editMode = true;
+            this.service.getOne(this.id)
                 .then(
                     response => {
                         const data = response.data;
-                        this.currentPage = data.current_page;
-                        this.lastPage = data.last_page;
-                        this.totalPage = Array(data.last_page).fill(0).map((x, i) => i);
-                        this.items = data.data;
-                        this.spinner.hide();
+                        this.{!! camel_case(str_singular($menu->name)) !!}Form.patchValue(data.data);
+                        this.data = data.data;
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $file_field)
+@if($file_field->input_type == 'image' || $file_field->input_type == 'file')
+                        this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} !== null ? Environment.SERVER_URL + this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} : null;
+@endif
+@endforeach
+@endif
                     },
                     error => {
-                        this.spinner.hide();
-                    }
-                );
-        } else {
-            this.service.getAll(page)
-                .then(
-                    response => {
-                        const data = response.data.data;
-
-                        this.currentPage = data.current_page;
-                        this.lastPage = data.last_page;
-                        this.totalPage = Array(data.last_page).fill(0).map((x, i) => i);
-                        this.items = data.data;
-                        this.spinner.hide();
-                    },
-                    error => {
-                        this.spinner.hide();
+                        swal({
+                            title: 'Oops',
+                            text: error.error.message,
+                            type: 'error',
+                            confirmButtonText: 'Confirm'
+                        });
+                        console.log(error);
                     }
                 );
         }
+
+        this.getAllDataSets();
     }
 
-    getAllRolesData(page = 1) {
-        if (this.searchMode) {
-            this.rolesService.getAllByKeyword(this.rolesSearchForm.value.keyword, page)
-                .then(
-                    response => {
-                        const responseData = response.data;
-                        const data = responseData.data;
+    getAllDataSets() {
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+        this.service.get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
+            .then(
+                response => {
+                    const data = response.data;
+                    this.{!! camel_case(str_plural($field->relation->table->name)) !!}Data = data.data;
+                },
+                error => {
+                }
+            );
 
-                        this.rolesCurrentPage = responseData.current_page;
-                        this.rolesLastPage = responseData.last_page;
-                        this.rolesTotalPage = Array(responseData.last_page).fill(0).map((x, i) => i);
-                        this.rolesItems = data.data;
-                        this.spinner.hide();
-                    },
-                    error => {
-                        this.spinner.hide();
-                    }
-                );
-        } else {
-            this.rolesService.getAll(page)
-                .then(
-                    response => {
-                        const responseData = response.data;
-                        const data = responseData.data;
-
-                        this.rolesCurrentPage = data.current_page;
-                        this.rolesLastPage = data.last_page;
-                        this.rolesTotalPage = Array(data.last_page).fill(0).map((x, i) => i);
-                        this.rolesItems = data.data;
-                        this.spinner.hide();
-                    },
-                    error => {
-                        this.spinner.hide();
-                    }
-                );
-        }
+@endif
+@endif
+@endforeach
+@endif
     }
 
-    onSearch() {
+    onSubmit() {
 
-        this.spinner.show();
-
-        this.searchMode = this.searchForm.value.keyword.length ? true : false;
-
-        if (this.searchMode) {
-            this.service.getAllByKeyword(this.searchForm.value.keyword)
-                .then(
-                    response => {
-                        const data = response.data.data;
-                        this.currentPage = data.data.current_page;
-                        this.lastPage = data.data.last_page;
-                        this.totalPage = Array(data.data.last_page).fill(0).map((x, i) => i);
-                        this.items = data.data.data;
-                        this.spinner.hide();
-                    },
-                    error => {
-                        this.spinner.hide();
-                    }
-                );
-        } else {
-            this.getAllData();
-        }
-    }
-
-    deleteConfirmation(id: number) {
         swal({
-            title: 'Delete data',
-            text: StringUtil.cannot_undo_message,
+            title: 'Save Data',
+            text: StringUtil.submit_data_message,
             type: 'question',
             showCancelButton: true,
-            confirmButtonText: 'Confirm',
-        }).then(
-            (result) => {
-                if (result.value) {
-                    this.onDelete(id);
-                }
+            confirmButtonText: 'Confirm'
+        }).then(result => {
+            if (result.value && this.editMode) {
+
+                this.service.update(this.id, this.{!! camel_case(str_singular($menu->name)) !!}Form.value)
+                    .then(
+                        response => {
+                            const data = response.data;
+                            swal({
+                                title: 'Yay !',
+                                text: data.message,
+                                type: 'success',
+                                confirmButtonText: 'Confirm'
+                            });
+
+                            this.route.navigate(['/{!! kebab_case(str_plural($menu->name)) !!}']);
+
+                        },
+                        error => {
+                            const data = error.response.data;
+                            swal({
+                                title: 'Oops',
+                                text: data.message,
+                                type: 'error',
+                                confirmButtonText: 'Confirm'
+                            });
+
+                            this.apiValidationErrors = data.data;
+                        }
+                    );
+
+            } else if (result.value) {
+
+                this.service.store(this.{!! camel_case(str_singular($menu->name)) !!}Form.value)
+                    .then(
+                        response => {
+
+                            swal({
+                                title: 'Yay !',
+                                text: response.data.message,
+                                type: 'success',
+                                confirmButtonText: 'Confirm'
+                            });
+
+                            this.route.navigate(['/{!! kebab_case(str_plural($menu->name)) !!}']);
+                        },
+                        error => {
+                            swal({
+                                title: 'Oops',
+                                text: error.response.data.message,
+                                type: 'error',
+                                confirmButtonText: 'Confirm'
+                            });
+                        }
+                    );
+
             }
-        );
+        });
     }
 
-    onDelete(id: number) {
-    this.service.delete(id)
-        .then(
-        response => {
-            const data = response.data;
-            this.getAllData(this.currentPage);
-
-            swal({
-                title: 'Yay !',
-                text: data.message,
-                type: 'success',
-                confirmButtonText: 'Confirm'
-            });
-        },
-        error => {
-
-            const data = error.response.data;
-
-            swal({
-                title: 'Oops',
-                text: data.message,
-                type: 'error',
-                confirmButtonText: 'Confirm'
-            });
+    onUpdatePicture(event, formControlName) {
+        if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (eventReader: any) => {
+                switch (formControlName) {
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $file_field)
+@if($file_field->input_type == 'image' || $file_field->input_type == 'file')
+                    case '{{ $file_field->name }}':
+                        this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = `${eventReader.target.result}`;
+                        break;
+@endif
+@endforeach
+@endif
+                }
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
-        );
     }
 
-    onAddRole(userId, roleId) {
-        this.service.addRole(userId, roleId)
-            .then(
-                response => {
-                    this.getAllData();
-                },
-                error => {
-                    this.getAllData();
-                }
-            );
+    onRemovePicture(formControlName) {
+        switch (formControlName) {
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $file_field)
+@if($file_field->input_type == 'image' || $file_field->input_type == 'file')
+            case '{{ $file_field->name }}':
+                this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = null;
+                break;
+@endif
+@endforeach
+@endif
+        }
     }
 
-    onDeleteRole(userId, roleId) {
-        this.service.deleteRole(userId, roleId)
-            .then(
-                response => {
-                    this.getAllData();
-                },
-                error => {
-                    this.getAllData();
-                }
-            );
+    checkData() {
+        console.log(this.{!! camel_case(str_singular($menu->name)) !!}Form.value);
+        console.log('EmailValidation', this.{!! camel_case(str_singular($menu->name)) !!}Form.controls.name.errors);
     }
-
 }

@@ -39,13 +39,13 @@
             <div class="col-xl-12">
                 <h1 class="text-white">
                     <i class="fas fa-users"></i>
-                    Users
+                    {{ ucwords(str_plural(str_replace('_', ' ', $menu->name))) }}
                 </h1>
             </div>
 
             <div class="col-xl-12">
                 <!-- Actions -->
-                <a class="btn btn-icon btn-3 btn-secondary" [routerLink]="['/users/create']">
+                <a class="btn btn-icon btn-3 btn-secondary" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}/create']">
                     <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                     <span class="btn-inner--text">New</span>
                 </a>
@@ -61,75 +61,33 @@
                         <table class="table align-items-center">
                             <thead class="thead-light">
                             <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Roles</th>
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+                                <th scope="col">{!! $field->display_name !!}</th>
+@endforeach
+@endif
                                 <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let item of items">
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
                                 <td>
-                                    @{{ (item?.name.length > 20) ? (item?.name | slice:0:20) + '...' : (item?.name) }}
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+                                    @{{ (item?.{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!}?.length > 20) ? (item?.{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} | slice:0:20) + '...' : (item?.{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!}) }}
+@endif
+@else
+                                    @{{ (item?.{!! $field->name !!}?.length > 20) ? (item?.{!! $field->name !!} | slice:0:20) + '...' : (item?.{!! $field->name !!}) }}
+@endif
                                 </td>
-                                <td>
-                                    @{{ item?.email }}
-                                </td>
-                                <td>
-                                    <span class="badge badge-primary margin-h-5" *ngFor="let role of item?.roles">
-                                        @{{ role?.name }}
-                                        &nbsp;
-                                        <span class="text-size-12 text-danger text-center pointer"
-                                              (click)="onDeleteRole(item?.id, role?.id)">&times;</span>
-                                    </span>
-                                    &nbsp;
-                                    <button type="button"
-                                            data-toggle="modal"
-                                            [attr.data-target]="'#' + 'addRolesModal' + item?.id"
-                                            class="btn btn-primary btn-sm btn-icon">
-                                        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
-                                    </button>
-
-                                    <div class="modal fade" id="addRolesModal@{{ item?.id }}" tabindex="-1">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Roles</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="table-borderless">
-                                                        <tbody>
-                                                        <tr *ngFor="let role of rolesItems">
-                                                            <td class="w-100">
-                                                                <span
-                                                                    class="badge badge-primary">@{{ role?.name }}</span>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" data-dismiss="modal"
-                                                                        aria-label="Close"
-                                                                        class="btn btn-primary btn-sm btn-icon"
-                                                                        (click)="onAddRole(item?.id, role?.id)">
-                                                                    <span class="btn-inner--icon"><i
-                                                                            class="fas fa-plus"></i></span>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>
+@endforeach
+@endif
+                                <td class="row w-100 justify-content-end">
                                     <button type="button"
                                             class="btn btn-secondary btn-sm btn-icon"
-                                            [routerLink]="['/users', item?.id, 'update']">
+                                            [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', item?.id, 'update']">
                                         <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                         <span class="btn-inner--text">Edit</span>
                                     </button>

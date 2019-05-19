@@ -116,6 +116,12 @@
             }
         ],
         "tables": [
+            {
+                "resource_filename": "service",
+                "resource_path": "/src/app/services/tables",
+                "target_filename": "{!! kebab_case(str_plural($table->name)) !!}-table.service.ts",
+                "target_path": "/src/app/services/tables"
+            }
         ],
         "relations": [
         ]

@@ -46,7 +46,7 @@ class TableController extends Controller
         'datetime' => 'datetime',
         'timestamp' => 'timestamp',
         'time' => 'time',
-        'year' => 'year',
+//        'year' => 'year',
         'enum' => 'enum',
     ];
 

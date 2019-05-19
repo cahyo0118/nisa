@@ -75,4 +75,28 @@ class QueryHelpers
 
         return $default_variable->value;
     }
+
+    public static function recursiveMenu($project_id, $parent_menu_template, $child_menu_template)
+    {
+        $project = Project::find($project_id);
+
+        $result = "";
+
+        if (empty($project)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ], 400);
+        }
+
+        foreach ($project->menus as $menu) {
+            if (!count($menu->sub_menus)) {
+                $result .= $parent_menu_template;
+            } else {
+                $result .= $child_menu_template;
+            }
+        }
+
+        return $result;
+    }
 }

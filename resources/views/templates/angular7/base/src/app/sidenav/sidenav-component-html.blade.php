@@ -5,15 +5,15 @@
         </a>
     </li>
 @foreach($project->menus as $menu)
-@if(!count($menu->sub_menus))
+@if((empty($menu->parent_menu_id) && empty(count($menu->sub_menus))))
     <li class="nav-item">
         <a class="nav-link" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}']" routerLinkActive="text-primary"
            *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_read')">
             <i class="fas fa-search"></i>
-            <span class="w-100">{!! ucfirst(title_case(str_plural($menu->name))) !!}</span>
+            <span class="w-100">{!! ucfirst(title_case(str_replace('_', ' ', str_plural($menu->name)))) !!}</span>
         </a>
     </li>
-@else
+@elseif(!empty(count($menu->sub_menus)))
     <li class="nav-item">
         <a class="nav-link"
            href="#navbar-{!! kebab_case(str_plural($menu->name)) !!}"
@@ -22,7 +22,7 @@
            aria-expanded="true"
            aria-controls="navbar-{!! kebab_case(str_plural($menu->name)) !!}">
             <i class="fas fa-cogs"></i>
-            <span class="nav-link-text">{!! ucfirst(title_case(str_plural($menu->name))) !!}</span>
+            <span class="nav-link-text">{!! ucfirst(title_case(str_replace('_', ' ', str_plural($menu->name)))) !!}</span>
         </a>
 
         <div class="collapse show" id="navbar-{!! kebab_case(str_plural($menu->name)) !!}">
@@ -32,7 +32,7 @@
                     <a class="nav-link" [routerLink]="['/{!! kebab_case(str_plural($sub_menu->name)) !!}']" routerLinkActive="text-primary"
                        *ngIf="isAllowed('{!! snake_case(str_plural($sub_menu->name)) !!}_read')">
                         <i class="fas fa-key"></i>
-                        <span class="w-100">{!! ucfirst(title_case(str_plural($sub_menu->name))) !!}</span>
+                        <span class="w-100">{!! ucfirst(title_case(str_replace('_', ' ', str_plural($sub_menu->name)))) !!}</span>
                     </a>
                 </li>
 @endforeach
@@ -84,4 +84,5 @@
         </div>
     </li>
 
+{{--    {!! QueryHelpers::recursiveMenu($project->id, "") !!}--}}
 </ul>

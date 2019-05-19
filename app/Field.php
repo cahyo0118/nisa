@@ -8,7 +8,7 @@ class Field extends Model
 {
     public function table()
     {
-        return $this->belongsTo('App\Table');
+        return $this->belongsTo('App\Table', 'table_id');
     }
 
     public function relation()

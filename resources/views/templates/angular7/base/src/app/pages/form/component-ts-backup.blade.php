@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { StringUtil } from '../../utils/string.util';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {StringUtil} from '../../utils/string.util';
 import swal from 'sweetalert2';
-import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! kebab_case(str_plural($menu->name)) !!}.service';
+import {UsersService} from '../../services/users.service';
+import {RolesService} from '../../services/roles.service';
 
 {{ '@' }}Component({
-  selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}',
-  templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}.component.html',
-  styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}.component.css']
+  selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}-form',
+  templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}-form.component.html',
+  styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}-form.component.css']
 })
-export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component implements OnInit {
+export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent implements OnInit {
 
+    {!! camel_case(str_singular($menu->name)) !!}Form: FormGroup;
+    apiValidationErrors;
     searchForm: FormGroup;
     totalPage;
     currentPage = 1;
@@ -20,8 +23,18 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
     items = [];
     searchMode = false;
 
+    // Roles
+    rolesSearchForm: FormGroup;
+    rolesTotalPage;
+    rolesCurrentPage = 1;
+    rolesLastPage = 1;
+    rolesKeyword = '';
+    rolesItems = [];
+    rolesSearchMode = false;
+
     constructor(
-        private service: {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service,
+        private service: UsersService,
+        private rolesService: RolesService,
         private spinner: NgxSpinnerService,
         private formBuilder: FormBuilder,
     ) {
@@ -36,12 +49,36 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
             ],
         });
 
+        this.userForm = formBuilder.group({
+@foreach($project->tables()->where('name', 'users')->first()->fields as $field_index => $field)
+@if ($field->ai || $field->input_type == "hidden")
+@else
+            {!! $field->name !!}: [
+                '',
+                [
+@if($field->notnull)
+                    Validators.required,
+@endif
+@if($field->length > 0)
+                    Validators.maxLength({!! $field->length !!}),
+@endif
+@if($field->input_type == "email")
+                    Validators.email,
+@endif
+            ]
+        ],
+@endif
+@endforeach
+        });
+
     }
 
     ngOnInit() {
         this.spinner.show();
 
         this.getAllData();
+
+        this.getAllRolesData();
     }
 
     getAllData(page = 1) {
@@ -70,6 +107,44 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
                         this.lastPage = data.last_page;
                         this.totalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.items = data.data;
+                        this.spinner.hide();
+                    },
+                    error => {
+                        this.spinner.hide();
+                    }
+                );
+        }
+    }
+
+    getAllRolesData(page = 1) {
+        if (this.searchMode) {
+            this.rolesService.getAllByKeyword(this.rolesSearchForm.value.keyword, page)
+                .then(
+                    response => {
+                        const responseData = response.data;
+                        const data = responseData.data;
+
+                        this.rolesCurrentPage = responseData.current_page;
+                        this.rolesLastPage = responseData.last_page;
+                        this.rolesTotalPage = Array(responseData.last_page).fill(0).map((x, i) => i);
+                        this.rolesItems = data.data;
+                        this.spinner.hide();
+                    },
+                    error => {
+                        this.spinner.hide();
+                    }
+                );
+        } else {
+            this.rolesService.getAll(page)
+                .then(
+                    response => {
+                        const responseData = response.data;
+                        const data = responseData.data;
+
+                        this.rolesCurrentPage = data.current_page;
+                        this.rolesLastPage = data.last_page;
+                        this.rolesTotalPage = Array(data.last_page).fill(0).map((x, i) => i);
+                        this.rolesItems = data.data;
                         this.spinner.hide();
                     },
                     error => {
@@ -147,6 +222,30 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
                 });
             }
         );
+    }
+
+    onAddRole(userId, roleId) {
+        this.service.addRole(userId, roleId)
+            .then(
+                response => {
+                    this.getAllData();
+                },
+                error => {
+                    this.getAllData();
+                }
+            );
+    }
+
+    onDeleteRole(userId, roleId) {
+        this.service.deleteRole(userId, roleId)
+            .then(
+                response => {
+                    this.getAllData();
+                },
+                error => {
+                    this.getAllData();
+                }
+            );
     }
 
 }

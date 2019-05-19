@@ -6,6 +6,13 @@ use App\Helpers\QueryHelpers;
 use App\Http\Controllers\Controller;
 @if(!empty($menu->table))
 use App\{!! ucfirst(str_singular($menu->table->name)) !!};
+@foreach($menu->table->fields as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+use App\{!! ucfirst(camel_case(str_singular($field->relation->table->name))) !!};
+@endif
+@endif
+@endforeach
 @endif
 use Illuminate\Http\Request;
 use Validator;
@@ -26,6 +33,23 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
             'message' => 'Awesome, successfully get {!! title_case(str_replace('_', ' ', str_plural($menu->name))) !!} data !',
         ], 200);
     }
+
+@foreach($menu->table->fields as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+    public function get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet(Request $request)
+    {
+        $data = {!! ucfirst(camel_case(str_singular($field->relation->table->name))) !!}::select('{!! $field->relation->foreign_key_display_field->name !!}', '{!! $field->relation->foreign_key_field->name !!}')->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+            'message' => 'Awesome, successfully get {!! title_case(str_replace('_', ' ', str_plural($field->relation->table->name))) !!} data !',
+        ], 200);
+    }
+@endif
+@endif
+@endforeach
 
     public function getAllByKeyword($keyword)
     {

@@ -1,35 +1,44 @@
-<?php
+{!! $php_prefix !!}
 
 use App\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $permission = new Permission;
-        $permission->name = "user_create";
-        $permission->display_name = "User Create";
-        $permission->save();
+@foreach($project->menus as $menu)
+        $permission = Permission::where("name", "{{ snake_case(str_plural($menu->name)) }}_create")->first();
+        if (empty($permission)) {
+            $permission = new Permission;
+            $permission->name = "{{ snake_case(str_plural($menu->name)) }}_create";
+            $permission->description = "Create {{ ucwords(str_replace('_', ' ', str_plural($menu->name))) }}";
+            $permission->save();
+        }
 
-        $permission = new Permission;
-        $permission->name = "user_read";
-        $permission->display_name = "User Read";
-        $permission->save();
+        $permission = Permission::where("name", "{{ snake_case(str_plural($menu->name)) }}_read")->first();
+        if (empty($permission)) {
+            $permission = new Permission;
+            $permission->name = "{{ snake_case(str_plural($menu->name)) }}_read";
+            $permission->description = "Read {{ ucwords(str_replace('_', ' ', str_plural($menu->name))) }}";
+            $permission->save();
+        }
 
-        $permission = new Permission;
-        $permission->name = "user_update";
-        $permission->display_name = "User Update";
-        $permission->save();
+        $permission = Permission::where("name", "{{ snake_case(str_plural($menu->name)) }}_update")->first();
+        if (empty($permission)) {
+            $permission = new Permission;
+            $permission->name = "{{ snake_case(str_plural($menu->name)) }}_update";
+            $permission->description = "Update {{ ucwords(str_replace('_', ' ', str_plural($menu->name))) }}";
+            $permission->save();
+        }
 
-        $permission = new Permission;
-        $permission->name = "user_delete";
-        $permission->display_name = "User Delete";
-        $permission->save();
+        $permission = Permission::where("name", "{{ snake_case(str_plural($menu->name)) }}_delete")->first();
+        if (empty($permission)) {
+            $permission = new Permission;
+            $permission->name = "{{ snake_case(str_plural($menu->name)) }}_delete";
+            $permission->description = "Delete {{ ucwords(str_replace('_', ' ', str_plural($menu->name))) }}";
+            $permission->save();
+        }
+@endforeach
     }
 }

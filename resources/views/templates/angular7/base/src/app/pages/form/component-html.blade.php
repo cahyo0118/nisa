@@ -9,17 +9,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
         <div class="container-fluid">
 
-            <form [formGroup]="searchForm" (submit)="onSearch()"
-                  class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                <div class="form-group mb-0">
-                    <div class="input-group input-group-alternative">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                        <input formControlName="keyword" class="form-control" placeholder="Search" type="text">
-                    </div>
-                </div>
-            </form>
+            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"></a>
 
             <app-account-navbar></app-account-navbar>
 
@@ -37,18 +27,17 @@
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-12">
-                <h1 class="text-white">
-                    <i class="fas fa-users"></i>
-                    Users
-                </h1>
+                <h1 class="text-white">@{{ editMode ? 'Update' : 'Add New' }} {{ ucwords(str_replace('_', ' ', $menu->name)) }}</h1>
             </div>
 
+            <!-- Actions -->
             <div class="col-xl-12">
-                <!-- Actions -->
-                <a class="btn btn-icon btn-3 btn-secondary" [routerLink]="['/users/create']">
-                    <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
-                    <span class="btn-inner--text">New</span>
+
+                <a class="btn btn-icon btn-3 btn-secondary" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}']">
+                    <span class="btn-inner--icon"><i class="fas fa-chevron-left"></i></span>
+                    <span class="btn-inner--text">Back</span>
                 </a>
+
             </div>
 
             <br>
@@ -56,131 +45,150 @@
             <br>
 
             <div class="col-xl-12">
-                <div class="card shadow">
-                    <div class="table-responsive">
-                        <table class="table align-items-center">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Roles</th>
-                                <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let item of items">
-                                <td>
-                                    @{{ (item?.name.length > 20) ? (item?.name | slice:0:20) + '...' : (item?.name) }}
-                                </td>
-                                <td>
-                                    @{{ item?.email }}
-                                </td>
-                                <td>
-                                    <span class="badge badge-primary margin-h-5" *ngFor="let role of item?.roles">
-                                        @{{ role?.name }}
-                                        &nbsp;
-                                        <span class="text-size-12 text-danger text-center pointer"
-                                              (click)="onDeleteRole(item?.id, role?.id)">&times;</span>
-                                    </span>
-                                    &nbsp;
-                                    <button type="button"
-                                            data-toggle="modal"
-                                            [attr.data-target]="'#' + 'addRolesModal' + item?.id"
-                                            class="btn btn-primary btn-sm btn-icon">
-                                        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
-                                    </button>
 
-                                    <div class="modal fade" id="addRolesModal@{{ item?.id }}" tabindex="-1">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Roles</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="table-borderless">
-                                                        <tbody>
-                                                        <tr *ngFor="let role of rolesItems">
-                                                            <td class="w-100">
-                                                                <span
-                                                                    class="badge badge-primary">@{{ role?.name }}</span>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" data-dismiss="modal"
-                                                                        aria-label="Close"
-                                                                        class="btn btn-primary btn-sm btn-icon"
-                                                                        (click)="onAddRole(item?.id, role?.id)">
-                                                                    <span class="btn-inner--icon"><i
-                                                                            class="fas fa-plus"></i></span>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                <div class="card bg-secondary shadow">
+
+                    <div class="card-body">
+
+                        <form [formGroup]="{!! camel_case(str_singular($menu->name)) !!}Form" (submit)="onSubmit()">
+
+                            <h6 class="heading-small text-muted mb-4">General</h6>
+
+                            <div class="pl-lg-4">
+
+                                <div class="row">
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field_index => $field)
+@if ($field->ai || $field->input_type == "hidden")
+@elseif ($field->input_type == "select")
+
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">{{ $field->display_name }}</label>
+                                            <select class="form-control form-control-alternative"
+                                                    formControlName="{{ $field->name }}">
+                                                <option value="">--</option>
+                                                <option *ngFor="let {!! str_singular($field->relation->table->name) !!} of {!! str_plural($field->relation->table->name) !!}Data"
+                                                        [value]="{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">@{{ {!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</option>
+                                            </select>
                                         </div>
+
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'"></app-form-error-message>
                                     </div>
+@endif
+@endif
+@elseif ($field->input_type == "textarea")
 
-                                </td>
-                                <td>
-                                    <button type="button"
-                                            class="btn btn-secondary btn-sm btn-icon"
-                                            [routerLink]="['/users', item?.id, 'update']">
-                                        <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
-                                        <span class="btn-inner--text">Edit</span>
-                                    </button>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">{{ $field->display_name }}</label>
+                                            <textarea class="form-control form-control-alternative"
+                                                      rows="4"
+                                                      formControlName="{{ $field->name }}"
+                                                      placeholder="{{ $field->display_name }}...">
+                                            </textarea>
+                                        </div>
 
-                                    <button type="button" class="btn btn-danger btn-sm btn-icon"
-                                            (click)="deleteConfirmation(item.id)">
-                                        <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
-                                        <span class="btn-inner--text">Delete</span>
-                                    </button>
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'"></app-form-error-message>
+                                    </div>
+@elseif($field->input_type == "image")
 
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">{{ $field->display_name }}</label>
+                                        </div>
 
-                    </div>
+                                        <img src="@{{ {!! camel_case(str_singular($menu->name)) !!}Form.value.{!! $field->name !!} }}"
+                                             class="mw-100 margin-v-5"
+                                             onError="this.src='../../assets/img/defaults/picture-128px.png'">
+                                        <br>
+                                        <br>
 
-                    <div class="card-footer py-4">
-                        <nav aria-label="...">
-                            <ul class="pagination justify-content-end mb-0">
-                                <li class="page-item" [ngClass]="currentPage === 1 ? 'disabled' : ''">
-                                    <a class="page-link" (click)="getAllData(currentPage - 1)">
-                                        <i class="fas fa-angle-left"></i>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li *ngFor="let page of totalPage" class="page-item"
-                                    [ngClass]="(page + 1 === currentPage) ? 'active' : ''">
-                                    <a class="page-link" (click)="getAllData(page + 1)">@{{ page + 1 }}</a>
-                                </li>
-                                <li class="page-item" [ngClass]="currentPage >= lastPage ? 'disabled' : ''">
-                                    <a class="page-link" (click)="getAllData(currentPage + 1)">
-                                        <i class="fas fa-angle-right"></i>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                                        <input type="hidden"
+                                               formControlName="{{ $field->name }}"
+                                               [(ngModel)]="{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $field->name }}">
+
+                                        <input #{{ $field->name }}Input
+                                               type="file"
+                                               accept="image/*"
+                                               style="display: none;"
+                                               (change)="onUpdatePicture($event, '{{ $field->name }}')">
+
+                                        <button type="button" class="btn btn-icon btn-3 btn-default btn-sm"
+                                                (click)="{{ $field->name }}Input.click()">
+                                            <span class="btn-inner--icon"><i class="fas fa-image"></i></span>
+                                            <span class="btn-inner--text">Change Photo</span>
+                                        </button>
+
+                                        <button type="button"
+                                                *ngIf="{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $field->name }}"
+                                                class="btn btn-icon btn-3 btn-danger btn-sm"
+                                                (click)="onRemovePicture('{{ $field->name }}')">
+                                            <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                                            <span class="btn-inner--text">Remove</span>
+                                        </button>
+
+                                        <br><br>
+
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'"></app-form-error-message>
+                                    </div>
+@else
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">{{ $field->display_name }}</label>
+                                            <input type="{{ $field->input_type }}"
+                                                   formControlName="{{ $field->name }}"
+                                                   class="form-control form-control-alternative"
+                                                   placeholder="{{ $field->display_name }}...">
+                                        </div>
+
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'">
+                                        </app-form-error-message>
+                                    </div>
+@endif
+@endforeach
+@endif
+                                </div>
+
+                            </div>
+
+                            <hr class="my-4"/>
+
+                            <button class="btn btn-icon btn-3 btn-primary" type="submit" [disabled]="!{!! camel_case(str_singular($menu->name)) !!}Form.valid">
+                                <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+
+                                <span class="btn-inner--text">Send</span>
+
+                            </button>
+
+                        </form>
+
                     </div>
 
                 </div>
+            </div>
 
-                <!-- End Content -->
-
+            <!-- End Content -->
+            <div class="col-xl-12">
                 <app-footer></app-footer>
-
             </div>
 
         </div>
-        <!-- End Row -->
-
     </div>
 
 </div>

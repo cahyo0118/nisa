@@ -104,37 +104,48 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
 @foreach($project->menus()->whereNotNull('table_id')->get() as $menu)
 
     // {{ $menu->name }} Routes
-    Route::get('{{ $menu->name }}', [
+    Route::get('{!! kebab_case(str_plural($menu->name)) !!}', [
         'middleware' => 'permission:{{ $menu->name }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getAll',
     ]);
 
-    Route::get('{{ $menu->name }}/search/{keyword}', [
+@foreach($menu->table->fields as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+    Route::get('{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! kebab_case(str_plural($field->relation->table->name)) !!}', [
+        'middleware' => 'permission:{{ $menu->name }}_read',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet',
+    ]);
+@endif
+@endif
+@endforeach
+
+    Route::get('{!! kebab_case(str_plural($menu->name)) !!}/search/{keyword}', [
         'middleware' => 'permission:{{ $menu->name }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getAllByKeyword',
     ]);
 
-    Route::get('{{ $menu->name }}/{id}', [
+    Route::get('{!! kebab_case(str_plural($menu->name)) !!}/{id}', [
         'middleware' => 'permission:{{ $menu->name }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getOne',
     ]);
 
-    Route::post('{{ $menu->name }}/store', [
+    Route::post('{!! kebab_case(str_plural($menu->name)) !!}/store', [
         'middleware' => 'permission:{{ $menu->name }}_create',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@store',
     ]);
 
-    Route::put('{{ $menu->name }}/{id}/update', [
+    Route::put('{!! kebab_case(str_plural($menu->name)) !!}/{id}/update', [
         'middleware' => 'permission:{{ $menu->name }}_update',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@update',
     ]);
 
-    Route::delete('{{ $menu->name }}/{id}/delete', [
+    Route::delete('{!! kebab_case(str_plural($menu->name)) !!}/{id}/delete', [
         'middleware' => 'permission:{{ $menu->name }}_delete',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@destroy',
     ]);
 
-    Route::delete('{{ $menu->name }}/delete/multiple', [
+    Route::delete('{!! kebab_case(str_plural($menu->name)) !!}/delete/multiple', [
         'middleware' => 'permission:{{ $menu->name }}_delete',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@deleteMultiple',
     ]);

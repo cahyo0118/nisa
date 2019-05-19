@@ -29,6 +29,10 @@ import { RolesService } from './services/roles.service';
 import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from './services/{!! kebab_case(str_plural($menu->name)) !!}.service';
 @endforeach
 
+@foreach($project->tables as $table)
+import { {!! ucfirst(camel_case(str_plural($table->name))) !!}TableService } from './services/tables/{!! kebab_case(str_plural($table->name)) !!}-table.service';
+@endforeach
+
 // Components
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -155,6 +159,9 @@ const config = new AuthServiceConfig([
         UsersService,
 @foreach($project->menus as $menu)
         {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service,
+@endforeach
+@foreach($project->tables as $table)
+        {!! ucfirst(camel_case(str_plural($table->name))) !!}TableService,
 @endforeach
         {
             provide: AuthServiceConfig,

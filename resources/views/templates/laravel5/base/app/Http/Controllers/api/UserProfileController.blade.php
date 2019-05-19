@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Helpers\QueryHelpers;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Vote;
-use App\VoteToken;
+use App\Permission;
 use Auth;
 use Carbon\Carbon;
 use Hash;

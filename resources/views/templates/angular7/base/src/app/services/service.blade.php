@@ -8,39 +8,73 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
     }
 
     store(item): AxiosPromise{!! '<any>' !!} {
-        return httpAuthClient.post(`api/v1/products/store`, item);
+        return httpAuthClient.post(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/store`, item);
     }
 
     update(id, item): AxiosPromise{!! '<any>' !!} {
-        return httpAuthClient.put(`api/v1/products/${id}/update`, item);
+        return httpAuthClient.put(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/${id}/update`, item);
     }
 
     getOne(id): AxiosPromise{!! '<any>' !!} {
-        return httpAuthClient.get(`api/v1/products/${id}`);
+        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/${id}`);
     }
 
     getAll(page = 1): AxiosPromise{!! '<any>' !!} {
-        return httpAuthClient.get(`api/v1/products`, {
+        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}`, {
             params: {
-                page: page.toString()
+                page: page.toString(),
+                with: [
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+                    '{!! str_singular($field->relation->table->name) !!}',
+@endif
+@endif
+@endforeach
+@endif
+                ]
             }
         });
     }
 
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+    get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet(): AxiosPromise<any> {
+        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! kebab_case(str_plural($field->relation->table->name)) !!}`);
+    }
+@endif
+@endif
+@endforeach
+@endif
+
     getAllByKeyword(keyword: string, page = 1): AxiosPromise{!! '<any>' !!} {
-        return httpAuthClient.get(`api/v1/products/search/${keyword}`, {
+        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/search/${keyword}`, {
             params: {
-                page: page.toString()
-            }
+                page: page.toString(),
+                with: [
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+                    '{!! str_singular($field->relation->table->name) !!}',
+@endif
+@endif
+@endforeach
+@endif
+                ]
+            },
         });
     }
 
     delete(id: number): AxiosPromise{!! '<any>' !!} {
-        return httpAuthClient.delete(`api/v1/products/${id}/delete`);
+        return httpAuthClient.delete(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/${id}/delete`);
     }
 
     deleteMultiple(ids: number[]): AxiosPromise{!! '<any>' !!} {
-        return httpAuthClient.delete(`api/v1/products/delete/multiple`, {
+        return httpAuthClient.delete(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/delete/multiple`, {
             params: {
                 ids: JSON.stringify(ids)
             }
