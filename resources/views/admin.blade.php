@@ -31,6 +31,15 @@
         .modal {
             overflow-y: auto;
         }
+
+        .sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            padding-top: 0px;
+            font-size: 20px;
+            z-index: 999 !important;
+        }
     </style>
 </head>
 

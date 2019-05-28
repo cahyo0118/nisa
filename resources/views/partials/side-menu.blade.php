@@ -37,6 +37,12 @@
             <ul class="navbar-nav">
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('import_db.index') }}">
+                        <i class="fas fa-database text-primary"></i> Import DB
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('generate_options.index') }}">
                         <i class="fas fa-grip-vertical text-primary"></i> Generate Options
                     </a>

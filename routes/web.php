@@ -41,6 +41,11 @@ Route::put('ajax/projects/{id}/variables/{variable_id}', 'GlobalVariableControll
 
 //Route::post('ajax/projects/{id}/variables', 'GlobalVariableController@ajaxStore');
 
+/*Import DB*/
+Route::get('import-db', 'ImportDatabaseController@index')->name('import_db.index');
+
+Route::get('ajax/import-db/databases/{db_name}/tables', 'ImportDatabaseController@ajaxGetTablesByDB');
+
 /*Generate Options*/
 Route::get('generate-options', 'GenerateOptionController@index')->name('generate_options.index');
 
