@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\GlobalVariable;
+use App\Menu;
 use App\Project;
 
 class QueryHelpers
@@ -98,5 +99,26 @@ class QueryHelpers
         }
 
         return $result;
+    }
+
+    public static function getCriteria($menu_id, $field_id)
+    {
+
+        $menu = Menu::find($menu_id);
+
+        if (empty($menu)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ], 400);
+        }
+
+        $criteria = $menu->field_criterias()->where('menu_id', $menu_id)->where('field_id', $field_id)->first();
+
+        if (!empty($criteria)) {
+            return $criteria;
+        } else {
+            return null;
+        }
     }
 }

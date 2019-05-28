@@ -113,6 +113,24 @@
                 "resource_path": "/src/app/pages/form",
                 "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-form.component.css",
                 "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-form"
+            },
+            {
+                "resource_filename": "component-ts",
+                "resource_path": "/src/app/pages/single",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-single.component.ts",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-single"
+            },
+            {
+                "resource_filename": "component-html",
+                "resource_path": "/src/app/pages/single",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-single.component.html",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-single"
+            },
+            {
+                "resource_filename": "component-css",
+                "resource_path": "/src/app/pages/single",
+                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-single.component.css",
+                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-single"
             }
         ],
         "tables": [

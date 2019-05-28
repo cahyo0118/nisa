@@ -15,4 +15,9 @@ class Field extends Model
     {
         return $this->hasOne('App\Relation');
     }
+
+    public function menu_criterias()
+    {
+        return $this->belongsToMany('App\Menu', 'menu_criteria', 'field_id', 'menu_id')->withPivot(['operator', 'value']);
+    }
 }

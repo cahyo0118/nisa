@@ -60,6 +60,7 @@ import { PermissionsComponent } from './pages/permissions/permissions.component'
 @foreach($project->menus as $menu)
 import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component } from './pages/{!! kebab_case(str_plural($menu->name)) !!}/{!! kebab_case(str_plural($menu->name)) !!}.component';
 import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent } from './pages/{!! kebab_case(str_plural($menu->name)) !!}-form/{!! kebab_case(str_plural($menu->name)) !!}-form.component';
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent } from './pages/{!! kebab_case(str_plural($menu->name)) !!}-single/{!! kebab_case(str_plural($menu->name)) !!}-single.component';
 @endforeach
 
 // Utils
@@ -86,6 +87,7 @@ const routes: Routes = [
 @foreach($project->menus as $menu)
     {path: '{!! kebab_case(str_plural($menu->name)) !!}', component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component, canActivate: [AuthGuardService]},
     {path: '{!! kebab_case(str_plural($menu->name)) !!}/create', component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent, canActivate: [AuthGuardService]},
+    {path: '{!! kebab_case(str_plural($menu->name)) !!}/:id/single', component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent, canActivate: [AuthGuardService]},
     {path: '{!! kebab_case(str_plural($menu->name)) !!}/:id/update', component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent, canActivate: [AuthGuardService]},
 @endforeach
     {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService]},
@@ -131,6 +133,7 @@ const config = new AuthServiceConfig([
         RolesFormComponent,
 @foreach($project->menus as $menu)
         {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component,
+        {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent,
         {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent,
 @endforeach
     ],

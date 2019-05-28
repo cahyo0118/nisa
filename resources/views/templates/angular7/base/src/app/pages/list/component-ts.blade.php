@@ -49,7 +49,8 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
             this.service.getAllByKeyword(this.searchForm.value.keyword, page)
                 .then(
                     response => {
-                        const data = response.data;
+                        const data = response.data.data;
+
                         this.currentPage = data.current_page;
                         this.lastPage = data.last_page;
                         this.totalPage = Array(data.last_page).fill(0).map((x, i) => i);
@@ -90,10 +91,11 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
                 .then(
                     response => {
                         const data = response.data.data;
-                        this.currentPage = data.data.current_page;
-                        this.lastPage = data.data.last_page;
-                        this.totalPage = Array(data.data.last_page).fill(0).map((x, i) => i);
-                        this.items = data.data.data;
+
+                        this.currentPage = data.current_page;
+                        this.lastPage = data.last_page;
+                        this.totalPage = Array(data.last_page).fill(0).map((x, i) => i);
+                        this.items = data.data;
                         this.spinner.hide();
                     },
                     error => {

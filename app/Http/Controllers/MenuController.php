@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Field;
 use App\Menu;
 use App\Project;
 use App\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Session;
 
@@ -231,25 +233,68 @@ class MenuController extends Controller
         return redirect()->route('menus.index');
     }
 
-    public function ajaxUpdateDataset($id, $table_id)
+    public function ajaxUpdateDataset(Request $request, $id, $table_id)
     {
+//        return response()->json($request->json()->all());
+
+        $random = rand(10000, 99999);
+
+        $request = $request->json()->all();
 
         $menu = Menu::find($id);
 
         $table = Table::find($table_id);
 
-        if (empty($menu) || empty($table)) {
+        if (empty($menu)) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed delete data'
+                'message' => 'Data not found'
             ], 400);
         }
 
-        $menu->table_id = $table_id;
+        $menu->allow_list = $request['allow_list'];
+        $menu->allow_create = $request['allow_create'];
+        $menu->allow_single = $request['allow_single'];
+        $menu->allow_update = $request['allow_update'];
+        $menu->allow_delete = $request['allow_delete'];
+        $menu->icon = $request['icon'];
+        $menu->table_id = !empty($table) ? $table_id : null;
         $menu->save();
+
+        if (!empty($request['operator'])) {
+
+            foreach ($request['operator'] as $field_id => $operator) {
+                if (!empty($operator)) {
+                    DB::table('menu_criteria')
+                        ->where('menu_id', $id)
+                        ->where('field_id', $field_id)
+                        ->delete();
+
+                    $menu->field_criterias()->attach($field_id, [
+                        'operator' => $operator,
+                        'value' => $request['value'][$field_id]
+                    ]);
+                } else {
+                    DB::table('menu_criteria')
+                        ->where('menu_id', $id)
+                        ->where('field_id', $field_id)
+                        ->delete();
+                }
+            }
+
+        }
+
+        $value = (string)view('menu.partials.menu-item')
+            ->with('random', $random)
+            ->with('menu', $menu)
+            ->with('parent_menu', $menu)
+            ->with('projects', $this->projects)
+            ->with('menus', $this->menus);
 
         return response()->json([
             'success' => true,
+            'view' => $value,
+            'data' => $menu,
             'message' => 'Successfully update data'
         ], 200);
     }
@@ -407,6 +452,41 @@ class MenuController extends Controller
             'message' => 'All menus in project !'
         ], 200);
 
+    }
+
+    public function ajaxFillCriteria(Request $request, $menu_id, $field_id)
+    {
+        $request = $request->json()->all();
+
+        $field = Field::find($field_id);
+
+        if (empty($field)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ], 400);
+        }
+
+        DB::table('menu_criteria')
+            ->where('menu_id', $menu_id)
+            ->where('variable_id', $field_id)
+            ->delete();
+
+        $field->menu_criterias()->attach($menu_id, [
+            'operator' => $request['operator'],
+            'value' => $request['value']
+        ]);
+
+//        $value = (string)view('generate-options.partials.global-variable-item')
+//            ->with('item', $field->generate_option)
+//            ->with('global_variable', $field);
+
+        return response()->json([
+            'success' => true,
+            'data' => $field,
+//            'view' => $value,
+            'message' => 'Successfully add new global variable'
+        ], 200);
     }
 
 }

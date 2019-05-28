@@ -6,6 +6,9 @@
                     <button class="btn btn-link" type="button" data-toggle="collapse"
                             data-target="#menuItem{{ $menu->id }}" aria-expanded="true"
                             aria-controls="menuItem{{ $menu->id }}">
+                        @if(!empty($menu->icon))
+                            <span class="fas fa-{!! $menu->icon !!}"></span>
+                        @endif
                         {{ $menu->display_name }}
 
                     </button>
@@ -14,11 +17,13 @@
 
             <div class="col text-right">
 
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                        data-target="#addMenuModal{{ $menu->id }}">
-                    <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
-                    <span class="btn-inner--text">Add Sub Menu</span>
-                </button>
+                @if(empty($menu->parent_menu_id))
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                            data-target="#addMenuModal{{ $menu->id }}">
+                        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+                        <span class="btn-inner--text">Add Sub Menu</span>
+                    </button>
+                @endif
 
                 <button type="button" class="btn btn-dark btn-sm" data-toggle="modal"
                         data-target="#customizeMenuModal{{ $menu->id }}">

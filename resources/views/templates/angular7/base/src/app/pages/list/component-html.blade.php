@@ -36,13 +36,16 @@
 
     <div class="container-fluid mt--7">
         <div class="row">
+@if(!empty($menu->table))
             <div class="col-xl-12">
                 <h1 class="text-white">
-                    <i class="fas fa-users"></i>
-                    {{ ucwords(str_plural(str_replace('_', ' ', $menu->name))) }}
+@if(!empty($menu->icon))
+                    <i class="fas fa-{!! $menu->icon !!}"></i>
+@endif
+                    {{ ucwords(str_plural(str_replace('_', ' ', $menu->display_name))) }}
                 </h1>
             </div>
-
+@if($menu->allow_create)
             <div class="col-xl-12">
                 <!-- Actions -->
                 <a class="btn btn-icon btn-3 btn-secondary" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}/create']">
@@ -50,11 +53,11 @@
                     <span class="btn-inner--text">New</span>
                 </a>
             </div>
-
+@endif
             <br>
             <br>
             <br>
-
+@if($menu->allow_list)
             <div class="col-xl-12">
                 <div class="card shadow">
                     <div class="table-responsive">
@@ -85,19 +88,29 @@
 @endforeach
 @endif
                                 <td class="row w-100 justify-content-end">
+@if($menu->allow_single)
+                                    <button type="button"
+                                            class="btn btn-info btn-sm btn-icon"
+                                            [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', item?.id, 'single']">
+                                        <span class="btn-inner--icon"><i class="fas fa-search"></i></span>
+                                        <span class="btn-inner--text">Detail</span>
+                                    </button>
+@endif
+@if($menu->allow_update)
                                     <button type="button"
                                             class="btn btn-secondary btn-sm btn-icon"
                                             [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', item?.id, 'update']">
                                         <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                         <span class="btn-inner--text">Edit</span>
                                     </button>
-
+@endif
+@if($menu->allow_delete)
                                     <button type="button" class="btn btn-danger btn-sm btn-icon"
                                             (click)="deleteConfirmation(item.id)">
                                         <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                         <span class="btn-inner--text">Delete</span>
                                     </button>
-
+@endif
                                 </td>
                             </tr>
                             </tbody>
@@ -130,10 +143,37 @@
 
                 </div>
 
-                <!-- End Content -->
+            </div>
+@endif
+@else
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
 
+                        <div class="row row-grid align-items-center">
+                            <div class="col-md-6 order-lg-2 ml-lg-auto">
+                                <div class="position-relative pl-md-5">
+                                    <img src="../assets/img/ill/ill-2.svg" class="img-center img-fluid">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 order-lg-1">
+
+                                <div class="pl-4">
+                                    <h1>Cutomize Your Page</h1>
+                                    <h2 class="text-primary">Be Creative !</h2>
+                                    <p class="card-text">Do this for your last job in this project.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+@endif
+
+            <div class="col-xl-12">
                 <app-footer></app-footer>
-
             </div>
 
         </div>

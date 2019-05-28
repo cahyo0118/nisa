@@ -27,4 +27,9 @@ class Menu extends Model
         return $this->belongsTo('App\Table', 'table_id');
     }
 
+    public function field_criterias()
+    {
+        return $this->belongsToMany('App\Field', 'menu_criteria', 'menu_id', 'field_id')->withPivot(['operator', 'value']);
+    }
+
 }

@@ -27,7 +27,7 @@
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-12">
-                <h1 class="text-white">@{{ editMode ? 'Update' : 'Add New' }} {{ ucwords(str_replace('_', ' ', $menu->name)) }}</h1>
+                <h1 class="text-white">@{{ editMode ? 'Update' : 'Add New' }} {{ ucwords(str_replace('_', ' ', $menu->display_name)) }}</h1>
             </div>
 
             <!-- Actions -->

@@ -22,18 +22,18 @@
         <!-- Page content -->
         <div class="container-fluid mt--7">
             {{--<div class="row">--}}
-                {{--<div class="col">--}}
-                    {{--{!! Form::open(['route' => 'menus.index', 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}--}}
-                    {{--<div class="form-group">--}}
-                        {{--<div class="input-group input-group-alternative">--}}
-                            {{--<div class="input-group-prepend">--}}
-                                {{--<span class="input-group-text"><i class="fas fa-search"></i></span>--}}
-                            {{--</div>--}}
-                            {{--<input name="keyword" class="form-control" placeholder="Search" type="text">--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--{!! Form::close() !!}--}}
-                {{--</div>--}}
+            {{--<div class="col">--}}
+            {{--{!! Form::open(['route' => 'menus.index', 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}--}}
+            {{--<div class="form-group">--}}
+            {{--<div class="input-group input-group-alternative">--}}
+            {{--<div class="input-group-prepend">--}}
+            {{--<span class="input-group-text"><i class="fas fa-search"></i></span>--}}
+            {{--</div>--}}
+            {{--<input name="keyword" class="form-control" placeholder="Search" type="text">--}}
+            {{--</div>--}}
+            {{--</div>--}}
+            {{--{!! Form::close() !!}--}}
+            {{--</div>--}}
             {{--</div>--}}
 
             {{--<br>--}}
@@ -68,7 +68,8 @@
                                                         <label class="form-control-label">Name</label>
                                                         <div class="input-group input-group-alternative">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="fas fa-pen"></i></span>
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-pen"></i></span>
                                                             </div>
                                                             {!! Form::text('name', null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
                                                         </div>
@@ -80,7 +81,8 @@
                                                         <label class="form-control-label">Display Name</label>
                                                         <div class="input-group input-group-alternative">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="fas fa-pen"></i></span>
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-pen"></i></span>
                                                             </div>
                                                             {!! Form::text('display_name', null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
                                                         </div>
@@ -266,8 +268,6 @@
                     $(`#editMenuModal${menuId}`).modal("hide");
 
                     $(`#editMenuModal${menuId}`).on('hidden.bs.modal', function () {
-                        swal("Success!", data.message, "success");
-
                         $(`#menuItemCard${menuId}`).replaceWith(data.view);
                     });
                 },
@@ -284,22 +284,23 @@
 
         function onUpdateDatasetMenu(menuId = 0) {
 
-            let value = $(`#tableIdInputMenu${menuId}`).val();
-
-            console.log(value);
+            // let value = $(`#tableIdInputMenu${menuId}`).val();
+            let value = $(`#customizeMenuForm${menuId}`).serializeJSON();
 
             $.ajax({
-                url: `/ajax/menus/${menuId}/datasets/${value}/update`,
+                url: `/ajax/menus/${menuId}/datasets/${value.table_id ? value.table_id : 0}/update`,
                 type: 'PUT',
-                data: {},
+                data: JSON.stringify(value),
                 success: function (data) {
 
                     $(`#customizeMenuModal${menuId}`).modal("hide");
 
                     // this will be some ui/ux problem
                     $(`#customizeMenuModal${menuId}`).on('hidden.bs.modal', function () {
-                        swal("Success!", data.message, "success");
+                        $(`#menuItemCard${menuId}`).replaceWith(data.view);
                     });
+
+                    swal("Success!", data.message, "success");
                 },
                 error: function (error) {
                     var data = error.responseJSON;
