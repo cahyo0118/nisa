@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Field.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Field.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helpers/QueryHelpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/QueryHelpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MenuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MenuController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/templates/laravel5/core.zip" beforeDir="false" afterPath="$PROJECT_DIR$/public/templates/laravel5/core.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/templates/laravel5/core/app/Helpers/QueryHelpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/templates/laravel5/core/app/Helpers/QueryHelpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/menu/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/menu/partials/menu-item.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/partials/menu-item.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/app-module.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/app-module.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts-backup.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/sidenav/sidenav-component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/sidenav/sidenav-component-html.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/templates.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/templates.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/project/fields.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/project/fields.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/project/fields.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="650">
+              <caret line="346" column="10" selection-start-line="346" selection-start-column="10" selection-end-line="346" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -61,17 +44,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/project/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="34" column="45" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="45" />
+            <state relative-caret-position="501">
+              <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProjectController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+            <state relative-caret-position="150">
+              <caret line="24" column="6" lean-forward="true" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -160,7 +143,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/GlobalVariableController.php" />
         <option value="$PROJECT_DIR$/app/Project.php" />
         <option value="$PROJECT_DIR$/resources/views/project/edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/project/fields.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/project/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/utils/environment.ts" />
         <option value="$PROJECT_DIR$/composer.json" />
@@ -201,6 +183,7 @@
         <option value="$PROJECT_DIR$/public/outputs/seo-angular7/src/app/pages/products/products.component.html" />
         <option value="$PROJECT_DIR$/public/outputs/seo-angular7/src/app/pages/products-form/products-form.component.html" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" />
+        <option value="$PROJECT_DIR$/resources/views/project/fields.blade.php" />
       </list>
     </option>
   </component>
@@ -319,6 +302,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -808,7 +792,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -934,17 +917,18 @@
       <workItem from="1558497400813" duration="12351000" />
       <workItem from="1558699192227" duration="2401000" />
       <workItem from="1559022999501" duration="257000" />
+      <workItem from="1559062537514" duration="279000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="354260000" />
+    <option name="totallyTimeSpent" value="354539000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4901257" visible="true" weight="0.27896994" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4901257" visible="true" weight="0.2825465" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" sideWeight="0.50987434" side_tool="true" weight="0.2539342" />
@@ -1220,16 +1204,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Helpers/QueryHelpers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="103" column="38" selection-start-line="103" selection-start-column="27" selection-end-line="103" selection-end-column="38" />
-          <folding>
-            <element signature="e#31#54#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Menu.php">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1329,24 +1303,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/project/edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Helpers/QueryHelpers.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="34" column="45" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/project/fields.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="1485">
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
+          <folding>
+            <element signature="e#31#54#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProjectController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+        <state relative-caret-position="150">
+          <caret line="24" column="6" lean-forward="true" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/project/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/project/fields.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="346" column="10" selection-start-line="346" selection-start-column="10" selection-end-line="346" selection-end-column="10" />
         </state>
       </provider>
     </entry>
