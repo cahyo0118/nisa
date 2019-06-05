@@ -40,7 +40,7 @@ class ProjectController extends Controller
 
     public function menus(Request $request, $project_id)
     {
-        return view('menu.index')->with('id', $project_id);
+        return view('menu.index')->with('project_id', $project_id);
     }
 
     public function tables(Request $request, $project_id)
@@ -54,7 +54,7 @@ class ProjectController extends Controller
             $tables = Table::orWhere('name', 'LIKE', '%' . $request->keyword . '%')->where('project_id', $project_id)->paginate(15);
         }
 
-        return view('table.index')->with('items', $tables)->with('id', $project_id);
+        return view('table.index')->with('items', $tables)->with('project_id', $project_id);
     }
 
     /**

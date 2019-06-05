@@ -68,7 +68,7 @@ class TableController extends Controller
         }
 
         return view('table.index')
-            ->with('id', $project_id)
+            ->with('project_id', $project_id)
             ->with('items', $tables);
     }
 
@@ -206,7 +206,7 @@ class TableController extends Controller
         }
 
         return view('table.show')
-            ->with('id', $project_id)
+            ->with('project_id', $project_id)
             ->with('item', $table);
     }
 
@@ -231,7 +231,7 @@ class TableController extends Controller
             ->with('item', $table)
             ->with('types', $this->types)
             ->with('input_types', $this->input_types)
-            ->with('id', $project_id)
+            ->with('project_id', $project_id)
             ->with('projects', $projects);
     }
 
@@ -420,7 +420,7 @@ class TableController extends Controller
         return view('table.index')->with('items', $tables);
     }
 
-    public function fields(Request $request, $id)
+    public function fields(Request $request, $project_id, $id)
     {
         $value = "";
         $randoms = [];
@@ -436,6 +436,7 @@ class TableController extends Controller
             array_push($field_ids, $field->id);
 
             $value .= (string)view('table.field-form')
+                ->with('project_id', $project_id)
                 ->with('item', $field)
                 ->with('random', $random)
                 ->with('types', $this->types)
@@ -449,7 +450,7 @@ class TableController extends Controller
         ], 200);
     }
 
-    public function relationsMany(Request $request, $id)
+    public function relationsMany(Request $request, $project_id, $id)
     {
         $value = "";
         $randoms = [];
@@ -458,7 +459,7 @@ class TableController extends Controller
         $field_ids = [];
         $field_display_ids = [];
 
-        $tables = Table::pluck('display_name', 'id');
+        $tables = Table::pluck('name', 'id');
 
         $relations = Relation::where('local_table_id', $id)
             ->where('relation_type', 'hasmany')
@@ -478,6 +479,7 @@ class TableController extends Controller
 
             if ($relation->relation_type == 'hasmany' || $relation->relation_type == 'belongstomany') {
                 $value .= (string)view(($relation->relation_type == 'hasmany') ? 'table.field-relation-hm-form' : 'table.field-relation-mtm-form')
+                    ->with('project_id', $project_id)
                     ->with('item', $relation)
                     ->with('tables', $tables)
                     ->with('random', $random)
@@ -496,7 +498,7 @@ class TableController extends Controller
         ], 200);
     }
 
-    public function syncFields(Request $request, $id)
+    public function syncFields(Request $request, $project_id, $id)
     {
 //        $data = urldecode($request->table_name);
 //        return $data;
@@ -544,6 +546,7 @@ class TableController extends Controller
             $random = rand(10000, 99999);
 
             $value .= (string)view('table.field-form')
+                ->with('project_id', $project_id)
                 ->with('item', $field)
                 ->with('random', $random)
                 ->with('types', $this->types)
@@ -559,7 +562,7 @@ class TableController extends Controller
 
     public function fieldRelationTemplate(Request $request, $id, $random)
     {
-        $tables = Table::pluck('display_name', 'id');
+        $tables = Table::pluck('name', 'id');
 
         $item = Relation::where('field_id', $id)->first();
 
@@ -581,13 +584,14 @@ class TableController extends Controller
         ], 200);
     }
 
-    public function addNewField()
+    public function addNewField($project_id)
     {
         $random = rand(10000, 99999);
 
 
         return response()->json([
             'view' => (string)view('table.field-form')
+                ->with('project_id', $project_id)
                 ->with('random', $random)
                 ->with('types', $this->types)
                 ->with('input_types', $this->input_types)
@@ -599,7 +603,7 @@ class TableController extends Controller
     {
         $random = rand(10000, 99999);
 
-        $tables = Table::pluck('display_name', 'id');
+        $tables = Table::pluck('name', 'id');
 
         return response()->json([
             'random' => $random,
@@ -616,7 +620,7 @@ class TableController extends Controller
     {
         $random = rand(10000, 99999);
 
-        $tables = Table::where('project_id', $project_id)->pluck('display_name', 'id');
+        $tables = Table::where('project_id', $project_id)->pluck('name', 'id');
 
         return response()->json([
             'random' => $random,
@@ -628,7 +632,7 @@ class TableController extends Controller
         ], 200);
     }
 
-    public function addNewRelation(Request $request, $id, $random)
+    public function addNewRelation(Request $request, $project_id, $id, $random)
     {
 //        $field = Field::find($id);
 //
@@ -639,7 +643,7 @@ class TableController extends Controller
 //            ], 400);
 //        }
 
-        $tables = Table::pluck('display_name', 'id');
+        $tables = Table::where('project_id', $project_id)->pluck('name', 'id');
 //        $projects = Project::pluck('display_name', 'id');
 
         return response()->json([
@@ -663,8 +667,8 @@ class TableController extends Controller
 
     public function getAllTables($random)
     {
-        $tables = Table::pluck('display_name', 'id');
-//        $projects = Project::pluck('display_name', 'id');
+        $tables = Table::pluck('name', 'id');
+//        $projects = Project::pluck('name', 'id');
 
         return response()->json([
             'view' => (string)view('table.field-relation-form')
@@ -703,7 +707,7 @@ class TableController extends Controller
 
     public function getAllDisplaysSelectForm($random, $table_id)
     {
-        $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
 
         return response()->json([
             'view' => (string)view('table.select.displays')
@@ -714,7 +718,7 @@ class TableController extends Controller
 
     public function getAllDisplaysSelectFormByFieldId($random, $table_id, $field_id)
     {
-        $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
 
         $item = Relation::where('field_id', $field_id)->first();
 
@@ -781,7 +785,7 @@ class TableController extends Controller
 
     public function getAllManyDisplaysSelectForm($random, $table_id)
     {
-        $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
 
         return response()->json([
             'view' => (string)view('table.select.displays')
@@ -792,7 +796,7 @@ class TableController extends Controller
 
     public function getAllManyDisplaysSelectFormByFieldId($random, $table_id, $field_id)
     {
-        $fields = Field::where('table_id', $table_id)->pluck('display_name', 'id');
+        $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
 
         $item = Relation::where('table_id', $table_id)->where('relation_display', $field_id)->first();
 

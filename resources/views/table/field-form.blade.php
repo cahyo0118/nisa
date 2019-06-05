@@ -50,7 +50,7 @@
                                 "id" => "fieldInputType$random",
                                 "class" => "form-control form-control-alternative",
                                 "required" => "",
-                                "onchange" => "onInputTypeChange($random, this.value)"
+                                "onchange" => "onInputTypeChange($random, this.value, $project_id)"
                             ]) !!}
                     </div>
                 </div>
@@ -139,7 +139,7 @@
         </button>
 
         <button class="btn btn-icon btn-3 btn-info btn-sm float-right" type="button"
-                onclick="createRelation('{{ $random }}', {{ !empty($item) ? $item->id : 0 }})">
+                onclick="createRelation('{{ $random }}', '{{ $project_id }}', {{ !empty($item) ? $item->id : 0 }})">
             <span class="btn-inner--icon"><i class="fas fa-handshake"></i></span>
 
             <span class="btn-inner--text">Create Relation</span>

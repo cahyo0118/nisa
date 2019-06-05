@@ -91,14 +91,14 @@
 </script>
 <script>
 
-    function onInputTypeChange(random, value) {
+    function onInputTypeChange(random, value, projectId = 0) {
 
         if (value === "select") {
             // change field type to integer(default value for relation)
             $(`#fieldType${random}`).val("integer");
             $(`#fieldLength${random}`).val(11);
 
-            createRelation(random);
+            createRelation(random, projectId);
 
         } else {
             deleteRelation(random);
@@ -106,7 +106,7 @@
 
     }
 
-    function saveFieldsChanges(tableId) {
+    function saveFieldsChanges(tableId, projectId = 0) {
 
         var formData = new FormData();
 
@@ -118,7 +118,7 @@
         });
 
         $.ajax({
-            url: `/tables/${tableId}/fields/sync`,
+            url: `/projects/${projectId}/tables/${tableId}/fields/sync`,
             type: 'PUT',
             data: formData,
             success: function (data) {
@@ -135,12 +135,12 @@
 
     }
 
-    function createRelation(random, id = 0) {
+    function createRelation(random, projectId = 0, id = 0) {
 
         // Add new relation into field
 
         $.ajax({
-            url: `/fields/${id}/add-new-relation/${random}`,
+            url: `/projects/${projectId}/fields/${id}/add-new-relation/${random}`,
             type: 'POST',
             data: null,
             success: function (data) {
@@ -155,12 +155,12 @@
         });
     }
 
-    function addNewField() {
+    function addNewField(projectId = 0) {
 
         // Add new field into table
 
         $.ajax({
-            url: '/tables/add-new-field',
+            url: `/projects/${projectId}/tables/add-new-field`,
             type: 'POST',
             data: null,
             success: function (data) {
@@ -179,7 +179,7 @@
         // Add new many to many relation into table
 
         $.ajax({
-            url: '/tables/add-new-has-many-relation',
+            url: `/projects/${projectId}/tables/add-new-has-many-relation`,
             type: 'POST',
             data: null,
             success: function (data) {
@@ -337,10 +337,10 @@
     }
 
     /* Select Data */
-    function getAllFields(tableId) {
+    function getAllFields(tableId, projectId = 0) {
         // Get All Fields on the table
         $.ajax({
-            url: `/tables/${tableId}/fields`,
+            url: `/projects/${projectId}/tables/${tableId}/fields`,
             type: 'GET',
             success: function (data) {
                 $('#table_fields').append(data.view);
@@ -354,11 +354,11 @@
         });
     }
 
-    function getAllManyRelations(tableId) {
+    function getAllManyRelations(tableId, projectId = 0) {
 
         // Get All Fields on the table
         $.ajax({
-            url: `/tables/${tableId}/relations/many`,
+            url: `/projects/${projectId}/tables/${tableId}/relations/many`,
             type: 'GET',
             success: function (data) {
                 $('#table_relations').append(data.view);

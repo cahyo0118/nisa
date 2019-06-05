@@ -23,7 +23,7 @@
         <div class="container-fluid mt--7">
             <div class="row">
                 <div class="col">
-                    {!! Form::open(['route' => ['tables.index', $id], 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}
+                    {!! Form::open(['route' => ['tables.index', $project_id], 'method' => 'GET', 'class' => 'navbar-search navbar-search-dark form-inline d-md-flex ml-lg-auto justify-content-center']) !!}
                     <div class="form-group">
                         <div class="input-group input-group-alternative">
                             <div class="input-group-prepend">
@@ -48,7 +48,7 @@
                     <div class="card shadow">
                         <div class="card-header border-0">
                             <h3 class="mb-0">Tables List</h3>
-                            <a href="{{ route('tables.create', $id) }}" class="btn btn-icon btn-primary">
+                            <a href="{{ route('tables.create', $project_id) }}" class="btn btn-icon btn-primary">
                                 <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
                                 <span class="btn-inner--text">Create</span>
                             </a>
@@ -81,12 +81,12 @@
 
                                         <td class="text-right">
 
-                                            <a href="{{ route('tables.show', [$id, $item->id]) }}"
+                                            <a href="{{ route('tables.show', [$project_id, $item->id]) }}"
                                                class="btn btn-icon btn-info btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-eye"></i></span>
                                                 <span class="btn-inner--text">View</span>
                                             </a>
-                                            <a href="{{ route('tables.edit', [$id, $item->id]) }}"
+                                            <a href="{{ route('tables.edit', [$project_id, $item->id]) }}"
                                                class="btn btn-icon btn-default btn-sm">
                                                 <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                                 <span class="btn-inner--text">Edit</span>

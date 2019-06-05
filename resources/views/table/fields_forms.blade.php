@@ -15,43 +15,38 @@
     <div id="table_relations" class="row"></div>
 </div>
 
-<button class="btn btn-icon btn-3 btn-primary btn-sm" type="button" onclick="addNewField()">
-    <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+{{--<button class="btn btn-icon btn-3 btn-primary btn-sm" type="button" onclick="addNewField({{ $project_id }})">--}}
+    {{--<span class="btn-inner--icon"><i class="fas fa-plus"></i></span>--}}
 
-    <span class="btn-inner--text">Add new field</span>
+    {{--<span class="btn-inner--text">Add new field</span>--}}
 
-</button>
+{{--</button>--}}
 
-@if(Request::route()->getName() == 'tables.edit')
-    {{--<button class="btn btn-icon btn-3 btn-info" type="button" onclick="saveFieldsChanges({{ !empty($item) ? $item->id : 0 }})">--}}
-    {{--<span class="btn-inner--icon"><i class="fas fa-sync"></i></span>--}}
+{{--@if(Request::route()->getName() == 'tables.edit')--}}
 
-    {{--<span class="btn-inner--text">Sync changes</span>--}}
+    {{--<button class="btn btn-icon btn-3 btn-primary btn-sm" type="button"--}}
+            {{--onclick="addNewManyToManyRelation({!! !empty($item->project_id) ? $item->project_id : 0 !!})">--}}
+        {{--<span class="btn-inner--icon"><i class="fas fa-plus"></i></span>--}}
 
+        {{--<span class="btn-inner--text">Add many to many relation</span>--}}
     {{--</button>--}}
 
-    <button class="btn btn-icon btn-3 btn-primary btn-sm" type="button" onclick="addNewManyToManyRelation({!! !empty($item->project_id) ? $item->project_id : 0 !!})">
-        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+    {{--<button class="btn btn-icon btn-3 btn-primary btn-sm" type="button" onclick="addHasManyRelation()">--}}
+        {{--<span class="btn-inner--icon"><i class="fas fa-plus"></i></span>--}}
 
-        <span class="btn-inner--text">Add many to many relation</span>
-    </button>
+        {{--<span class="btn-inner--text">Add has many relation</span>--}}
+    {{--</button>--}}
 
-    <button class="btn btn-icon btn-3 btn-primary btn-sm" type="button" onclick="addHasManyRelation()">
-        <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+    {{--<button class="btn btn-icon btn-3 btn-info btn-sm float-right" type="submit">--}}
+        {{--<span class="btn-inner--icon"><i class="fas fa-sync"></i></span>--}}
 
-        <span class="btn-inner--text">Add has many relation</span>
-    </button>
+        {{--<span class="btn-inner--text">Sync changes</span>--}}
+    {{--</button>--}}
 
-    <button class="btn btn-icon btn-3 btn-info btn-sm float-right" type="submit">
-        <span class="btn-inner--icon"><i class="fas fa-sync"></i></span>
+{{--@elseif(Request::route()->getName() == 'tables.create')--}}
+    {{--<button class="btn btn-icon btn-3 btn-primary btn-sm float-right" type="submit">--}}
+        {{--<span class="btn-inner--icon"><i class="fas fa-paper-plane"></i></span>--}}
 
-        <span class="btn-inner--text">Sync changes</span>
-    </button>
-
-@elseif(Request::route()->getName() == 'tables.create')
-    <button class="btn btn-icon btn-3 btn-primary btn-sm float-right" type="submit">
-        <span class="btn-inner--icon"><i class="fas fa-paper-plane"></i></span>
-
-        <span class="btn-inner--text">Send</span>
-    </button>
-@endif
+        {{--<span class="btn-inner--text">Send</span>--}}
+    {{--</button>--}}
+{{--@endif--}}

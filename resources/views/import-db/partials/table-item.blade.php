@@ -13,7 +13,8 @@
                             <label class="w-100">
                                 {{ $table->TABLE_NAME }}
                                 <input id="{{ $table->TABLE_NAME }}Input" type="checkbox" name="tables[]"
-                                       class="float-right" onchange="selectFieldAll('{{ $table->TABLE_NAME }}')">
+                                       class="float-right tables-input" value="{{ $table->TABLE_NAME }}"
+                                       onchange="selectFieldAll('{{ $table->TABLE_NAME }}')">
                             </label>
                         </h3>
 
@@ -25,13 +26,15 @@
                         @endphp
                         @foreach ($fields as $field)
                             <label class="w-100">
-                                {{ $field->COLUMN_NAME }}
-                                <input type="checkbox" name="fields[{{ $table->TABLE_NAME }}]" class="float-right">
+                                {{ $field->COLUMN_NAME }} <strong>({{ $field->DATA_TYPE }})</strong>
+                                <input type="checkbox"
+                                       name="fields[{{ $table->TABLE_NAME }}]"
+                                       value="{{ serialize($field) }}"
+                                       class="float-right fields-{{ $table->TABLE_NAME }}-input">
+                                {{--<input type="checkbox" name="fields[{{ $table->TABLE_NAME }}]" value="{{ $field->COLUMN_NAME }}" class="float-right fields-{{ $table->TABLE_NAME }}-input">--}}
                             </label>
                             <br>
                         @endforeach
-                        {{--                        <p><pre>{{ print_r($field) }}</pre></p>--}}
-                        {{--<label><input type="checkbox" name="columns[]">{{ $field->COLUMN_NAME }}</label>--}}
                     </div>
 
                 </div>

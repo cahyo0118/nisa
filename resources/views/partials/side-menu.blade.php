@@ -60,7 +60,7 @@
                 <h6 class="navbar-heading text-muted">Menus List</h6>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('projects.menus', $id) }}">
+                        <a class="nav-link" href="{{ route('projects.menus', $project_id) }}">
                             <i class="fas fa-search text-primary"></i> See All Menus
                         </a>
                     </li>
@@ -72,20 +72,20 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('projects.tables', $id) }}">
+                        <a class="nav-link" href="{{ route('projects.tables', $project_id) }}">
                             <i class="fas fa-search text-primary"></i> See All Tables
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('tables.create', $id) }}">
+                        <a class="nav-link" href="{{ route('tables.create', $project_id) }}">
                             <i class="fas fa-plus text-primary"></i> Add New Table
                         </a>
                     </li>
 
-                    @foreach(\App\Project::where('id', $id)->first()->tables as $table)
+                    @foreach(\App\Project::where('id', $project_id)->first()->tables as $table)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('tables.edit', [$id, $table->id]) }}">
+                            <a class="nav-link" href="{{ route('tables.edit', [$project_id, $table->id]) }}">
                                 <i class="fas fa-table text-primary"></i> {!! $table->name !!}
                             </a>
                         </li>

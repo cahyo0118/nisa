@@ -40,8 +40,61 @@
 
                 </div>
 
-                <br>
+            </div>
 
+            <div class="col-xl-12 sticky">
+                <br>
+                <div class="card bg-secondary shadow ">
+
+                    <div class="card-body">
+
+                        <button class="btn btn-icon btn-3 btn-primary btn-sm" type="button"
+                                onclick="addNewField({{ $project_id }})">
+                            <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+
+                            <span class="btn-inner--text">Add new field</span>
+
+                        </button>
+
+                        @if(Request::route()->getName() == 'tables.edit')
+
+                            <button class="btn btn-icon btn-3 btn-primary btn-sm" type="button"
+                                    onclick="addNewManyToManyRelation({!! !empty($item->project_id) ? $item->project_id : 0 !!})">
+                                <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+
+                                <span class="btn-inner--text">Add many to many relation</span>
+                            </button>
+
+                            <button class="btn btn-icon btn-3 btn-primary btn-sm" type="button"
+                                    onclick="addHasManyRelation()">
+                                <span class="btn-inner--icon"><i class="fas fa-plus"></i></span>
+
+                                <span class="btn-inner--text">Add has many relation</span>
+                            </button>
+
+                            <button class="btn btn-icon btn-3 btn-info btn-sm float-right" type="submit">
+                                <span class="btn-inner--icon"><i class="fas fa-sync"></i></span>
+
+                                <span class="btn-inner--text">Sync changes</span>
+                            </button>
+
+                        @elseif(Request::route()->getName() == 'tables.create')
+                            <button class="btn btn-icon btn-3 btn-primary btn-sm float-right" type="submit">
+                                <span class="btn-inner--icon"><i class="fas fa-paper-plane"></i></span>
+
+                                <span class="btn-inner--text">Send</span>
+                            </button>
+                        @endif
+
+
+                    </div>
+
+                </div>
+
+                <br>
+            </div>
+
+            <div class="col-xl-12">
                 <div class="card bg-secondary shadow">
 
                     <div class="card-body">
@@ -52,21 +105,24 @@
 
                 </div>
 
+                <br>
+
             </div>
 
-            {!! Form::close() !!}
-
-        <!-- Footer -->
-            @include('partials.footer')
         </div>
+
+    {!! Form::close() !!}
+
+    <!-- Footer -->
+        @include('partials.footer')
     </div>
 @endsection
 
 @section('script')
     <script>
         $(function () {
-            getAllFields({{ $item->id }});
-            getAllManyRelations({{ $item->id }});
+            getAllFields({{ $item->id }}, '{{ $project_id }}');
+            getAllManyRelations({{ $item->id }}, '{{ $project_id }}');
         });
     </script>
 @endsection

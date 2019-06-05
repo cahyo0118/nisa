@@ -46,6 +46,8 @@ Route::get('import-db', 'ImportDatabaseController@index')->name('import_db.index
 
 Route::get('ajax/import-db/databases/{db_name}/tables', 'ImportDatabaseController@ajaxGetTablesByDB');
 
+Route::post('ajax/projects/{project_id}/import-db/databases/{db_name}/import', 'ImportDatabaseController@ajaxImportTables');
+
 /*Generate Options*/
 Route::get('generate-options', 'GenerateOptionController@index')->name('generate_options.index');
 
@@ -92,18 +94,18 @@ Route::resource('projects/{project_id}/tables', 'TableController');
 
 Route::get('tables/all/search', 'TableController@search')->name('tables.search');
 
-Route::get('tables/{id}/fields', 'TableController@fields')->name('tables.fields');
+Route::get('projects/{project_id}/tables/{id}/fields', 'TableController@fields')->name('tables.fields');
 
-Route::get('tables/{id}/relations/many', 'TableController@relationsMany')->name('tables.relations.many');
+Route::get('projects/{project_id}/tables/{id}/relations/many', 'TableController@relationsMany')->name('tables.relations.many');
 
-Route::put('tables/{id}/fields/sync', 'TableController@syncFields')->name('tables.fields.sync');
+Route::put('projects/{project_id}/tables/{id}/fields/sync', 'TableController@syncFields')->name('tables.fields.sync');
 
 Route::delete('ajax/tables/{table_id}/delete', 'TableController@ajaxDeleteTable');
 
 //templates
 Route::get('fields/{id}/relation/{code}', 'TableController@fieldRelationTemplate');
 
-Route::post('tables/add-new-field', 'TableController@addNewField');
+Route::post('projects/{project_id}/tables/add-new-field', 'TableController@addNewField');
 
 Route::post('projects/{project_id}/tables/add-new-many-to-many-relation', 'TableController@addNewManyToManyRelation');
 
@@ -113,7 +115,7 @@ Route::post('tables/add-new-has-many-relation', 'TableController@addNewHasManyRe
 Route::delete('fields/{id}', 'TableController@destroyField')->name('fields.destroy');
 
 //relations
-Route::post('fields/{id}/add-new-relation/{code}', 'TableController@addNewRelation');
+Route::post('projects/{project_id}/fields/{id}/add-new-relation/{code}', 'TableController@addNewRelation');
 
 Route::delete('fields/{id}/relation', 'TableController@deleteFieldRelation');
 

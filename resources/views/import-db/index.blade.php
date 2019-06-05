@@ -39,6 +39,10 @@
 
             <br>
             <!-- Table -->
+            {!! Form::open(['route' => 'projects.store', "id" => "importDBForm", "onsubmit" => "importDB();return false;"]) !!}
+
+            {{ csrf_field() }}
+
             <div class="row">
                 <div class="col-12">
 
@@ -56,7 +60,8 @@
                                 <div class="col-5">
                                     <div class="form-group">
                                         <label>Database</label>
-                                        <select id="databaseNameInput" class="form-control form-control-alternative"
+                                        <select id="databaseNameInput" name="db_name"
+                                                class="form-control form-control-alternative"
                                                 onchange="getTables()">
                                             <option value="">--</option>
                                             @foreach($databases as $database)
@@ -74,11 +79,13 @@
                                 <div class="col-5">
                                     <div class="form-group">
                                         <label>Project</label>
-                                        <select id="databaseNameInput" class="form-control form-control-alternative">
+                                        <select id="databaseNameInput"
+                                                name="project_id"
+                                                class="form-control form-control-alternative">
                                             <option value="">--</option>
                                             @foreach($projects as $project)
                                                 <option
-                                                    value="{{ $project->name }}">{{ $project->name }}</option>
+                                                    value="{{ $project->id }}">{{ $project->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -88,7 +95,7 @@
                                     <button
                                         type="button"
                                         class="btn btn-icon btn-primary float-right"
-                                        onclick="getTables()">
+                                        onclick="importDB()">
                                         <span class="btn-inner--icon"><i class="fas fa-file-import"></i></span>
                                         <span class="btn-inner--text">Import</span>
                                     </button>
@@ -110,7 +117,8 @@
                                 <div class="col-3">
                                     <label class="w-100 text-sm">
                                         Select All
-                                        <input id="selectAllInput" type="checkbox" name="columns[]" class="float-right"
+                                        <input id="selectAllInput" type="checkbox" name="columns[]"
+                                               class="float-right"
                                                onchange="selectAll()">
                                     </label>
                                 </div>
@@ -119,7 +127,7 @@
                                     <button
                                         type="button"
                                         class="btn btn-icon btn-primary float-right"
-                                        onclick="getTables()">
+                                        onclick="importDB()">
                                         <span class="btn-inner--icon"><i class="fas fa-file-import"></i></span>
                                         <span class="btn-inner--text">Import</span>
                                     </button>
@@ -133,8 +141,10 @@
                 <div id="tables"></div>
             </div>
 
+            {!! Form::close() !!}
 
-            <!-- Footer -->
+
+        <!-- Footer -->
             @include('partials.footer')
         </div>
     </div>
@@ -160,6 +170,64 @@
                     swal("Failed!", data.message, "error");
                 }
             });
+        }
+
+        function importDB() {
+
+            swal({
+                title: "Import Now ?",
+                text: "if tables or field already exist, incoming change will be ignored !",
+                icon: "warning",
+                buttons: true,
+                dangerMode: false,
+            }).then((execute) => {
+
+                if (execute) {
+
+                    let form = $(`#importDBForm`);
+                    let value = form.serializeJSON();
+                    let tablesData = [];
+
+                    $(`:checkbox[name='tables[]']:checked`).each((index, value) => {
+                        tablesData.push({
+                            'table_name': $(value).val(),
+                            'fields': []
+                        });
+                    });
+
+
+                    for (let i = 0; i < tablesData.length; i++) {
+                        let fields = [];
+                        $(`:checkbox[name='fields[${tablesData[i].table_name}]']:checked`).each((index, value) => {
+                            fields.push($(value).val());
+                        });
+                        tablesData[i].fields = fields;
+                    }
+
+                    $.ajax({
+                        url: `/ajax/projects/${value.project_id}/import-db/databases/${value.db_name}/import`,
+                        type: 'POST',
+                        data: JSON.stringify({
+                            'db_name': value.db_name,
+                            'project_id': value.project_id,
+                            'tables': tablesData
+                        }),
+                        success: function (data) {
+                            swal("Success!", data.message, "success");
+                        },
+                        error: function (error) {
+                            var data = error.responseJSON;
+
+                            swal("Failed!", data.message, "error");
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+
+                }
+            });
+
         }
 
         function selectAll() {

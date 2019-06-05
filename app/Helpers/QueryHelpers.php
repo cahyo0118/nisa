@@ -121,4 +121,11 @@ class QueryHelpers
             return null;
         }
     }
+
+    public static function getTextBetweenBracket($string)
+    {
+        $text = 'ignore everything except this (text)';
+        preg_match('#\((.*?)\)#', $string, $match);
+        return $match[1];
+    }
 }
