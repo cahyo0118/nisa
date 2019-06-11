@@ -16,7 +16,21 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
     }
 
     getOne(id): AxiosPromise{!! '<any>' !!} {
-        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/${id}`);
+        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/${id}`, {
+            params: {
+                with: [
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+                    '{!! str_singular($field->relation->table->name) !!}',
+@endif
+@endif
+@endforeach
+@endif
+                ]
+            }
+        });
     }
 
     getAll(page = 1): AxiosPromise{!! '<any>' !!} {

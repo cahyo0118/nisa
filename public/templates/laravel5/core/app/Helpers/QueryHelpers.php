@@ -31,6 +31,24 @@ class QueryHelpers
         return $data;
     }
 
+    public static function getSingleData($request, $model, $with = [])
+    {
+        $data = $model;
+
+        if (!empty($request->with)) {
+            foreach ((array)$request->with as $withItem) {
+                array_push($with, $withItem);
+            }
+        }
+
+        $data = $model->with($with);
+
+        $data = $data->first();
+
+
+        return $data;
+    }
+
     public static function getDataByQueryBuilder($request, $query, $with = [])
     {
         $data = $query;

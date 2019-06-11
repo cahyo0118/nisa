@@ -17,6 +17,7 @@ class TableController extends Controller
         'textarea' => 'Text Area',
         'email' => 'Email',
         'number' => 'Number',
+        'checkbox' => 'Checkbox',
         'file' => 'File',
         'password' => 'Password',
         'select' => 'Select',

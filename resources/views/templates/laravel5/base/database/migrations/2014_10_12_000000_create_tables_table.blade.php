@@ -30,9 +30,6 @@ class Create{!! ucfirst($table->name) !!}Table extends Migration
 @else
             $table->{!! $field->type !!}('{!! $field->name !!}'@if($field->length > 0), {!! $field->length !!}@endif){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(" . $field->default . ")") : "" !!};
 @endif
-@if(!empty($field->relation))
-            $table->foreign('{!! $field->relation->field->name !!}')->references('{!! $field->relation->foreign_key_field->name !!}')->on('{!! $field->relation->table->name !!}')->onDelete('cascade');
-@endif
 @endforeach
 @if($table->name == "users")
             $table->rememberToken();

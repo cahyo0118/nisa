@@ -63,7 +63,15 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
 @if ($field->ai || $field->input_type == "hidden")
 @else
             {!! $field->name !!}: [
+@if($field->input_type == "checkbox")
+@if($field->default > 0)
+                true,
+@else
+                false,
+@endif
+@else
                 '',
+@endif
                 [
 @if($field->notnull)
                     Validators.required,

@@ -99,6 +99,21 @@
                                             [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
                                             [label]="'{{ $field->display_name }}'"></app-form-error-message>
                                     </div>
+@elseif ($field->input_type == "checkbox")
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">
+                                                <input type="checkbox" formControlName="{{ $field->name }}">
+                                                {{ $field->display_name }}
+                                            </label>
+                                        </div>
+
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'"></app-form-error-message>
+                                    </div>
 @elseif($field->input_type == "image")
 
                                     <div class="col-lg-6">

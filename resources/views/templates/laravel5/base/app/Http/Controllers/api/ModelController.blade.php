@@ -260,7 +260,7 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
 @if(count($menu->table->fields()->where('searchable', true)->get()) > 0)
         $data = {!! ucfirst(str_singular($menu->table->name)) !!}::@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
 @if($field_index == 0)@if(!empty($field->relation))whereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
-            $query->where('{!! $field->relation->foreign_key_field->name !!}', 'like', '%' . $keyword . '%');
+            $query->where('{!! $field->relation->foreign_key_display_field->name !!}', 'like', '%' . $keyword . '%');
 @foreach($menu->field_criterias as $criteria_index => $criteria)
 @if($criteria->pivot->operator == 'like%')
             $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
@@ -437,9 +437,11 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 @endif
     }
 
-    public function getOne($id)
+    public function getOne(Request $request, $id)
     {
-        ${!! snake_case($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
+        ${!! snake_case($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::where('id', $id);
+
+        ${!! snake_case($menu->name) !!} = QueryHelpers::getSingleData($request, ${!! snake_case($menu->name) !!});
 
         // Data not found
         if (${!! snake_case($menu->name) !!} === null) {

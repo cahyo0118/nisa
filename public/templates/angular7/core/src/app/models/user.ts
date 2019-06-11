@@ -1,21 +1,21 @@
 export class User {
 
-  id: number;
+    id: number;
 
-  name: string;
+    name: string;
 
-  email: string;
+    email: string;
 
-  address: string;
+    address: string;
 
-  oraganization: string;
+    oraganization: string;
 
-  about: string;
+    about: string;
 
-  password: string;
+    password: string;
 
-  created_at: any;
+    created_at: any;
 
-  updated_at: any;
+    updated_at: any;
 
 }

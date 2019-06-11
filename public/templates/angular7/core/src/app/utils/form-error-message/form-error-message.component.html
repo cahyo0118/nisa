@@ -1,27 +1,27 @@
 <p class="text-danger text-size-12" *ngIf="errors?.required">
-  {{ label }} required
+    {{ label }} required
 </p>
 
 <p class="text-danger text-size-12" *ngIf="errors?.requiredTrue">
-  {{ label }} must be selected
+    {{ label }} must be selected
 </p>
 
 <p class="text-danger text-size-12" *ngIf="errors?.minLength">
-  {{ label }} length must not be less than {{ errors?.minLength?.requiredLength }}
+    {{ label }} length must not be less than {{ errors?.minLength?.requiredLength }}
 </p>
 
 <p class="text-danger text-size-12" *ngIf="errors?.maxLength">
-  {{ label }} length must not be exceed {{ errors?.maxLength?.requiredLength }}
+    {{ label }} length must not be exceed {{ errors?.maxLength?.requiredLength }}
 </p>
 
 <p class="text-danger text-size-12" *ngIf="errors?.email">
-  The email must be a valid email address.
+    The email must be a valid email address.
 </p>
 
 <p class="text-danger text-size-12" *ngIf="apiValidationErrors">
-  {{ apiValidationErrors.password }}
+    {{ apiValidationErrors.password }}
 </p>
 
 <p class="text-danger text-size-12" *ngFor="let apiErrorMessage of apiValidationErrors">
-  {{ apiErrorMessage }}
+    {{ apiErrorMessage }}
 </p>

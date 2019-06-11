@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MeService } from '../services/me.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SwalComponent } from '@toverux/ngx-sweetalert2';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MeService} from '../services/me.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {SwalComponent} from '@toverux/ngx-sweetalert2';
 import swal from 'sweetalert2';
-import { HttpEventType } from '@angular/common/http';
-import { Environment } from '../utils/environment';
+import {HttpEventType} from '@angular/common/http';
+import {Environment} from '../utils/environment';
 
 @Component({
     selector: 'app-user-profile',
@@ -23,9 +23,9 @@ export class UserProfileComponent implements OnInit {
     percentCompleted = 0;
 
     constructor(
-            private spinner: NgxSpinnerService,
-            private service: MeService,
-            private formBuilder: FormBuilder,
+        private spinner: NgxSpinnerService,
+        private service: MeService,
+        private formBuilder: FormBuilder,
     ) {
         this.changePasswordForm = formBuilder.group({
             currentPassword: [
@@ -77,7 +77,7 @@ export class UserProfileComponent implements OnInit {
 
     getCurrentUser() {
         this.service.getCurrentUser()
-        .then(
+            .then(
                 response => {
                     localStorage.setItem('userinfo', JSON.stringify(response.data.data));
                     this.user = response.data.data;
@@ -87,20 +87,20 @@ export class UserProfileComponent implements OnInit {
                 error => {
                     this.spinner.hide();
                 }
-        );
+            );
     }
 
     onUpdateCurrentUser() {
         this.spinner.show();
         this.service.updateCurrentUser(this.userForm.value)
-        .then(
+            .then(
                 response => {
                     this.spinner.hide();
                 },
                 error => {
                     this.spinner.hide();
                 }
-        );
+            );
     }
 
     onUpdateCurrentUserPhoto(event) {
@@ -114,7 +114,7 @@ export class UserProfileComponent implements OnInit {
         };
 
         this.service.updateCurrentUserPhoto(<File>event.target.files[0], config)
-        .then(
+            .then(
                 response => {
                     console.log(response);
                     if (response.data.type === HttpEventType.UploadProgress) {
@@ -132,13 +132,13 @@ export class UserProfileComponent implements OnInit {
                     console.log(error);
                     this.spinner.hide();
                 }
-        );
+            );
     }
 
     onUpdateCurrentUserPassword() {
         this.spinner.show();
         this.service.updateCurrentUserPassword(this.changePasswordForm.value)
-        .then(
+            .then(
                 response => {
                     console.log(response);
                     this.spinner.hide();
@@ -154,7 +154,7 @@ export class UserProfileComponent implements OnInit {
 
                     this.spinner.hide();
                 }
-        );
+            );
     }
 
 }

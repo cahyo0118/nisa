@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+@if($relation->relation_type == "belongstomany")
 class Create{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}Table extends Migration
 {
     /**
@@ -32,3 +33,29 @@ class Create{!! ucfirst(camel_case(str_singular($relation->local_table->name))) 
         Schema::dropIfExists('{!! str_singular($relation->local_table->name) !!}_{!! str_singular($relation->table->name) !!}');
     }
 }
+@else
+class AddForeign{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}Table extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('{!! $relation->local_table->name !!}', function (Blueprint $table) {
+            $table->foreign('{!! $relation->field->name !!}')->references('{!! $relation->foreign_key_field->name !!}')->on('{!! $relation->table->name !!}')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('{!! $relation->local_table->name !!}');
+    }
+}
+@endif

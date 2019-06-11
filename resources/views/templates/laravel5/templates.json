@@ -79,7 +79,7 @@
             {
                 "resource_filename": "2014_10_12_000000_create_relation_tables_table",
                 "resource_path": "/database/migrations",
-                "target_filename": "2019_01_01_{{ 100000 + $project->id + $table_index + $table_index }}_create_{!! str_singular($relation->local_table->name) !!}_{!! str_singular($relation->table->name) !!}_table.php",
+                "target_filename": "2019_01_01_{{ 100000 + $project->id + $table_index + $table_index }}_{!! $relation->relation_type == 'belongstomany' ? ('create_' . str_singular($relation->local_table->name) . '_' . str_singular($relation->table->name)) : ('add_foreign_' . str_singular($relation->local_table->name)) !!}_table.php",
                 "target_path": "/database/migrations"
             }
         ]

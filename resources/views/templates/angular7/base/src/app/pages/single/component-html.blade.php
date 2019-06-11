@@ -65,12 +65,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label">{{ $field->display_name }}</label>
-                                        {{--<select class="form-control form-control-alternative"--}}
-                                                {{--formControlName="{{ $field->name }}">--}}
-                                            {{--<option value="">--</option>--}}
-                                            {{--<option *ngFor="let {!! str_singular($field->relation->table->name) !!} of {!! str_plural($field->relation->table->name) !!}Data"--}}
-                                                    {{--[value]="{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">@{{ {!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</option>--}}
-                                        {{--</select>--}}
+                                        <p>@{{ data?.{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</p>
                                     </div>
                                 </div>
 @endif

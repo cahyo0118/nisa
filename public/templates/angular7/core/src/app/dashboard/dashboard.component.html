@@ -1,61 +1,63 @@
 <!-- Sidenav -->
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
-  <app-sidebar></app-sidebar>
+    <app-sidebar></app-sidebar>
 </nav>
 
 <!-- Main content -->
 <div class="main-content">
-  <!-- Top navbar -->
-  <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
-    <div class="container-fluid">
-      <!-- Brand -->
-      <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+    <!-- Top navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
 
-      <app-account-navbar></app-account-navbar>
+            <app-account-navbar></app-account-navbar>
 
-    </div>
-  </nav>
-  <!-- Header -->
-  <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-      <div class="header-body">
-
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid mt--7">
-    <div class="row">
-      <div class="col-xl-12">
-
-        <div class="card">
-          <div class="card-body">
-
-            <div class="row row-grid align-items-center">
-              <div class="col-md-6 order-lg-2 ml-lg-auto">
-                <div class="position-relative pl-md-5">
-                  <img src="../assets/img/ill/ill-2.svg" class="img-center img-fluid">
-                </div>
-              </div>
-              <div class="col-lg-6 order-lg-1">
-
-                <div class="pl-4">
-                  <h1>Memilih itu juga ada seninya</h1>
-                  <h2 class="text-primary">Bukan melulu tentang perbedaan, tapi keinginan kuat untuk maju bersama</h2>
-                  <p class="card-text">Ketika kemudahan dan kecepatan datang tanpa mengorbankan estetika.</p>
-                  <a [routerLink]="['/votes/search']" class="btn btn-primary">Mari Bersuara !</a>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
         </div>
+    </nav>
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+        <div class="container-fluid">
+            <div class="header-body">
 
-        <app-footer></app-footer>
-
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div class="container-fluid mt--7">
+        <div class="row">
+            <div class="col-xl-12">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row row-grid align-items-center">
+                            <div class="col-md-6 order-lg-2 ml-lg-auto">
+                                <div class="position-relative pl-md-5">
+                                    <img src="../assets/img/ill/ill-2.svg" class="img-center img-fluid">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 order-lg-1">
+
+                                <div class="pl-4">
+                                    <h1>Memilih itu juga ada seninya</h1>
+                                    <h2 class="text-primary">Bukan melulu tentang perbedaan, tapi keinginan kuat untuk
+                                        maju bersama</h2>
+                                    <p class="card-text">Ketika kemudahan dan kecepatan datang tanpa mengorbankan
+                                        estetika.</p>
+                                    <a [routerLink]="['/votes/search']" class="btn btn-primary">Mari Bersuara !</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <app-footer></app-footer>
+
+            </div>
+        </div>
+    </div>
 
 </div>

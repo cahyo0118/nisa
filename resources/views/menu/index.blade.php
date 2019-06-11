@@ -55,7 +55,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            {!! Form::open(['route' => 'menus.store', "id" => "addParentMenuForm", "onsubmit" => "onSubmitParentMenu($id);return false;"]) !!}
+                                            {!! Form::open(['route' => 'menus.store', "id" => "addParentMenuForm", "onsubmit" => "onSubmitParentMenu($project_id);return false;"]) !!}
 
                                             {{ csrf_field() }}
 
@@ -91,7 +91,7 @@
 
                                                 {!! Form::hidden('parent_menu_id', null) !!}
 
-                                                {!! Form::hidden('project_id', $id) !!}
+                                                {!! Form::hidden('project_id', $project_id) !!}
 
                                             </div>
 
@@ -134,7 +134,7 @@
 @section('script')
     <script>
         $(function () {
-            getAllMenus({{ $id }});
+            getAllMenus({{ $project_id }});
 
             $('table[data-form="deleteForm"]').on('click', '.confirm-delete', function (e) {
                 e.preventDefault();

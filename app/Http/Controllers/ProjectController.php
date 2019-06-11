@@ -571,6 +571,7 @@ class ProjectController extends Controller
 
                 Storage::copy("templates/$template/core.zip", $project_directory . "/core.zip");
 
+//                return response()->json([], 200);
                 $zip = Zip::open($project_directory . '/core.zip');
 
                 $zip->extract($project_directory);
@@ -695,7 +696,7 @@ class ProjectController extends Controller
 
                     foreach (Relation::where([
                         'local_table_id' => $table->id,
-                        'relation_type' => 'belongstomany',
+//                        'relation_type' => 'belongstomany',
                     ])->get() as $relation_index => $relation) {
 
 //                Create file and directory
