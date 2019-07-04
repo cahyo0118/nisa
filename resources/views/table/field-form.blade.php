@@ -4,6 +4,18 @@
 
         <div class="row">
 
+            <div class="col-12">
+                <button type="button" class="btn btn-default btn-sm float-right margin-h-5" onclick="moveFieldUp({{ !empty($item) ? $item->id : 0 }})">
+                    <span class="btn-inner--icon"><i class="fas fa-chevron-up"></i></span>
+                    <span class="btn-inner--text">Move Up</span>
+                </button>
+
+                <button type="button" class="btn btn-default btn-sm float-right margin-h-5" onclick="moveFieldDown({{ !empty($item) ? $item->id : 0 }})">
+                    <span class="btn-inner--icon"><i class="fas fa-chevron-down"></i></span>
+                    <span class="btn-inner--text">Move Down</span>
+                </button>
+            </div>
+
             {!! Form::hidden("id[$random]", !empty($item) ? $item->id : null) !!}
 
             <div class="col">
@@ -94,33 +106,41 @@
         <div class="row">
             <div class="col-lg-2">
                 <div class="form-group">
-                    {!! Form::hidden("notnull[$random]", 0) !!}
-                    {!! Form::checkbox("notnull[$random]", 1, !empty($item) ? $item->notnull : 1) !!}
-                    <label class="form-control-label">Not Null</label>
+                    <label class="form-control-label">
+                        {!! Form::hidden("notnull[$random]", 0) !!}
+                        {!! Form::checkbox("notnull[$random]", 1, !empty($item) ? $item->notnull : 1) !!}
+                        Not Null
+                    </label>
                 </div>
             </div>
 
             <div class="col-lg-2">
                 <div class="form-group">
-                    {!! Form::hidden("unsigned[$random]", 0) !!}
-                    {!! Form::checkbox("unsigned[$random]", 1, !empty($item) ? $item->unsigned : null) !!}
-                    <label class="form-control-label">Unsigned</label>
+                    <label class="form-control-label">
+                        {!! Form::hidden("unsigned[$random]", 0) !!}
+                        {!! Form::checkbox("unsigned[$random]", 1, !empty($item) ? $item->unsigned : null) !!}
+                        Unsigned
+                    </label>
                 </div>
             </div>
 
             <div class="col-lg-2">
                 <div class="form-group">
-                    {!! Form::hidden("ai[$random]", 0) !!}
-                    {!! Form::checkbox("ai[$random]", 1, !empty($item) ? $item->ai : null) !!}
-                    <label class="form-control-label">Auto Increment</label>
+                    <label class="form-control-label">
+                        {!! Form::hidden("ai[$random]", 0) !!}
+                        {!! Form::checkbox("ai[$random]", 1, !empty($item) ? $item->ai : null) !!}
+                        Auto Increment
+                    </label>
                 </div>
             </div>
 
             <div class="col-lg-2">
                 <div class="form-group">
-                    {!! Form::hidden("searchable[$random]", 0) !!}
-                    {!! Form::checkbox("searchable[$random]", 1, !empty($item) ? $item->searchable : null) !!}
-                    <label class="form-control-label">Searchable</label>
+                    <label class="form-control-label">
+                        {!! Form::hidden("searchable[$random]", 0) !!}
+                        {!! Form::checkbox("searchable[$random]", 1, !empty($item) ? $item->searchable : null) !!}
+                        Searchable
+                    </label>
                 </div>
             </div>
 

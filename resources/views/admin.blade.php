@@ -40,6 +40,17 @@
             font-size: 20px;
             z-index: 999 !important;
         }
+
+        /*Margins*/
+        .margin-h-5 {
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+
+        .margin-v-5 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
@@ -174,10 +185,11 @@
 
     /*Relation Section*/
 
-    function addHasManyRelation() {
+    function addHasManyRelation(projectId) {
 
         // Add new many to many relation into table
 
+        console.log("SOMETHING", projectId);
         $.ajax({
             url: `/projects/${projectId}/tables/add-new-has-many-relation`,
             type: 'POST',
@@ -347,7 +359,32 @@
 
                 for (let i = 0; i < data.random.length; i++) {
 
-                    getRelationByFieldId(data.random[i], data.field_ids[i]);
+                    console.log('DASET', data.data[i].dataset_type);
+                    if (data.data[i].dataset_type === 'dynamic') {
+                        getRelationByFieldId(data.random[i], data.field_ids[i], projectId);
+                    } else if (data.data[i].dataset_type === 'static') {
+                        getDatasetByFieldId(data.random[i], data.field_ids[i], projectId);
+                    }
+                }
+
+            },
+        });
+    }
+
+    function refreshFields(tableId, projectId = 0) {
+        // Get All Fields on the table
+        $.ajax({
+            url: `/projects/${projectId}/tables/${tableId}/fields`,
+            type: 'GET',
+            success: function (data) {
+                $('#table_fields').replaceWith(`<div id="table_fields" class="row">${data.view}</div>`);
+
+                for (let i = 0; i < data.random.length; i++) {
+                    if (data.data[i].dataset_type === 'dynamic') {
+                        getRelationByFieldId(data.random[i], data.field_ids[i], projectId);
+                    } else if (data.data[i].dataset_type === 'static') {
+                        getDatasetByFieldId(data.random[i], data.field_ids[i], projectId);
+                    }
                 }
 
             },
@@ -373,16 +410,32 @@
         });
     }
 
-    function getRelationByFieldId(random, fieldId) {
+    function getRelationByFieldId(random, fieldId, projectId = 0) {
         // Get All Fields on the table
         $.ajax({
-            url: `/fields/${fieldId}/relation/${random}`,
+            url: `/projects/${projectId}/fields/${fieldId}/relation/${random}`,
             type: 'GET',
             success: function (data) {
-                console.log('getRelationByFieldId', data);
+                if (typeof data !== "undefined") {
+                    $(`#relationDiv${random}`).replaceWith(`<div id="relationDiv${random}" class="row">${data.view}</div>`);
+                    getAllFieldsSelectInput(random, fieldId);
+                    getAllDisplayFieldsSelectInput(random, fieldId);
+                }
+            },
+        });
+    }
+
+    function getDatasetByFieldId(random, fieldId, projectId = 0) {
+        // Get All Fields on the table
+        $.ajax({
+            url: `/projects/${projectId}/fields/${fieldId}/dataset/${random}`,
+            type: 'GET',
+            success: function (data) {
+                console.log('getDatasetByFieldId', data);
                 $(`#relationDiv${random}`).replaceWith(`<div id="relationDiv${random}" class="row">${data.view}</div>`);
-                getAllFieldsSelectInput(random, fieldId);
-                getAllDisplayFieldsSelectInput(random, fieldId);
+
+                // getAllFieldsSelectInput(random, fieldId);
+                // getAllDisplayFieldsSelectInput(random, fieldId);
             },
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Field;
 use App\Project;
 use App\Relation;
+use App\StaticDataset;
 use Illuminate\Http\Request;
 use App\Table;
 use Validator;
@@ -149,6 +150,9 @@ class TableController extends Controller
                     $relation = new Relation();
                 }
 
+                $relation->relation_name = $request->relation_name[$key];
+                $relation->relation_display_name = $request->relation_display_name[$key];
+
                 $relation->field_id = $field->id;
                 $relation->table_id = $request->relation_table[$key];
                 $relation->local_table_id = $table->id;
@@ -172,6 +176,9 @@ class TableController extends Controller
                     if (empty($relation)) {
                         $relation = new Relation();
                     }
+
+                    $relation->relation_name = $request->relation_name[$key];
+                    $relation->relation_display_name = $request->relation_display_name[$key];
 
                     $relation->field_id = 0;
                     $relation->table_id = $request->relation_table[$key];
@@ -291,6 +298,9 @@ class TableController extends Controller
                 $field->ai = $request->ai[$key];
                 $field->searchable = $request->searchable[$key];
                 $field->table_id = $table->id;
+                if (!empty($request->dataset_type[$key])) {
+                    $field->dataset_type = $request->dataset_type[$key];
+                }
                 $field->save();
 
 //            Relation
@@ -300,6 +310,9 @@ class TableController extends Controller
                     if (empty($relation)) {
                         $relation = new Relation();
                     }
+
+                    $relation->relation_name = $request->relation_name[$key];
+                    $relation->relation_display_name = $request->relation_display_name[$key];
 
                     $relation->field_id = $field->id;
                     $relation->table_id = $request->relation_table[$key];
@@ -325,6 +338,9 @@ class TableController extends Controller
                         if (empty($relation)) {
                             $relation = new Relation();
                         }
+
+                        $relation->relation_name = $request->relation_name[$key];
+                        $relation->relation_display_name = $request->relation_display_name[$key];
 
                         $relation->field_id = null;
                         $relation->table_id = $request->relation_table[$key];
@@ -427,7 +443,7 @@ class TableController extends Controller
         $randoms = [];
         $field_ids = [];
 
-        $fields = Field::where('table_id', $id)->get();
+        $fields = Field::where('table_id', $id)->orderBy('order')->get();
 
         foreach ($fields as $field) {
 
@@ -447,6 +463,7 @@ class TableController extends Controller
         return response()->json([
             'random' => $randoms,
             'field_ids' => $field_ids,
+            'data' => $fields,
             'view' => $value
         ], 200);
     }
@@ -561,7 +578,7 @@ class TableController extends Controller
 
     /*Templates*/
 
-    public function fieldRelationTemplate(Request $request, $id, $random)
+    public function fieldRelationTemplate(Request $request, $project_id, $id, $random)
     {
         $tables = Table::pluck('name', 'id');
 
@@ -570,6 +587,7 @@ class TableController extends Controller
         if (empty($item)) {
             return response()->json([
                 'success' => false,
+                'view' => null,
                 'body' => null,
                 'message' => 'Relation not found'
             ], 204);
@@ -578,10 +596,34 @@ class TableController extends Controller
         return response()->json([
             'view' => (string)view('table.field-relation-form')
                 ->with('random', $random)
+                ->with('project_id', $project_id)
                 ->with('item', $item)
                 ->with('tables', $tables)
                 ->with('types', $this->types)
                 ->with('input_types', $this->input_types)
+        ], 200);
+    }
+
+    public function fieldDatasetTemplate(Request $request, $project_id, $id, $random)
+    {
+        $item = Field::find($id);
+
+        $static_datasets = StaticDataset::where('field_id', $id)->get();
+
+        if (empty($static_datasets)) {
+            return response()->json([
+                'success' => false,
+                'body' => null,
+                'message' => 'Dataset not found'
+            ], 204);
+        }
+
+        return response()->json([
+            'view' => (string)view('table.field-static-dataset')
+                ->with('project_id', $project_id)
+                ->with('item', $item)
+                ->with('static_datasets', $static_datasets)
+                ->with('random', $random)
         ], 200);
     }
 
@@ -600,11 +642,11 @@ class TableController extends Controller
     }
 
 //    Has Many
-    public function addNewHasManyRelation()
+    public function addNewHasManyRelation($project_id)
     {
         $random = rand(10000, 99999);
 
-        $tables = Table::pluck('name', 'id');
+        $tables = Table::where('project_id', $project_id)->pluck('name', 'id');
 
         return response()->json([
             'random' => $random,
@@ -647,13 +689,189 @@ class TableController extends Controller
         $tables = Table::where('project_id', $project_id)->pluck('name', 'id');
 //        $projects = Project::pluck('display_name', 'id');
 
+        $item = Field::find($id);
+
         return response()->json([
             'view' => (string)view('table.field-relation-form')
+                ->with('project_id', $project_id)
+                ->with('item', $item)
                 ->with('random', $random)
                 ->with('tables', $tables)
                 ->with('types', $this->types)
                 ->with('input_types', $this->input_types)
         ], 200);
+    }
+
+    public function addNewDataset(Request $request, $project_id, $id, $random)
+    {
+
+        $tables = Table::where('project_id', $project_id)->pluck('name', 'id');
+
+        $item = Field::find($id);
+
+        $static_datasets = StaticDataset::where('field_id', $id)->get();
+
+        return response()->json([
+            'view' => (string)view('table.field-static-dataset')
+                ->with('project_id', $project_id)
+                ->with('item', $item)
+                ->with('static_datasets', $static_datasets)
+                ->with('random', $random)
+        ], 200);
+    }
+
+    public function ajaxStoreNewDataset(Request $request, $project_id, $field_id)
+    {
+        $request = $request->json()->all();
+
+        $static_dataset = StaticDataset::where('value', $request['value'])
+            ->where('field_id', $field_id)
+            ->first();
+
+        if (!empty($static_dataset)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dataset value already taken'
+            ], 400);
+        }
+
+        $static_dataset = new StaticDataset();
+        $static_dataset->value = $request['value'];
+        $static_dataset->label = $request['label'];
+        $static_dataset->field_id = $field_id;
+        $static_dataset->save();
+
+        return response()->json([
+            'success' => true,
+            'view' => (string)view('table.partials.static-dataset-item')->with('static_dataset', $static_dataset),
+            'data' => $static_dataset,
+            'message' => 'Successfully add new dataset !'
+        ], 200);
+
+    }
+
+    public function ajaxUpdateDataset(Request $request, $id)
+    {
+        $request = $request->json()->all();
+
+        $static_dataset = StaticDataset::find($id);
+
+        if (empty($static_dataset)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dataset not found'
+            ], 400);
+        }
+
+        $static_dataset->value = $request['value'];
+        $static_dataset->label = $request['label'];
+        $static_dataset->save();
+
+        return response()->json([
+            'success' => true,
+            'view' => (string)view('table.partials.static-dataset-item')->with('static_dataset', $static_dataset),
+            'data' => $static_dataset,
+            'message' => 'Successfully update dataset !'
+        ], 200);
+
+    }
+
+    public function ajaxFieldMoveUp(Request $request, $id)
+    {
+        $request = $request->json()->all();
+
+        $field = Field::find($id);
+
+        if (empty($field)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Field not found'
+            ], 400);
+        }
+
+        $fields = $field->table->fields()->orderBy('order')->get();
+
+        foreach($fields as $f_index => $f) {
+            if ($f->id == $field->id) {
+                $temp_order = $field->order;
+
+                $target_order = $fields[$f_index - 1]->order;
+                error_log("--- " . $field->order . " -> " . $target_order);
+
+                $field->order = $target_order;
+                $field->save();
+
+                error_log("--- " . $fields[$f_index - 1]->order . " -> " . $temp_order);
+                $fields[$f_index - 1]->order = $temp_order;
+                $fields[$f_index - 1]->save();
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $field,
+            'message' => 'Successfully update dataset !'
+        ], 200);
+
+    }
+
+    public function ajaxFieldMoveDown(Request $request, $id)
+    {
+        $request = $request->json()->all();
+
+        $field = Field::find($id);
+
+        if (empty($field)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Field not found'
+            ], 400);
+        }
+
+        $fields = $field->table->fields()->orderBy('order')->get();
+
+        foreach($fields as $f_index => $f) {
+            if ($f->id == $field->id) {
+                $temp_order = $field->order;
+
+                $target_order = $fields[$f_index + 1]->order;
+                error_log("--- " . $field->order . " -> " . $target_order);
+
+                $field->order = $target_order;
+                $field->save();
+
+                error_log("--- " . $fields[$f_index + 1]->order . " -> " . $temp_order);
+                $fields[$f_index + 1]->order = $temp_order;
+                $fields[$f_index + 1]->save();
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $field,
+            'message' => 'Successfully update dataset !'
+        ], 200);
+
+    }
+
+    public function ajaxDeleteDataset($id)
+    {
+        $static_dataset = StaticDataset::find($id);
+
+        if (empty($static_dataset)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dataset not found'
+            ], 400);
+        }
+
+        $static_dataset->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully delete dataset !'
+        ], 200);
+
     }
 
     public function deleteFieldRelation($id)
@@ -825,5 +1043,18 @@ class TableController extends Controller
             'message' => 'Successfully delete data !'
         ], 200);
     }
+
     /* END has many and many to many */
+
+    public function implementor()
+    {
+        $tables = Table::all();
+
+        foreach ($tables as $table) {
+            foreach ($table->fields()->orderBy('id')->get() as $field_index => $field) {
+                $field->order = $field_index + 1;
+                $field->save();
+            }
+        }
+    }
 }

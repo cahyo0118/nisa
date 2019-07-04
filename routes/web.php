@@ -103,19 +103,36 @@ Route::put('projects/{project_id}/tables/{id}/fields/sync', 'TableController@syn
 Route::delete('ajax/tables/{table_id}/delete', 'TableController@ajaxDeleteTable');
 
 //templates
-Route::get('fields/{id}/relation/{code}', 'TableController@fieldRelationTemplate');
+Route::get('projects/{project_id}/fields/{id}/relation/{code}', 'TableController@fieldRelationTemplate');
+
+Route::get('projects/{project_id}/fields/{id}/dataset/{code}', 'TableController@fieldDatasetTemplate');
 
 Route::post('projects/{project_id}/tables/add-new-field', 'TableController@addNewField');
 
 Route::post('projects/{project_id}/tables/add-new-many-to-many-relation', 'TableController@addNewManyToManyRelation');
 
-Route::post('tables/add-new-has-many-relation', 'TableController@addNewHasManyRelation');
+Route::post('projects/{project_id}/tables/add-new-has-many-relation', 'TableController@addNewHasManyRelation');
 
 //fields
 Route::delete('fields/{id}', 'TableController@destroyField')->name('fields.destroy');
 
 //relations
 Route::post('projects/{project_id}/fields/{id}/add-new-relation/{code}', 'TableController@addNewRelation');
+
+Route::post('projects/{project_id}/fields/{id}/add-new-dataset/{code}', 'TableController@addNewDataset');
+
+Route::post('ajax/projects/{project_id}/fields/{id}/static-datasets/store', 'TableController@ajaxStoreNewDataset');
+
+Route::put('ajax/static-datasets/{id}/update', 'TableController@ajaxUpdateDataset');
+
+Route::delete('ajax/static-datasets/{id}/delete', 'TableController@ajaxDeleteDataset');
+
+Route::put('ajax/fields/{id}/move-up', 'TableController@ajaxFieldMoveUp');
+
+Route::put('ajax/fields/{id}/move-down', 'TableController@ajaxFieldMoveDown');
+
+Route::get('implementor', 'TableController@implementor');
+
 
 Route::delete('fields/{id}/relation', 'TableController@deleteFieldRelation');
 

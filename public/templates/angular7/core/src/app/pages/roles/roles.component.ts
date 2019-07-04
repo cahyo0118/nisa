@@ -207,7 +207,9 @@ export class RolesComponent implements OnInit {
 
     onPermitAll(position) {
         if (this.items[position].permissions.length < this.permissionsItems.length) {
-            this.items[position].permissions = this.permissionsItems;
+            for (let p of this.permissionsItems) {
+                this.items[position].permissions.push(p);
+            }
         } else {
             this.items[position].permissions = [];
         }

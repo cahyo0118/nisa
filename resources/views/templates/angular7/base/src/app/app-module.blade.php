@@ -85,10 +85,30 @@ const routes: Routes = [
     {path: 'users/create', component: UsersFormComponent, canActivate: [AuthGuardService]},
     {path: 'users/:id/update', component: UsersFormComponent, canActivate: [AuthGuardService]},
 @foreach($project->menus as $menu)
-    {path: '{!! kebab_case(str_plural($menu->name)) !!}', component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component, canActivate: [AuthGuardService]},
-    {path: '{!! kebab_case(str_plural($menu->name)) !!}/create', component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent, canActivate: [AuthGuardService]},
-    {path: '{!! kebab_case(str_plural($menu->name)) !!}/:id/single', component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent, canActivate: [AuthGuardService]},
-    {path: '{!! kebab_case(str_plural($menu->name)) !!}/:id/update', component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent, canActivate: [AuthGuardService]},
+    {
+        path: '{!! kebab_case(str_plural($menu->name)) !!}',
+        component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component,
+        canActivate: [AuthGuardService],
+        data: {permission: '{!! kebab_case(str_plural($menu->name)) !!}_read'}
+    },
+    {
+        path: '{!! kebab_case(str_plural($menu->name)) !!}/create',
+        component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent,
+        canActivate: [AuthGuardService],
+        data: {permission: '{!! kebab_case(str_plural($menu->name)) !!}_create'}
+    },
+    {
+        path: '{!! kebab_case(str_plural($menu->name)) !!}/:id/single',
+        component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent,
+        canActivate: [AuthGuardService],
+        data: {permission: '{!! kebab_case(str_plural($menu->name)) !!}_read'}
+    },
+    {
+        path: '{!! kebab_case(str_plural($menu->name)) !!}/:id/update',
+        component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent,
+        canActivate: [AuthGuardService],
+        data: {permission: '{!! kebab_case(str_plural($menu->name)) !!}_update'}
+    },
 @endforeach
     {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService]},
     // Guest routes
@@ -99,7 +119,7 @@ const routes: Routes = [
 
 // Configs
 export function getAuthServiceConfigs() {
-const config = new AuthServiceConfig([
+    const config = new AuthServiceConfig([
         {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider('641265698803-t38604v4db2udg6brgf2dr709kp4fq89.apps.googleusercontent.com')

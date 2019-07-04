@@ -5,7 +5,35 @@
 
             <h3>
                 # Relation
+                <button class="btn btn-primary btn-sm float-right"
+                        type="button"
+                        onclick="useStaticDataset('{{ $random }}', '{{ $project_id }}', {{ !empty($item) ? $item->id : 0 }})">
+                    Use static dataset
+                </button>
+
+                {!! Form::hidden("dataset_type[$random]", "dynamic") !!}
             </h3>
+
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="form-control-label">Relation Name</label>
+                        <div class="input-group input-group-alternative">
+                            {!! Form::text("relation_name[$random]", !empty($item) ? $item->relation_name : null, ["class" => "form-control form-control-alternative"]) !!}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="form-control-label">Relation Display Name</label>
+                        <div class="input-group input-group-alternative">
+                            {!! Form::text("relation_display_name[$random]", !empty($item) ? $item->relation_display_name : null, ["class" => "form-control form-control-alternative"]) !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
 
                 <div class="col">

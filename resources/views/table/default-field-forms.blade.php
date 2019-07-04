@@ -90,33 +90,41 @@
         <div class="row">
             <div class="col-lg-2">
                 <div class="form-group">
-                    {!! Form::hidden("notnull[$random]", 0) !!}
-                    {!! Form::checkbox("notnull[$random]", 1, false, ["onclick" => "return false"]) !!}
-                    <label class="form-control-label">Not Null</label>
+                    <label class="form-control-label">
+                        {!! Form::hidden("notnull[$random]", 0) !!}
+                        {!! Form::checkbox("notnull[$random]", 1, false, ["onclick" => "return false"]) !!}
+                        Not Null
+                    </label>
                 </div>
             </div>
 
             <div class="col-lg-2">
                 <div class="form-group">
-                    {!! Form::hidden("unsigned[$random]", 0) !!}
-                    {!! Form::checkbox("unsigned[$random]", 1, false, ["onclick" => "return false"]) !!}
-                    <label class="form-control-label">Unsigned</label>
+                    <label class="form-control-label">
+                        {!! Form::hidden("unsigned[$random]", 0) !!}
+                        {!! Form::checkbox("unsigned[$random]", 1, false, ["onclick" => "return false"]) !!}
+                        Unsigned
+                    </label>
                 </div>
             </div>
 
             <div class="col-lg-2">
                 <div class="form-group">
-                    {!! Form::hidden("ai[$random]", 0) !!}
-                    {!! Form::checkbox("ai[$random]", 1, true, ["onclick" => "return false"]) !!}
-                    <label class="form-control-label">Auto Increment</label>
+                    <label class="form-control-label">
+                        {!! Form::hidden("ai[$random]", 0) !!}
+                        {!! Form::checkbox("ai[$random]", 1, true, ["onclick" => "return false"]) !!}
+                        Auto Increment
+                    </label>
                 </div>
             </div>
 
             <div class="col-lg-2">
                 <div class="form-group">
-                    {!! Form::hidden("searchable[$random]", 0) !!}
-                    {!! Form::checkbox("searchable[$random]", 1, false, ["onclick" => "return false"]) !!}
-                    <label class="form-control-label">Searchable</label>
+                    <label class="form-control-label">
+                        {!! Form::hidden("searchable[$random]", 0) !!}
+                        {!! Form::checkbox("searchable[$random]", 1, false, ["onclick" => "return false"]) !!}
+                        Searchable
+                    </label>
                 </div>
             </div>
 

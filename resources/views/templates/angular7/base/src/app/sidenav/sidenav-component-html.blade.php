@@ -10,7 +10,7 @@
         <a class="nav-link" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}']" routerLinkActive="text-primary"
            *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_read')">
             <i class="fas fa-{!! $menu->icon ? $menu->icon : 'cogs' !!}"></i>
-            <span class="w-100">{!! ucfirst(title_case(str_replace('_', ' ', str_plural($menu->display_name)))) !!}</span>
+            <span class="w-100">{!! ucfirst(str_replace('_', ' ', $menu->display_name)) !!}</span>
         </a>
     </li>
 @elseif(!empty(count($menu->sub_menus)))
@@ -22,7 +22,7 @@
            aria-expanded="true"
            aria-controls="navbar-{!! kebab_case(str_plural($menu->name)) !!}">
             <i class="fas fa-{!! $menu->icon ? $menu->icon : 'cogs' !!}"></i>
-            <span class="nav-link-text">{!! ucfirst(title_case(str_replace('_', ' ', str_plural($menu->display_name)))) !!}</span>
+            <span class="nav-link-text">{!! ucfirst(str_replace('_', ' ', $menu->display_name)) !!}</span>
         </a>
 
         <div class="collapse show" id="navbar-{!! kebab_case(str_plural($menu->name)) !!}">
@@ -32,7 +32,7 @@
                     <a class="nav-link" [routerLink]="['/{!! kebab_case(str_plural($sub_menu->name)) !!}']" routerLinkActive="text-primary"
                        *ngIf="isAllowed('{!! snake_case(str_plural($sub_menu->name)) !!}_read')">
                         <i class="fas fa-{!! $sub_menu->icon ? $sub_menu->icon : 'key' !!}"></i>
-                        <span class="w-100">{!! ucfirst(title_case(str_replace('_', ' ', str_plural($sub_menu->display_name)))) !!}</span>
+                        <span class="w-100">{!! ucfirst(str_replace('_', ' ', $sub_menu->display_name)) !!}</span>
                     </a>
                 </li>
 @endforeach

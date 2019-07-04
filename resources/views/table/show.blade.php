@@ -109,7 +109,8 @@
                         </div>
 
                         {!! Form::model($item, ['method' => 'delete', 'route' => ['tables.destroy', $item->project_id, $item->id], 'id' => 'form-delete', 'class' =>'form-inline justify-content-end']) !!}
-                        <a href="{{ route('tables.edit', [$item->project_id, $item->id]) }}" class="btn btn-icon btn-default">
+                        <a href="{{ route('tables.edit', [$item->project_id, $item->id]) }}"
+                           class="btn btn-icon btn-default">
                             <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                             <span class="btn-inner--text">Edit</span>
                         </a>

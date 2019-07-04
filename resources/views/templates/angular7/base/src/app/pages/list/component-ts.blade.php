@@ -6,9 +6,9 @@ import swal from 'sweetalert2';
 import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! kebab_case(str_plural($menu->name)) !!}.service';
 
 {{ '@' }}Component({
-  selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}',
-  templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}.component.html',
-  styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}.component.css']
+    selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}',
+    templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}.component.html',
+    styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}.component.css']
 })
 export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component implements OnInit {
 
@@ -18,7 +18,21 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
     lastPage = 1;
     keyword = '';
     items = [];
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+    {!! camel_case(str_plural($field->relation->table->name)) !!}Data: any;
+@endif
+@endif
+@endforeach
+@endif
     searchMode = false;
+    orderBy = 'created_at';
+    orderType = 'desc';
+    showFilterCard = false;
+    filters = [];
+    filtersForm: FormGroup;
 
     constructor(
         private service: {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service,
@@ -36,17 +50,51 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
             ],
         });
 
+        this.filtersForm = formBuilder.group({
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field_index => $field)
+@if ($field->ai || $field->input_type == "hidden" || $field->input_type == "text")
+@else
+            {!! $field->name !!}: [
+@if($field->input_type == "checkbox")
+@if($field->default > 0)
+                true,
+@else
+                false,
+@endif
+@else
+                '',
+@endif
+                [
+@if($field->notnull)
+                    Validators.required,
+@endif
+@if($field->length > 0)
+                    Validators.maxLength({!! $field->length !!}),
+@endif
+@if($field->input_type == "email")
+                    Validators.email,
+@endif
+                ]
+            ],
+@endif
+@endforeach
+@endif
+        });
+
     }
 
     ngOnInit() {
         this.spinner.show();
 
         this.getAllData();
+
+        this.getAllDataSets();
     }
 
     getAllData(page = 1) {
         if (this.searchMode) {
-            this.service.getAllByKeyword(this.searchForm.value.keyword, page)
+            this.service.getAllByKeyword(this.searchForm.value.keyword, page, this.orderBy, this.orderType, this.filtersForm.value)
                 .then(
                     response => {
                         const data = response.data.data;
@@ -62,7 +110,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
                     }
                 );
         } else {
-            this.service.getAll(page)
+            this.service.getAll(page, this.orderBy, this.orderType, this.filtersForm.value)
                 .then(
                     response => {
                         const data = response.data.data;
@@ -80,6 +128,27 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
         }
     }
 
+    getAllDataSets() {
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+        this.service.get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
+            .then(
+                response => {
+                    const data = response.data;
+                    this.{!! camel_case(str_plural($field->relation->table->name)) !!}Data = data.data;
+                },
+                error => {
+                }
+            );
+
+@endif
+@endif
+@endforeach
+@endif
+    }
+
     onSearch() {
 
         this.spinner.show();
@@ -87,7 +156,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
         this.searchMode = this.searchForm.value.keyword.length ? true : false;
 
         if (this.searchMode) {
-            this.service.getAllByKeyword(this.searchForm.value.keyword)
+            this.service.getAllByKeyword(this.searchForm.value.keyword, 1, this.orderBy, this.orderType)
                 .then(
                     response => {
                         const data = response.data.data;
@@ -149,6 +218,33 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
                 });
             }
         );
+    }
+
+    onOrderBy(orderBy, orderType) {
+        this.orderBy = orderBy;
+        this.orderType = orderType;
+
+        this.getAllData();
+    }
+
+    isAllowed(permissionName): boolean {
+        return JSON.parse(localStorage.getItem('userinfo')).permissions.find(obj => obj === permissionName);
+    }
+
+    onShowFilterCard() {
+        if (this.showFilterCard)
+            this.showFilterCard = false;
+        else
+            this.showFilterCard = true;
+    }
+
+    onApplyFilters() {
+        this.getAllData();
+    }
+
+    onResetFilters() {
+        this.filtersForm.reset();
+        this.onApplyFilters();
     }
 
 }

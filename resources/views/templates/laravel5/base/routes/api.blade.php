@@ -105,7 +105,7 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
 
     // {{ $menu->name }} Routes
     Route::get('{!! kebab_case(str_plural($menu->name)) !!}', [
-        'middleware' => 'permission:{{ $menu->name }}_read',
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getAll',
     ]);
 
@@ -113,7 +113,7 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
     Route::get('{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! kebab_case(str_plural($field->relation->table->name)) !!}', [
-        'middleware' => 'permission:{{ $menu->name }}_read',
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet',
     ]);
 @endif
@@ -121,32 +121,32 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
 @endforeach
 
     Route::get('{!! kebab_case(str_plural($menu->name)) !!}/search/{keyword}', [
-        'middleware' => 'permission:{{ $menu->name }}_read',
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getAllByKeyword',
     ]);
 
     Route::get('{!! kebab_case(str_plural($menu->name)) !!}/{id}', [
-        'middleware' => 'permission:{{ $menu->name }}_read',
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getOne',
     ]);
 
     Route::post('{!! kebab_case(str_plural($menu->name)) !!}/store', [
-        'middleware' => 'permission:{{ $menu->name }}_create',
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_create',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@store',
     ]);
 
     Route::put('{!! kebab_case(str_plural($menu->name)) !!}/{id}/update', [
-        'middleware' => 'permission:{{ $menu->name }}_update',
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_update',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@update',
     ]);
 
     Route::delete('{!! kebab_case(str_plural($menu->name)) !!}/{id}/delete', [
-        'middleware' => 'permission:{{ $menu->name }}_delete',
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_delete',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@destroy',
     ]);
 
     Route::delete('{!! kebab_case(str_plural($menu->name)) !!}/delete/multiple', [
-        'middleware' => 'permission:{{ $menu->name }}_delete',
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_delete',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@deleteMultiple',
     ]);
 
@@ -187,5 +187,16 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
         'middleware' => 'permission:users_delete',
         'uses' => 'api\UsersController@deleteMultiple',
     ]);
+
+@foreach($project->tables()->where('name', 'users')->first()->fields as $field_index => $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+    Route::get('users/datasets/{!! kebab_case(str_plural($field->relation->table->name)) !!}', [
+        'middleware' => 'permission:{{ $menu->name }}_read',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet',
+    ]);
+@endif
+@endif
+@endforeach
 
 });

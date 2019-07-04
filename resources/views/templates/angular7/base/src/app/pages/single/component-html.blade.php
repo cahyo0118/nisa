@@ -78,7 +78,7 @@
                                         <label class="form-control-label">{{ $field->display_name }}</label>
                                     </div>
 
-                                    <img src="@{{ data.value.{!! $field->name !!} }}"
+                                    <img src="@{{ data?.{!! $field->name !!} }}"
                                          class="mw-100 margin-v-5"
                                          onError="this.src='../../assets/img/defaults/picture-128px.png'">
                                 </div>
@@ -100,7 +100,8 @@
 @if($menu->allow_update)
                         <button type="button"
                                 class="btn btn-secondary btn-icon"
-                                [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', data?.id, 'update']">
+                                [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', data?.id, 'update']"
+                                *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_Updatem')">
                             <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                             <span class="btn-inner--text">Edit</span>
                         </button>

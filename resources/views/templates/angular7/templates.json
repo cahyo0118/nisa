@@ -69,6 +69,12 @@
                 "resource_path": "/src/app/pages/users-form",
                 "target_filename": "users-form.component.css",
                 "target_path": "/src/app/pages/users-form"
+            },
+            {
+                "resource_filename": "users-service",
+                "resource_path": "/src/app/services",
+                "target_filename": "users.service.ts",
+                "target_path": "/src/app/services"
             }
         ],
         "menus": [

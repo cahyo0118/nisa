@@ -20,6 +20,13 @@ export class UsersFormComponent implements OnInit {
     userForm: FormGroup;
     apiValidationErrors;
     data: any;
+@foreach($project->tables()->where('name', 'users')->first()->fields as $field_index => $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+    {!! camel_case(str_plural($field->relation->table->name)) !!}Data: any;
+@endif
+@endif
+@endforeach
     id: number;
     editMode = false;
 
@@ -65,6 +72,19 @@ export class UsersFormComponent implements OnInit {
     ngOnInit() {
         if (this.id) {
             this.editMode = true;
+
+@foreach($project->tables()->where('name', 'users')->first()->fields as $field_index => $field)
+@if($field->input_type == "password")
+            this.userForm.controls.{!! $field->name !!}.setValidators(
+                [
+@if($field->length > 0)
+                    Validators.maxLength({!! $field->length !!}),
+@endif
+                ]
+            );
+@endif
+@endforeach
+
             this.service.getOne(this.id)
                 .then(
                     response => {
@@ -88,6 +108,27 @@ export class UsersFormComponent implements OnInit {
                     }
                 );
         }
+
+        this.getAllDataSets();
+    }
+
+    getAllDataSets() {
+@foreach($project->tables()->where('name', 'users')->first()->fields as $field_index => $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+        this.service.get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
+            .then(
+                response => {
+                    const data = response.data;
+                    this.{!! camel_case(str_plural($field->relation->table->name)) !!}Data = data.data;
+                },
+                error => {
+                }
+            );
+
+@endif
+@endif
+@endforeach
     }
 
     onSubmit() {

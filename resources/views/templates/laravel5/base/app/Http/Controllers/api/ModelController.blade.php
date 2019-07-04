@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Helpers\QueryHelpers;
 use App\Http\Controllers\Controller;
 @if(!empty($menu->table))
-use App\{!! ucfirst(str_singular($menu->table->name)) !!};
+use App\{!! ucfirst(camel_case(str_singular($menu->table->name))) !!};
 @foreach($menu->table->fields as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
@@ -25,10 +25,21 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
 @if(!empty($menu->table))
     public function getAll(Request $request)
     {
+        $data = new {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}();
+
+        $filters = json_decode($request->filters, true);
+
+        foreach ($filters as $filter_name => $filter_value) {
+
+            if (!empty($filter_value))
+                $data = $data->where($filter_name, '=', $filter_value);
+
+        }
+
 @if(count($menu->field_criterias) < 1)
-        $data = QueryHelpers::getData($request, new {!! ucfirst(str_singular($menu->table->name)) !!});
+        $data = QueryHelpers::getDataByQueryBuilder($request, $data);
 @else
-        $data = {!! ucfirst(str_singular($menu->table->name)) !!}::@foreach($menu->field_criterias as $criteria_index => $criteria)
+        $data = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::@foreach($menu->field_criterias as $criteria_index => $criteria)
 @if($criteria_index == 0)@if(!empty($criteria->relation))whereHas('{!! str_singular($criteria->relation->table->name) !!}', function ($query) {
 @if($criteria->relation->relation_type == "belongsto")
 @if($criteria->pivot->operator == 'like%')
@@ -257,8 +268,12 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
 
     public function getAllByKeyword(Request $request, $keyword)
     {
+        $data = new {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}();
+
+        $filters = json_decode($request->filters, true);
+
 @if(count($menu->table->fields()->where('searchable', true)->get()) > 0)
-        $data = {!! ucfirst(str_singular($menu->table->name)) !!}::@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+        $data = $data->@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
 @if($field_index == 0)@if(!empty($field->relation))whereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
             $query->where('{!! $field->relation->foreign_key_display_field->name !!}', 'like', '%' . $keyword . '%');
 @foreach($menu->field_criterias as $criteria_index => $criteria)
@@ -308,7 +323,14 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
             $query->where('{!! $criteria->relation->foreign_key_field->name !!}', {!! $criteria->pivot->operator !!}, {!! $criteria->pivot->value !!});
 @endif
 @endforeach
-        })
+        });
+
+        foreach ($filters as $filter_name => $filter_value) {
+
+            if (!empty($filter_value))
+                $data = $data->where($filter_name, '=', $filter_value);
+
+        }
 @else
 where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 @foreach($menu->field_criterias as $criteria_index => $criteria)
@@ -415,11 +437,19 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
             })
 @endif
 @else
-            ->orWhere('{!! $field->name !!}', 'like', '%' . $keyword . '%')
+
+        $data->orWhere('{!! $field->name !!}', 'like', '%' . $keyword . '%');
+
+        foreach ($filters as $filter_name => $filter_value) {
+
+            if (!empty($filter_value))
+                $data = $data->where($filter_name, '=', $filter_value);
+
+        }
 @endif
 @endif
 @endforeach
-            ;
+        ;
 
         $data = QueryHelpers::getDataByQueryBuilder($request, $data);
 
@@ -439,7 +469,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 
     public function getOne(Request $request, $id)
     {
-        ${!! snake_case($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::where('id', $id);
+        ${!! snake_case($menu->name) !!} = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::where('id', $id);
 
         ${!! snake_case($menu->name) !!} = QueryHelpers::getSingleData($request, ${!! snake_case($menu->name) !!});
 
@@ -490,7 +520,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
             ], 400);
         }
 
-        ${!! snake_case($menu->name) !!} = new {!! ucfirst(str_singular($menu->table->name)) !!};
+        ${!! snake_case($menu->name) !!} = new {!! ucfirst(camel_case(str_singular($menu->table->name))) !!};
 
 @foreach($menu->table->fields as $field)
 @if ($field->ai)
@@ -499,6 +529,32 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 @elseif($field->input_type == "hidden")
 @elseif($field->input_type == "password")
         ${!! snake_case($menu->name) !!}->{!! $field->name !!} = Hash::make($request->{!! $field->name !!});
+@elseif($field->input_type == "image")
+        if (!empty($request->{!! $field->name !!}) && !strpos($request->{!! $field->name !!}, ${!! snake_case($menu->name) !!}->{!! $field->name !!})) {
+            if (${!! snake_case($menu->name) !!}->{!! $field->name !!} !== null) {
+                if (file_exists(${!! snake_case($menu->name) !!}->{!! $field->name !!})) {
+                    unlink(public_path(${!! snake_case($menu->name) !!}->{!! $field->name !!}));
+                }
+            }
+
+            preg_match("/^data:image\/(.*);base64/", $request->{!! $field->name !!}, $ext);
+
+            $filename = time() . '.' . $ext[1];
+
+            if (!is_dir('{!! snake_case($menu->name) !!}/{!! str_plural($field->name) !!}/')) mkdir('{!! snake_case($menu->name) !!}/{!! str_plural($field->name) !!}/', 0777, true);
+
+            $path = public_path('/{!! snake_case($menu->name) !!}/{!! str_plural($field->name) !!}/' . $filename);
+            Image::make($request->{!! $field->name !!})->save($path);
+            ${!! snake_case($menu->name) !!}->{!! $field->name !!} = '{!! snake_case($menu->name) !!}/{!! str_plural($field->name) !!}/' . $filename;
+        } elseif (empty($request->{!! $field->name !!})) {
+            if (${!! snake_case($menu->name) !!}->{!! $field->name !!} !== null) {
+                if (file_exists(${!! snake_case($menu->name) !!}->{!! $field->name !!})) {
+                    unlink(public_path(${!! snake_case($menu->name) !!}->{!! $field->name !!}));
+                }
+            }
+
+            ${!! snake_case($menu->name) !!}->{!! $field->name !!} = null;
+        }
 @elseif($field->type == "varchar")
         ${!! snake_case($menu->name) !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @else
@@ -535,7 +591,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
             ], 400);
         }
 
-        ${!! snake_case($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
+        ${!! snake_case($menu->name) !!} = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::find($id);
 
 @foreach($menu->table->fields as $field)
 @if ($field->ai)
@@ -562,7 +618,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 
     public function destroy($id)
     {
-        ${!! snake_case($menu->name) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::find($id);
+        ${!! snake_case($menu->name) !!} = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::find($id);
 
         if (${!! snake_case($menu->name) !!} === null) {
             return response()->json([
@@ -585,7 +641,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
     public function deleteMultiple(Request $request)
     {
 
-        ${!! snake_case(str_plural($menu->name)) !!} = {!! ucfirst(str_singular($menu->table->name)) !!}::whereIn('id', json_decode($request->ids))->delete();
+        ${!! snake_case(str_plural($menu->name)) !!} = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::whereIn('id', json_decode($request->ids))->delete();
 
         return response()->json([
             'success' => true,

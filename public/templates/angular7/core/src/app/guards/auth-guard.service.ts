@@ -18,11 +18,20 @@ export class AuthGuardService implements CanActivate {
         const credentials = localStorage.getItem('credentials');
 
         if (typeof credentials !== 'undefined' && credentials !== null) {
+
+            if (next.data.permission && !this.isAllowed(next.data.permission)) {
+                return false;
+            }
+
             return true;
         }
 
         this.router.navigate(['/login']);
 
         return false;
+    }
+
+    isAllowed(permissionName): boolean {
+        return JSON.parse(localStorage.getItem('userinfo')).permissions.find(obj => obj === permissionName);
     }
 }

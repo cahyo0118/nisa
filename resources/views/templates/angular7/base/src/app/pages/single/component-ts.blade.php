@@ -59,6 +59,13 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
                     response => {
                         const data = response.data;
                         this.data = data.data;
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $file_field)
+@if($file_field->input_type == 'image' || $file_field->input_type == 'file')
+                        this.data.{{ $file_field->name }} = this.data.{{ $file_field->name }} !== null ? Environment.SERVER_URL + this.data.{{ $file_field->name }} : null;
+@endif
+@endforeach
+@endif
                     },
                     error => {
                         swal({
@@ -71,6 +78,10 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
                     }
                 );
         }
+    }
+
+    isAllowed(permissionName): boolean {
+        return JSON.parse(localStorage.getItem('userinfo')).permissions.find(obj => obj === permissionName);
     }
 
 }

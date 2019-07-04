@@ -48,16 +48,152 @@
 @if($menu->allow_create)
             <div class="col-xl-12">
                 <!-- Actions -->
-                <a class="btn btn-icon btn-3 btn-secondary" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}/create']">
+                <a class="btn btn-icon btn-3 btn-secondary"
+                   [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}/create']">
                     <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                     <span class="btn-inner--text">New</span>
                 </a>
+                <button type="button"
+                        [class]="'btn btn-icon btn-3 float-right ' + (showFilterCard ? 'btn-info' : 'btn-secondary')"
+                        (click)="onShowFilterCard()">
+                    <span class="btn-inner--icon"><i class="fas fa-filter"></i></span>
+                    <span class="btn-inner--text">Filter</span>
+                </button>
             </div>
+
 @endif
             <br>
             <br>
             <br>
 @if($menu->allow_list)
+
+            <div class="col-xl-12" *ngIf="showFilterCard">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <h6 class="heading-small mb-4 w-100">
+                            Filters
+                            <span class="text-primary pointer float-right" (click)="onResetFilters()">Clear
+                            </span>
+                        </h6>
+
+                        <form [formGroup]="filtersForm" (submit)="onSearch()">
+                            <div class="row row-grid align-items-center">
+@if(!empty($menu->table))
+@foreach($menu->table->fields as $field_index => $field)
+@if ($field->ai || $field->input_type == "hidden" || $field->input_type == "text" || $field->input_type == "textarea" || $field->input_type == "image" || $field->input_type == "file")
+@elseif ($field->input_type == "select")
+
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">{{ $field->display_name }}</label>
+                                        <select class="form-control form-control-alternative"
+                                                formControlName="{{ $field->name }}">
+                                            <option value="">--</option>
+                                            <option *ngFor="let {!! str_singular($field->relation->table->name) !!} of {!! str_plural($field->relation->table->name) !!}Data"
+                                                    [value]="{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">@{{ {!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+@endif
+@endif
+@elseif ($field->input_type == "textarea")
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">{{ $field->display_name }}</label>
+                                        <textarea class="form-control form-control-alternative"
+                                                  rows="4"
+                                                  formControlName="{{ $field->name }}"
+                                                  placeholder="{{ $field->display_name }}...">
+                                        </textarea>
+                                    </div>
+                                </div>
+@elseif ($field->input_type == "checkbox")
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">
+                                            <input type="checkbox" formControlName="{{ $field->name }}">
+                                            {{ $field->display_name }}
+                                        </label>
+                                    </div>
+                                </div>
+@elseif($field->input_type == "image")
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">{{ $field->display_name }}</label>
+                                    </div>
+
+                                    <img src="@{{ {!! camel_case(str_singular($menu->name)) !!}Form.value.{!! $field->name !!} }}"
+                                         class="mw-100 margin-v-5"
+                                         onError="this.src='../../assets/img/defaults/picture-128px.png'">
+                                    <br>
+                                    <br>
+
+                                    <input type="hidden"
+                                           formControlName="{{ $field->name }}"
+                                           [(ngModel)]="{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $field->name }}">
+
+                                    <input #{{ $field->name }}Input
+                                           type="file"
+                                           accept="image/*"
+                                           style="display: none;"
+                                           (change)="onUpdatePicture($event, '{{ $field->name }}')">
+
+                                    <button type="button" class="btn btn-icon btn-3 btn-default btn-sm"
+                                            (click)="{{ $field->name }}Input.click()">
+                                        <span class="btn-inner--icon"><i class="fas fa-image"></i></span>
+                                        <span class="btn-inner--text">Change Photo</span>
+                                    </button>
+
+                                    <button type="button"
+                                            *ngIf="{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $field->name }}"
+                                            class="btn btn-icon btn-3 btn-danger btn-sm"
+                                            (click)="onRemovePicture('{{ $field->name }}')">
+                                        <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                                        <span class="btn-inner--text">Remove</span>
+                                    </button>
+
+                                    <br><br>
+                                </div>
+@else
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">{{ $field->display_name }}</label>
+                                        <input type="{{ $field->input_type }}"
+                                               formControlName="{{ $field->name }}"
+                                               class="form-control form-control-alternative"
+                                               placeholder="{{ $field->display_name }}...">
+                                    </div>
+                                </div>
+@endif
+@endforeach
+@endif
+
+                                <div class="col-md-12">
+
+                                    <button type="button" class="btn btn-icon btn-primary btn-sm float-right"
+                                            (click)="onApplyFilters()">
+                                        <span class="btn-inner--icon"><i class="fas fa-check"></i></span>
+                                        <span class="btn-inner--text">Apply</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <br>
+            </div>
+
             <div class="col-xl-12">
                 <div class="card shadow">
                     <div class="table-responsive">
@@ -66,7 +202,18 @@
                             <tr>
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@if(empty($field->relation))
+                                <th [ngClass]="{'text-primary': orderBy == '{!! $field->name !!}', 'pointer': true}"
+                                    (click)="onOrderBy('{!! $field->name !!}', orderType == 'asc' ? 'desc' : 'asc')">
+                                    {!! $field->display_name !!}
+                                    <span *ngIf="orderBy == '{!! $field->name !!}' && orderType == 'asc'"
+                                          class="fas fa-chevron-up"></span>
+                                    <span *ngIf="orderBy == '{!! $field->name !!}' && orderType == 'desc'"
+                                          class="fas fa-chevron-down"></span>
+                                </th>
+@else
                                 <th scope="col">{!! $field->display_name !!}</th>
+@endif
 @endforeach
 @endif
                                 <th scope="col"></th>
@@ -99,14 +246,16 @@
 @if($menu->allow_update)
                                     <button type="button"
                                             class="btn btn-secondary btn-sm btn-icon"
-                                            [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', item?.id, 'update']">
+                                            [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', item?.id, 'update']"
+                                            *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_update')">
                                         <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                                         <span class="btn-inner--text">Edit</span>
                                     </button>
 @endif
 @if($menu->allow_delete)
                                     <button type="button" class="btn btn-danger btn-sm btn-icon"
-                                            (click)="deleteConfirmation(item.id)">
+                                            (click)="deleteConfirmation(item.id)"
+                                            *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_delete')">
                                         <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
                                         <span class="btn-inner--text">Delete</span>
                                     </button>

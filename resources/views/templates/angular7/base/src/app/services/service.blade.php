@@ -33,9 +33,12 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
         });
     }
 
-    getAll(page = 1): AxiosPromise{!! '<any>' !!} {
+    getAll(page = 1, order_by = 'created_at', order_type = 'desc', filters = {}): AxiosPromise{!! '<any>' !!} {
         return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}`, {
             params: {
+                filters: filters,
+                order_by: order_by,
+                order_type: order_type,
                 page: page.toString(),
                 with: [
 @if(!empty($menu->table))
@@ -64,9 +67,12 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
 @endforeach
 @endif
 
-    getAllByKeyword(keyword: string, page = 1): AxiosPromise{!! '<any>' !!} {
+    getAllByKeyword(keyword: string, page = 1, order_by = 'created_at', order_type = 'desc', filters = {}): AxiosPromise{!! '<any>' !!} {
         return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/search/${keyword}`, {
             params: {
+                filters: filters,
+                order_by: order_by,
+                order_type: order_type,
                 page: page.toString(),
                 with: [
 @if(!empty($menu->table))
