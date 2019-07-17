@@ -58,20 +58,20 @@
 
                                 <div class="row">
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field_index => $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
 @if ($field->ai || $field->input_type == "hidden")
 @elseif ($field->input_type == "select")
 
 @if(!empty($field->relation))
-@if($field->relation->relation_type == "belongsto")
+@if($field->dataset_type == "dynamic" || $field->relation->relation_type == "belongsto")
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label">{{ $field->display_name }}</label>
                                             <select class="form-control form-control-alternative"
                                                     formControlName="{{ $field->name }}">
                                                 <option value="">--</option>
-                                                <option *ngFor="let {!! str_singular($field->relation->table->name) !!} of {!! str_plural($field->relation->table->name) !!}Data"
-                                                        [value]="{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">@{{ {!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</option>
+                                                <option *ngFor="let {!! !empty($field->relation->relation_name) ? camel_case($field->relation->relation_name) : camel_case($field->relation->table->name) !!} of {!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data"
+                                                        [value]="{!! !empty($field->relation->relation_name) ? camel_case($field->relation->relation_name) : camel_case($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">@{{ {!! !empty($field->relation->relation_name) ? camel_case($field->relation->relation_name) : camel_case($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</option>
                                             </select>
                                         </div>
 
@@ -81,6 +81,24 @@
                                             [label]="'{{ $field->display_name }}'"></app-form-error-message>
                                     </div>
 @endif
+@elseif($field->dataset_type == "static")
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">{{ $field->display_name }}</label>
+                                            <select class="form-control form-control-alternative"
+                                                    formControlName="{{ $field->name }}">
+                                                <option value="">--</option>
+@foreach($field->static_datasets as $dataset)
+                                                <option value="{!! $dataset->value !!}">{!! $dataset->label !!}</option>
+@endforeach
+                                            </select>
+                                        </div>
+
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'"></app-form-error-message>
+                                    </div>
 @endif
 @elseif ($field->input_type == "textarea")
 

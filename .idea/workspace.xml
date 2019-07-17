@@ -3,32 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Field.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Field.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MenuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MenuController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TableController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TableController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/templates/angular7/core.zip" beforeDir="false" afterPath="$PROJECT_DIR$/public/templates/angular7/core.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/templates/angular7/core/src/app/guards/auth-guard.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/templates/angular7/core/src/app/guards/auth-guard.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/templates/angular7/core/src/app/pages/roles/roles.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/templates/angular7/core/src/app/pages/roles/roles.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/utils/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/utils/environment.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/table/default-field-forms.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/default-field-forms.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/table/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/table/field-form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/field-form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/table/field-relation-form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/field-relation-form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/table/field-relation-hm-form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/field-relation-hm-form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/table/field-relation-mtm-form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/field-relation-mtm-form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/generate-options/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/generate-options/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/generate-options/modals/edit-generate-options-modal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/generate-options/modals/edit-generate-options-modal.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/table/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/app-module.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/app-module.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/users-form/users-form-component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/users-form/users-form-component-html.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/users-form/users-form-component-ts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/users-form/users-form-component-ts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/service.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/service.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/sidenav/sidenav-component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/sidenav/sidenav-component-html.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/templates.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/templates.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_relation_tables_table.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_relation_tables_table.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,49 +57,37 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin.blade.php">
+        <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/UserProfileController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="373" column="26" selection-start-line="373" selection-start-column="13" selection-end-line="373" selection-end-column="26" />
+            <state relative-caret-position="265">
+              <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/routes/api.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="309">
+              <caret line="97" column="25" lean-forward="true" selection-start-line="97" selection-start-column="25" selection-end-line="97" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/CompetencyTestController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="139" column="9" lean-forward="true" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/table/field-form.blade.php">
+        <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/utils/environment.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TableController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="439" column="62" selection-start-line="439" selection-start-column="62" selection-end-line="439" selection-end-column="62" />
-              <folding>
-                <element signature="e#40#54#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="131" column="75" selection-start-line="131" selection-start-column="58" selection-end-line="131" selection-end-column="75" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/table/edit.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="136" column="33" selection-start-line="136" selection-start-column="33" selection-end-line="136" selection-end-column="33" />
+            <state relative-caret-position="135">
+              <caret line="9" column="25" lean-forward="true" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -110,44 +96,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fields/{id}/relation/</find>
-      <find>addNew</find>
-      <find>projects/{project_id}/tables/</find>
-      <find>table.partials.table.partials.static-dataset-item</find>
-      <find>field_ids</find>
-      <find>fields/{id}/relation</find>
-      <find>getRelationByFieldId</find>
-      <find>template</find>
-      <find>fieldRelationTemplate</find>
-      <find>hidden</find>
-      <find>update</find>
-      <find>static</find>
-      <find>$static_dataset</find>
-      <find>delete</find>
-      <find>dataset</find>
-      <find>bs</find>
-      <find>toggle</find>
-      <find>updateStaticDatasetForm</find>
-      <find>modal</find>
-      <find>getAllFie</find>
-      <find>move</find>
-      <find>/fields</find>
-      <find>ajaxFieldMove</find>
-      <find>ajaxFieldMoveDown</find>
-      <find>-</find>
-      <find>'fields</find>
-      <find>fields()</find>
-      <find>fields(</find>
-      <find>getAllFields</find>
-      <find>table_fields</find>
+      <find>table</find>
+      <find>$relations</find>
+      <find>/tables</find>
+      <find>fields</find>
+      <find>add new</find>
+      <find>searchVoter</find>
+      <find>serv</find>
+      <find>Serv</find>
+      <find>participants</find>
+      <find>search</find>
+      <find>searchMode</find>
+      <find>orderBy</find>
+      <find>getAllSearchParticipantsData</find>
+      <find>onSearchParticipants()</find>
+      <find>allow</find>
+      <find>getAll</find>
+      <find>splice</find>
+      <find>service</find>
+      <find>general</find>
+      <find>generate</find>
+      <find>$field-&gt;relation</find>
+      <find>compe</find>
+      <find>currentPage</find>
+      <find>lastPage</find>
+      <find>participantsCurrentPage</find>
+      <find>participantsLastPage</find>
+      <find>participantsTotalPage</find>
+      <find>getAllParticipantsData</find>
+      <find>400</find>
+      <find>updateCurrentUser</find>
     </findStrings>
     <replaceStrings>
-      <replace>{!! kebab_case(str_plura($menu-&gt;name)) !!}</replace>
-      <replace>table</replace>
-      <replace>snake_case(str_plural($table-&gt;name))</replace>
-      <replace>$table</replace>
-      <replace>{{ $menu-&gt;name }}</replace>
-      <replace>{!! kebab_case(str_plural($menu-&gt;name)) !!}</replace>
       <replace>{!! kebab_case(str_plural($table-&gt;name)) !!}</replace>
       <replace>@foreach($menu-&gt;table-&gt;fields</replace>
       <replace>$menu-&gt;table-&gt;fields-&gt;distinct()-&gt;get()</replace>
@@ -172,6 +152,12 @@
       <replace>{!! snake_case($menu-&gt;name) !!}</replace>
       <replace>{!! $field-&gt;name !!}</replace>
       <replace>{!! str_plural($field-&gt;name) !!}</replace>
+      <replace>str_replace('_', '-', kebab_case(</replace>
+      <replace>str_replace('_', '-',</replace>
+      <replace>participants</replace>
+      <replace>searchParticipants</replace>
+      <replace>searchParticipantsCurrentPage</replace>
+      <replace>searchParticipantsLastPage</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -180,57 +166,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/users-form/users-form-component-ts.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/UsersController.blade.php" />
-        <option value="$PROJECT_DIR$/public/outputs/laundry-laravel5/vendor/phpunit/php-code-coverage/tests/_files/Report/HTML/CoverageForBankAccount/dashboard.html" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/services/projects.service.ts" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/pages/projects/projects.component.html" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/pages/roles/roles.component.ts" />
-        <option value="$PROJECT_DIR$/public/templates/angular7/core/src/app/pages/roles/roles.component.ts" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/service.blade.php" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-laravel5/app/Http/Controllers/api/ProjectsController.php" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/pages/projects/projects.component.ts" />
-        <option value="$PROJECT_DIR$/resources/views/project/index.blade.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/database/migrations/2014_10_12_100039_create_competency_tests_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/templates.json" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/app-module.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/sidenav/sidenav-component-html.blade.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/IndustrialTypesController.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/school-lists/school-lists.component.ts" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/school-lists-single/school-lists-single.component.ts" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/school-lists/school-lists.component.html" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/app/School.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/school-lists-form/school-lists-form.component.html" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/SchoolListsController.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Kernel.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/.env" />
+        <option value="$PROJECT_DIR$/app/Field.php" />
+        <option value="$PROJECT_DIR$/app/GenerateOption.php" />
+        <option value="$PROJECT_DIR$/app/DefaultValue.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_07_10_004743_create_default_values_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/generate-options/modals/edit-generate-options-modal.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/generate-options/modals/add-default-value-modal.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/generate-options/partials/default-value-item.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/generate-options/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_relation_tables_table.blade.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/database/migrations/2014_10_12_100032_create_schools_table.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/pages/daily_checks/daily_checks.component.html" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/pages/daily_checks/daily_checks.component.ts" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-laravel5/app/Http/Controllers/api/UsersController.php" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/pages/daily_checks-single/daily_checks-single.component.html" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-laravel5/app/Http/Controllers/api/DailyCheckController.php" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/pages/roles/roles.component.html" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/user-profile/user-profile.component.html" />
-        <option value="$PROJECT_DIR$/public/outputs/seo-angular7/src/app/account-navbar/account-navbar.component.html" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/user-profile/user-profile.component.ts" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/pages/departments/departments.component.ts" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-laravel5/routes/api.php" />
-        <option value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/utils/environment.ts" />
-        <option value="$PROJECT_DIR$/resources/views/table/default-field-forms.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_07_02_114055_add_column_on_relations_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/field-relation-mtm-form.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/field-relation-hm-form.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/show.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_07_02_182232_create_static_datasets_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/generate-options/modals/add-global-variable-modal.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_07_02_210533_add_dataset_type_column_on_relations_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_07_02_210533_add_dataset_type_column_on_fields_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/field-relation-form.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/modals/add-static-dataset-modal.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/field-static-dataset.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/partials/static-dataset-item.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/modals/edit-static-dataset-modal.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_07_03_191817_add_column_order_on_fields_table.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TableController.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/school-lists-form/school-lists-form.component.ts" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/service.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/field-form.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-form/competency-tests-form.component.html" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-form/competency-tests-form.component.ts" />
+        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/app/CompetencyTest.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/services/users.service.ts" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/routes/api.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/services/competency-tests.service.ts" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/database/seeds/DatabaseSeeder.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/database/factories/UserFactory.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/CompetencyTestController.php" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/students-lists/students-lists.component.ts" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/students-lists/students-lists.component.html" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-single/competency-tests-single.component.html" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-single/competency-tests-single.component.ts" />
+        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/utils/environment.ts" />
       </list>
     </option>
   </component>
@@ -349,7 +335,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -402,6 +387,185 @@
             <path>
               <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
               <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="competency-tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="competency-tests-form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="competency-tests-single" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="students-lists" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="factories" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="dna-laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="seeds" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -485,6 +649,222 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="table" type="462c0819:PsiDirectoryNode" />
               <item name="partials" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="single" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="users-form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="sidenav" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="angular7" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="user-profile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nisa" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
@@ -495,6 +875,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -508,19 +889,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/public/outputs/qhse_hk-angular7/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/table/modals" />
-      <recent name="$PROJECT_DIR$/resources/views/table/partials" />
-      <recent name="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services" />
-      <recent name="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages" />
-      <recent name="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/tables" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/generate-options/partials" />
       <recent name="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app" />
       <recent name="$PROJECT_DIR$/public/outputs/seo-angular7/src/app/user-profile" />
       <recent name="$PROJECT_DIR$/public/templates" />
       <recent name="$PROJECT_DIR$/resources/views/templates/laravel5/base" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/generate-options/partials" />
+      <recent name="$PROJECT_DIR$/resources/views/generate-options/modals" />
+      <recent name="$PROJECT_DIR$/resources/views/table/modals" />
+      <recent name="$PROJECT_DIR$/resources/views/table/partials" />
+      <recent name="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -640,21 +1021,31 @@
       <workItem from="1562038491206" duration="8000" />
       <workItem from="1562063129819" duration="10907000" />
       <workItem from="1562175725188" duration="4103000" />
-      <workItem from="1562259977019" duration="4471000" />
+      <workItem from="1562259977019" duration="6113000" />
+      <workItem from="1562379945946" duration="11484000" />
+      <workItem from="1562629716172" duration="4373000" />
+      <workItem from="1562645402061" duration="3676000" />
+      <workItem from="1562718607850" duration="2854000" />
+      <workItem from="1562819494269" duration="299000" />
+      <workItem from="1562852933748" duration="10403000" />
+      <workItem from="1562924317437" duration="123000" />
+      <workItem from="1562976702044" duration="11520000" />
+      <workItem from="1563166114793" duration="1150000" />
+      <workItem from="1563185197953" duration="8843000" />
+      <workItem from="1563353445053" duration="2001000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="456577000" />
+    <option name="totallyTimeSpent" value="514945000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48795182" visible="true" weight="0.25822604" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48554218" visible="true" weight="0.29041487" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info active="true" id="Favorites" order="3" sideWeight="0.5120482" side_tool="true" visible="true" weight="0.25822604" />
+      <window_info id="Favorites" order="3" sideWeight="0.5144578" side_tool="true" weight="0.27539343" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -673,395 +1064,384 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48915663" visible="true" weight="0.2546495" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="npm" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" sideWeight="0.5108434" side_tool="true" weight="0.30758226" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50214595" side_tool="true" weight="0.32891566" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49785408" weight="0.32891566" />
-      <window_info anchor="bottom" id="TypeScript" order="12" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/auth/register/register.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="113" column="34" lean-forward="true" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/auth/register/register.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="55" column="14" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/user-profile/user-profile.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="265" column="75" selection-start-line="265" selection-start-column="75" selection-end-line="265" selection-end-column="75" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/user-profile/user-profile.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="121" column="5" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/utils/environment.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/account-navbar/account-navbar.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-angular7/src/app/account-navbar/account-navbar.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="53" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-laravel5/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
-          <folding>
-            <element signature="e#7#389#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/templates/angular7/core/src/app/pages/users/users.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/templates/angular7/core/src/app/pages/users/users.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-365" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-laravel5/app/Http/Controllers/api/DepartmentsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_21_012801_add_icon_columns_in_menus_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="30" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_03_09_180902_add_relation_local_key_field_to_relations_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/default-field-forms.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8712">
-          <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/field-relation-hm-form.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="26" lean-forward="true" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/field-relation-mtm-form.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-228">
-          <caret line="76" column="48" selection-start-line="76" selection-start-column="48" selection-end-line="76" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-laravel5/app/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="48" column="5" lean-forward="true" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse_hk-laravel5/app/Http/Controllers/api/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/fields.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="14" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="18" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_12_100239_create_global_variables_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="20" selection-end-column="113" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_03_07_163651_create_relations_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/d21a5e9f2242b46bab4401a332dff745b1ea93e0.php" />
-    <entry file="file://$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="49" column="92" selection-start-line="49" selection-start-column="73" selection-end-line="49" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/GenerateOptionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="48" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/63fe8e49007bb2a60c5d60336a797c883bde3435.php" />
-    <entry file="file://$PROJECT_DIR$/resources/views/generate-options/modals/add-global-variable-modal.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="47" column="20" selection-start-line="47" selection-start-column="20" selection-end-line="53" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/generate-options/partials/global-variable-item.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_02_182232_create_static_datasets_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_02_114055_add_column_on_relations_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="32" column="5" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="32" selection-end-column="5" />
-          <folding>
-            <element signature="e#7#45#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/framework/views/b2dde3ba74f3293bbb919e88bfbbbbf726b09f08.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="147" column="17" selection-start-line="147" selection-start-column="17" selection-end-line="147" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/field-relation-form.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="22" lean-forward="true" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/modals/add-static-dataset-modal.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/field-static-dataset.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/modals/edit-static-dataset-modal.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="85" selection-start-line="21" selection-start-column="85" selection-end-line="21" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/menu/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="267" column="20" lean-forward="true" selection-start-line="267" selection-start-column="20" selection-end-line="271" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/seo-angular7/src/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" selection-start-line="27" selection-end-line="36" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/partials/static-dataset-item.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse/vendor/laravel/framework/src/Illuminate/Queue/Console/TableCommand.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_02_210533_add_dataset_type_column_on_fields_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="30" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_03_191817_add_column_order_on_fields_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="28" column="37" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/storage/framework/views/28e99387591da6995c99d3f2ad8f09baf60a4640.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="351" column="13" selection-start-line="351" selection-start-column="13" selection-end-line="351" selection-end-column="13" />
+        <state relative-caret-position="330">
+          <caret line="104" column="13" selection-start-line="104" selection-start-column="13" selection-end-line="104" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="131" column="75" selection-start-line="131" selection-start-column="58" selection-end-line="131" selection-end-column="75" />
+        <state relative-caret-position="306">
+          <caret line="116" column="178" selection-start-line="116" selection-start-column="178" selection-end-line="116" selection-end-column="178" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TableController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/service.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="439" column="62" selection-start-line="439" selection-start-column="62" selection-end-line="439" selection-end-column="62" />
-          <folding>
-            <element signature="e#40#54#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="375">
+          <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/school-lists-form/school-lists-form.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="159" column="71" selection-start-line="159" selection-start-column="71" selection-end-line="159" selection-end-column="71" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="373" column="26" selection-start-line="373" selection-start-column="13" selection-end-line="373" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/fields_forms.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/table/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="136" column="33" selection-start-line="136" selection-start-column="33" selection-end-line="136" selection-end-column="33" />
+        <state relative-caret-position="369">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/table/field-form.blade.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="491">
+          <caret line="64" column="64" selection-start-line="64" selection-start-column="47" selection-end-line="64" selection-end-column="64" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="421" column="11" lean-forward="true" selection-start-line="421" selection-start-column="11" selection-end-line="421" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="58" column="49" lean-forward="true" selection-start-line="58" selection-start-column="49" selection-end-line="58" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/services/tables/competency-tests-table.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="122" column="50" lean-forward="true" selection-start-line="122" selection-start-column="50" selection-end-line="122" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="58" column="41" selection-start-line="58" selection-start-column="41" selection-end-line="58" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/users-form/users-form-component-ts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" column="24" selection-start-line="49" selection-start-column="19" selection-end-line="49" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/users/users-component-ts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="37" column="23" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="192" lean-forward="true" selection-start-line="192" selection-end-line="192" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/general-manager-lists/general-manager-lists.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/general-manager-lists/general-manager-lists.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="40" column="43" lean-forward="true" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="2215" column="56" lean-forward="true" selection-start-line="2215" selection-start-column="56" selection-end-line="2215" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/users/users.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="170" column="26" lean-forward="true" selection-start-line="149" selection-start-column="20" selection-end-line="170" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/users/users.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/table/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="67" column="32" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests/competency-tests.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="53" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests/competency-tests.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="111" column="8" lean-forward="true" selection-start-line="111" selection-start-column="8" selection-end-line="127" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/roles/roles.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="222" column="20" selection-start-line="222" selection-start-column="20" selection-end-line="227" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/templates.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="73" column="51" selection-start-line="73" selection-start-column="44" selection-end-line="73" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-form/competency-tests-form.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="753">
+          <caret line="235" column="24" selection-start-line="235" selection-start-column="24" selection-end-line="235" selection-end-column="83" />
+          <folding>
+            <element signature="n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="19" column="46" lean-forward="true" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/app/CompetencyTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-single/competency-tests-single.component.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/services/users.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/app/Helpers/QueryHelpers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/database/seeds/DatabaseSeeder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/database/factories/UserFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
-          <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+          <caret line="20" column="37" lean-forward="true" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-form/competency-tests-form.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/students-lists/students-lists.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="97" column="56" lean-forward="true" selection-start-line="97" selection-start-column="56" selection-end-line="97" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/students-lists/students-lists.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="178" column="37" lean-forward="true" selection-start-line="151" selection-start-column="32" selection-end-line="178" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-single/competency-tests-single.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="207" column="114" lean-forward="true" selection-start-line="207" selection-start-column="114" selection-end-line="207" selection-end-column="114" />
+          <folding>
+            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/services/competency-tests.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="72" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-single/competency-tests-single.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="113" column="40" selection-start-line="113" selection-start-column="40" selection-end-line="113" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/database/migrations/2014_10_12_100033_create_industrial_types_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="56" lean-forward="true" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/database/migrations/2014_10_12_100029_create_users_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="37" lean-forward="true" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/database/migrations/2014_10_12_100030_create_roles_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/database/migrations/2014_10_12_100031_create_permissions_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/CategoriesController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/database/migrations/2019_01_01_100029_create_user_role_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="97" column="25" lean-forward="true" selection-start-line="97" selection-start-column="25" selection-end-line="97" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/CompetencyTestController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="139" column="9" lean-forward="true" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/UserProfileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/utils/environment.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="25" lean-forward="true" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
         </state>
       </provider>
     </entry>

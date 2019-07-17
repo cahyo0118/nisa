@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { StringUtil } from '../../utils/string.util';
 import swal from 'sweetalert2';
-import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! kebab_case(str_plural($menu->name)) !!}.service';
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! str_replace('_', '-', str_plural($menu->name)) !!}.service';
 
 {{ '@' }}Component({
-    selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}',
-    templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}.component.html',
-    styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}.component.css']
+    selector: 'app-{!! str_replace('_', '-', str_plural($menu->name)) !!}',
+    templateUrl: './{!! str_replace('_', '-', str_plural($menu->name)) !!}.component.html',
+    styleUrls: ['./{!! str_replace('_', '-', str_plural($menu->name)) !!}.component.css']
 })
 export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component implements OnInit {
 
@@ -19,10 +19,10 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
     keyword = '';
     items = [];
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-    {!! camel_case(str_plural($field->relation->table->name)) !!}Data: any;
+    {!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data: any;
 @endif
 @endif
 @endforeach
@@ -52,7 +52,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
 
         this.filtersForm = formBuilder.group({
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field_index => $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
 @if ($field->ai || $field->input_type == "hidden" || $field->input_type == "text")
 @else
             {!! $field->name !!}: [
@@ -130,14 +130,14 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
 
     getAllDataSets() {
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-        this.service.get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
+        this.service.get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
             .then(
                 response => {
                     const data = response.data;
-                    this.{!! camel_case(str_plural($field->relation->table->name)) !!}Data = data.data;
+                    this.{!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data = data.data;
                 },
                 error => {
                 }

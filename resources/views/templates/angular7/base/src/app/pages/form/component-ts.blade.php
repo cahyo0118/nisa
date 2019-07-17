@@ -1,3 +1,14 @@
+@php
+$relations = [];
+if(!empty($menu->table)) {
+    foreach($menu->table->fields as $field) {
+        if(!empty($field->relation) && $field->relation->relation_type == "belongsto") {
+            array_push($relations, $field->relation->table->name);
+        }
+    }
+    $relations = array_unique($relations);
+}
+@endphp
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DatepickerOptions } from 'ng2-datepicker';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,21 +19,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { StringUtil } from '../../utils/string.util';
 import swal from 'sweetalert2';
-import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! kebab_case(str_plural($menu->name)) !!}.service';
-@if(!empty($menu->table))
-@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
-@if(!empty($field->relation))
-@if($field->relation->relation_type == "belongsto")
-import { {!! ucfirst(camel_case(str_plural($menu->table->name))) !!}TableService } from '../../services/tables/{!! kebab_case(str_plural($menu->table->name)) !!}-table.service';
-@endif
-@endif
-@endforeach
-@endif
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! str_replace('_', '-', str_plural($menu->name)) !!}.service';
 
 {{ '@' }}Component({
-    selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}-form',
-    templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}-form.component.html',
-    styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}-form.component.css']
+    selector: 'app-{!! str_replace('_', '-', str_plural($menu->name)) !!}-form',
+    templateUrl: './{!! str_replace('_', '-', str_plural($menu->name)) !!}-form.component.html',
+    styleUrls: ['./{!! str_replace('_', '-', str_plural($menu->name)) !!}-form.component.css']
 })
 export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent implements OnInit {
 
@@ -30,10 +32,10 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
     apiValidationErrors;
     data: any;
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-    {!! camel_case(str_plural($field->relation->table->name)) !!}Data: any;
+    {!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->relation_name)) !!}Data: any;
 @endif
 @endif
 @endforeach
@@ -59,7 +61,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
 
         this.{!! camel_case(str_singular($menu->name)) !!}Form = formBuilder.group({
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field_index => $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
 @if ($field->ai || $field->input_type == "hidden")
 @else
             {!! $field->name !!}: [
@@ -100,7 +102,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
                         this.{!! camel_case(str_singular($menu->name)) !!}Form.patchValue(data.data);
                         this.data = data.data;
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $file_field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
 @if($file_field->input_type == 'image' || $file_field->input_type == 'file')
                         this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} !== null ? Environment.SERVER_URL + this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} : null;
 @endif
@@ -124,14 +126,14 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
 
     getAllDataSets() {
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-        this.service.get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
+        this.service.get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
             .then(
                 response => {
                     const data = response.data;
-                    this.{!! camel_case(str_plural($field->relation->table->name)) !!}Data = data.data;
+                    this.{!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->relation_name)) !!}Data = data.data;
                 },
                 error => {
                 }
@@ -216,7 +218,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
             reader.onload = (eventReader: any) => {
                 switch (formControlName) {
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $file_field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
 @if($file_field->input_type == 'image' || $file_field->input_type == 'file')
                     case '{{ $file_field->name }}':
                         this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = `${eventReader.target.result}`;
@@ -233,7 +235,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
     onRemovePicture(formControlName) {
         switch (formControlName) {
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $file_field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
 @if($file_field->input_type == 'image' || $file_field->input_type == 'file')
             case '{{ $file_field->name }}':
                 this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = null;

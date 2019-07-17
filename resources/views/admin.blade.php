@@ -109,7 +109,7 @@
             $(`#fieldType${random}`).val("integer");
             $(`#fieldLength${random}`).val(11);
 
-            createRelation(random, projectId);
+            // createRelation(random, projectId);
 
         } else {
             deleteRelation(random);

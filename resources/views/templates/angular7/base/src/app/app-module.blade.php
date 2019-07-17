@@ -26,11 +26,11 @@ import { PermissionsService } from './services/permissions.service';
 import { RolesService } from './services/roles.service';
 
 @foreach($project->menus as $menu)
-import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from './services/{!! kebab_case(str_plural($menu->name)) !!}.service';
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from './services/{!! str_replace('_', '-', str_plural($menu->name)) !!}.service';
 @endforeach
 
 @foreach($project->tables as $table)
-import { {!! ucfirst(camel_case(str_plural($table->name))) !!}TableService } from './services/tables/{!! kebab_case(str_plural($table->name)) !!}-table.service';
+import { {!! ucfirst(camel_case(str_plural($table->name))) !!}TableService } from './services/tables/{!! str_replace('_', '-', str_plural($table->name)) !!}-table.service';
 @endforeach
 
 // Components
@@ -58,9 +58,9 @@ import { RolesFormComponent } from './pages/roles-form/roles-form.component';
 import { PermissionsComponent } from './pages/permissions/permissions.component';
 
 @foreach($project->menus as $menu)
-import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component } from './pages/{!! kebab_case(str_plural($menu->name)) !!}/{!! kebab_case(str_plural($menu->name)) !!}.component';
-import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent } from './pages/{!! kebab_case(str_plural($menu->name)) !!}-form/{!! kebab_case(str_plural($menu->name)) !!}-form.component';
-import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent } from './pages/{!! kebab_case(str_plural($menu->name)) !!}-single/{!! kebab_case(str_plural($menu->name)) !!}-single.component';
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component } from './pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}/{!! str_replace('_', '-', str_plural($menu->name)) !!}.component';
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent } from './pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}-form/{!! str_replace('_', '-', str_plural($menu->name)) !!}-form.component';
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent } from './pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}-single/{!! str_replace('_', '-', str_plural($menu->name)) !!}-single.component';
 @endforeach
 
 // Utils

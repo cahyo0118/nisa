@@ -265,6 +265,8 @@ class TableController extends Controller
 
         $table = Table::find($id);
 
+        $field_order = $table->fields()->max('order');
+
         if (empty($table)) {
             Session::flash('failed', 'Data not found');
             return redirect()->back();
@@ -284,6 +286,9 @@ class TableController extends Controller
 
                 if (!empty($request->id[$key])) {
                     $field = Field::where('id', $request->id[$key])->first();
+                } else {
+                    $field_order++;
+                    $field->order = $field_order;
                 }
 
                 $field->name = $request->name[$key];
@@ -791,7 +796,7 @@ class TableController extends Controller
 
         $fields = $field->table->fields()->orderBy('order')->get();
 
-        foreach($fields as $f_index => $f) {
+        foreach ($fields as $f_index => $f) {
             if ($f->id == $field->id) {
                 $temp_order = $field->order;
 
@@ -830,7 +835,7 @@ class TableController extends Controller
 
         $fields = $field->table->fields()->orderBy('order')->get();
 
-        foreach($fields as $f_index => $f) {
+        foreach ($fields as $f_index => $f) {
             if ($f->id == $field->id) {
                 $temp_order = $field->order;
 

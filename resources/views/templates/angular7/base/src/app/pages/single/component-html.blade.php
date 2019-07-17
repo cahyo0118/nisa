@@ -56,18 +56,25 @@
 
                             <div class="row">
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field_index => $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
 @if ($field->ai || $field->input_type == "hidden")
 @elseif ($field->input_type == "select")
 
+@if($field->dataset_type == "static")
+                                <div class="col-lg-6">
+                                    <label class="form-control-label">{{ $field->display_name }}</label>
+                                    <p>@{{ data?.{!! $field->name !!} }}</p>
+                                </div>
+@else
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label">{{ $field->display_name }}</label>
-                                        <p>@{{ data?.{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</p>
+                                        <p>@{{ data?.{!! !empty($field->relation->relation_name) ? str_singular($field->relation->relation_name) : str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</p>
                                     </div>
                                 </div>
+@endif
 @endif
 @endif
 
@@ -101,7 +108,7 @@
                         <button type="button"
                                 class="btn btn-secondary btn-icon"
                                 [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', data?.id, 'update']"
-                                *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_Updatem')">
+                                *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_update')">
                             <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                             <span class="btn-inner--text">Edit</span>
                         </button>

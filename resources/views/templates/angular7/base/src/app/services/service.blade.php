@@ -20,10 +20,10 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
             params: {
                 with: [
 @if(!empty($menu->table))
-@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@foreach($menu->table->fields as $field_index => $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-                    '{!! str_singular($field->relation->table->name) !!}',
+                    '{!! !empty($field->relation->relation_name) ? str_singular($field->relation->relation_name) : str_singular($field->relation->table->name) !!}',
 @endif
 @endif
 @endforeach
@@ -59,8 +59,8 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
 @foreach($menu->table->fields as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-    get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet(): AxiosPromise<any> {
-        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! kebab_case(str_plural($field->relation->table->name)) !!}`);
+    get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet(): AxiosPromise<any> {
+        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! !empty($field->relation->relation_name) ? kebab_case(str_plural($field->relation->relation_name)) : kebab_case(str_plural($field->relation->table->name)) !!}`);
     }
 @endif
 @endif
@@ -79,7 +79,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
 @foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-                    '{!! str_singular($field->relation->table->name) !!}',
+                    '{!! !empty($field->relation->relation_name) ? str_singular($field->relation->relation_name) : str_singular($field->relation->table->name) !!}',
 @endif
 @endif
 @endforeach

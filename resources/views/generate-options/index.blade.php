@@ -89,6 +89,8 @@
 
                                             @include('generate-options.modals.add-global-variable-modal')
 
+                                            @include('generate-options.modals.add-default-value-modal')
+
                                             {{--<a href="{{ route('generate_options.show', $item->id) }}"--}}
                                             {{--class="btn btn-icon btn-info btn-sm">--}}
                                             {{--<span class="btn-inner--icon"><i class="fas fa-eye"></i></span>--}}

@@ -81,69 +81,69 @@
             {
                 "resource_filename": "service",
                 "resource_path": "/src/app/services",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}.service.ts",
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}.service.ts",
                 "target_path": "/src/app/services"
             },
             {
                 "resource_filename": "component-ts",
                 "resource_path": "/src/app/pages/list",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}.component.ts",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}.component.ts",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}"
             },
             {
                 "resource_filename": "component-html",
                 "resource_path": "/src/app/pages/list",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}.component.html",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}.component.html",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}"
             },
             {
                 "resource_filename": "component-css",
                 "resource_path": "/src/app/pages/list",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}.component.css",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}.component.css",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}"
             },
             {
                 "resource_filename": "component-ts",
                 "resource_path": "/src/app/pages/form",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-form.component.ts",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-form"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}-form.component.ts",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}-form"
             },
             {
                 "resource_filename": "component-html",
                 "resource_path": "/src/app/pages/form",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-form.component.html",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-form"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}-form.component.html",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}-form"
             },
             {
                 "resource_filename": "component-css",
                 "resource_path": "/src/app/pages/form",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-form.component.css",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-form"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}-form.component.css",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}-form"
             },
             {
                 "resource_filename": "component-ts",
                 "resource_path": "/src/app/pages/single",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-single.component.ts",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-single"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}-single.component.ts",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}-single"
             },
             {
                 "resource_filename": "component-html",
                 "resource_path": "/src/app/pages/single",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-single.component.html",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-single"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}-single.component.html",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}-single"
             },
             {
                 "resource_filename": "component-css",
                 "resource_path": "/src/app/pages/single",
-                "target_filename": "{!! kebab_case(str_plural($menu->name)) !!}-single.component.css",
-                "target_path": "/src/app/pages/{!! kebab_case(str_plural($menu->name)) !!}-single"
+                "target_filename": "{!! str_replace('_', '-', str_plural($menu->name)) !!}-single.component.css",
+                "target_path": "/src/app/pages/{!! str_replace('_', '-', str_plural($menu->name)) !!}-single"
             }
         ],
         "tables": [
             {
                 "resource_filename": "service",
                 "resource_path": "/src/app/services/tables",
-                "target_filename": "{!! kebab_case(str_plural($table->name)) !!}-table.service.ts",
+                "target_filename": "{!! str_replace('_', '-', str_plural($table->name)) !!}-table.service.ts",
                 "target_path": "/src/app/services/tables"
             }
         ],

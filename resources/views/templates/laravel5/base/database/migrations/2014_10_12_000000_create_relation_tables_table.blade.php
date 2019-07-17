@@ -33,7 +33,7 @@ class Create{!! ucfirst(camel_case(str_singular($relation->local_table->name))) 
         Schema::dropIfExists('{!! str_singular($relation->local_table->name) !!}_{!! str_singular($relation->table->name) !!}');
     }
 }
-@else
+@elseif($relation->relation_type == "belongsto")
 class AddForeign{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}Table extends Migration
 {
     /**
@@ -55,7 +55,9 @@ class AddForeign{!! ucfirst(camel_case(str_singular($relation->local_table->name
      */
     public function down()
     {
-        Schema::dropIfExists('{!! $relation->local_table->name !!}');
+        Schema::table('{!! $relation->local_table->name !!}', function (Blueprint $table) {
+            $table->dropForeign(['{!! $relation->field->name !!}']);
+        });
     }
 }
 @endif

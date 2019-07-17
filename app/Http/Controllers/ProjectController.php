@@ -261,8 +261,8 @@ class ProjectController extends Controller
         $field = new Field();
         $field->name = "photo";
         $field->display_name = "Photo";
-        $field->type = "varchar";
-        $field->input_type = "file";
+        $field->type = "text";
+        $field->input_type = "image";
         $field->length = 0;
         $field->index = 0;
         $field->default = null;

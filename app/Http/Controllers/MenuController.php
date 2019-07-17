@@ -261,6 +261,12 @@ class MenuController extends Controller
         $menu->table_id = !empty($table) ? $table_id : null;
         $menu->save();
 
+        if (!empty($request['update_on_list'])) {
+            foreach ($request['operator'] as $field_id => $operator) {
+
+            }
+        }
+
         if (!empty($request['operator'])) {
 
             foreach ($request['operator'] as $field_id => $operator) {

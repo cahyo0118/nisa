@@ -50,7 +50,7 @@ Model
 @foreach($table->fields as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-    public function {!! str_singular($field->relation->table->name) !!}()
+    public function {!! !empty($field->relation->relation_name) ? camel_case(str_singular($field->relation->relation_name)) : camel_case(str_singular($field->relation->table->name)) !!}()
     {
         return $this->belongsTo('App\{!! ucfirst(camel_case(str_singular($field->relation->table->name))) !!}', '{!! $field->name !!}');
     }
@@ -64,12 +64,12 @@ Model
             ->where('relation_type', 'belongstomany')
             ->get() as $relation)
 @if($relation->relation_type == "hasmany")
-    public function {!! $relation->table->name !!}()
+    public function {!! !empty($relation->relation_name) ? camel_case(str_singular($relation->relation_name)) : $relation->table->name !!}()
     {
         return $this->hasMany('App\{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}', '{!! $relation->relation_foreign_key !!}');
     }
 @elseif($relation->relation_type == "belongstomany")
-    public function {!! $relation->table->name !!}()
+    public function {!! !empty($relation->relation_name) ? camel_case(str_singular($relation->relation_name)) : $relation->table->name !!}()
     {
         return $this->belongsToMany('App\{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}', '{!! str_singular($relation->local_table->name) !!}_{!! str_singular($relation->table->name) !!}', '{!! str_singular($relation->local_table->name) !!}_id', '{!! str_singular($relation->table->name) !!}_id');
     }

@@ -1,4 +1,15 @@
 {!! $php_prefix !!}
+@php
+$relations = [];
+if(!empty($menu->table)) {
+    foreach($menu->table->fields as $field) {
+        if(!empty($field->relation) && $field->relation->relation_type == "belongsto") {
+            array_push($relations, $field->relation->table->name);
+        }
+    }
+    $relations = array_unique($relations);
+}
+@endphp
 
 namespace App\Http\Controllers\api;
 
@@ -6,12 +17,8 @@ use App\Helpers\QueryHelpers;
 use App\Http\Controllers\Controller;
 @if(!empty($menu->table))
 use App\{!! ucfirst(camel_case(str_singular($menu->table->name))) !!};
-@foreach($menu->table->fields as $field)
-@if(!empty($field->relation))
-@if($field->relation->relation_type == "belongsto")
-use App\{!! ucfirst(camel_case(str_singular($field->relation->table->name))) !!};
-@endif
-@endif
+@foreach($relations as $relation)
+use App\{!! ucfirst(camel_case(str_singular($relation))) !!};
 @endforeach
 @endif
 use Illuminate\Http\Request;
@@ -252,7 +259,7 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
 @foreach($menu->table->fields as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-    public function get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet(Request $request)
+    public function get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet(Request $request)
     {
         $data = {!! ucfirst(camel_case(str_singular($field->relation->table->name))) !!}::select('{!! $field->relation->foreign_key_display_field->name !!}', '{!! $field->relation->foreign_key_field->name !!}')->get();
 
@@ -332,22 +339,22 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
 
         }
 @else
-where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
+where('{!! $field->name !!}', 'like', '%' . $keyword . '%');
 @foreach($menu->field_criterias as $criteria_index => $criteria)
 @if($criteria->pivot->operator == 'like%')
-            ->where('{!! $criteria->name !!}', 'like', '%{!! $criteria->pivot->value !!}%')
+            ->where('{!! $criteria->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
 @elseif($criteria->pivot->operator == 'like')
-            ->where('{!! $criteria->name !!}', 'like', '{!! $criteria->pivot->value !!}')
+            ->where('{!! $criteria->name !!}', 'like', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == 'not_like')
-            ->where('{!! $criteria->name !!}', 'not like', '{!! $criteria->pivot->value !!}')
+            ->where('{!! $criteria->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == '=')
-            ->where('{!! $criteria->name !!}', '=', {!! $criteria->pivot->value !!})
+            ->where('{!! $criteria->name !!}', '=', {!! $criteria->pivot->value !!});
 @elseif($criteria->pivot->operator == '!=')
-            ->where('{!! $criteria->name !!}', '!=', {!! $criteria->pivot->value !!})
+            ->where('{!! $criteria->name !!}', '!=', {!! $criteria->pivot->value !!});
 @elseif($criteria->pivot->operator == 'single_quotes=')
-            ->where('{!! $criteria->name !!}', '=', '{!! $criteria->pivot->value !!}')
+            ->where('{!! $criteria->name !!}', '=', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == '!single_quotes=')
-            ->where('{!! $criteria->name !!}', '!=', '{!! $criteria->pivot->value !!}')
+            ->where('{!! $criteria->name !!}', '!=', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == 'in')
             ->whereIn('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
@@ -385,7 +392,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
 @if($field_index > 0)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-            ->orWhereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
+            $data = $data->orWhereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
                 $query->where('{!! $field->relation->foreign_key_display_field->name !!}', 'like', '%' . $keyword . '%');
 @foreach($menu->field_criterias as $criteria_index => $criteria)
 @if($criteria->pivot->operator == 'like%')
@@ -434,7 +441,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
                 $query->where('{!! $criteria->relation->foreign_key_field->name !!}', {!! $criteria->pivot->operator !!}, {!! $criteria->pivot->value !!});
 @endif
 @endforeach
-            })
+            });
 @endif
 @else
 
@@ -502,7 +509,7 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%')
             \App\DefaultHelpers::render(\Illuminate\Support\Facades\Blade::compileString('
             @if($field->notnull)required @endif
             @if($field->index == "unique")|unique:{!! $menu->table->name !!}, {!! $field->name !!} @endif
-            @if($field->length > 0)|max:{!! $field->length !!} @endif
+            @if($field->length > 0 && ($field->type == "tinyint" || $field->type == "smallint" || $field->type == "mediumint" || $field->type == "integer" || $field->type == "bigint" || $field->type == "float" || $field->type == "double" || $field->type == "decimal"))|digits_between:1,{!! $field->length !!} @elseif($field->length > 0)|max:{!! $field->length !!} @endif
             @if($field->input_type == "email")|email @endif
             @if($field->input_type == "number")|numeric @endif
             @if($field->input_type == "url")|url @endif

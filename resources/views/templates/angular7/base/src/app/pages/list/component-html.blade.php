@@ -42,7 +42,7 @@
 @if(!empty($menu->icon))
                     <i class="fas fa-{!! $menu->icon !!}"></i>
 @endif
-                    {{ ucwords(str_plural(str_replace('_', ' ', $menu->display_name))) }}
+                    {{ ucwords(str_replace('_', ' ', $menu->display_name)) }}
                 </h1>
             </div>
 @if($menu->allow_create)
@@ -81,7 +81,7 @@
                         <form [formGroup]="filtersForm" (submit)="onSearch()">
                             <div class="row row-grid align-items-center">
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field_index => $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
 @if ($field->ai || $field->input_type == "hidden" || $field->input_type == "text" || $field->input_type == "textarea" || $field->input_type == "image" || $field->input_type == "file")
 @elseif ($field->input_type == "select")
 
@@ -201,7 +201,7 @@
                             <thead class="thead-light">
                             <tr>
 @if(!empty($menu->table))
-@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@foreach($menu->table->fields()->where('searchable', true)->orderBy('order')->get() as $field_index => $field)
 @if(empty($field->relation))
                                 <th [ngClass]="{'text-primary': orderBy == '{!! $field->name !!}', 'pointer': true}"
                                     (click)="onOrderBy('{!! $field->name !!}', orderType == 'asc' ? 'desc' : 'asc')">
@@ -222,7 +222,7 @@
                             <tbody>
                             <tr *ngFor="let item of items">
 @if(!empty($menu->table))
-@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
+@foreach($menu->table->fields()->where('searchable', true)->orderBy('order')->get() as $field_index => $field)
                                 <td>
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")

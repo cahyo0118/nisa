@@ -82,7 +82,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($item->fields as $field)
+                                            @foreach($item->fields()->orderBy('order')->get() as $field)
                                                 <tr>
                                                     <th scope="row">
                                                         {{ $field->name }}

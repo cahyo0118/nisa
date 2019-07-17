@@ -112,9 +112,9 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
 @foreach($menu->table->fields as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-    Route::get('{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! kebab_case(str_plural($field->relation->table->name)) !!}', [
+    Route::get('{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! !empty($field->relation->relation_name) ? kebab_case(str_plural($field->relation->relation_name)) : kebab_case(str_plural($field->relation->table->name)) !!}', [
         'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
-        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@get{!! ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet',
     ]);
 @endif
 @endif

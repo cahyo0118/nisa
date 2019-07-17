@@ -24,7 +24,7 @@ class Create{!! ucfirst(camel_case($table->name)) !!}Table extends Migration
 @elseif($field->type == "integer")
             $table->{!! $field->type !!}('{!! $field->name !!}'){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(" . $field->default . ")") : "" !!};
 @elseif($field->type == "bigint")
-            $table->bigInteger('{!! $field->name !!}', {!! $field->length !!}){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(" . $field->default . ")") : "" !!};
+            $table->bigInteger('{!! $field->name !!}'){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(" . $field->default . ")") : "" !!};
 @elseif($field->type == "tinyint")
             $table->boolean('{!! $field->name !!}'){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(" . $field->default . ")") : "" !!};
 @else
@@ -44,14 +44,6 @@ class Create{!! ucfirst(camel_case($table->name)) !!}Table extends Migration
      */
     public function down()
     {
-        Schema::table('{!! $table->name !!}', function (Blueprint $table) {
-@foreach($table->fields as $field)
-@if(!empty($field->relation))
-            $table->dropForeign(['{!! $field->relation->field->name !!}']);
-@endif
-@endforeach
-        });
-
         Schema::dropIfExists('{!! $table->name !!}');
     }
 }

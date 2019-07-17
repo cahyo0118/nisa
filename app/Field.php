@@ -20,4 +20,9 @@ class Field extends Model
     {
         return $this->belongsToMany('App\Menu', 'menu_criteria', 'field_id', 'menu_id')->withPivot(['operator', 'value']);
     }
+
+    public function static_datasets()
+    {
+        return $this->hasMany('App\StaticDataset', 'field_id');
+    }
 }

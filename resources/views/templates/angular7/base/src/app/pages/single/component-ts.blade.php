@@ -7,30 +7,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { StringUtil } from '../../utils/string.util';
 import swal from 'sweetalert2';
-import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! kebab_case(str_plural($menu->name)) !!}.service';
-@if(!empty($menu->table))
-@foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
-@if(!empty($field->relation))
-@if($field->relation->relation_type == "belongsto")
-import { {!! ucfirst(camel_case(str_plural($menu->table->name))) !!}TableService } from '../../services/tables/{!! kebab_case(str_plural($menu->table->name)) !!}-table.service';
-@endif
-@endif
-@endforeach
-@endif
+import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! str_replace('_', '-', str_plural($menu->name)) !!}.service';
 
 {{ '@' }}Component({
-    selector: 'app-{!! kebab_case(str_plural($menu->name)) !!}-single',
-    templateUrl: './{!! kebab_case(str_plural($menu->name)) !!}-single.component.html',
-    styleUrls: ['./{!! kebab_case(str_plural($menu->name)) !!}-single.component.css']
+    selector: 'app-{!! str_replace('_', '-', str_plural($menu->name)) !!}-single',
+    templateUrl: './{!! str_replace('_', '-', str_plural($menu->name)) !!}-single.component.html',
+    styleUrls: ['./{!! str_replace('_', '-', str_plural($menu->name)) !!}-single.component.css']
 })
 export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent implements OnInit {
 
     data: any;
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-    {!! camel_case(str_plural($field->relation->table->name)) !!}Data: any;
+    {!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data: any;
 @endif
 @endif
 @endforeach
@@ -60,7 +51,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
                         const data = response.data;
                         this.data = data.data;
 @if(!empty($menu->table))
-@foreach($menu->table->fields as $file_field)
+@foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
 @if($file_field->input_type == 'image' || $file_field->input_type == 'file')
                         this.data.{{ $file_field->name }} = this.data.{{ $file_field->name }} !== null ? Environment.SERVER_URL + this.data.{{ $file_field->name }} : null;
 @endif

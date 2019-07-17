@@ -121,6 +121,47 @@
 
                         </div>
 
+                        <div class="col-lg-12">
+                            <hr class="my-4"/>
+                            <h6 class="heading-small text-muted mb-4">Default Values</h6>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
+                                    data-target="#addDefaultValueModal{{ $item->id }}">
+                                <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
+                                <span class="btn-inner--text">Add default value</span>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <br>
+
+                            <div class="table-responsive">
+
+                                <table class="table align-items-center table-flush" data-toggle="dataTable"
+                                       data-form="deleteForm">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Value</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="project_default_values{{ $item->id }}">
+                                    @foreach(DB::table('default_values')->get() as $global_variable)
+
+                                        @include('generate-options.partials.default-value-item')
+
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <br>
+
+                        </div>
+
                     </div>
 
                     <button class="btn btn-icon btn-3 btn-primary float-right"
