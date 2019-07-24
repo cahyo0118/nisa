@@ -1,0 +1,1 @@
+{!! Form::text("value[{$field->id}]", !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->value : null, ["id" => "value{$field->id}", 'class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}

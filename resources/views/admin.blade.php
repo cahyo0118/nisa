@@ -604,6 +604,32 @@
         }
     }
 
+    //    Customize Menu
+    function onOperatorChange(menuId = 0, fieldId = 0) {
+        const operator = $(`#operator${fieldId}`).val();
+        console.log('FIELD_ID', operator);
+
+        // if (operator === "default_or_relation") {
+        //     console.log('ACTION', "CALL LIST RELATION");
+        $.ajax({
+            url: `/views/menus/${menuId}/fields/${fieldId}/inputs/${operator}`,
+            type: 'GET',
+            success: function (data) {
+                $(`#value${fieldId}`).replaceWith(data.view);
+            },
+        });
+        // } else {
+        //     $.ajax({
+        //         url: `/views/menus/${menuId}/fields/${fieldId}/inputs/text`,
+        //         type: 'GET',
+        //         success: function (data) {
+        //             $(`#operator${fieldId}`).replaceWith(data.view);
+        //         },
+        //     });
+        // }
+
+    }
+
 </script>
 
 @yield('script')

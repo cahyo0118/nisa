@@ -22,6 +22,11 @@ class Menu extends Model
         return $this->hasMany('App\Menu', 'parent_menu_id');
     }
 
+    public function project()
+    {
+        return $this->belongsTo('App\Project', 'project_id');
+    }
+
     public function table()
     {
         return $this->belongsTo('App\Table', 'table_id');

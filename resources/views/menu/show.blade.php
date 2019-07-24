@@ -89,11 +89,11 @@
 @section('script')
     <script>
         $(function () {
-            $('.confirm-delete').click(function(e){
+            $('.confirm-delete').click(function (e) {
                 e.preventDefault();
                 var $form = $('#form-delete');
-                $('#confirm').modal({ backdrop: 'static', keyboard: false })
-                    .on('click', '#delete-btn', function(){
+                $('#confirm').modal({backdrop: 'static', keyboard: false})
+                    .on('click', '#delete-btn', function () {
                         console.log('DELETE');
                         $form.submit();
                     });

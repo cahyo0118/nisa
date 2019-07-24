@@ -269,9 +269,89 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
             'message' => 'Awesome, successfully get {!! title_case(str_replace('_', ' ', str_plural($field->relation->table->name))) !!} data !',
         ], 200);
     }
+
 @endif
 @endif
 @endforeach
+
+@if(!empty($menu->table))
+@foreach($menu->table->relations as $relation_index => $relation)
+@if($relation->relation_type == "belongstomany")
+    public function getAll{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Relation(Request $request, $id)
+    {
+        $data = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::find($id)->{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}();
+
+        $filters = json_decode($request->filters, true);
+
+        foreach ($filters as $filter_name => $filter_value) {
+
+            if (!empty($filter_value))
+                $data = $data->where($filter_name, '=', $filter_value);
+
+        }
+
+        $data = QueryHelpers::getDataByQueryBuilder($request, $data);
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+            'message' => 'Awesome, successfully get Competency Tests data !',
+        ], 200);
+    }
+
+    public function add{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}(Request $request, $id)
+    {
+        $data = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::where('id', $id);
+
+        $data = QueryHelpers::getSingleData($request, $data);
+
+        // Data not found
+        if ($data === null) {
+            return response()->json([
+                'success' => false,
+                'data' => null,
+                'message' => 'Oops, Data not found !',
+            ], 400);
+        }
+
+        if (empty($data->{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}()->where('id', $request->id)->first()))
+            $data->{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}()->attach($request->id);
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+            'message' => 'Awesome, successfully add {!! !empty($relation->relation_name) ? title_case(str_singular($relation->relation_name)) : $relation->table->name !!} !',
+        ], 200);
+
+    }
+
+    public function remove{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}(Request $request, $id, ${!! !empty($relation->relation_name) ? snake_case(str_singular($relation->relation_name)) : $relation->table->name !!}_id)
+    {
+        $data = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::where('id', $id);
+
+        $data = QueryHelpers::getSingleData($request, $data);
+
+        // Data not found
+        if ($data === null) {
+            return response()->json([
+                'success' => false,
+                'data' => null,
+                'message' => 'Oops, Data not found !',
+            ], 400);
+        }
+
+        $data->{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}()->detach(${!! !empty($relation->relation_name) ? snake_case(str_singular($relation->relation_name)) : $relation->table->name !!}_id);
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+            'message' => 'Awesome, successfully remove {!! !empty($relation->relation_name) ? title_case(str_singular($relation->relation_name)) : $relation->table->name !!} !',
+        ], 200);
+
+    }
+@endif
+@endforeach
+@endif
 
     public function getAllByKeyword(Request $request, $keyword)
     {
@@ -342,49 +422,49 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
 where('{!! $field->name !!}', 'like', '%' . $keyword . '%');
 @foreach($menu->field_criterias as $criteria_index => $criteria)
 @if($criteria->pivot->operator == 'like%')
-            ->where('{!! $criteria->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
+        $data = $data->where('{!! $criteria->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
 @elseif($criteria->pivot->operator == 'like')
-            ->where('{!! $criteria->name !!}', 'like', '{!! $criteria->pivot->value !!}');
+        $data = $data->where('{!! $criteria->name !!}', 'like', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == 'not_like')
-            ->where('{!! $criteria->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
+        $data = $data->where('{!! $criteria->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == '=')
-            ->where('{!! $criteria->name !!}', '=', {!! $criteria->pivot->value !!});
+        $data = $data->where('{!! $criteria->name !!}', '=', {!! $criteria->pivot->value !!});
 @elseif($criteria->pivot->operator == '!=')
-            ->where('{!! $criteria->name !!}', '!=', {!! $criteria->pivot->value !!});
+        $data = $data->where('{!! $criteria->name !!}', '!=', {!! $criteria->pivot->value !!});
 @elseif($criteria->pivot->operator == 'single_quotes=')
-            ->where('{!! $criteria->name !!}', '=', '{!! $criteria->pivot->value !!}');
+        $data = $data->where('{!! $criteria->name !!}', '=', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == '!single_quotes=')
-            ->where('{!! $criteria->name !!}', '!=', '{!! $criteria->pivot->value !!}');
+        $data = $data->where('{!! $criteria->name !!}', '!=', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == 'in')
-            ->whereIn('{!! $criteria->name !!}', [
+        $data = $data->whereIn('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
+            '{!! $v !!}',
 @endforeach
-            ])
+        ]);
 @elseif($criteria->pivot->operator == 'not_in')
-            ->whereNotIn('{!! $criteria->name !!}', [
+        $data = $data->whereNotIn('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
+            '{!! $v !!}',
 @endforeach
-            ])
+        ]);
 @elseif($criteria->pivot->operator == 'between')
-            ->whereBetween('{!! $criteria->name !!}', [
+        $data = $data->whereBetween('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
+            '{!! $v !!}',
 @endforeach
-            ])
+        ]);
 @elseif($criteria->pivot->operator == 'not_between')
-            ->whereNotBetween('{!! $criteria->name !!}', [
+        $data = $data->whereNotBetween('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
+            '{!! $v !!}',
 @endforeach
-            ])
+        ]);
 @elseif($criteria->pivot->operator == 'is_null')
-            ->whereNull('{!! $criteria->name !!}')
+        $data = $data->whereNull('{!! $criteria->name !!}');
 @elseif($criteria->pivot->operator == 'is_not_null')
-            ->whereNotNull('{!! $criteria->name !!}')
+        $data = $data->whereNotNull('{!! $criteria->name !!}');
 @else
-            ->where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $criteria->pivot->value !!})
+        $data = $data->where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $criteria->pivot->value !!});
 @endif
 @endforeach
 @endif
@@ -392,56 +472,58 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%');
 @if($field_index > 0)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-            $data = $data->orWhereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
-                $query->where('{!! $field->relation->foreign_key_display_field->name !!}', 'like', '%' . $keyword . '%');
+        $data = $data->orWhereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
+            $query->where('{!! $field->relation->foreign_key_display_field->name !!}', 'like', '%' . $keyword . '%');
 @foreach($menu->field_criterias as $criteria_index => $criteria)
+@if(!empty($criteria->relation))
 @if($criteria->pivot->operator == 'like%')
-                $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
 @elseif($criteria->pivot->operator == 'like')
-                $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '{!! $criteria->pivot->value !!}');
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == 'not_like')
-                $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == '=')
-                $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', {!! $criteria->pivot->value !!});
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', {!! $criteria->pivot->value !!});
 @elseif($criteria->pivot->operator == '!=')
-                $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', {!! $criteria->pivot->value !!});
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', {!! $criteria->pivot->value !!});
 @elseif($criteria->pivot->operator == 'single_quotes=')
-                $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', '{!! $criteria->pivot->value !!}');
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == '!single_quotes=')
-                $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', '{!! $criteria->pivot->value !!}');
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == 'in')
-                $query->whereIn('{!! $criteria->relation->foreign_key_field->name !!}', [
+            $query->whereIn('{!! $criteria->relation->foreign_key_field->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
-                    '{!! $v !!}',
+                '{!! $v !!}',
 @endforeach
-                ]);
+            ]);
 @elseif($criteria->pivot->operator == 'not_in')
-                $query->whereNotIn('{!! $criteria->relation->foreign_key_field->name !!}', [
+            $query->whereNotIn('{!! $criteria->relation->foreign_key_field->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
-                    '{!! $v !!}',
+                '{!! $v !!}',
 @endforeach
-                ]);
+            ]);
 @elseif($criteria->pivot->operator == 'between')
-                $query->whereBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
+            $query->whereBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
-                    '{!! $v !!}',
+                '{!! $v !!}',
 @endforeach
-                ]);
+            ]);
 @elseif($criteria->pivot->operator == 'not_between')
-                $query->whereNotBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
+            $query->whereNotBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
-                    '{!! $v !!}',
+                '{!! $v !!}',
 @endforeach
-                ]);
+            ]);
 @elseif($criteria->pivot->operator == 'is_null')
-                $query->whereNull('{!! $criteria->relation->foreign_key_field->name !!}');
+            $query->whereNull('{!! $criteria->relation->foreign_key_field->name !!}');
 @elseif($criteria->pivot->operator == 'is_not_null')
-                $query->whereNotNull('{!! $criteria->relation->foreign_key_field->name !!}');
+            $query->whereNotNull('{!! $criteria->relation->foreign_key_field->name !!}');
 @else
-                $query->where('{!! $criteria->relation->foreign_key_field->name !!}', {!! $criteria->pivot->operator !!}, {!! $criteria->pivot->value !!});
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', {!! $criteria->pivot->operator !!}, {!! $criteria->pivot->value !!});
+@endif
 @endif
 @endforeach
-            });
+        });
 @endif
 @else
 
@@ -456,7 +538,6 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%');
 @endif
 @endif
 @endforeach
-        ;
 
         $data = QueryHelpers::getDataByQueryBuilder($request, $data);
 
@@ -570,6 +651,13 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%');
 @endforeach
         ${!! snake_case($menu->name) !!}->save();
 
+@if(!empty($menu->table))
+@foreach($menu->table->relations as $relation_index => $relation)
+@if($relation->relation_type == "belongstomany")
+        ${!! snake_case($menu->name) !!}->{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}()->attach($request->{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!});
+@endif
+@endforeach
+@endif
         return response()->json([
             'success' => true,
             'data' => ${!! snake_case($menu->name) !!},

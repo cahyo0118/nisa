@@ -120,6 +120,28 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
 @endif
 @endforeach
 
+@if(!empty($menu->table))
+@foreach($menu->table->relations as $relation_index => $relation)
+@if($relation->relation_type == "belongstomany")
+
+    Route::get('{!! kebab_case(str_plural($menu->name)) !!}/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}', [
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getAllParticipantsRelation',
+    ]);
+
+    Route::post('{!! kebab_case(str_plural($menu->name)) !!}/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}/store', [
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_update',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@addParticipants',
+    ]);
+
+    Route::delete('{!! kebab_case(str_plural($menu->name)) !!}/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}/{item_id}/remove', [
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_update',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@removeParticipants',
+    ]);
+@endif
+@endforeach
+@endif
+
     Route::get('{!! kebab_case(str_plural($menu->name)) !!}/search/{keyword}', [
         'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getAllByKeyword',

@@ -73,6 +73,8 @@ Route::get('projects/{id}/tables/interface', 'ProjectController@tables')->name('
 Route::resource('menus', 'MenuController');
 //Route::resource('projects/{project_id}/menus', 'MenuController');
 
+Route::get('views/menus/{menu_id}/fields/{field_id}/inputs/{input_type}', 'MenuController@inputsView');
+
 Route::get('menus/{id}/subs', 'MenuController@subMenus')->name('menus.subs');
 
 Route::get('menus/all/search', 'MenuController@search')->name('menus.search');

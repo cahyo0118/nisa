@@ -69,7 +69,7 @@ Model
         return $this->hasMany('App\{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}', '{!! $relation->relation_foreign_key !!}');
     }
 @elseif($relation->relation_type == "belongstomany")
-    public function {!! !empty($relation->relation_name) ? camel_case(str_singular($relation->relation_name)) : $relation->table->name !!}()
+    public function {!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}()
     {
         return $this->belongsToMany('App\{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}', '{!! str_singular($relation->local_table->name) !!}_{!! str_singular($relation->table->name) !!}', '{!! str_singular($relation->local_table->name) !!}_id', '{!! str_singular($relation->table->name) !!}_id');
     }

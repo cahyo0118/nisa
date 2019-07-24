@@ -271,6 +271,40 @@ class MenuController extends Controller
 
             foreach ($request['operator'] as $field_id => $operator) {
                 if (!empty($operator)) {
+//                    switch ($input_type) {
+//                        case "relation":
+//                            $dataset = [];
+//
+//                            $request = $request->json()->all();
+//
+//                            $users_table = $menu->project->tables()->where('name', 'users')->first();
+//
+//                            foreach ($users_table->fields as $users_field) {
+//
+//                                if (!empty($users_field->relation) && $users_field->relation->relation_type == "belongsto") {
+//                                    $dataset[$users_field->id] = "same " . $users_field->relation->relation_name;
+//                                }
+//
+//                            }
+//
+//                            $value = (string)view('menu.inputs.list-relation-users')
+//                                ->with('field', $field)
+//                                ->with('dataset', $dataset);
+//                            break;
+//                        case "default":
+//                            $dataset = [];
+//                            $dataset["current_user_id"] = "Current User ID";
+//
+//                            $value = (string)view('menu.inputs.list-relation-users')
+//                                ->with('field', $field)
+//                                ->with('dataset', $dataset);
+//                            break;
+//                        default:
+//                            $value = (string)view('menu.inputs.text')
+//                                ->with('field', $field)
+//                                ->with('menu', $menu);
+//                            break;
+//                    }
                     DB::table('menu_criteria')
                         ->where('menu_id', $id)
                         ->where('field_id', $field_id)
@@ -491,6 +525,63 @@ class MenuController extends Controller
             'success' => true,
             'data' => $field,
 //            'view' => $value,
+            'message' => 'Successfully add new global variable'
+        ], 200);
+    }
+
+    public function inputsView(Request $request, $menu_id, $field_id, $input_type)
+    {
+        $value = null;
+
+        $menu = Menu::find($menu_id);
+        $field = Field::find($field_id);
+
+        if (empty($field) || empty($menu) || empty($menu->table)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ], 400);
+        }
+
+        switch ($input_type) {
+            case "relation":
+                $dataset = [];
+
+                $users_table = $menu->project->tables()->where('name', 'users')->first();
+
+                foreach ($users_table->fields as $users_field) {
+
+                    if (!empty($users_field->relation) && $users_field->relation->relation_type == "belongsto") {
+                        $dataset[$users_field->id] = "same " . $users_field->relation->relation_name;
+                    }
+
+                }
+
+                $value = (string)view('menu.inputs.list-relation-users')
+                    ->with('field', $field)
+                    ->with('menu', $menu)
+                    ->with('dataset', $dataset);
+                break;
+            case "default":
+                $dataset = [];
+                $dataset["current_user_id"] = "Current User ID";
+
+                $value = (string)view('menu.inputs.list-relation-users')
+                    ->with('field', $field)
+                    ->with('menu', $menu)
+                    ->with('dataset', $dataset);
+                break;
+            default:
+                $value = (string)view('menu.inputs.text')
+                    ->with('field', $field)
+                    ->with('menu', $menu);
+                break;
+        }
+
+        return response()->json([
+            'success' => true,
+//            'data' => $field,
+            'view' => $value,
             'message' => 'Successfully add new global variable'
         ], 200);
     }

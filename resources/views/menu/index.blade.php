@@ -350,4 +350,10 @@
 
         }
     </script>
+
+    <script>
+        $(function() {
+            console.log('HEY HEY HEY')
+        })
+    </script>
 @endsection

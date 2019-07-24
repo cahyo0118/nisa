@@ -18,6 +18,8 @@
         "not_between" => "NOT BETWEEN",
         "is_null" => "IS NULL",
         "is_not_null" => "IS NOT NULL",
+        "default" => "Default",
+        "relation" => "Relation",
     ];
 
     $text_operators = [
@@ -36,6 +38,18 @@
         "is_null" => "IS NULL",
         "is_not_null" => "IS NOT NULL",
     ];
+
+$dataset = [];
+
+$users_table = $menu->project->tables()->where('name', 'users')->first();
+
+foreach ($users_table->fields as $users_field) {
+
+    if (!empty($users_field->relation) && $users_field->relation->relation_type == "belongsto") {
+        $dataset[$users_field->id] = "same " . $users_field->relation->relation_name;
+    }
+
+}
 @endphp
 <div class="modal fade" id="customizeMenuModal{{ $menu->id }}" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -184,37 +198,60 @@
                                                        data-form="deleteForm">
                                                     <thead>
                                                     <tr>
-                                                        <th scope="col">Field</th>
-                                                        <th scope="col">Operator</th>
-                                                        <th scope="col">Value</th>
-                                                        <th scope="col"></th>
+                                                        <th width="10%">Field</th>
+                                                        <th width="10%">Operator</th>
+                                                        <th width="10%">Value</th>
+                                                        {{--<th scope="col"></th>--}}
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($menu->table->fields as $field)
+                                                    @foreach($menu->table->fields()->orderBy('order')->get() as $field)
 
                                                         <tr id="customize_field_{!! $field->id !!}">
-                                                            <td>
+                                                            <td width="10%">
                                                                 <h5>
                                                                     {{ $field->name }}
                                                                 </h5>
                                                             </td>
-                                                            <td class="w-25">
-                                                                {!! Form::select("operator[{$field->id}]", $number_operators, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator : null, ["class" => "form-control form-control-alternative"]) !!}
+                                                            <td width="45%">
+                                                                {!! Form::select("operator[{$field->id}]", $number_operators, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator : null, ["id" => "operator{$field->id}", "class" => "form-control form-control-alternative", "onchange" => "onOperatorChange({$menu->id}, {$field->id})"]) !!}
                                                             </td>
 
-                                                            <td>
-                                                                {!! Form::text("value[{$field->id}]", !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->value : null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+                                                            <td width="45%">
+                                                                @if(!empty(QueryHelpers::getCriteria($menu->id, $field->id)) && QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator == "relation")
+                                                                    @php
+                                                                        $dataset = [];
+
+                                                                        $users_table = $menu->project->tables()->where('name', 'users')->first();
+
+                                                                        foreach ($users_table->fields as $users_field) {
+
+                                                                            if (!empty($users_field->relation) && $users_field->relation->relation_type == "belongsto") {
+                                                                                $dataset[$users_field->id] = "same " . $users_field->relation->relation_name;
+                                                                            }
+
+                                                                        }
+                                                                    @endphp
+                                                                    @include('menu.inputs.list-relation-users', ['dataset' => $dataset])
+                                                                @elseif(!empty(QueryHelpers::getCriteria($menu->id, $field->id)) && QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator == "default")
+                                                                    @php
+                                                                        $dataset = [];
+                                                                        $dataset["current_user_id"] = "Current User ID";
+                                                                    @endphp
+                                                                    @include('menu.inputs.list-relation-users', ['dataset' => $dataset])
+                                                                @else
+                                                                    {!! Form::text("value[{$field->id}]", !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->value : null, ["id" => "value{$field->id}", 'class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+                                                                @endif
                                                             </td>
-                                                            <td>
-                                                                <div class="form-group">
-                                                                    <label class="form-control-label">
-                                                                        {!! Form::hidden("update_on_list[{$field->id}]", 0) !!}
-                                                                        {!! Form::checkbox("update_on_list[{$field->id}]", 1, null) !!}
-                                                                        update on list
-                                                                    </label>
-                                                                </div>
-                                                            </td>
+                                                            {{--<td>--}}
+                                                                {{--<div class="form-group">--}}
+                                                                    {{--<label class="form-control-label">--}}
+                                                                        {{--{!! Form::hidden("update_on_list[{$field->id}]", 0) !!}--}}
+                                                                        {{--{!! Form::checkbox("update_on_list[{$field->id}]", 1, null) !!}--}}
+                                                                        {{--update on list--}}
+                                                                    {{--</label>--}}
+                                                                {{--</div>--}}
+                                                            {{--</td>--}}
                                                         </tr>
 
                                                     @endforeach
