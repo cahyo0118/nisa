@@ -116,6 +116,21 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
         'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
         'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet',
     ]);
+
+@php
+$field_reference = null;
+$reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+if (!empty($reference)) {
+    $field_reference = \App\Field::find($reference->field_reference_id);
+}
+@endphp
+@if(!empty($field_reference))
+
+    Route::get('{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! !empty($field->relation->relation_name) ? kebab_case(str_plural($field->relation->relation_name)) : kebab_case(str_plural($field->relation->table->name)) !!}/relation/{!! snake_case($field_reference->name) !!}/{{!! snake_case($field_reference->name) !!}}', [
+        'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSetBy{!! ucfirst(camel_case($field_reference->name)) !!}',
+    ]);
+@endif
 @endif
 @endif
 @endforeach
@@ -126,17 +141,17 @@ Route::group(array('prefix' => 'v1', 'middleware' => ['auth:api', 'cors']), func
 
     Route::get('{!! kebab_case(str_plural($menu->name)) !!}/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}', [
         'middleware' => 'permission:{{ str_plural($menu->name) }}_read',
-        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getAllParticipantsRelation',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@getAll{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Relation',
     ]);
 
     Route::post('{!! kebab_case(str_plural($menu->name)) !!}/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}/store', [
         'middleware' => 'permission:{{ str_plural($menu->name) }}_update',
-        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@addParticipants',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@add{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}',
     ]);
 
     Route::delete('{!! kebab_case(str_plural($menu->name)) !!}/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}/{item_id}/remove', [
         'middleware' => 'permission:{{ str_plural($menu->name) }}_update',
-        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@removeParticipants',
+        'uses' => 'api\{{ ucfirst(camel_case($menu->name)) }}Controller@remove{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}',
     ]);
 @endif
 @endforeach

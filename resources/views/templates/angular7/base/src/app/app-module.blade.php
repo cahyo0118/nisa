@@ -85,30 +85,38 @@ const routes: Routes = [
     {path: 'users/create', component: UsersFormComponent, canActivate: [AuthGuardService]},
     {path: 'users/:id/update', component: UsersFormComponent, canActivate: [AuthGuardService]},
 @foreach($project->menus as $menu)
+@if($menu->allow_list)
     {
         path: '{!! kebab_case(str_plural($menu->name)) !!}',
         component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component,
         canActivate: [AuthGuardService],
         data: {permission: '{!! kebab_case(str_plural($menu->name)) !!}_read'}
     },
+@endif
+@if($menu->allow_create)
     {
         path: '{!! kebab_case(str_plural($menu->name)) !!}/create',
         component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent,
         canActivate: [AuthGuardService],
         data: {permission: '{!! kebab_case(str_plural($menu->name)) !!}_create'}
     },
+@endif
+@if($menu->allow_single)
     {
         path: '{!! kebab_case(str_plural($menu->name)) !!}/:id/single',
         component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent,
         canActivate: [AuthGuardService],
         data: {permission: '{!! kebab_case(str_plural($menu->name)) !!}_read'}
     },
+@endif
+@if($menu->allow_update)
     {
         path: '{!! kebab_case(str_plural($menu->name)) !!}/:id/update',
         component: {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent,
         canActivate: [AuthGuardService],
         data: {permission: '{!! kebab_case(str_plural($menu->name)) !!}_update'}
     },
+@endif
 @endforeach
     {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuardService]},
     // Guest routes

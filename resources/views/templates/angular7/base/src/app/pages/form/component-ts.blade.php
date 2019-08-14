@@ -41,9 +41,14 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
     data: any;
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
     {!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->relation_name)) !!}Data: any;
+@endif
 @endif
 @endif
 @endforeach
@@ -105,6 +110,10 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
         this.{!! camel_case(str_singular($menu->name)) !!}Form = formBuilder.group({
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
 @if ($field->ai || $field->input_type == "hidden")
 @else
             {!! $field->name !!}: [
@@ -114,11 +123,15 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
 @else
                 false,
 @endif
-@else
+@elseif(empty($field->default) && $field->input_type == "number")
+                0,
+@elseif(empty($field->default))
                 '',
+@else
+                '{!! $field->default !!}',
 @endif
                 [
-@if($field->notnull)
+@if(($field->notnull && empty($criteria)) || (!empty($criteria) && $criteria->required))
                     Validators.required,
 @endif
 @if($field->length > 0)
@@ -129,6 +142,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
 @endif
                 ]
             ],
+@endif
 @endif
 @endforeach
 @endif
@@ -155,16 +169,40 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
     ngOnInit() {
         if (this.id) {
             this.editMode = true;
+
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
+@if($field->input_type == "password")
+            this.{!! camel_case(str_singular($menu->name)) !!}Form.controls.{!! $field->name !!}.setValidators(
+                [
+@if($field->length > 0)
+                    Validators.maxLength({!! $field->length !!}),
+@endif
+                ]
+            );
+@endif
+@endforeach
+@endif
+
             this.service.getOne(this.id)
                 .then(
                     response => {
                         const data = response.data;
                         this.{!! camel_case(str_singular($menu->name)) !!}Form.patchValue(data.data);
                         this.data = data.data;
+
+                        this.getAllDataSets();
+
+                        this.getAllRelationsData();
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
 @if($file_field->input_type == 'image' || $file_field->input_type == 'file')
                         this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} !== null ? Environment.SERVER_URL + this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} : null;
+@endif
 @endif
 @endforeach
 @endif
@@ -179,18 +217,23 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
                         console.log(error);
                     }
                 );
+        } else {
+            this.getAllDataSets();
+
+            this.getAllRelationsData();
         }
-
-        this.getAllDataSets();
-
-        this.getAllRelationsData();
     }
 
     getAllDataSets() {
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->orderBy('order')->get() as $field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
+@if(empty(DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $field->id)->first()))
         this.service.get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
             .then(
                 response => {
@@ -201,6 +244,31 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
                 }
             );
 
+@endif
+@endif
+@endif
+@endif
+@endforeach
+@endif
+
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->orderBy('order')->get() as $f)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
+@if(!empty($f->relation))
+@if($f->relation->relation_type == "belongsto")
+@php
+$reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $f->id)->first();
+if (!empty($reference)) {
+    $f_reference = \App\Field::find($reference->field_reference_id);
+}
+@endphp
+@if(!empty($f_reference))
+        this.on{!! ucfirst(camel_case($f_reference->name)) !!}Change();
+@endif
+@endif
 @endif
 @endif
 @endforeach
@@ -222,6 +290,41 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
 @endforeach
 @endif
     }
+
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->orderBy('order')->get() as $field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+@php
+$field_reference = null;
+$reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+if (!empty($reference)) {
+    $field_reference = \App\Field::find($reference->field_reference_id);
+}
+@endphp
+@if(!empty($field_reference))
+    on{!! ucfirst(camel_case($field_reference->name)) !!}Change() {
+        this.service.get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSetBy{!! ucfirst(camel_case($field_reference->name)) !!}(this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{!! snake_case($field_reference->name) !!})
+            .then(
+                response => {
+                    const data = response.data;
+                    this.{!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data = data.data;
+                },
+                error => {
+                }
+            );
+    }
+
+@endif
+@endif
+@endif
+@endif
+@endforeach
+@endif
 
 @if(!empty($menu->table))
 @foreach($menu->table->relations as $relation_index => $relation)
@@ -451,12 +554,15 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
                             this.route.navigate(['/{!! kebab_case(str_plural($menu->name)) !!}']);
                         },
                         error => {
+                            const data = error.response.data;
                             swal({
                                 title: 'Oops',
                                 text: error.response.data.message,
                                 type: 'error',
                                 confirmButtonText: 'Confirm'
                             });
+
+                            this.apiValidationErrors = data.data;
                         }
                     );
 
@@ -471,10 +577,15 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
                 switch (formControlName) {
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
-@if($file_field->input_type == 'image' || $file_field->input_type == 'file')
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
+@if($file_field->input_type == 'image')
                     case '{{ $file_field->name }}':
                         this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = `${eventReader.target.result}`;
                         break;
+@endif
 @endif
 @endforeach
 @endif
@@ -488,10 +599,59 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}FormComponent i
         switch (formControlName) {
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
-@if($file_field->input_type == 'image' || $file_field->input_type == 'file')
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
+@if($file_field->input_type == 'image')
             case '{{ $file_field->name }}':
                 this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = null;
                 break;
+@endif
+@endif
+@endforeach
+@endif
+        }
+    }
+
+    onUpdateFile(event, formControlName) {
+        if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (eventReader: any) => {
+                switch (formControlName) {
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
+@if($file_field->input_type == 'file')
+                    case '{{ $file_field->name }}':
+                        this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = `${eventReader.target.result}`;
+                        break;
+@endif
+@endif
+@endforeach
+@endif
+                }
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
+    onRemoveFile(formControlName) {
+        switch (formControlName) {
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->orderBy('order')->get() as $file_field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
+@if($file_field->input_type == 'file')
+            case '{{ $file_field->name }}':
+                this.{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $file_field->name }} = null;
+                break;
+@endif
 @endif
 @endforeach
 @endif

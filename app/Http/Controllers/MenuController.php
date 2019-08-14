@@ -261,6 +261,29 @@ class MenuController extends Controller
         $menu->table_id = !empty($table) ? $table_id : null;
         $menu->save();
 
+        if (!empty($request['load_by_reference'])) {
+            foreach ($request['load_by_reference'] as $field_id => $reference_id) {
+
+                if (!empty($reference_id)) {
+                    DB::table('menu_load_references')
+                        ->where('menu_id', $menu->id)
+                        ->where('field_id', $field_id)
+                        ->delete();
+
+                    DB::table('menu_load_references')->insert([
+                        'menu_id' => $menu->id,
+                        'field_id' => $field_id,
+                        'field_reference_id' => $reference_id
+                    ]);
+                } else {
+                    DB::table('menu_load_references')
+                        ->where('menu_id', $menu->id)
+                        ->where('field_id', $field_id)
+                        ->delete();
+                }
+            }
+        }
+
         if (!empty($request['update_on_list'])) {
             foreach ($request['operator'] as $field_id => $operator) {
 
@@ -312,12 +335,66 @@ class MenuController extends Controller
 
                     $menu->field_criterias()->attach($field_id, [
                         'operator' => $operator,
-                        'value' => $request['value'][$field_id]
+                        'value' => $request['value'][$field_id],
+                        'show_in_list' => $request['show_in_list'][$field_id],
+                        'show_in_form' => $request['show_in_form'][$field_id]
                     ]);
                 } else {
                     DB::table('menu_criteria')
                         ->where('menu_id', $id)
                         ->where('field_id', $field_id)
+                        ->delete();
+                }
+            }
+
+        }
+
+        if (!empty($request['field_ids'])) {
+
+            foreach ($request['field_ids'] as $field_id => $field) {
+                if (!empty($field)) {
+
+                    DB::table('menu_criteria')
+                        ->where('menu_id', $id)
+                        ->where('field_id', $field_id)
+                        ->delete();
+
+                    $menu->field_criterias()->attach($field_id, [
+                        'operator' => $request['operator'][$field_id],
+                        'value' => $request['value'][$field_id],
+                        'required' => $request['required'][$field_id],
+                        'show_in_list' => $request['show_in_list'][$field_id],
+                        'show_in_form' => $request['show_in_form'][$field_id]
+                    ]);
+                } else {
+                    DB::table('menu_criteria')
+                        ->where('menu_id', $id)
+                        ->where('field_id', $field_id)
+                        ->delete();
+                }
+            }
+
+        }
+
+        if (!empty($request['relation_ids'])) {
+
+            foreach ($request['relation_ids'] as $relation_id => $relation) {
+                if (!empty($relation)) {
+
+                    DB::table('relation_criterias')
+                        ->where('menu_id', $id)
+                        ->where('relation_id', $relation_id)
+                        ->delete();
+
+                    $menu->relation_criterias()->attach($relation_id, [
+                        'show_in_list' => $request['show_in_list'][$relation_id],
+                        'show_in_single' => $request['show_in_single'][$relation_id],
+                        'show_in_form' => $request['show_in_form'][$relation_id]
+                    ]);
+                } else {
+                    DB::table('relation_criterias')
+                        ->where('menu_id', $id)
+                        ->where('field_id', $relation_id)
                         ->delete();
                 }
             }

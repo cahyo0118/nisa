@@ -42,7 +42,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
 @foreach($menu->table->fields as $field_index => $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-                    '{!! !empty($field->relation->relation_name) ? str_singular($field->relation->relation_name) : str_singular($field->relation->table->name) !!}',
+                    '{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}',
 @endif
 @endif
 @endforeach
@@ -64,7 +64,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
 @foreach($menu->table->fields()->where('searchable', true)->get() as $field_index => $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-                    '{!! str_singular($field->relation->table->name) !!}',
+                    '{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}',
 @endif
 @endif
 @endforeach
@@ -107,6 +107,20 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service {
     get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet(): AxiosPromise<any> {
         return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! !empty($field->relation->relation_name) ? kebab_case(str_plural($field->relation->relation_name)) : kebab_case(str_plural($field->relation->table->name)) !!}`);
     }
+
+@php
+$field_reference = null;
+$reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+if (!empty($reference)) {
+    $field_reference = \App\Field::find($reference->field_reference_id);
+}
+@endphp
+@if(!empty($field_reference))
+    get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSetBy{!! ucfirst(camel_case($field_reference->name)) !!}({!! snake_case($field_reference->name) !!}): AxiosPromise<any> {
+        return httpAuthClient.get(`api/v1/{!! kebab_case(str_plural($menu->name)) !!}/datasets/{!! !empty($field->relation->relation_name) ? kebab_case(str_plural($field->relation->relation_name)) : kebab_case(str_plural($field->relation->table->name)) !!}/relation/{!! snake_case($field_reference->name) !!}/${ {!! snake_case($field_reference->name) !!} }`);
+    }
+@endif
+
 @endif
 @endif
 @endforeach

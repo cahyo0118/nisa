@@ -1,0 +1,75 @@
+{
+    "template_name": "spring",
+    "template_display_name": "Spring Boot API",
+    "template_base_directory": "spring",
+    "files": {
+        "core": [
+            {
+                "resource_filename": "MigrationController",
+                "resource_path": "/controller",
+                "target_filename": "MigrationController.java",
+                "target_path": "/src/main/java/com/orraa/demo/controller"
+            },
+            {
+                "resource_filename": "UserProfileController",
+                "resource_path": "/controller",
+                "target_filename": "UserProfileController.java",
+                "target_path": "/src/main/java/com/orraa/demo/controller"
+            },
+            {
+                "resource_filename": "UserController",
+                "resource_path": "/controller",
+                "target_filename": "UserController.java",
+                "target_path": "/src/main/java/com/orraa/demo/controller"
+            },
+            {
+                "resource_filename": "RoleController",
+                "resource_path": "/controller",
+                "target_filename": "RoleController.java",
+                "target_path": "/src/main/java/com/orraa/demo/controller"
+            },
+            {
+                "resource_filename": "PermissionController",
+                "resource_path": "/controller",
+                "target_filename": "PermissionController.java",
+                "target_path": "/src/main/java/com/orraa/demo/controller"
+            },
+            {
+                "resource_filename": "AuthController",
+                "resource_path": "/controller",
+                "target_filename": "AuthController.java",
+                "target_path": "/src/main/java/com/orraa/demo/controller"
+            }
+        ],
+        "menus": [
+            {
+                "resource_filename": "ModelController",
+                "resource_path": "/controller",
+                "target_filename": "{!! ucfirst(camel_case($menu->name)) !!}Controller.java",
+                "target_path": "/src/main/java/com/orraa/demo/controller"
+            }
+        ],
+        "tables": [
+            {
+                "resource_filename": "Model",
+                "resource_path": "/model",
+                "target_filename": "{!! ucfirst(camel_case(str_singular($table->name))) !!}.java",
+                "target_path": "/src/main/java/com/orraa/demo/model"
+            },
+            {
+                "resource_filename": "ModelRepository",
+                "resource_path": "/repository",
+                "target_filename": "{!! ucfirst(camel_case(str_singular($table->name))) !!}Repository.java",
+                "target_path": "/src/main/java/com/orraa/demo/repository"
+            }
+        ],
+        "relations": [
+            {
+                "resource_filename": "ModelRelation",
+                "resource_path": "/model",
+                "target_filename": "{!! $relation->relation_type == 'belongstomany' ? (ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name)))) : ('AddForeign' . ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name)))) !!}.java",
+                "target_path": "/src/main/java/com/orraa/demo/model"
+            }
+        ]
+    }
+}

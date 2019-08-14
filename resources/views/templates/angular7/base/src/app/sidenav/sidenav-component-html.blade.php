@@ -6,6 +6,7 @@
     </li>
 @foreach($project->menus as $menu)
 @if((empty($menu->parent_menu_id) && empty(count($menu->sub_menus))))
+@if($menu->allow_list)
     <li class="nav-item">
         <a class="nav-link" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}']" routerLinkActive="text-primary"
            *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_read')">
@@ -13,6 +14,23 @@
             <span class="w-100">{!! ucfirst(str_replace('_', ' ', $menu->display_name)) !!}</span>
         </a>
     </li>
+@elseif($menu->allow_single)
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}', item?.id, '/single']" routerLinkActive="text-primary"
+           *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_read')">
+            <i class="fas fa-{!! $menu->icon ? $menu->icon : 'cogs' !!}"></i>
+            <span class="w-100">{!! ucfirst(str_replace('_', ' ', $menu->display_name)) !!}</span>
+        </a>
+    </li>
+@elseif($menu->allow_update)
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/{!! kebab_case(str_plural($menu->name)) !!}']" routerLinkActive="text-primary"
+           *ngIf="isAllowed('{!! snake_case(str_plural($menu->name)) !!}_read')">
+            <i class="fas fa-{!! $menu->icon ? $menu->icon : 'cogs' !!}"></i>
+            <span class="w-100">{!! ucfirst(str_replace('_', ' ', $menu->display_name)) !!}</span>
+        </a>
+    </li>
+@endif
 @elseif(!empty(count($menu->sub_menus)))
     <li class="nav-item">
         <a class="nav-link"

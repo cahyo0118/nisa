@@ -84,21 +84,42 @@
 @foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
 @if ($field->ai || $field->input_type == "hidden" || $field->input_type == "text" || $field->input_type == "textarea" || $field->input_type == "image" || $field->input_type == "file")
 @elseif ($field->input_type == "select")
-
 @if(!empty($field->relation))
-@if($field->relation->relation_type == "belongsto")
+@if($field->dataset_type == "dynamic" || $field->relation->relation_type == "belongsto")
+@php
+$reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_reference_id', $field->id)->first();
+if (!empty($reference)) {
+    $field_reference = \App\Field::find($reference->field_reference_id);
+}
+@endphp
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">{{ $field->display_name }}</label>
+                                        <select class="form-control form-control-alternative"
+                                                formControlName="{{ $field->name }}" @if(!empty($field_reference))(change)="on{!! ucfirst(camel_case($field_reference->name)) !!}Change()"@endif>
+                                            <option value="">--</option>
+                                            <option *ngFor="let {!! str_singular($field->relation->table->name) !!} of {!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data"
+                                                    [value]="{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">@{{ {!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+@endif
+@elseif($field->dataset_type == "static")
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label">{{ $field->display_name }}</label>
                                         <select class="form-control form-control-alternative"
                                                 formControlName="{{ $field->name }}">
                                             <option value="">--</option>
-                                            <option *ngFor="let {!! str_singular($field->relation->table->name) !!} of {!! str_plural($field->relation->table->name) !!}Data"
-                                                    [value]="{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">@{{ {!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</option>
+@foreach($field->static_datasets as $dataset)
+                                            <option value="{!! $dataset->value !!}">{!! $dataset->label !!}</option>
+@endforeach
                                         </select>
                                     </div>
+
                                 </div>
-@endif
 @endif
 @elseif ($field->input_type == "textarea")
 
@@ -162,16 +183,6 @@
                                     <br><br>
                                 </div>
 @else
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">{{ $field->display_name }}</label>
-                                        <input type="{{ $field->input_type }}"
-                                               formControlName="{{ $field->name }}"
-                                               class="form-control form-control-alternative"
-                                               placeholder="{{ $field->display_name }}...">
-                                    </div>
-                                </div>
 @endif
 @endforeach
 @endif
@@ -226,8 +237,25 @@
                                 <td>
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
-                                    @{{ (item?.{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!}?.length > 20) ? (item?.{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} | slice:0:20) + '...' : (item?.{!! str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!}) }}
+                                    @{{ (item?.{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}?.{!! $field->relation->foreign_key_display_field->name !!}?.length > 20) ? (item?.{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}?.{!! $field->relation->foreign_key_display_field->name !!} | slice:0:20) + '...' : (item?.{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}?.{!! $field->relation->foreign_key_display_field->name !!}) }}
 @endif
+@elseif($field->input_type == "image")
+                                    <img src="@{{ SERVER_URL + item?.{!! $field->name !!} }}"
+                                         class="mw-100 margin-v-5"
+                                         onError="this.src='../../assets/img/defaults/picture-128px.png'">
+@elseif($field->input_type == "select" || $field->input_type == "radio")
+@if(!empty($field->relation))
+@if($field->dataset_type == "dynamic" || $field->relation->relation_type == "belongsto")
+                                    @{{ (item?.{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}?.{!! $field->relation->foreign_key_display_field->name !!}?.length > 20) ? (item?.{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}?.{!! $field->relation->foreign_key_display_field->name !!} | slice:0:20) + '...' : (item?.{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}?.{!! $field->relation->foreign_key_display_field->name !!}) }}
+@endif
+@elseif($field->dataset_type == "static")
+@foreach($field->static_datasets as $dataset)
+                                    <span *ngIf="item?.{!! $field->name !!} === '{!! $dataset->value !!}'">
+                                        {!! $dataset->label !!}
+                                    </span>
+@endforeach
+@endif
+
 @else
                                     @{{ (item?.{!! $field->name !!}?.length > 20) ? (item?.{!! $field->name !!} | slice:0:20) + '...' : (item?.{!! $field->name !!}) }}
 @endif
@@ -270,20 +298,41 @@
                     <div class="card-footer py-4">
                         <nav aria-label="...">
                             <ul class="pagination justify-content-end mb-0">
-                                <li class="page-item" [ngClass]="currentPage === 1 ? 'disabled' : ''">
-                                    <a class="page-link" (click)="getAllData(currentPage - 1)">
+                                <li class="page-item"
+                                    [ngClass]="currentPage === 1 ? 'disabled' : ''">
+                                    <a class="page-link" (click)="getAllData()">
+                                        <i class="fas fa-angle-double-left"></i>
+                                        <span class="sr-only">First</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"
+                                    [ngClass]="currentPage === 1 ? 'disabled' : ''">
+                                    <a class="page-link"
+                                       (click)="getAllData(currentPage - 1)">
                                         <i class="fas fa-angle-left"></i>
                                         <span class="sr-only">Previous</span>
                                     </a>
                                 </li>
                                 <li *ngFor="let page of totalPage" class="page-item"
-                                    [ngClass]="(page + 1 === currentPage) ? 'active' : ''">
-                                    <a class="page-link" (click)="getAllData(page + 1)">@{{ page + 1 }}</a>
+                                    [ngClass]="(page + 1 === currentPage) ? 'active' : ''"
+                                    [hidden]="page > (currentPage + 3) || page < (currentPage - 3)">
+                                    <a class="page-link"
+                                       (click)="getAllData(page + 1)">@{{ page + 1 }}</a>
                                 </li>
-                                <li class="page-item" [ngClass]="currentPage >= lastPage ? 'disabled' : ''">
-                                    <a class="page-link" (click)="getAllData(currentPage + 1)">
+                                <li class="page-item"
+                                    [ngClass]="currentPage >= lastPage ? 'disabled' : ''">
+                                    <a class="page-link"
+                                       (click)="getAllData(currentPage + 1)">
                                         <i class="fas fa-angle-right"></i>
                                         <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"
+                                    [ngClass]="currentPage >= lastPage ? 'disabled' : ''">
+                                    <a class="page-link"
+                                       (click)="getAllData(lastPage)">
+                                        <i class="fas fa-angle-double-right"></i>
+                                        <span class="sr-only">Last</span>
                                     </a>
                                 </li>
                             </ul>

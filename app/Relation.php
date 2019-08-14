@@ -35,4 +35,10 @@ class Relation extends Model
     {
         return $this->belongsTo('App\Field', 'relation_display');
     }
+
+    public function menu_criterias()
+    {
+        return $this->belongsToMany('App\Menu', 'relation_criterias', 'relation_id', 'menu_id')
+            ->withPivot(['show_in_list', 'show_in_single', 'show_in_form']);
+    }
 }

@@ -75,10 +75,12 @@
                                             <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">Name</th>
+                                                <th scope="col">Display Name</th>
                                                 <th scope="col">Type</th>
                                                 <th scope="col">Length</th>
+                                                <th scope="col">Required</th>
                                                 <th scope="col">Default</th>
-                                                {{--<th scope="col"></th>--}}
+                                                <th scope="col"></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -88,13 +90,38 @@
                                                         {{ $field->name }}
                                                     </th>
                                                     <td>
+                                                        {{ $field->display_name }}
+                                                    </td>
+                                                    <td>
                                                         {{ $field->type }}
                                                     </td>
                                                     <td>
                                                         {{ $field->length }}
                                                     </td>
                                                     <td>
+                                                        {{ $field->notnull }}
+                                                    </td>
+                                                    <td>
                                                         {{ $field->default }}
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-12">
+                                                            <button type="button"
+                                                                    class="btn btn-default btn-sm float-right margin-h-5"
+                                                                    onclick="moveFieldUp({{ !empty($field) ? $field->id : 0 }})">
+                                                                <span class="btn-inner--icon"><i
+                                                                        class="fas fa-chevron-up"></i></span>
+                                                                <span class="btn-inner--text">Move Up</span>
+                                                            </button>
+
+                                                            <button type="button"
+                                                                    class="btn btn-default btn-sm float-right margin-h-5"
+                                                                    onclick="moveFieldDown({{ !empty($field) ? $field->id : 0 }})">
+                                                                <span class="btn-inner--icon"><i
+                                                                        class="fas fa-chevron-down"></i></span>
+                                                                <span class="btn-inner--text">Move Down</span>
+                                                            </button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -144,5 +171,44 @@
                     });
             });
         });
+    </script>
+    <script>
+        function moveFieldUp(fieldId) {
+            $.ajax({
+                url: `/ajax/fields/${fieldId}/move-up`,
+                type: 'PUT',
+                data: null,
+                success: function (data) {
+                    window.location.reload();
+                    // refreshFields({{ $item->id }}, '{{ $project_id }}');
+                },
+                error: function (error) {
+                    var data = error.responseJSON;
+                    swal("Failed!", data.message, "error");
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
+
+        function moveFieldDown(fieldId) {
+            $.ajax({
+                url: `/ajax/fields/${fieldId}/move-down`,
+                type: 'PUT',
+                data: null,
+                success: function (data) {
+                    window.location.reload();
+                    // refreshFields({{ $item->id }}, '{{ $project_id }}');
+                },
+                error: function (error) {
+                    var data = error.responseJSON;
+                    swal("Failed!", data.message, "error");
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
     </script>
 @endsection

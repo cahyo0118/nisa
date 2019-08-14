@@ -58,12 +58,16 @@
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
 @if ($field->ai || $field->input_type == "hidden")
-@elseif ($field->input_type == "select")
+@elseif ($field->input_type == "select" || $field->input_type == "radio")
 
 @if($field->dataset_type == "static")
                                 <div class="col-lg-6">
                                     <label class="form-control-label">{{ $field->display_name }}</label>
-                                    <p>@{{ data?.{!! $field->name !!} }}</p>
+@foreach($field->static_datasets as $dataset)
+                                    <p *ngIf="data?.{!! $field->name !!} === '{!! $dataset->value !!}'">
+                                        {!! $dataset->label !!}
+                                    </p>
+@endforeach
                                 </div>
 @else
 @if(!empty($field->relation))
@@ -71,7 +75,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label">{{ $field->display_name }}</label>
-                                        <p>@{{ data?.{!! !empty($field->relation->relation_name) ? str_singular($field->relation->relation_name) : str_singular($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</p>
+                                        <p>@{{ data?.{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : snake_case(str_singular($field->relation->table->name)) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</p>
                                     </div>
                                 </div>
 @endif
@@ -88,6 +92,12 @@
                                     <img src="@{{ data?.{!! $field->name !!} }}"
                                          class="mw-100 margin-v-5"
                                          onError="this.src='../../assets/img/defaults/picture-128px.png'">
+                                </div>
+@elseif($field->input_type == "file")
+
+                                <div class="col-lg-6">
+                                    <label class="form-control-label">{{ $field->display_name }}</label>
+                                    <p><a [href]="data?.{!! $field->name !!}" download>@{{ data?.{!! $field->name !!} }}</a></p>
                                 </div>
 @else
 

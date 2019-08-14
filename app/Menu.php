@@ -34,7 +34,14 @@ class Menu extends Model
 
     public function field_criterias()
     {
-        return $this->belongsToMany('App\Field', 'menu_criteria', 'menu_id', 'field_id')->withPivot(['operator', 'value']);
+        return $this->belongsToMany('App\Field', 'menu_criteria', 'menu_id', 'field_id')
+            ->withPivot(['operator', 'value', 'required', 'show_in_list', 'show_in_form']);
+    }
+
+    public function relation_criterias()
+    {
+        return $this->belongsToMany('App\Relation', 'relation_criterias', 'menu_id', 'relation_id')
+            ->withPivot(['show_in_list', 'show_in_single', 'show_in_form']);
     }
 
 }

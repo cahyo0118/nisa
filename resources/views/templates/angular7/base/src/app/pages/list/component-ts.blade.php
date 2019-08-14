@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { StringUtil } from '../../utils/string.util';
 import swal from 'sweetalert2';
+import { Environment } from '../../utils/environment';
 import { {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service } from '../../services/{!! str_replace('_', '-', str_plural($menu->name)) !!}.service';
 
 {{ '@' }}Component({
@@ -33,6 +34,8 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
     showFilterCard = false;
     filters = [];
     filtersForm: FormGroup;
+
+    SERVER_URL = Environment.SERVER_URL;
 
     constructor(
         private service: {!! ucfirst(camel_case(str_plural($menu->name))) !!}Service,
@@ -133,6 +136,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
 @foreach($menu->table->fields()->orderBy('order')->get() as $field)
 @if(!empty($field->relation))
 @if($field->relation->relation_type == "belongsto")
+@if(empty(DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $field->id)->first()))
         this.service.get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet()
             .then(
                 response => {
@@ -145,9 +149,58 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
 
 @endif
 @endif
+@endif
+@endforeach
+@endif
+
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->orderBy('order')->get() as $f)
+@if(!empty($f->relation))
+@if($f->relation->relation_type == "belongsto")
+@php
+$reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $f->id)->first();
+if (!empty($reference)) {
+    $f_reference = \App\Field::find($reference->field_reference_id);
+}
+@endphp
+@if(!empty($f_reference))
+        this.on{!! ucfirst(camel_case($f_reference->name)) !!}Change();
+@endif
+@endif
+@endif
 @endforeach
 @endif
     }
+
+@if(!empty($menu->table))
+@foreach($menu->table->fields()->orderBy('order')->get() as $field)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+@php
+$field_reference = null;
+$reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+if (!empty($reference)) {
+    $field_reference = \App\Field::find($reference->field_reference_id);
+}
+@endphp
+@if(!empty($field_reference))
+    on{!! ucfirst(camel_case($field_reference->name)) !!}Change() {
+        this.service.get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSetBy{!! ucfirst(camel_case($field_reference->name)) !!}(this.filtersForm.value.{!! snake_case($field_reference->name) !!})
+            .then(
+                response => {
+                    const data = response.data;
+                    this.{!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data = data.data;
+                },
+                error => {
+                }
+            );
+    }
+
+@endif
+@endif
+@endif
+@endforeach
+@endif
 
     onSearch() {
 

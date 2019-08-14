@@ -122,6 +122,27 @@ class QueryHelpers
         }
     }
 
+    public static function getRelationCriteria($menu_id, $relation_id)
+    {
+
+        $menu = Menu::find($menu_id);
+
+        if (empty($menu)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ], 400);
+        }
+
+        $criteria = $menu->relation_criterias()->where('menu_id', $menu_id)->where('relation_id', $relation_id)->first();
+
+        if (!empty($criteria)) {
+            return $criteria;
+        } else {
+            return null;
+        }
+    }
+
     public static function getTextBetweenBracket($string)
     {
         $text = 'ignore everything except this (text)';

@@ -59,16 +59,29 @@
                                 <div class="row">
 @if(!empty($menu->table))
 @foreach($menu->table->fields()->orderBy('order')->get() as $field_index => $field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
+
 @if ($field->ai || $field->input_type == "hidden")
 @elseif ($field->input_type == "select")
 
 @if(!empty($field->relation))
 @if($field->dataset_type == "dynamic" || $field->relation->relation_type == "belongsto")
+@php
+$field_reference = null;
+$reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_reference_id', $field->id)->first();
+if (!empty($reference)) {
+    $field_reference = \App\Field::find($reference->field_reference_id);
+}
+@endphp
+
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label">{{ $field->display_name }}</label>
                                             <select class="form-control form-control-alternative"
-                                                    formControlName="{{ $field->name }}">
+                                                    formControlName="{{ $field->name }}" @if(!empty($field_reference))(change)="on{!! ucfirst(camel_case($field_reference->name)) !!}Change()"@endif>
                                                 <option value="">--</option>
                                                 <option *ngFor="let {!! !empty($field->relation->relation_name) ? camel_case($field->relation->relation_name) : camel_case($field->relation->table->name) !!} of {!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data"
                                                         [value]="{!! !empty($field->relation->relation_name) ? camel_case($field->relation->relation_name) : camel_case($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">@{{ {!! !empty($field->relation->relation_name) ? camel_case($field->relation->relation_name) : camel_case($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_display_field->name !!} }}</option>
@@ -117,6 +130,43 @@
                                             [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
                                             [label]="'{{ $field->display_name }}'"></app-form-error-message>
                                     </div>
+@elseif ($field->input_type == "radio")
+@if(!empty($field->relation))
+@if($field->dataset_type == "dynamic" || $field->relation->relation_type == "belongsto")
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" *ngFor="let {!! !empty($field->relation->relation_name) ? camel_case($field->relation->relation_name) : camel_case($field->relation->table->name) !!} of {!! !empty($field->relation->relation_name) ? camel_case(str_plural($field->relation->relation_name)) : camel_case(str_plural($field->relation->table->name)) !!}Data">
+                                                <input type="radio" formControlName="{{ $field->name }}" [value]="{!! !empty($field->relation->relation_name) ? camel_case($field->relation->relation_name) : camel_case($field->relation->table->name) !!}?.{!! $field->relation->foreign_key_field->name !!}">
+                                                {{ $field->display_name }}
+                                            </label>
+                                        </div>
+
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'"></app-form-error-message>
+                                    </div>
+@endif
+@elseif($field->dataset_type == "static")
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">{{ $field->display_name }}</label>
+@foreach($field->static_datasets as $dataset)
+                                            <br>
+                                            <label>
+                                                <input type="radio" formControlName="{{ $field->name }}" value="{!! $dataset->value !!}">
+                                                {!! $dataset->label !!}
+                                            </label>
+@endforeach
+                                        </div>
+
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'"></app-form-error-message>
+                                    </div>
+@endif
 @elseif ($field->input_type == "checkbox")
 
                                     <div class="col-lg-6">
@@ -176,6 +226,49 @@
                                             [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
                                             [label]="'{{ $field->display_name }}'"></app-form-error-message>
                                     </div>
+@elseif($field->input_type == "file")
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">{{ $field->display_name }}</label>
+                                        </div>
+
+                                        {{--<img src="@{{ {!! camel_case(str_singular($menu->name)) !!}Form.value.{!! $field->name !!} }}"--}}
+                                             {{--class="mw-100 margin-v-5"--}}
+                                             {{--onError="this.src='../../assets/img/defaults/picture-128px.png'">--}}
+                                        {{--<br>--}}
+                                        {{--<br>--}}
+
+                                        <input type="hidden"
+                                               formControlName="{{ $field->name }}"
+                                               [(ngModel)]="{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $field->name }}">
+
+                                        <input #{{ $field->name }}Input
+                                               type="file"
+                                               style="display: none;"
+                                               (change)="onUpdateFile($event, '{{ $field->name }}')">
+
+                                        <button type="button" class="btn btn-icon btn-3 btn-default btn-sm"
+                                                (click)="{{ $field->name }}Input.click()">
+                                            <span class="btn-inner--icon"><i class="fas fa-image"></i></span>
+                                            <span class="btn-inner--text">Change Photo</span>
+                                        </button>
+
+                                        <button type="button"
+                                                *ngIf="{!! camel_case(str_singular($menu->name)) !!}Form.value.{{ $field->name }}"
+                                                class="btn btn-icon btn-3 btn-danger btn-sm"
+                                                (click)="onRemoveFile('{{ $field->name }}')">
+                                            <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                                            <span class="btn-inner--text">Remove</span>
+                                        </button>
+
+                                        <br><br>
+
+                                        <app-form-error-message
+                                            [apiValidationErrors]="apiValidationErrors?.{{ $field->name }}"
+                                            [errors]="{!! camel_case(str_singular($menu->name)) !!}Form?.controls?.{{ $field->name }}?.errors"
+                                            [label]="'{{ $field->display_name }}'"></app-form-error-message>
+                                    </div>
 @else
 
                                     <div class="col-lg-6">
@@ -194,24 +287,26 @@
                                         </app-form-error-message>
                                     </div>
 @endif
+
+@endif
 @endforeach
 @endif
                                 </div>
 
 @if(!empty($menu->table))
 @foreach($menu->table->relations as $relation_index => $relation)
-@if($relation->relation_type == "belongstomany")
+@if(!empty(QueryHelpers::getRelationCriteria($menu->id, $relation->id)) && QueryHelpers::getRelationCriteria($menu->id, $relation->id)->pivot->show_in_form && $relation->relation_type == "belongstomany")
                                 <div class="row">
                                     <div class="col-12">
 
                                         <hr class="my-4"/>
 
-                                        <h6 class="heading-small text-muted mb-4">{{ !empty($relation->relation_name) ? ucwords(str_replace('_', ' ', str_plural($relation->relation_name))) : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}</h6>
+                                        <h6 class="heading-small text-muted mb-4">{{ !empty($relation->relation_display_name) ? $relation->relation_display_name : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}</h6>
 
                                         <button class="btn btn-icon btn-3 btn-primary" type="button" data-toggle="modal"
                                                 data-target="#select{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Modal">
                                             <span class="btn-inner--icon"><i class="fas fa-hand-pointer"></i></span>
-                                            <span class="btn-inner--text">Select {{ !empty($relation->relation_name) ? ucwords(str_replace('_', ' ', str_plural($relation->relation_name))) : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}</span>
+                                            <span class="btn-inner--text">Select {{ !empty($relation->relation_display_name) ? $relation->relation_display_name : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}</span>
                                         </button>
 
                                         <div class="modal fade" id="select{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Modal" tabindex="-1" role="dialog"
@@ -228,7 +323,7 @@
 
                                                             <div class="card-body px-lg-5 py-lg-5">
                                                                 <div class="text-center text-muted mb-4">
-                                                                    Select {{ !empty($relation->relation_name) ? ucwords(str_replace('_', ' ', str_plural($relation->relation_name))) : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}
+                                                                    Select {{ !empty($relation->relation_display_name) ? $relation->relation_display_name : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}
                                                                 </div>
 
                                                                 <div class="row">
@@ -237,11 +332,11 @@
                                                                         <form [formGroup]="search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}SearchForm"
                                                                               (submit)="onSearch{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}()">
                                                                             <div class="form-group">
-                                                                                <label class="form-control-label">Search {{ !empty($relation->relation_name) ? ucwords(str_replace('_', ' ', str_plural($relation->relation_name))) : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}</label>
+                                                                                <label class="form-control-label">Search {{ !empty($relation->relation_display_name) ? $relation->relation_display_name : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}</label>
                                                                                 <input type="text"
                                                                                        class="form-control form-control-alternative"
                                                                                        formControlName="keyword"
-                                                                                       placeholder="Search {{ !empty($relation->relation_name) ? ucwords(str_replace('_', ' ', str_plural($relation->relation_name))) : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}...">
+                                                                                       placeholder="Search {{ !empty($relation->relation_display_name) ? $relation->relation_display_name : ucwords(str_replace('_', ' ', str_plural($relation->table->display_name))) }}...">
                                                                             </div>
                                                                         </form>
                                                                     </div>

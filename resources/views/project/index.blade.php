@@ -105,13 +105,13 @@
                                                 <span class="btn-inner--text">Edit</span>
                                             </a>
 
-                                            <button
-                                                type="button"
-                                                class="btn btn-icon btn-danger btn-sm"
-                                                onclick="deleteProject({!! $item->id !!})">
-                                                <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
-                                                <span class="btn-inner--text">Delete</span>
-                                            </button>
+                                            {{--<button--}}
+                                                {{--type="button"--}}
+                                                {{--class="btn btn-icon btn-danger btn-sm"--}}
+                                                {{--onclick="deleteProject({!! $item->id !!})">--}}
+                                                {{--<span class="btn-inner--icon"><i class="fas fa-trash"></i></span>--}}
+                                                {{--<span class="btn-inner--text">Delete</span>--}}
+                                            {{--</button>--}}
                                         </td>
                                     </tr>
                                 @endforeach

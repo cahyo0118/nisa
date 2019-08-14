@@ -51,6 +51,11 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
+        /*Modals*/
+        .modal-lg {
+            max-width: 80% !important;
+        }
     </style>
 </head>
 
@@ -112,7 +117,7 @@
             // createRelation(random, projectId);
 
         } else {
-            deleteRelation(random);
+            // deleteRelation(random);
         }
 
     }
@@ -605,9 +610,9 @@
     }
 
     //    Customize Menu
-    function onOperatorChange(menuId = 0, fieldId = 0) {
-        const operator = $(`#operator${fieldId}`).val();
-        console.log('FIELD_ID', operator);
+    function onOperatorChange(menuId = 0, fieldId = 0, operator = '') {
+
+        console.log('OPERATOR_VALUE', operator);
 
         // if (operator === "default_or_relation") {
         //     console.log('ACTION', "CALL LIST RELATION");
@@ -615,7 +620,7 @@
             url: `/views/menus/${menuId}/fields/${fieldId}/inputs/${operator}`,
             type: 'GET',
             success: function (data) {
-                $(`#value${fieldId}`).replaceWith(data.view);
+                $(`#menu${menuId}value${fieldId}`).replaceWith(data.view);
             },
         });
         // } else {
