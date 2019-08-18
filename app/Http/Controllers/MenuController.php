@@ -261,6 +261,93 @@ class MenuController extends Controller
         $menu->table_id = !empty($table) ? $table_id : null;
         $menu->save();
 
+        if (!empty($request['dataset_relation_ids'])) {
+            foreach ($request['dataset_relation_ids'] as $dataset_relation_id) {
+
+                foreach ($request['dataset_field_ids'][$dataset_relation_id] as $dataset_field_id) {
+
+                    if (!empty($dataset_relation_id)
+                        && !empty($dataset_field_id)
+                        && !empty($request['dataset_operator'][$dataset_field_id])
+                        && !empty($request['dataset_value'][$dataset_field_id])
+                    ) {
+                        DB::table('menu_dataset_criterias')
+                            ->where('menu_id', $menu->id)
+                            ->where('relation_id', $dataset_relation_id)
+                            ->where('relation_field_id', $dataset_field_id)
+                            ->delete();
+
+                        DB::table('menu_dataset_criterias')->insert([
+                            'operator' => $request['dataset_operator'][$dataset_field_id],
+                            'value' => $request['dataset_value'][$dataset_field_id],
+                            'menu_id' => $menu->id,
+                            'relation_id' => $dataset_relation_id,
+                            'relation_field_id' => $dataset_field_id
+                        ]);
+
+                    } else {
+
+                        DB::table('menu_dataset_criterias')
+                            ->where('menu_id', $menu->id)
+                            ->where('relation_id', $dataset_relation_id)
+                            ->where('relation_field_id', $dataset_field_id)
+                            ->delete();
+
+                    }
+
+                }
+
+            }
+        }
+
+        if (!empty($request['relation_ids'])) {
+            foreach ($request['relation_ids'] as $relation_id) {
+
+                if (count($request['relation_field_ids'][$relation_id]) > 0) {
+                    foreach ($request['relation_field_ids'][$relation_id] as $relation_field_id) {
+
+//                        error_log("relation_id = " . $relation_id);
+                        error_log("relation_field_id = " . $relation_field_id);
+//                    error_log("relation_field_operator = " . $request['relation_field_operator'][$relation_field_id]);
+//                    error_log("relation_field_value = " . $request['relation_field_value'][$relation_field_id]);
+                        error_log("==========================================");
+
+                        if (!empty($relation_id)
+                            && !empty($relation_field_id)
+                            && !empty($request['relation_field_operator'][$relation_field_id])
+                            && !empty($request['relation_field_value'][$relation_field_id])
+                        ) {
+                            error_log("STORE_CRITERIA");
+                            DB::table('menu_relation_criteria')
+                                ->where('menu_id', $menu->id)
+                                ->where('relation_id', $relation_id)
+                                ->where('relation_field_id', $relation_field_id)
+                                ->delete();
+
+                            DB::table('menu_relation_criteria')->insert([
+                                'operator' => $request['relation_field_operator'][$relation_field_id],
+                                'value' => $request['relation_field_value'][$relation_field_id],
+                                'menu_id' => $menu->id,
+                                'relation_id' => $relation_id,
+                                'relation_field_id' => $relation_field_id
+                            ]);
+
+                        } else {
+
+                            DB::table('menu_relation_criteria')
+                                ->where('menu_id', $menu->id)
+                                ->where('relation_id', $relation_id)
+                                ->where('relation_field_id', $relation_field_id)
+                                ->delete();
+
+                        }
+
+                    }
+                }
+
+            }
+        }
+
         if (!empty($request['load_by_reference'])) {
             foreach ($request['load_by_reference'] as $field_id => $reference_id) {
 
@@ -422,7 +509,8 @@ class MenuController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         $menu = Menu::find($id);
 
@@ -437,7 +525,8 @@ class MenuController extends Controller
         return redirect()->route('menus.index');
     }
 
-    public function ajaxDeleteMenu($id)
+    public
+    function ajaxDeleteMenu($id)
     {
         $menu = Menu::find($id);
 
@@ -456,7 +545,8 @@ class MenuController extends Controller
         ], 200);
     }
 
-    public function search(Request $request)
+    public
+    function search(Request $request)
     {
         if (empty($request->keyword)) {
             return redirect()->route('menus.index');
@@ -467,7 +557,8 @@ class MenuController extends Controller
     }
 
     /* Sub Menus */
-    public function subMenus(Request $request, $id)
+    public
+    function subMenus(Request $request, $id)
     {
         $menus = null;
 
@@ -481,7 +572,8 @@ class MenuController extends Controller
     }
 
 
-    public function getAllMenuByProjectId($project_id)
+    public
+    function getAllMenuByProjectId($project_id)
     {
 
         $menus = Menu::pluck('display_name', 'id')->prepend('No parent', '');
@@ -522,7 +614,8 @@ class MenuController extends Controller
 
     }
 
-    public function getAllSubMenuByMenuId($project_id, $parent_menu_id)
+    public
+    function getAllSubMenuByMenuId($project_id, $parent_menu_id)
     {
         $menu_ids = [];
 
@@ -571,7 +664,8 @@ class MenuController extends Controller
 
     }
 
-    public function ajaxFillCriteria(Request $request, $menu_id, $field_id)
+    public
+    function ajaxFillCriteria(Request $request, $menu_id, $field_id)
     {
         $request = $request->json()->all();
 
@@ -606,7 +700,8 @@ class MenuController extends Controller
         ], 200);
     }
 
-    public function inputsView(Request $request, $menu_id, $field_id, $input_type)
+    public
+    function inputsView(Request $request, $menu_id, $field_id, $input_type)
     {
         $value = null;
 

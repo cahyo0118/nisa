@@ -906,11 +906,15 @@ class TableController extends Controller
     public function getAllFieldsSelectForm($random, $table_id)
     {
         $fields = Field::where('table_id', $table_id)->pluck('name', 'id');
+        $all_fields = Field::where('table_id', $table_id)->get();
 
         return response()->json([
             'view' => (string)view('table.select.foreigns')
                 ->with('random', $random)
-                ->with('fields', $fields)
+                ->with('fields', $fields),
+            'view_criteria' => (string)view('table.partials.relation-criterias')
+                ->with('random', $random)
+                ->with('fields', $all_fields)
         ], 200);
     }
 

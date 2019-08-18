@@ -168,13 +168,8 @@
 @if(!empty($relation->table))
 @foreach($relation->table->fields()->where('searchable', true)->orderBy('order')->get() as $field_index => $relation_field)
 @if(empty($relation_field->relation))
-                                                                                    <th [ngClass]="{'text-primary': orderBy == '{!! $relation_field->name !!}', 'pointer': true}"
-                                                                                        (click)="onOrderBy('{!! $relation_field->name !!}', orderType == 'asc' ? 'desc' : 'asc')">
+                                                                                    <th>
                                                                                         {!! $relation_field->display_name !!}
-                                                                                        <span *ngIf="orderBy == '{!! $relation_field->name !!}' && orderType == 'asc'"
-                                                                                              class="fas fa-chevron-up"></span>
-                                                                                        <span *ngIf="orderBy == '{!! $relation_field->name !!}' && orderType == 'desc'"
-                                                                                              class="fas fa-chevron-down"></span>
                                                                                     </th>
 @else
                                                                                     <th scope="col">{!! $relation_field->display_name !!}</th>
@@ -293,13 +288,8 @@
 @if(!empty($relation->table))
 @foreach($relation->table->fields()->where('searchable', true)->orderBy('order')->get() as $field_index => $relation_field)
 @if(empty($relation_field->relation))
-                                                    <th [ngClass]="{'text-primary': orderBy == '{!! $relation_field->name !!}', 'pointer': true}"
-                                                        (click)="onOrderBy('{!! $relation_field->name !!}', orderType == 'asc' ? 'desc' : 'asc')">
+                                                    <th>
                                                         {!! $relation_field->display_name !!}
-                                                        <span *ngIf="orderBy == '{!! $relation_field->name !!}' && orderType == 'asc'"
-                                                              class="fas fa-chevron-up"></span>
-                                                        <span *ngIf="orderBy == '{!! $relation_field->name !!}' && orderType == 'desc'"
-                                                              class="fas fa-chevron-down"></span>
                                                     </th>
 @else
                                                     <th scope="col">{!! $relation_field->display_name !!}</th>

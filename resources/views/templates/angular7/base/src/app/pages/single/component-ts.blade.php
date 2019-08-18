@@ -159,13 +159,13 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
             this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}Service.getAllByKeyword(this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}SearchForm.value.keyword, page)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}CurrentPage = data.current_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}LastPage = data.last_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}TotalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Data = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -175,13 +175,13 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
             this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}Service.getAll(page)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}CurrentPage = data.current_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}LastPage = data.last_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}TotalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Data = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -194,6 +194,7 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
         this.service.getAll{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Relation(this.id, page)
             .then(
                 response => {
+                    this.spinner.hide();
                     const data = response.data.data;
 
                     this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}DataCounts = data.total;
@@ -203,7 +204,6 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
                     this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}LastPage = data.last_page;
                     this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}TotalPage = Array(data.last_page).fill(0).map((x, i) => i);
                     this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}Data = data.data;
-                    this.spinner.hide();
                 },
                 error => {
                     this.spinner.hide();
@@ -222,13 +222,13 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
             this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}Service.getAllByKeyword(this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}SearchForm.value.keyword, 1)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}CurrentPage = data.current_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}LastPage = data.last_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}TotalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Data = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -251,6 +251,9 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
                         title: 'Yay !',
                         text: data.message,
                         type: 'success',
+                        toast: true,
+                        position: "bottom-end",
+                        timer: 3000,
                         confirmButtonText: 'Confirm'
                     });
                 },
@@ -260,6 +263,9 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
                         title: 'Oops',
                         text: data.message,
                         type: 'error',
+                        toast: true,
+                        position: "bottom-end",
+                        timer: 3000,
                         confirmButtonText: 'Confirm'
                     });
                 }
@@ -278,6 +284,9 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
                         title: 'Yay !',
                         text: data.message,
                         type: 'success',
+                        toast: true,
+                        position: "bottom-end",
+                        timer: 3000,
                         confirmButtonText: 'Confirm'
                     });
                 },
@@ -287,6 +296,9 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}SingleComponent
                         title: 'Oops',
                         text: data.message,
                         type: 'error',
+                        toast: true,
+                        position: "bottom-end",
+                        timer: 3000,
                         confirmButtonText: 'Confirm'
                     });
                 }

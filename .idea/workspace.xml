@@ -2,79 +2,90 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Field.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Field.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Helpers/QueryHelpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/QueryHelpers.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MenuController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MenuController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Relation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_05_21_013242_create_menu_criteria_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_05_21_013242_create_menu_criteria_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TableController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TableController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/app-updates-form/app-updates-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/app-updates-form/app-updates-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/app-updates/app-updates.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/app-updates/app-updates.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners-form/banners-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners-form/banners-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners-form/banners-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners-form/banners-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners-single/banners-single.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners-single/banners-single.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners/banners.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners/banners.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/departments-form/departments-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/departments-form/departments-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/departments-form/departments-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/departments-form/departments-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/departments/departments.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/departments/departments.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/documents-form/documents-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/documents-form/documents-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/documents-form/documents-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/documents-form/documents-form.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/documents-single/documents-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/documents-single/documents-single.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/documents/documents.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/documents/documents.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/frsrs-form/frsrs-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/frsrs-form/frsrs-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/frsrs-form/frsrs-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/frsrs-form/frsrs-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/frsrs-single/frsrs-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/frsrs-single/frsrs-single.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/frsrs/frsrs.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/frsrs/frsrs.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/guides-form/guides-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/guides-form/guides-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/guides-form/guides-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/guides-form/guides-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/guides-single/guides-single.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/guides-single/guides-single.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/guides/guides.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/guides/guides.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias-form/hse-criterias-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias-form/hse-criterias-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias-form/hse-criterias-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias-form/hse-criterias-form.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias-single/hse-criterias-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias-single/hse-criterias-single.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias/hse-criterias.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias/hse-criterias.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks-form/hse-daily-checks-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks-form/hse-daily-checks-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks-form/hse-daily-checks-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks-form/hse-daily-checks-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks-single/hse-daily-checks-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks-single/hse-daily-checks-single.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks/hse-daily-checks.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks/hse-daily-checks.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks/hse-daily-checks.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-daily-checks/hse-daily-checks.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates-form/hse-deviates-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates-form/hse-deviates-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates-form/hse-deviates-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates-form/hse-deviates-form.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates-single/hse-deviates-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates-single/hse-deviates-single.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates/hse-deviates.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates/hse-deviates.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates/hse-deviates.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-deviates/hse-deviates.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hses-form/hses-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hses-form/hses-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hses/hses.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hses/hses.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/leaderboards-form/leaderboards-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/leaderboards-form/leaderboards-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/leaderboards/leaderboards.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/leaderboards/leaderboards.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/messages-form/messages-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/messages-form/messages-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/messages-form/messages-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/messages-form/messages-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/messages-single/messages-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/messages-single/messages-single.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/messages/messages.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/messages/messages.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects-form/projects-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects-form/projects-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects-form/projects-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects-form/projects-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects-single/projects-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects-single/projects-single.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects-single/projects-single.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects-single/projects-single.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects/projects.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/projects/projects.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-criterias-form/qa-criterias-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-criterias-form/qa-criterias-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-criterias-form/qa-criterias-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-criterias-form/qa-criterias-form.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-criterias-single/qa-criterias-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-criterias-single/qa-criterias-single.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-criterias/qa-criterias.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-criterias/qa-criterias.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks-form/qa-daily-checks-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks-form/qa-daily-checks-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks-form/qa-daily-checks-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks-form/qa-daily-checks-form.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks-single/qa-daily-checks-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks-single/qa-daily-checks-single.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks/qa-daily-checks.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks/qa-daily-checks.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks/qa-daily-checks.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-daily-checks/qa-daily-checks.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates-form/qa-deviates-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates-form/qa-deviates-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates-form/qa-deviates-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates-form/qa-deviates-form.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates-single/qa-deviates-single.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates-single/qa-deviates-single.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates/qa-deviates.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates/qa-deviates.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates/qa-deviates.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qa-deviates/qa-deviates.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qas-form/qas-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qas-form/qas-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qas/qas.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/qas/qas.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/supports-form/supports-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/supports-form/supports-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/supports/supports.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/supports/supports.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/utils/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/utils/environment.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/outputs/qhse-brantas-laravel5/app/Http/Controllers/api/DocumentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/outputs/qhse-brantas-laravel5/app/Http/Controllers/api/DocumentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/menu/inputs/list-relation-users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/inputs/list-relation-users.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/menu/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/project/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/project/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/table/default-field-forms.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/default-field-forms.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/table/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/app-module.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/app-module.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/table/field-relation-form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/table/field-relation-form.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/service.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/service.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/sidenav/sidenav-component-html.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/sidenav/sidenav-component-html.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_relation_tables_table.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_relation_tables_table.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/spring/base/controller/ModelController.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/spring/base/controller/ModelController.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/spring/base/controller/RoleController.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/spring/base/controller/RoleController.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/spring/base/controller/UserProfileController.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/spring/base/controller/UserProfileController.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/spring/templates.json" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/spring/templates.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -103,206 +114,141 @@
     <favorites_list name="nisa" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="205">
-                  <caret line="179" column="24" selection-start-line="179" selection-start-column="24" selection-end-line="179" selection-end-column="24" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/ModelController.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="395">
-                  <caret line="188" column="158" selection-start-line="188" selection-start-column="158" selection-end-line="188" selection-end-column="158" />
-                  <folding>
-                    <element signature="e#0#29283#0#Blade" />
-                    <element signature="e#0#29283#0#Blade" />
-                    <element signature="e#0#29283#0#Blade" />
-                    <element signature="e#0#29283#0#Blade" />
-                    <element signature="e#0#35890#0#Blade" />
-                    <element signature="e#0#35890#0#Blade" />
-                    <element signature="e#0#35890#0#Blade" />
-                    <element signature="e#0#35890#0#Blade" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias-single/hse-criterias-single.component.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="395">
-                  <caret line="72" column="40" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias/hse-criterias.component.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <folding>
-                    <element signature="e#0#50#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias/hse-criterias.component.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="473">
-                  <caret line="159" column="36" selection-start-line="159" selection-start-column="36" selection-end-line="159" selection-end-column="36" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="541">
-                  <caret line="239" column="36" selection-start-line="239" selection-start-column="36" selection-end-line="239" selection-end-column="737" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="462">
-                  <caret line="77" column="272" lean-forward="true" selection-start-line="77" selection-start-column="272" selection-end-line="77" selection-end-column="272" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="293">
-                  <caret line="125" column="42" selection-start-line="125" selection-start-column="42" selection-end-line="125" selection-end-column="42" />
-                  <folding>
-                    <element signature="e#0#40040#0#Blade" />
-                    <element signature="e#0#40040#0#Blade" />
-                    <element signature="e#0#40040#0#Blade" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="542">
-                  <caret line="290" column="6" selection-start-line="290" selection-start-column="6" selection-end-line="290" selection-end-column="6" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/Field.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/Relation.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="23" column="35" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="35" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="276">
-                  <caret line="102" column="32" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="236" column="103" selection-start-line="236" selection-start-column="103" selection-end-line="236" selection-end-column="103" />
+              <folding>
+                <element signature="e#0#47766#0#Blade" />
+                <element signature="e#0#45396#0#Blade" />
+                <element signature="e#0#47766#0#Blade" />
+                <element signature="e#0#47766#0#Blade" />
+                <element signature="e#0#47766#0#Blade" />
+                <element signature="e#0#47766#0#Blade" />
+                <element signature="e#0#47766#0#Blade" />
+                <element signature="e#0#47766#0#Blade" />
+                <element signature="e#0#47766#0#Blade" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="530">
+              <caret line="73" column="92" selection-start-line="73" selection-start-column="73" selection-end-line="73" selection-end-column="92" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/menu/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="282" column="9" lean-forward="true" selection-start-line="282" selection-start-column="9" selection-end-line="282" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/menu/modals/dataset-settings-modal.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="497">
+              <caret line="63" column="64" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MenuController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="285" column="27" lean-forward="true" selection-start-line="285" selection-start-column="27" selection-end-line="285" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Helpers/QueryHelpers.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="228" column="49" selection-start-line="228" selection-start-column="27" selection-end-line="228" selection-end-column="49" />
+              <folding>
+                <element signature="e#31#54#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>store</find>
-      <find>delete</find>
-      <find>'POST'</find>
-      <find>Request</find>
-      <find>ajax</find>
-      <find>whereHas</find>
-      <find>wherehas</find>
-      <find>$menu-&gt;field_criterias</find>
-      <find>@if(!empty($criteria-&gt;pivot-&gt;operator))</find>
-      <find>store(</find>
-      <find>getCriteria</find>
-      <find>''</find>
-      <find>passwor</find>
-      <find>max</find>
-      <find>update(</find>
-      <find>\</find>
-      <find>password</find>
-      <find>editMode</find>
-      <find>department</find>
-      <find>getAll</find>
-      <find>projects</find>
-      <find>+ &quot; {!! $criteria-&gt;name !!} BETWEEN :{!! $criteria-&gt;name !!}&quot;</find>
-      <find>active_flag</find>
-      <find>{!! $criteria-&gt;value !!}</find>
-      <find>{!! $criteria-&gt;pivot-&gt;value !!}</find>
-      <find>queryParams.put(&quot;{!! $criteria-&gt;name !!}&quot;, &quot;{!! $criteria-&gt;pivot-&gt;value !!}&quot;);</find>
-      <find>foreign_key_field</find>
-      <find>@if($criteria_index == 0)</find>
-      <find>item</find>
-      <find>belongsto</find>
+      <find>relation/</find>
+      <find>relation/{code}/</find>
+      <find>}/fields</find>
+      <find>fieldRelationTemplate</find>
+      <find>relation/{code}/tables</find>
+      <find>getAllFieldsSelectInput</find>
+      <find>th</find>
+      <find>customize-menu-modal</find>
+      <find>customize</find>
+      <find>datasetsetti</find>
+      <find>$field</find>
+      <find>ajaxupdate</find>
+      <find>ajaxUpdate</find>
+      <find>['operator']</find>
+      <find>$if</find>
+      <find>id</find>
+      <find>relation_field_</find>
+      <find>$relation</find>
+      <find>relation_ids</find>
+      <find>$relation_id</find>
+      <find>dataset_field_id</find>
+      <find>$dataset_relation_id</find>
+      <find>dataset_field_ids</find>
+      <find>dataset_field_</find>
+      <find>menu_relation_criteria</find>
+      <find>onUpdateDatasetMenu</find>
+      <find>dataset_field_operator</find>
+      <find>$criteria =</find>
+      <find>criterias</find>
+      <find>-&gt;pivot</find>
     </findStrings>
     <replaceStrings>
-      <replace>{!! str_plural(camel_case($menu-&gt;name)) !!}</replace>
-      <replace>{!! camel_case($menu-&gt;name) !!}</replace>
-      <replace>{!! ucfirst(camel_case(str_singular($table-&gt;name))) !!}</replace>
-      <replace>{!! camel_case(str_singular($menu-&gt;table-&gt;name)) !!}Repository</replace>
-      <replace>List&lt;{!! ucfirst(camel_case(str_singular($menu-&gt;table-&gt;name))) !!}&gt;</replace>
-      <replace>{!! ucfirst(camel_case(str_singular($menu-&gt;table-&gt;name))) !!}</replace>
-      <replace>.forEach({!! camel_case(str_singular($menu-&gt;name)) !!} -&gt; {</replace>
-      <replace>{!! camel_case($table-&gt;name) !!}</replace>
-      <replace>{!!</replace>
-      <replace>userModel</replace>
-      <replace>User</replace>
-      <replace>users</replace>
-      <replace>user</replace>
-      <replace>{!! ucfirst(camel_case(str_singular($relation-&gt;local_table-&gt;name))) !!}</replace>
-      <replace>{!! ucfirst(camel_case(str_singular($relation-&gt;table-&gt;name))) !!}</replace>
-      <replace>{!! camel_case(str_singular($relation-&gt;table-&gt;name)) !!}</replace>
-      <replace>{!! &quot;?&quot; !!}</replace>
-      <replace>$relation-&gt;local_table</replace>
-      <replace>{!! ucfirst(camel_case(str_singular($field-&gt;relation-&gt;table-&gt;name))) !!}</replace>
-      <replace>current{!! ucfirst(camel_case($menu-&gt;name)) !!}</replace>
-      <replace>{!! camel_case($menu-&gt;name) !!}.get{!! ucfirst(camel_case($field-&gt;name)) !!}()</replace>
-      <replace>get{!! ucfirst(camel_case($field-&gt;name)) !!}</replace>
-      <replace>set{!! ucfirst(camel_case($field-&gt;name)) !!}</replace>
-      <replace>{!! str_plural(camel_case($field-&gt;relation-&gt;table-&gt;name)) !!}</replace>
-      <replace>documents</replace>
-      <replace>show_in_form</replace>
       <replace>$field</replace>
       <replace>{!! $criteria-&gt;name !!}</replace>
       <replace>{!! $criteria-&gt;pivot-&gt;value !!}</replace>
+      <replace>{!! $relation-&gt;relation_type == 'belongstomany' ? (ucfirst(camel_case(str_singular($relation-&gt;local_table-&gt;name))) . ucfirst(camel_case(str_singular($relation-&gt;table-&gt;name)))) : (ucfirst(camel_case(str_singular($relation-&gt;local_table-&gt;name))) . ucfirst(camel_case(str_singular($relation-&gt;table-&gt;name)))) !!}</replace>
+      <replace>$relation</replace>
       <replace>&quot;{!! $criteria-&gt;pivot-&gt;value !!}&quot;</replace>
+      <replace>{!! ucfirst(camel_case(str_singular($relation-&gt;local_table-&gt;name))) . ucfirst(camel_case(str_singular($relation-&gt;table-&gt;name))) !!}</replace>
+      <replace>body.get(&quot;{!! ucfirst(camel_case($field-&gt;name)) !!}&quot;)</replace>
+      <replace>body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
+      <replace>body</replace>
+      <replace>(Que) body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
+      <replace>({!! QueryHelpers:: !!}) body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
+      <replace>({!! QueryHelpers::castTo() !!}) body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
+      <replace>order_type</replace>
+      <replace>({!! QueryHelpers::castTo($field-&gt;type) !!}) body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
+      <replace>$relation_id</replace>
+      <replace>$relation_field_id</replace>
+      <replace>$menu_relation_criteria</replace>
+      <replace>$menu_relation_criteria-&gt;value</replace>
+      <replace>{!! $menu_relation_criteria-&gt;relation_field-&gt;name !!}</replace>
+      <replace>${!! str_singular($menu_relation_criteria-&gt;relation-&gt;table-&gt;name) !!}</replace>
+      <replace>${!! str_singular($menu_relation_criteria-&gt;relation-&gt;table-&gt;name) !!}</replace>
+      <replace>${!! str_singular($menu_relation_criteria-&gt;relation-&gt;table-&gt;name) !!} = ${!! str_singular($menu_relation_criteria-&gt;relation-&gt;table-&gt;name) !!}</replace>
+      <replace>$item</replace>
+      <replace>$if</replace>
+      <replace>$f</replace>
+      <replace>dataset_field_</replace>
+      <replace>$dataset_relation_ids</replace>
+      <replace>$dataset_relation_id</replace>
+      <replace>dataset_</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -311,23 +257,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/services/competency-tests.service.ts" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/utils/environment.ts" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-form/competency-tests-form.component.html" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/competency-tests-form/competency-tests-form.component.ts" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/CompetencyTestController.php" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/database/seeds/DatabaseSeeder.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_07_25_140038_create_menu_load_references_table.php" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/services/school-lists.service.ts" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/school-lists-form/school-lists-form.component.html" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/app/Http/Controllers/api/SchoolListsController.php" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-laravel5/routes/api.php" />
-        <option value="$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/school-lists-form/school-lists-form.component.ts" />
-        <option value="$PROJECT_DIR$/resources/views/table/default-field-forms.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/table/show.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/project/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin.blade.php" />
@@ -336,15 +265,11 @@
         <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/sidenav/sidenav-component-html.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/services/service.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_08_08_190928_add_spesification_column_on_menu_criteria_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/UserProfileController.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/AuthController.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/UserController.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/RoleController.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/PermissionController.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/MigrationController.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/spring/templates.json" />
         <option value="$PROJECT_DIR$/resources/views/templates/spring/base/repository/ModelRepository.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/spring/base/model/ModelRelation.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/spring/base/model/Model.blade.php" />
@@ -353,15 +278,36 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_08_12_205419_create_relation_criterias_table.php" />
         <option value="$PROJECT_DIR$/app/Menu.php" />
         <option value="$PROJECT_DIR$/app/Relation.php" />
-        <option value="$PROJECT_DIR$/app/Helpers/QueryHelpers.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/MenuController.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php" />
         <option value="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias/hse-criterias.component.html" />
+        <option value="$PROJECT_DIR$/resources/views/templates/spring/templates.json" />
+        <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/RoleController.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/UserProfileController.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/spring/base/repository/ModelRepositoryRelation.blade.php" />
+        <option value="$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners-form/banners-form.component.ts" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/spring/base/controller/ModelController.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_relation_tables_table.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/menu/inputs/relation-list-relation-users.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_07_25_140038_create_menu_load_references_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_08_17_032558_create_menu_relation_criteria_table.php" />
+        <option value="$PROJECT_DIR$/app/MenuRelationCriteria.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TableController.php" />
+        <option value="$PROJECT_DIR$/resources/views/table/partials/relation-criterias.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/table/field-relation-form.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_08_18_044857_create_menu_dataset_criterias_table.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MenuController.php" />
+        <option value="$PROJECT_DIR$/app/Helpers/QueryHelpers.php" />
+        <option value="$PROJECT_DIR$/resources/views/menu/modals/dataset-settings-modal.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/menu/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/MenuDatasetCriteria.php" />
+        <option value="$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php" />
       </list>
     </option>
   </component>
@@ -481,7 +427,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -492,69 +437,24 @@
             <path>
               <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
               <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-              <item name="qhse-brantas-angular7" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-              <item name="qhse-brantas-angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-              <item name="qhse-brantas-angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
               <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-              <item name="qhse-brantas-angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="Helpers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
               <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-              <item name="qhse-brantas-angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="hse-criterias" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
               <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="outputs" type="462c0819:PsiDirectoryNode" />
-              <item name="qhse-brantas-angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="hse-criterias-single" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
@@ -579,185 +479,22 @@
               <item name="nisa" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="menu" type="462c0819:PsiDirectoryNode" />
+              <item name="inputs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
               <item name="nisa" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="form" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="list" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="single" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="angular7" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="users-form" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="laravel5" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nisa" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nisa" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="spring" type="462c0819:PsiDirectoryNode" />
+              <item name="menu" type="462c0819:PsiDirectoryNode" />
+              <item name="modals" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -779,11 +516,11 @@
       <recent name="$PROJECT_DIR$/public/templates" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/menu/modals" />
+      <recent name="$PROJECT_DIR$/resources/views/menu/inputs" />
+      <recent name="$PROJECT_DIR$/resources/views/templates/spring/base/repository" />
       <recent name="$PROJECT_DIR$/resources/views/templates/spring/base/model" />
       <recent name="$PROJECT_DIR$/resources/views/templates/spring/base/controller" />
-      <recent name="$PROJECT_DIR$/resources/views/templates/spring" />
-      <recent name="$PROJECT_DIR$/resources/views/menu/inputs" />
-      <recent name="$PROJECT_DIR$/resources/views/generate-options/partials" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -930,21 +667,22 @@
       <workItem from="1565288294012" duration="21702000" />
       <workItem from="1565580249820" duration="9094000" />
       <workItem from="1565629279234" duration="13044000" />
-      <workItem from="1565696208066" duration="14905000" />
+      <workItem from="1565696208066" duration="37252000" />
+      <workItem from="1565988690274" duration="28961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="672056000" />
+    <option name="totallyTimeSpent" value="723364000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48433736" weight="0.21816881" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48313254" visible="true" weight="0.22103004" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" sideWeight="0.51566267" side_tool="true" weight="0.30329043" />
+      <window_info id="Favorites" order="3" sideWeight="0.51686746" side_tool="true" weight="0.21816881" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -968,275 +706,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/table/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="100" column="52" selection-start-line="100" selection-start-column="52" selection-end-line="102" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_02_114055_add_column_on_relations_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="31" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/templates.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="122" column="13" lean-forward="true" selection-start-line="122" selection-start-column="13" selection-end-line="122" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-laravel5/app/Http/Controllers/api/RolesController.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/UserProfileController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="116" selection-start-line="116" selection-end-line="128" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/UserProfileController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-271">
-          <caret line="67" column="124" selection-start-line="67" selection-end-line="67" selection-end-column="124" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/AuthController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="47" lean-forward="true" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/PermissionController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="233" column="60" selection-start-line="233" selection-start-column="60" selection-end-line="233" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/RoleController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="262" column="14" selection-start-line="262" selection-start-column="14" selection-end-line="262" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/UserController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="134" selection-start-line="134" selection-end-line="147" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProjectController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="662" lean-forward="true" selection-start-line="662" selection-end-line="662" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/database/seeds/PermissionSeeder.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="20" column="41" lean-forward="true" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/MigrationController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="53" column="30" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/repository/ModelRepository.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="15" column="60" lean-forward="true" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/model/ModelRelation.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_relation_tables_table.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="120" column="24" lean-forward="true" selection-start-line="120" selection-start-column="24" selection-end-line="120" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="54" column="133" selection-start-line="54" selection-start-column="113" selection-end-line="54" selection-end-column="133" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/model/Model.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/templates.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_21_013242_create_menu_criteria_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_08_190928_add_spesification_column_on_menu_criteria_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_12_205419_create_relation_criterias_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="41" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="41" />
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="43" />
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/menu/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="227" column="50" lean-forward="true" selection-start-line="227" selection-start-column="50" selection-end-line="227" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="158" column="48" selection-start-line="158" selection-start-column="48" selection-end-line="158" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/templates.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MenuController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="85" column="95" selection-start-line="85" selection-start-column="78" selection-end-line="85" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/users-lists-form/users-lists-form.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="72" column="18" lean-forward="true" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/UsersController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="140" column="23" selection-start-line="140" selection-start-column="15" selection-end-line="140" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/users-form/users-form-component-ts.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="75" selection-start-line="75" selection-end-line="85" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/users-form/users-form.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="201" column="12" selection-start-line="201" selection-start-column="12" selection-end-line="205" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/outputs/dna-angular7/src/app/pages/students-lists-form/students-lists-form.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4649">
-          <caret line="114" column="20" selection-start-line="114" selection-start-column="12" selection-end-line="114" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="336" column="73" lean-forward="true" selection-start-line="336" selection-start-column="73" selection-end-line="336" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Helpers/QueryHelpers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Field.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -1244,43 +713,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="102" column="32" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Menu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="59" lean-forward="true" selection-start-line="36" selection-start-column="59" selection-end-line="36" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="125" column="42" selection-start-line="125" selection-start-column="42" selection-end-line="125" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#40040#0#Blade" />
-            <element signature="e#0#40040#0#Blade" />
-            <element signature="e#0#40040#0#Blade" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Relation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="35" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="542">
-          <caret line="290" column="6" selection-start-line="290" selection-start-column="6" selection-end-line="290" selection-end-column="6" />
+        <state relative-caret-position="541">
+          <caret line="239" column="36" selection-start-line="239" selection-start-column="36" selection-end-line="239" selection-end-column="737" />
         </state>
       </provider>
     </entry>
@@ -1300,30 +736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/ModelController.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="188" column="158" selection-start-line="188" selection-start-column="158" selection-end-line="188" selection-end-column="158" />
-          <folding>
-            <element signature="e#0#29283#0#Blade" />
-            <element signature="e#0#29283#0#Blade" />
-            <element signature="e#0#29283#0#Blade" />
-            <element signature="e#0#29283#0#Blade" />
-            <element signature="e#0#35890#0#Blade" />
-            <element signature="e#0#35890#0#Blade" />
-            <element signature="e#0#35890#0#Blade" />
-            <element signature="e#0#35890#0#Blade" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="179" column="24" selection-start-line="179" selection-start-column="24" selection-end-line="179" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/hse-criterias/hse-criterias.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
@@ -1331,17 +743,342 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-html.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/UserProfileController.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="239" column="36" selection-start-line="239" selection-start-column="36" selection-end-line="239" selection-end-column="737" />
+        <state relative-caret-position="129">
+          <caret line="66" column="40" lean-forward="true" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/RoleController.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="69" column="66" selection-start-line="69" selection-start-column="66" selection-end-line="69" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/repository/ModelRepository.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-laravel5/app/Http/Controllers/api/BannerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-laravel5/app/Http/Controllers/api/GuideController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-laravel5/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="685" column="54" selection-start-line="685" selection-start-column="54" selection-end-line="685" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/outputs/qhse-brantas-angular7/src/app/pages/banners-form/banners-form.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="230" column="51" lean-forward="true" selection-start-line="230" selection-start-column="51" selection-end-line="230" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/templates.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/routes/api.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="122" column="25" lean-forward="true" selection-start-line="122" selection-start-column="25" selection-end-line="122" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-ts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="48" lean-forward="true" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/list/component-ts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/controller/ModelController.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7665">
+          <caret line="511" column="50" selection-start-line="511" selection-start-column="50" selection-end-line="511" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_relation_tables_table.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="39" column="26" lean-forward="true" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/model/Model.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="44" column="20" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/spring/base/repository/ModelRepositoryRelation.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="365" selection-start-line="24" selection-start-column="303" selection-end-line="24" selection-end-column="365" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/menu/inputs/list-relation-users.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/menu/inputs/relation-list-relation-users.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="33" selection-start-column="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_25_140038_create_menu_load_references_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="37" lean-forward="true" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_05_21_013242_create_menu_criteria_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="37" lean-forward="true" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Field.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Relation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Model.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="50" column="29" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/database/migrations/2014_10_12_000000_create_tables_table.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="12" column="7" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-ts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="116" column="50" selection-start-line="116" selection-start-column="50" selection-end-line="116" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/form/component-html.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="356" column="73" selection-start-line="356" selection-start-column="73" selection-end-line="356" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/templates/angular7/base/src/app/pages/single/component-html.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="77" column="272" lean-forward="true" selection-start-line="77" selection-start-column="272" selection-end-line="77" selection-end-column="272" />
+        <state relative-caret-position="145">
+          <caret line="292" column="57" selection-start-line="292" selection-start-column="57" selection-end-line="292" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/table/field-form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="599">
+          <caret line="142" column="28" lean-forward="true" selection-start-line="142" selection-start-column="28" selection-end-line="142" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/table/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="174" column="43" selection-start-line="174" selection-start-column="20" selection-end-line="174" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/table/field-relation-form.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="104" column="26" lean-forward="true" selection-start-line="104" selection-start-column="26" selection-end-line="104" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TableController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="916" column="30" selection-start-line="916" selection-start-column="24" selection-end-line="916" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="140" column="94" selection-start-line="140" selection-start-column="72" selection-end-line="140" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/table/partials/relation-criterias.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="447" column="36" selection-start-line="447" selection-start-column="13" selection-end-line="447" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_12_205419_create_relation_criterias_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="24" selection-end-column="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_17_032558_create_menu_relation_criteria_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="25" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/menu/partials/menu-item.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="31" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MenuController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="285" column="27" lean-forward="true" selection-start-line="285" selection-start-column="27" selection-end-line="285" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Helpers/QueryHelpers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="228" column="49" selection-start-line="228" selection-start-column="27" selection-end-line="228" selection-end-column="49" />
+          <folding>
+            <element signature="e#31#54#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/menu/modals/customize-menu-modal.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="530">
+          <caret line="73" column="92" selection-start-line="73" selection-start-column="73" selection-end-line="73" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/menu/modals/dataset-settings-modal.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="63" column="64" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/menu/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="282" column="9" lean-forward="true" selection-start-line="282" selection-start-column="9" selection-end-line="282" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/MenuRelationCriteria.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/MenuDatasetCriteria.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_08_18_044857_create_menu_dataset_criterias_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="23" column="61" lean-forward="true" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/templates/laravel5/base/app/Http/Controllers/api/ModelController.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="236" column="103" selection-start-line="236" selection-start-column="103" selection-end-line="236" selection-end-column="103" />
+          <folding>
+            <element signature="e#0#47766#0#Blade" />
+            <element signature="e#0#45396#0#Blade" />
+            <element signature="e#0#47766#0#Blade" />
+            <element signature="e#0#47766#0#Blade" />
+            <element signature="e#0#47766#0#Blade" />
+            <element signature="e#0#47766#0#Blade" />
+            <element signature="e#0#47766#0#Blade" />
+            <element signature="e#0#47766#0#Blade" />
+            <element signature="e#0#47766#0#Blade" />
+          </folding>
         </state>
       </provider>
     </entry>

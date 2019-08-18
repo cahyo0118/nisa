@@ -67,7 +67,7 @@ public class RoleController {
         List<HashMap<String, Object>> data = new ArrayList<>();
         roles.forEach(role -> {
             List<Permission> permissions = new ArrayList<>();
-            for (RolePermission rp : rolePermissionRepository.findAllByRoleId(role.getId())) {
+            for (RolePermission rp : rolePermissionRepository.findByRoleId(role.getId())) {
                 permissions.add(rp.getPermission());
             }
 
@@ -306,7 +306,7 @@ public class RoleController {
             );
         }
 
-        rolePermissionRepository.deleteAllByRoleRoleId(currentRole.getId());
+        rolePermissionRepository.deleteByRoleId(currentRole.getId());
 
         List<Permission> permissions = oMapper.convertValue(body.get("permissions"), List.class);
 

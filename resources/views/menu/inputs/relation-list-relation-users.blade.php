@@ -1,0 +1,1 @@
+{!! Form::select("relation_field_[{$field->id}]", $dataset, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->value : null, ["id" => "menu{$menu->id}value{$field->id}", "class" => "form-control form-control-alternative"]) !!}

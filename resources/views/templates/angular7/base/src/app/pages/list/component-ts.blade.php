@@ -100,13 +100,13 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
             this.service.getAllByKeyword(this.searchForm.value.keyword, page, this.orderBy, this.orderType, this.filtersForm.value)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.currentPage = data.current_page;
                         this.lastPage = data.last_page;
                         this.totalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.items = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -116,13 +116,13 @@ export class {!! ucfirst(camel_case(str_plural($menu->name))) !!}Component imple
             this.service.getAll(page, this.orderBy, this.orderType, this.filtersForm.value)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.currentPage = data.current_page;
                         this.lastPage = data.last_page;
                         this.totalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.items = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -212,13 +212,13 @@ if (!empty($reference)) {
             this.service.getAllByKeyword(this.searchForm.value.keyword, 1, this.orderBy, this.orderType)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.currentPage = data.current_page;
                         this.lastPage = data.last_page;
                         this.totalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.items = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -256,6 +256,9 @@ if (!empty($reference)) {
                     title: 'Yay !',
                     text: data.message,
                     type: 'success',
+                    toast: true,
+                    position: "bottom-end",
+                    timer: 3000,
                     confirmButtonText: 'Confirm'
                 });
             },
@@ -267,6 +270,9 @@ if (!empty($reference)) {
                     title: 'Oops',
                     text: data.message,
                     type: 'error',
+                    toast: true,
+                    position: "bottom-end",
+                    timer: 3000,
                     confirmButtonText: 'Confirm'
                 });
             }

@@ -74,7 +74,7 @@ public class UserProfileController {
 
         roles.forEach(role -> {
             roleList.add(role.getRole());
-            List<RolePermission> permissions = rolePermissionRepository.findAllByRoleId(role.getRole().getId());
+            List<RolePermission> permissions = rolePermissionRepository.findByRoleId(role.getRole().getId());
             permissions.forEach(permission -> {
                 permissionList.add(permission.getPermission().getName());
             });

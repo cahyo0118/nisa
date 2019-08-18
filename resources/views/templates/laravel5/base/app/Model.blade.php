@@ -64,7 +64,7 @@ Model
             ->where('relation_type', 'belongstomany')
             ->get() as $relation)
 @if($relation->relation_type == "hasmany")
-    public function {!! !empty($relation->relation_name) ? snake_case(str_singular($relation->relation_name)) : $relation->table->name !!}()
+    public function {!! !empty($relation->relation_name) ? snake_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}()
     {
         return $this->hasMany('App\{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}', '{!! $relation->relation_foreign_key !!}');
     }

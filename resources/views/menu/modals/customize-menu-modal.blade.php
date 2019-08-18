@@ -199,169 +199,277 @@
 
                                     @if(!empty($menu->table))
                                         <div class="col-lg-12">
+                                            <nav>
+                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                    <a class="nav-item nav-link active" id="nav-home-tab"
+                                                       data-toggle="tab"
+                                                       href="#nav-data-settings-{{ $menu->id }}-fields">
+                                                        Fields
+                                                    </a>
+                                                    <a class="nav-item nav-link" id="nav-home-tab"
+                                                       data-toggle="tab"
+                                                       href="#nav-data-settings-{{ $menu->id }}-relations">
+                                                        Relations
+                                                    </a>
+                                                </div>
+                                            </nav>
 
-                                            <br>
+                                            <div class="tab-content" id="nav-tabContent">
+                                                <div class="tab-pane fade show active"
+                                                     id="nav-data-settings-{{ $menu->id }}-fields">
 
-                                            <div class="table-responsive">
+                                                    <br>
+                                                    <h6 class="heading-small text-muted mb-4">Fields</h6>
 
-                                                <table class="table align-items-center" data-toggle="dataTable"
-                                                       data-form="deleteForm">
-                                                    <thead>
-                                                    <tr>
-                                                        <th width="10%">Field</th>
-                                                        <th width="10%">Operator</th>
-                                                        <th width="10%">Value</th>
-                                                        <th scope="col">Required</th>
-                                                        <th width="10%">List</th>
-                                                        <th width="10%">Form</th>
-                                                        <th width="10%">Load By Reference</th>
-                                                        {{--<th scope="col"></th>--}}
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($menu->table->fields()->orderBy('order')->get() as $field)
-                                                        {!! Form::hidden("field_ids[{$field->id}]", $field->id) !!}
-                                                        <tr id="customize_field_{!! $field->id !!}">
-                                                            <td width="10%">
-                                                                <h5>
-                                                                    {{ $field->name }}
-                                                                </h5>
-                                                            </td>
-                                                            <td width="25%">
-                                                                {!! Form::select("operator[{$field->id}]", $number_operators, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator : null, ["id" => "operator{$field->id}", "class" => "form-control form-control-alternative", "onchange" => "onOperatorChange({$menu->id}, {$field->id}, this.value)"]) !!}
-                                                            </td>
+                                                    <div class="table-responsive">
 
-                                                            <td width="25%">
-                                                                @if(!empty(QueryHelpers::getCriteria($menu->id, $field->id)) && QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator == "relation")
-                                                                    @php
-                                                                        $dataset = [];
+                                                        <table class="table align-items-center" data-toggle="dataTable"
+                                                               data-form="deleteForm">
+                                                            <thead>
+                                                            <tr>
+                                                                <th width="10%">Field</th>
+                                                                <th width="10%">Operator</th>
+                                                                <th width="10%">Value</th>
+                                                                <th scope="col">Required</th>
+                                                                <th width="10%">List</th>
+                                                                <th width="10%">Form</th>
+                                                                <th width="10%">Load By Reference</th>
+                                                                <th scope="col"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($menu->table->fields()->orderBy('order')->get() as $field)
+                                                                {!! Form::hidden("field_ids[{$field->id}]", $field->id) !!}
+                                                                <tr id="customize_field_{!! $field->id !!}">
+                                                                    <td width="10%">
+                                                                        <h5>
+                                                                            {{ $field->name }}
+                                                                        </h5>
+                                                                    </td>
+                                                                    <td width="25%">
+                                                                        {!! Form::select("operator[{$field->id}]", $number_operators, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator : null, ["id" => "operator{$field->id}", "class" => "form-control form-control-alternative", "onchange" => "onOperatorChange({$menu->id}, {$field->id}, this.value)"]) !!}
+                                                                    </td>
 
-                                                                        $users_table = $menu->project->tables()->where('name', 'users')->first();
+                                                                    <td width="25%">
+                                                                        @if(!empty(QueryHelpers::getCriteria($menu->id, $field->id)) && QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator == "relation")
+                                                                            @php
+                                                                                $dataset = [];
 
-                                                                        foreach ($users_table->fields as $users_field) {
+                                                                                $users_table = $menu->project->tables()->where('name', 'users')->first();
 
-                                                                            if (!empty($users_field->relation) && $users_field->relation->relation_type == "belongsto") {
-                                                                                $dataset[$users_field->id] = "same " . $users_field->relation->relation_name;
-                                                                            }
+                                                                                foreach ($users_table->fields as $users_field) {
 
-                                                                        }
-                                                                    @endphp
-                                                                    @include('menu.inputs.list-relation-users', ['dataset' => $dataset])
-                                                                @elseif(!empty(QueryHelpers::getCriteria($menu->id, $field->id)) && QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator == "default")
-                                                                    @php
-                                                                        $dataset = [];
-                                                                        $dataset["current_user_id"] = "Current User ID";
-                                                                    @endphp
-                                                                    @include('menu.inputs.list-relation-users', ['dataset' => $dataset])
-                                                                @else
-                                                                    {!! Form::text("value[{$field->id}]", !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->value : null, ["id" => "menu{$menu->id}value{$field->id}", 'class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
-                                                                @endif
-                                                            </td>
-                                                            {{--<td>--}}
-                                                            {{--<div class="form-group">--}}
-                                                            {{--<label class="form-control-label">--}}
-                                                            {{--{!! Form::hidden("update_on_list[{$field->id}]", 0) !!}--}}
-                                                            {{--{!! Form::checkbox("update_on_list[{$field->id}]", 1, null) !!}--}}
-                                                            {{--update on list--}}
-                                                            {{--</label>--}}
-                                                            {{--</div>--}}
-                                                            {{--</td>--}}
-                                                            <td>
-                                                                {!! Form::hidden("required[{$field->id}]", 0) !!}
-                                                                {!! Form::checkbox("required[{$field->id}]", 1, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->required : $field->notnull) !!}
-                                                            </td>
-                                                            <td>
-                                                                {!! Form::hidden("show_in_list[{$field->id}]", 0) !!}
-                                                                {!! Form::checkbox("show_in_list[{$field->id}]", 1, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->show_in_list : $field->input_type !== "hidden" && $field->searchable) !!}
-                                                            </td>
-                                                            <td>
-                                                                {!! Form::hidden("show_in_form[{$field->id}]", 0) !!}
-                                                                {!! Form::checkbox("show_in_form[{$field->id}]", 1, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->show_in_form : $field->input_type !== "hidden") !!}
-                                                            </td>
-                                                            <td>
-                                                                @if(!empty($field->relation))
-                                                                    @if($field->relation->relation_type == "belongsto")
-                                                                        @php
-                                                                            $relations = [];
-                                                                            $relations[""] = "--";
+                                                                                    if (!empty($users_field->relation) && $users_field->relation->relation_type == "belongsto") {
+                                                                                        $dataset[$users_field->id] = "same " . $users_field->relation->relation_name;
+                                                                                    }
 
-                                                                            // foreach($field->relation->table->fields as $f) {
-                                                                            foreach($menu->table->fields()->orderBy('order')->get() as $f) {
-                                                                                if(!empty($f->relation) && $f->relation->relation_type == "belongsto") {
-                                                                                    $relations[$f->id] = $f->name;
                                                                                 }
-                                                                            }
+                                                                            @endphp
+                                                                            @include('menu.inputs.list-relation-users', ['dataset' => $dataset])
+                                                                        @elseif(!empty(QueryHelpers::getCriteria($menu->id, $field->id)) && QueryHelpers::getCriteria($menu->id, $field->id)->pivot->operator == "default")
+                                                                            @php
+                                                                                $dataset = [];
+                                                                                $dataset["current_user_id"] = "Current User ID";
+                                                                            @endphp
+                                                                            @include('menu.inputs.list-relation-users', ['dataset' => $dataset])
+                                                                        @else
+                                                                            {!! Form::text("value[{$field->id}]", !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->value : null, ["id" => "menu{$menu->id}value{$field->id}", 'class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+                                                                        @endif
+                                                                    </td>
+                                                                    {{--<td>--}}
+                                                                    {{--<div class="form-group">--}}
+                                                                    {{--<label class="form-control-label">--}}
+                                                                    {{--{!! Form::hidden("update_on_list[{$field->id}]", 0) !!}--}}
+                                                                    {{--{!! Form::checkbox("update_on_list[{$field->id}]", 1, null) !!}--}}
+                                                                    {{--update on list--}}
+                                                                    {{--</label>--}}
+                                                                    {{--</div>--}}
+                                                                    {{--</td>--}}
+                                                                    <td>
+                                                                        {!! Form::hidden("required[{$field->id}]", 0) !!}
+                                                                        {!! Form::checkbox("required[{$field->id}]", 1, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->required : $field->notnull) !!}
+                                                                    </td>
+                                                                    <td>
+                                                                        {!! Form::hidden("show_in_list[{$field->id}]", 0) !!}
+                                                                        {!! Form::checkbox("show_in_list[{$field->id}]", 1, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->show_in_list : $field->input_type !== "hidden" && $field->searchable) !!}
+                                                                    </td>
+                                                                    <td>
+                                                                        {!! Form::hidden("show_in_form[{$field->id}]", 0) !!}
+                                                                        {!! Form::checkbox("show_in_form[{$field->id}]", 1, !empty(QueryHelpers::getCriteria($menu->id, $field->id)) ? QueryHelpers::getCriteria($menu->id, $field->id)->pivot->show_in_form : $field->input_type !== "hidden") !!}
+                                                                    </td>
+                                                                    <td>
+                                                                        @if(!empty($field->relation))
+                                                                            @if($field->relation->relation_type == "belongsto")
+                                                                                @php
+                                                                                    $relations = [];
+                                                                                    $relations[""] = "--";
 
-                                                                            $reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+                                                                                    // foreach($field->relation->table->fields as $f) {
+                                                                                    foreach($menu->table->fields()->orderBy('order')->get() as $f) {
+                                                                                        if(!empty($f->relation) && $f->relation->relation_type == "belongsto") {
+                                                                                            $relations[$f->id] = $f->name;
+                                                                                        }
+                                                                                    }
 
-                                                                        @endphp
-                                                                        {!! Form::select("load_by_reference[{$field->id}]", $relations, !empty($reference) ? $reference->field_reference_id : null, ["id" => "load_by_reference{$field->id}", "class" => "form-control form-control-alternative", "onchange" => ""]) !!}
-                                                                    @endif
+                                                                                    $reference = DB::table('menu_load_references')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+
+                                                                                @endphp
+                                                                                {!! Form::select("load_by_reference[{$field->id}]", $relations, !empty($reference) ? $reference->field_reference_id : null, ["id" => "load_by_reference{$field->id}", "class" => "form-control form-control-alternative", "onchange" => ""]) !!}
+                                                                            @endif
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if(!empty($field->relation))
+                                                                            <button type="button"
+                                                                                    class="btn btn-dark btn-sm"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#datasetSettingsModal{{ $field->id }}">
+                                                                                <span class="btn-inner--icon"><i
+                                                                                        class="fas fa-hand-point-up"></i>
+                                                                                </span>
+                                                                                <span class="btn-inner--text">Dataset
+                                                                                    Settings
+                                                                                </span>
+                                                                            </button>
+
+                                                                            @include('menu.modals.dataset-settings-modal')
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+
+                                                            @endforeach
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="tab-pane fade"
+                                                     id="nav-data-settings-{{ $menu->id }}-relations">
+
+                                                    <br>
+                                                    <h6 class="heading-small text-muted mb-4">Relations</h6>
+
+                                                    <div class="table-responsive">
+
+                                                        <table class="table align-items-center" data-toggle="dataTable"
+                                                               data-form="deleteForm">
+                                                            <thead>
+                                                            <tr>
+                                                                <th width="10%">Relation</th>
+                                                                <th width="10%">Relation Type</th>
+                                                                <th width="10%">List</th>
+                                                                <th width="10%">Single</th>
+                                                                <th width="10%">Form</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($menu->table->relations as $relation)
+                                                                @if($relation->relation_type == "hasmany" || $relation->relation_type == "belongstomany")
+                                                                    {!! Form::hidden("relation_ids[{$relation->id}]", $relation->id) !!}
+                                                                    <tr id="customize_field_{!! $relation->id !!}">
+                                                                        <td width="10%">
+                                                                            <h5>
+                                                                                {{ !empty($relation->name) ? $relation->name : $relation->table->name }}
+                                                                            </h5>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            {{ $relation->relation_type }}
+                                                                        </td>
+
+                                                                        <td>
+                                                                            {!! Form::hidden("show_in_list[{$relation->id}]", 0) !!}
+                                                                            {!! Form::checkbox("show_in_list[{$relation->id}]", 1, !empty(QueryHelpers::getRelationCriteria($menu->id, $relation->id)) ? QueryHelpers::getRelationCriteria($menu->id, $relation->id)->pivot->show_in_list : null) !!}
+                                                                        </td>
+                                                                        <td>
+                                                                            {!! Form::hidden("show_in_single[{$relation->id}]", 0) !!}
+                                                                            {!! Form::checkbox("show_in_single[{$relation->id}]", 1, !empty(QueryHelpers::getRelationCriteria($menu->id, $relation->id)) ? QueryHelpers::getRelationCriteria($menu->id, $relation->id)->pivot->show_in_single : null) !!}
+                                                                        </td>
+                                                                        <td>
+                                                                            {!! Form::hidden("show_in_form[{$relation->id}]", 0) !!}
+                                                                            {!! Form::checkbox("show_in_form[{$relation->id}]", 1, !empty(QueryHelpers::getRelationCriteria($menu->id, $relation->id)) ? QueryHelpers::getRelationCriteria($menu->id, $relation->id)->pivot->show_in_form : null) !!}
+                                                                        </td>
+                                                                    </tr>
                                                                 @endif
-                                                            </td>
-                                                        </tr>
+
+                                                            @endforeach
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+
+                                                    @foreach($menu->table->relations as $relation)
+                                                        @if($relation->relation_type == "hasmany" || $relation->relation_type == "belongstomany")
+                                                            <div class="card" style="margin-bottom: 30px;">
+                                                                <div class="card-body">
+                                                                    <br>
+                                                                    <h6 class="heading-small text-muted mb-4">
+                                                                        {{ !empty($relation->name) ? $relation->name : $relation->table->name }}
+                                                                    </h6>
+
+                                                                    {!! Form::hidden("relation_ids[{$relation->id}]", $relation->id) !!}
+
+                                                                    <div class="table-responsive">
+
+                                                                        <table
+                                                                            class="table align-items-center"
+                                                                            data-toggle="dataTable"
+                                                                            data-form="deleteForm">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th width="10%">Field</th>
+                                                                                <th width="10%">Operator</th>
+                                                                                <th width="10%">Value</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            @foreach($relation->table->fields()->orderBy('order')->get() as $field)
+                                                                                {!! Form::hidden("relation_field_ids[{$relation->id}][]", $field->id) !!}
+                                                                                <tr>
+                                                                                    <td width="10%">
+                                                                                        <h5>
+                                                                                            {{ $field->name }}
+                                                                                        </h5>
+                                                                                    </td>
+                                                                                    <td width="25%">
+                                                                                        @php
+                                                                                            print_r(!empty(QueryHelpers::getMenuRelationCriteria($menu->id, $relation->id, $field->id)) ? QueryHelpers::getMenuRelationCriteria($menu->id, $relation->id, $field->id)->operator : "NOT FOUND");
+                                                                                        @endphp
+                                                                                        {{--{!! !empty(QueryHelpers::getMenuRelationCriteria($menu->id, $relation->id, $field->id)) ? QueryHelpers::getMenuRelationCriteria($menu->id, $relation->id, $field->id)->id : "NOT FOUND" !!}--}}
+                                                                                        {!! Form::select("relation_field_operator[{$field->id}]", $number_operators, !empty(QueryHelpers::getMenuRelationCriteria($menu->id, $relation->id, $field->id)) ? QueryHelpers::getMenuRelationCriteria($menu->id, $relation->id, $field->id)->operator : null, ["class" => "form-control form-control-alternative"]) !!}
+                                                                                    </td>
+
+                                                                                    <td width="25%">
+                                                                                        {!! Form::text("relation_field_value[{$field->id}]", !empty(QueryHelpers::getMenuRelationCriteria($menu->id, $relation->id, $field->id)) ? QueryHelpers::getMenuRelationCriteria($menu->id, $relation->id, $field->id)->value : null, ['class' => 'form-control form-control-alternative', 'placeholder' => 'Write somethings...']) !!}
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                            @endforeach
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endif
 
                                                     @endforeach
 
-                                                    </tbody>
-                                                </table>
-
+                                                </div>
                                             </div>
+
                                         </div>
 
                                         <div class="col-lg-12">
 
                                             <br>
 
-                                            <div class="table-responsive">
 
-                                                <table class="table align-items-center" data-toggle="dataTable"
-                                                       data-form="deleteForm">
-                                                    <thead>
-                                                    <tr>
-                                                        <th width="10%">Relation</th>
-                                                        <th width="10%">Relation Type</th>
-                                                        <th width="10%">List</th>
-                                                        <th width="10%">Single</th>
-                                                        <th width="10%">Form</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($menu->table->relations as $relation)
-                                                        @if($relation->relation_type == "hasmany" || $relation->relation_type == "belongstomany")
-                                                            {!! Form::hidden("relation_ids[{$relation->id}]", $relation->id) !!}
-                                                            <tr id="customize_field_{!! $relation->id !!}">
-                                                                <td width="10%">
-                                                                    <h5>
-                                                                        {{ !empty($relation->name) ? $relation->name : $relation->table->name }}
-                                                                    </h5>
-                                                                </td>
-
-                                                                <td>
-                                                                    {{ $relation->relation_type }}
-                                                                </td>
-
-                                                                <td>
-                                                                    {!! Form::hidden("show_in_list[{$relation->id}]", 0) !!}
-                                                                    {!! Form::checkbox("show_in_list[{$relation->id}]", 1, !empty(QueryHelpers::getRelationCriteria($menu->id, $relation->id)) ? QueryHelpers::getRelationCriteria($menu->id, $relation->id)->pivot->show_in_list : null) !!}
-                                                                </td>
-                                                                <td>
-                                                                    {!! Form::hidden("show_in_single[{$relation->id}]", 0) !!}
-                                                                    {!! Form::checkbox("show_in_single[{$relation->id}]", 1, !empty(QueryHelpers::getRelationCriteria($menu->id, $relation->id)) ? QueryHelpers::getRelationCriteria($menu->id, $relation->id)->pivot->show_in_single : null) !!}
-                                                                </td>
-                                                                <td>
-                                                                    {!! Form::hidden("show_in_form[{$relation->id}]", 0) !!}
-                                                                    {!! Form::checkbox("show_in_form[{$relation->id}]", 1, !empty(QueryHelpers::getRelationCriteria($menu->id, $relation->id)) ? QueryHelpers::getRelationCriteria($menu->id, $relation->id)->pivot->show_in_form : null) !!}
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-
-                                                    @endforeach
-
-                                                    </tbody>
-                                                </table>
-
-                                            </div>
                                         </div>
                                     @endif
 

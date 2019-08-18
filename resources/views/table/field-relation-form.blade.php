@@ -1,3 +1,45 @@
+@php
+    $number_operators = [
+        "" => "--",
+        ">" => ">",
+        ">=" => ">=",
+        "<" => "<",
+        "<=" => "<=",
+        "like" => "LIKE",
+        "like%" => "LIKE %...%",
+        "not_like" => "NOT LIKE",
+        "=" => "=",
+        "!=" => "!=",
+        "single_quotes=" => "= ''",
+        "single_quotes!=" => "!= ''",
+        "in" => "IN",
+        "not_in" => "NOT IN",
+        "between" => "BETWEEN",
+        "not_between" => "NOT BETWEEN",
+        "is_null" => "IS NULL",
+        "is_not_null" => "IS NOT NULL",
+        "default" => "Default",
+        "relation" => "Relation",
+    ];
+
+    $text_operators = [
+        "" => "--",
+        "like" => "LIKE",
+        "like%" => "LIKE %...%",
+        "not_like" => "NOT LIKE",
+        "=" => "=",
+        "!=" => "!=",
+        "single_quotes=" => "= ''",
+        "single_quotes!=" => "!= ''",
+        "in" => "IN",
+        "not_in" => "NOT IN",
+        "between" => "BETWEEN",
+        "not_between" => "NOT BETWEEN",
+        "is_null" => "IS NULL",
+        "is_not_null" => "IS NOT NULL",
+    ];
+
+@endphp
 <div class="col-lg-12">
     <div id="relation{{ $random }}" class="card" style="margin-bottom: 30px">
 
@@ -73,6 +115,8 @@
                 </div>
 
             </div>
+
+{{--            @include('table.partials.relation-criterias', ['random' => $random, 'fields' => $item->table->fields])--}}
 
             <button class="btn btn-icon btn-3 btn-danger btn-sm" type="button"
                     onclick="deleteRelation('{{ $random }}', {{ !empty($item) ? $item->id : 0 }})">

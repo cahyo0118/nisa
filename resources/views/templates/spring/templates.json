@@ -69,6 +69,12 @@
                 "resource_path": "/model",
                 "target_filename": "{!! $relation->relation_type == 'belongstomany' ? (ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name)))) : ('AddForeign' . ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name)))) !!}.java",
                 "target_path": "/src/main/java/com/orraa/demo/model"
+            },
+            {
+                "resource_filename": "ModelRepositoryRelation",
+                "resource_path": "/repository",
+                "target_filename": "{!! $relation->relation_type == 'belongstomany' ? (ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name)))) : (ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name)))) !!}Repository.java",
+                "target_path": "/src/main/java/com/orraa/demo/repository"
             }
         ]
     }

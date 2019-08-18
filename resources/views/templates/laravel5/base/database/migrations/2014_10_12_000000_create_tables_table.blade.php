@@ -26,7 +26,7 @@ class Create{!! ucfirst(camel_case($table->name)) !!}Table extends Migration
 @elseif($field->type == "bigint")
             $table->bigInteger('{!! $field->name !!}'){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(" . $field->default . ")") : "" !!};
 @elseif($field->type == "tinyint")
-            $table->boolean('{!! $field->name !!}'){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(" . $field->default . ")") : "" !!};
+            $table->boolean('{!! $field->name !!}'){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(true)") : ("->default(false)") !!};
 @else
             $table->{!! $field->type !!}('{!! $field->name !!}'@if($field->length > 0), {!! $field->length !!}@endif){!! !$field->notnull ? ("->nullable()") : "" !!}{!! !empty($field->relation) ? ("->unsigned()") : "" !!}{!! !empty($field->index) ? ("->" . $field->index . "()") : "" !!}{!! !empty($field->default) ? ("->default(" . $field->default . ")") : "" !!};
 @endif

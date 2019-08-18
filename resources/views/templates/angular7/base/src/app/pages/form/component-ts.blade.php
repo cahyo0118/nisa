@@ -334,13 +334,13 @@ if (!empty($reference)) {
             this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}Service.getAllByKeyword(this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}SearchForm.value.keyword, page)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}CurrentPage = data.current_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}LastPage = data.last_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}TotalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Data = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -350,13 +350,13 @@ if (!empty($reference)) {
             this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}Service.getAll(page)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}CurrentPage = data.current_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}LastPage = data.last_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}TotalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Data = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -369,6 +369,7 @@ if (!empty($reference)) {
         this.service.getAll{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Relation(this.id, page)
             .then(
                 response => {
+                    this.spinner.hide();
                     const data = response.data.data;
 
                     this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}DataCounts = data.total;
@@ -378,7 +379,6 @@ if (!empty($reference)) {
                     this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}LastPage = data.last_page;
                     this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}TotalPage = Array(data.last_page).fill(0).map((x, i) => i);
                     this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}Data = data.data;
-                    this.spinner.hide();
                 },
                 error => {
                     this.spinner.hide();
@@ -397,13 +397,13 @@ if (!empty($reference)) {
             this.{!! !empty($relation->relation_name) ? camel_case(str_plural($relation->relation_name)) : camel_case(str_plural($relation->table->name)) !!}Service.getAllByKeyword(this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}SearchForm.value.keyword, 1)
                 .then(
                     response => {
+                        this.spinner.hide();
                         const data = response.data.data;
 
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}CurrentPage = data.current_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}LastPage = data.last_page;
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}TotalPage = Array(data.last_page).fill(0).map((x, i) => i);
                         this.search{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Data = data.data;
-                        this.spinner.hide();
                     },
                     error => {
                         this.spinner.hide();
@@ -427,6 +427,9 @@ if (!empty($reference)) {
                             title: 'Yay !',
                             text: data.message,
                             type: 'success',
+                            toast: true,
+                            position: "bottom-end",
+                            timer: 3000,
                             confirmButtonText: 'Confirm'
                         });
                     },
@@ -436,6 +439,9 @@ if (!empty($reference)) {
                             title: 'Oops',
                             text: data.message,
                             type: 'error',
+                            toast: true,
+                            position: "bottom-end",
+                            timer: 3000,
                             confirmButtonText: 'Confirm'
                         });
                     }
@@ -461,6 +467,9 @@ if (!empty($reference)) {
                             title: 'Yay !',
                             text: data.message,
                             type: 'success',
+                            toast: true,
+                            position: "bottom-end",
+                            timer: 3000,
                             confirmButtonText: 'Confirm'
                         });
                     },
@@ -470,6 +479,9 @@ if (!empty($reference)) {
                             title: 'Oops',
                             text: data.message,
                             type: 'error',
+                            toast: true,
+                            position: "bottom-end",
+                            timer: 3000,
                             confirmButtonText: 'Confirm'
                         });
                     }
@@ -507,6 +519,9 @@ if (!empty($reference)) {
                                 title: 'Yay !',
                                 text: data.message,
                                 type: 'success',
+                                toast: true,
+                                position: "bottom-end",
+                                timer: 3000,
                                 confirmButtonText: 'Confirm'
                             });
 
@@ -519,6 +534,9 @@ if (!empty($reference)) {
                                 title: 'Oops',
                                 text: data.message,
                                 type: 'error',
+                                toast: true,
+                                position: "bottom-end",
+                                timer: 3000,
                                 confirmButtonText: 'Confirm'
                             });
 
@@ -548,6 +566,9 @@ if (!empty($reference)) {
                                 title: 'Yay !',
                                 text: response.data.message,
                                 type: 'success',
+                                toast: true,
+                                position: "bottom-end",
+                                timer: 3000,
                                 confirmButtonText: 'Confirm'
                             });
 
@@ -559,6 +580,9 @@ if (!empty($reference)) {
                                 title: 'Oops',
                                 text: error.response.data.message,
                                 type: 'error',
+                                toast: true,
+                                position: "bottom-end",
+                                timer: 3000,
                                 confirmButtonText: 'Confirm'
                             });
 

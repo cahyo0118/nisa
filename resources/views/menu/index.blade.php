@@ -293,11 +293,14 @@
                 data: JSON.stringify(value),
                 success: function (data) {
 
+                    $(`[id^='datasetSettingsModal']`).modal("hide");
                     $(`#customizeMenuModal${menuId}`).modal("hide");
 
                     // this will be some ui/ux problem
-                    $(`#customizeMenuModal${menuId}`).on('hidden.bs.modal', function () {
-                        $(`#menuItemCard${menuId}`).replaceWith(data.view);
+                    $(`[id^='datasetSettingsModal']`).on('hidden.bs.modal', function () {
+                        $(`#customizeMenuModal${menuId}`).on('hidden.bs.modal', function () {
+                            $(`#menuItemCard${menuId}`).replaceWith(data.view);
+                        });
                     });
 
                     swal("Success!", data.message, "success");
@@ -352,7 +355,7 @@
     </script>
 
     <script>
-        $(function() {
+        $(function () {
             console.log('HEY HEY HEY')
         })
     </script>

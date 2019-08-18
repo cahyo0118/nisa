@@ -7,7 +7,15 @@ if(!empty($menu->table)) {
             array_push($relations, $field->relation->table->name);
         }
     }
+
+    $menu_relation_criterias = App\MenuRelationCriteria::where('menu_id', $menu->id)->get();
+
+    foreach($menu_relation_criterias as $menu_relation_criteria) {
+        array_push($relations, $menu_relation_criteria->relation->table->name);
+    }
+
     $relations = array_unique($relations);
+
 }
 @endphp
 
@@ -47,120 +55,68 @@ class {!! ucfirst(camel_case($menu->name)) !!}Controller extends Controller
 
         }
 
-@if(count($menu->field_criterias) < 1)
-        $data = QueryHelpers::getDataByQueryBuilder($request, $data);
+@php
+    if(!empty($menu->table)) {
+        $menu_relation_criterias = App\MenuRelationCriteria::where('menu_id', $menu->id)->get();
+    }
+@endphp
+@foreach($menu_relation_criterias as $menu_relation_criteria)
+        $data = $data->whereHas('{!! !empty($menu_relation_criteria->relation->relation_name) ? $menu_relation_criteria->relation->relation_name : $menu_relation_criteria->relation->table->name !!}', function ($query) {
+@if($menu_relation_criteria->operator == 'like%')
+                $query->where('{!! $menu_relation_criteria->relation_field->name !!}', 'like', '%{!! $menu_relation_criteria->value !!}%');
+@elseif($menu_relation_criteria->operator == 'like')
+                $query->where('{!! $menu_relation_criteria->relation_field->name !!}', 'like', '{!! $menu_relation_criteria->value !!}');
+@elseif($menu_relation_criteria->operator == 'not_like')
+                $query->where('{!! $menu_relation_criteria->relation_field->name !!}', 'not like', '{!! $menu_relation_criteria->value !!}');
+@elseif($menu_relation_criteria->operator == '=')
+                $query->where('{!! $menu_relation_criteria->relation_field->name !!}', '=', {!! $menu_relation_criteria->value !!});
+@elseif($menu_relation_criteria->operator == '!=')
+                $query->where('{!! $menu_relation_criteria->relation_field->name !!}', '!=', {!! $menu_relation_criteria->value !!});
+@elseif($menu_relation_criteria->operator == 'single_quotes=')
+                $query->where('{!! $menu_relation_criteria->relation_field->name !!}', '=', '{!! $menu_relation_criteria->value !!}');
+@elseif($menu_relation_criteria->operator == '!single_quotes=')
+                $query->where('{!! $menu_relation_criteria->relation_field->name !!}', '!=', '{!! $menu_relation_criteria->value !!}');
+@elseif($menu_relation_criteria->operator == 'in')
+                $query->whereIn('{!! $menu_relation_criteria->relation_field->name !!}', [
+@foreach(explode(',', $menu_relation_criteria->value) as $v)
+                    '{!! $v !!}',
+@endforeach
+                ]);
+@elseif($menu_relation_criteria->operator == 'not_in')
+                $query->whereNotIn('{!! $menu_relation_criteria->relation_field->name !!}', [
+@foreach(explode(',', $menu_relation_criteria->value) as $v)
+                    '{!! $v !!}',
+@endforeach
+                ]);
+@elseif($menu_relation_criteria->operator == 'between')
+                $query->whereBetween('{!! $menu_relation_criteria->relation_field->name !!}', [
+@foreach(explode(',', $menu_relation_criteria->value) as $v)
+                    '{!! $v !!}',
+@endforeach
+                ]);
+@elseif($menu_relation_criteria->operator == 'not_between')
+                $query->whereNotBetween('{!! $menu_relation_criteria->relation_field->name !!}', [
+@foreach(explode(',', $menu_relation_criteria->value) as $v)
+                '{!! $v !!}',
+@endforeach
+            ]);
+@elseif($menu_relation_criteria->operator == 'is_null')
+            $query->whereNull('{!! $menu_relation_criteria->relation_field->name !!}');
+@elseif($menu_relation_criteria->operator == 'is_not_null')
+            $query->whereNotNull('{!! $menu_relation_criteria->relation_field->name !!}');
+@elseif($menu_relation_criteria->operator == 'default')
+            $query->where('{!! $menu_relation_criteria->relation_field->name !!}', '=', @if($menu_relation_criteria->value == 'current_user_id')Auth::id()@else{!! $menu_relation_criteria->value !!}@endif);
 @else
-@foreach($menu->field_criterias as $criteria_index => $criteria)
-@if(!empty($criteria->pivot->operator))
-@if($criteria_index == 0)
-@if(!empty($criteria->relation))
-$data = $data->whereHas('{!! !empty($criteria->relation->relation_name) ? $criteria->relation->relation_name : str_singular($criteria->relation->table->name) !!}', function ($query) {
-@if($criteria->relation->relation_type == "belongsto")
-@if(empty($criteria->pivot->operator))
-@elseif($criteria->pivot->operator == 'like%')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
-@elseif($criteria->pivot->operator == 'like')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'not_like')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'default')
-@if($criteria->pivot->value == "current_user_id")
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', Auth::id());
-@endif
-@elseif($criteria->pivot->operator == '=')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == '!=')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'single_quotes=')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == '!single_quotes=')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'in')
-            $query->whereIn('{!! $criteria->relation->foreign_key_field->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
-@endforeach
-            ]);
-@elseif($criteria->pivot->operator == 'not_in')
-            $query->whereNotIn('{!! $criteria->relation->foreign_key_field->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
-@endforeach
-            ]);
-@elseif($criteria->pivot->operator == 'between')
-            $query->whereBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
-@endforeach
-            ]);
-@elseif($criteria->pivot->operator == 'not_between')
-            $query->whereNotBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
-@endforeach
-            ]);
-@elseif($criteria->pivot->operator == 'is_null')
-            $query->whereNull('{!! $criteria->relation->foreign_key_field->name !!}');
-@elseif($criteria->pivot->operator == 'is_not_null')
-            $query->whereNotNull('{!! $criteria->relation->foreign_key_field->name !!}');
-@else
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', {!! $criteria->pivot->operator !!}, {!! $criteria->pivot->value !!});
-@endif
+            $query->where('{!! $menu_relation_criteria->relation_field->name !!}', {!! $menu_relation_criteria->operator !!}, {!! $menu_relation_criteria->value !!});
 @endif
         });
-@else
-@if(empty($criteria->pivot->operator))
-@elseif($criteria->pivot->operator == 'like%')
-where('{!! $criteria->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
-@elseif($criteria->pivot->operator == 'like')
-where('{!! $criteria->name !!}', 'like', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'not_like')
-where('{!! $criteria->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == '=')
-where('{!! $criteria->name !!}', '=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == '!=')
-where('{!! $criteria->name !!}', '!=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'single_quotes=')
-where('{!! $criteria->name !!}', '=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == '!single_quotes=')
-where('{!! $criteria->name !!}', '!=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'in')
-whereIn('{!! $criteria->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-    '{!! $v !!}',
 @endforeach
-]);
-@elseif($criteria->pivot->operator == 'not_in')
-whereNotIn('{!! $criteria->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-    '{!! $v !!}',
-@endforeach
-]);
-@elseif($criteria->pivot->operator == 'between')
-whereBetween('{!! $criteria->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-    '{!! $v !!}',
-@endforeach
-]);
-@elseif($criteria->pivot->operator == 'not_between')
-whereNotBetween('{!! $criteria->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-    '{!! $v !!}',
-@endforeach
-]);
-@elseif($criteria->pivot->operator == 'is_null')
-whereNull('{!! $criteria->name !!}');
-@elseif($criteria->pivot->operator == 'is_not_null')
-whereNotNull('{!! $criteria->name !!}');
-@else
-where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $criteria->pivot->value !!});
-@endif
-@endif
-@endif
-@if($criteria_index > 0)
+
+@foreach($menu->field_criterias as $criteria_index => $criteria)
+@if(!empty($criteria->pivot->operator))
 @if(!empty($criteria->relation))
 @if($criteria->relation->relation_type == "belongsto")
-        $data = $data->whereHas('{!! str_singular($criteria->relation->table->name) !!}', function ($query) use ($keyword) {
+        $data = $data->whereHas('{!! !empty($criteria->relation->relation_name) ? $criteria->relation->relation_name : str_singular($criteria->relation->table->name) !!}', function ($query) {
 @if($criteria->pivot->operator == 'like%')
                 $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
 @elseif($criteria->pivot->operator == 'like')
@@ -203,6 +159,8 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
             $query->whereNull('{!! $criteria->relation->foreign_key_field->name !!}');
 @elseif($criteria->pivot->operator == 'is_not_null')
             $query->whereNotNull('{!! $criteria->relation->foreign_key_field->name !!}');
+@elseif($criteria->pivot->operator == 'default')
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', @if($criteria->pivot->value == 'current_user_id')Auth::id()@else{!! $criteria->pivot->value !!}@endif);
 @else
             $query->where('{!! $criteria->relation->foreign_key_field->name !!}', {!! $criteria->pivot->operator !!}, {!! $criteria->pivot->value !!});
 @endif
@@ -211,57 +169,56 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
 @else
 @if(empty($criteria->pivot->operator))
 @elseif($criteria->pivot->operator == 'like%')
-            ->where('{!! $criteria->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
+        $data = $data->where('{!! $criteria->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
 @elseif($criteria->pivot->operator == 'like')
-            ->where('{!! $criteria->name !!}', 'like', '{!! $criteria->pivot->value !!}');
+        $data = $data->where('{!! $criteria->name !!}', 'like', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == 'not_like')
-            ->where('{!! $criteria->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
+        $data = $data->where('{!! $criteria->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == '=')
-            ->where('{!! $criteria->name !!}', '=', {!! $criteria->pivot->value !!});
+        $data = $data->where('{!! $criteria->name !!}', '=', {!! $criteria->pivot->value !!});
 @elseif($criteria->pivot->operator == '!=')
-            ->where('{!! $criteria->name !!}', '!=', {!! $criteria->pivot->value !!});
+        $data = $data->where('{!! $criteria->name !!}', '!=', {!! $criteria->pivot->value !!});
 @elseif($criteria->pivot->operator == 'single_quotes=')
-            ->where('{!! $criteria->name !!}', '=', '{!! $criteria->pivot->value !!}');
+        $data = $data->where('{!! $criteria->name !!}', '=', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == '!single_quotes=')
-            ->where('{!! $criteria->name !!}', '!=', '{!! $criteria->pivot->value !!}');
+        $data = $data->where('{!! $criteria->name !!}', '!=', '{!! $criteria->pivot->value !!}');
 @elseif($criteria->pivot->operator == 'in')
-            ->whereIn('{!! $criteria->name !!}', [
+        $data = $data->whereIn('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
                 '{!! $v !!}',
 @endforeach
             ]);
 @elseif($criteria->pivot->operator == 'not_in')
-            ->whereNotIn('{!! $criteria->name !!}', [
+        $data = $data->whereNotIn('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
                 '{!! $v !!}',
 @endforeach
             ]);
 @elseif($criteria->pivot->operator == 'between')
-            ->whereBetween('{!! $criteria->name !!}', [
+        $data = $data->whereBetween('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
                 '{!! $v !!}',
 @endforeach
             ]);
 @elseif($criteria->pivot->operator == 'not_between')
-            ->whereNotBetween('{!! $criteria->name !!}', [
+        $data = $data->whereNotBetween('{!! $criteria->name !!}', [
 @foreach(explode(',', $criteria->pivot->value) as $v)
                 '{!! $v !!}',
 @endforeach
             ]);
 @elseif($criteria->pivot->operator == 'is_null')
-            ->whereNull('{!! $criteria->name !!}');
+        $data = $datawhereNull('{!! $criteria->name !!}');
 @elseif($criteria->pivot->operator == 'is_not_null')
-            ->whereNotNull('{!! $criteria->name !!}');
+        $data = $datawhereNotNull('{!! $criteria->name !!}');
 @else
-            ->where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $criteria->pivot->value !!});
+        $data = $datawhere('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $criteria->pivot->value !!});
 @endif
 @endif
-@endif
+
 @endif
 @endforeach
 
         $data = QueryHelpers::getDataByQueryBuilder($request, $data);
-@endif
 
         return response()->json([
             'success' => true,
@@ -275,7 +232,60 @@ where('{!! $criteria->name !!}', '{!! $criteria->pivot->operator !!}', {!! $crit
 @if($field->relation->relation_type == "belongsto")
     public function get{!! !empty($field->relation->relation_name) ? ucfirst(camel_case(str_plural($field->relation->relation_name))) : ucfirst(camel_case(str_plural($field->relation->table->name))) !!}DataSet(Request $request)
     {
-        $data = {!! ucfirst(camel_case(str_singular($field->relation->table->name))) !!}::select('{!! $field->relation->foreign_key_display_field->name !!}', '{!! $field->relation->foreign_key_field->name !!}')->get();
+        $data = new {!! ucfirst(camel_case(str_singular($field->relation->table->name))) !!}();
+@php
+    $menu_relation_criterias = App\MenuDatasetCriteria::where('menu_id', $menu->id)->where('relation_id', $field->relation->id)->get();
+@endphp
+@foreach($menu_relation_criterias as $criteria_index => $criteria)
+@if(!empty($criteria->operator))
+@if($criteria->operator == 'like%')
+        $data = $data->where('{!! $criteria->relation_field->name !!}', 'like', '%{!! $criteria->value !!}%');
+@elseif($criteria->operator == 'like')
+        $data = $data->where('{!! $criteria->relation_field->name !!}', 'like', '{!! $criteria->value !!}');
+@elseif($criteria->operator == 'not_like')
+        $data = $data->where('{!! $criteria->relation_field->name !!}', 'not like', '{!! $criteria->value !!}');
+@elseif($criteria->operator == '=')
+        $data = $data->where('{!! $criteria->relation_field->name !!}', '=', {!! $criteria->value !!});
+@elseif($criteria->operator == '!=')
+        $data = $data->where('{!! $criteria->relation_field->name !!}', '!=', {!! $criteria->value !!});
+@elseif($criteria->operator == 'single_quotes=')
+        $data = $data->where('{!! $criteria->relation_field->name !!}', '=', '{!! $criteria->value !!}');
+@elseif($criteria->operator == '!single_quotes=')
+        $data = $data->where('{!! $criteria->relation_field->name !!}', '!=', '{!! $criteria->value !!}');
+@elseif($criteria->operator == 'in')
+        $data = $data->whereIn('{!! $criteria->relation_field->name !!}', [
+@foreach(explode(',', $criteria->value) as $v)
+            '{!! $v !!}',
+@endforeach
+        ]);
+@elseif($criteria->operator == 'not_in')
+        $data = $data->whereNotIn('{!! $criteria->relation_field->name !!}', [
+@foreach(explode(',', $criteria->value) as $v)
+            '{!! $v !!}',
+@endforeach
+        ]);
+@elseif($criteria->operator == 'between')
+        $data = $data->whereBetween('{!! $criteria->relation_field->name !!}', [
+@foreach(explode(',', $criteria->value) as $v)
+            '{!! $v !!}',
+@endforeach
+        ]);
+@elseif($criteria->operator == 'not_between')
+        $data = $data->whereNotBetween('{!! $criteria->relation_field->name !!}', [
+@foreach(explode(',', $criteria->value) as $v)
+            '{!! $v !!}',
+@endforeach
+        ]);
+@elseif($criteria->operator == 'is_null')
+        $data = $data->whereNull('{!! $criteria->relation_field->name !!}');
+@elseif($criteria->operator == 'is_not_null')
+        $data = $data->whereNotNull('{!! $criteria->relation_field->name !!}');
+@else
+        $data = $data->where('{!! $criteria->relation_field->name !!}', '{!! $criteria->operator !!}', {!! $criteria->value !!});
+@endif
+@endif
+@endforeach
+        $data = $data->select('{!! $field->relation->foreign_key_display_field->name !!}', '{!! $field->relation->foreign_key_field->name !!}')->get();
 
         return response()->json([
             'success' => true,
@@ -449,14 +459,89 @@ if (!empty($reference)) {
 @endforeach
         });
 
+@else
+where('{!! $field->name !!}', 'like', '%' . $keyword . '%');
+
+@endif
+@endif
+@if($field_index > 0)
+@if(!empty($field->relation))
+@if($field->relation->relation_type == "belongsto")
+
         foreach ($filters as $filter_name => $filter_value) {
 
             if (!empty($filter_value))
                 $data = $data->where($filter_name, '=', $filter_value);
 
         }
+        $data = $data->orWhereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
+            $query->where('{!! $field->relation->foreign_key_display_field->name !!}', 'like', '%' . $keyword . '%');
+@foreach($menu->field_criterias as $criteria_index => $criteria)
+@if(!empty($criteria->pivot->operator))
+@if(!empty($criteria->relation))
+@if($criteria->pivot->operator == 'like%')
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
+@elseif($criteria->pivot->operator == 'like')
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '{!! $criteria->pivot->value !!}');
+@elseif($criteria->pivot->operator == 'not_like')
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
+@elseif($criteria->pivot->operator == '=')
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', {!! $criteria->pivot->value !!});
+@elseif($criteria->pivot->operator == '!=')
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', {!! $criteria->pivot->value !!});
+@elseif($criteria->pivot->operator == 'single_quotes=')
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', '{!! $criteria->pivot->value !!}');
+@elseif($criteria->pivot->operator == '!single_quotes=')
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', '{!! $criteria->pivot->value !!}');
+@elseif($criteria->pivot->operator == 'in')
+            $query->whereIn('{!! $criteria->relation->foreign_key_field->name !!}', [
+@foreach(explode(',', $criteria->pivot->value) as $v)
+                '{!! $v !!}',
+@endforeach
+            ]);
+@elseif($criteria->pivot->operator == 'not_in')
+            $query->whereNotIn('{!! $criteria->relation->foreign_key_field->name !!}', [
+@foreach(explode(',', $criteria->pivot->value) as $v)
+                '{!! $v !!}',
+@endforeach
+            ]);
+@elseif($criteria->pivot->operator == 'between')
+            $query->whereBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
+@foreach(explode(',', $criteria->pivot->value) as $v)
+                '{!! $v !!}',
+@endforeach
+            ]);
+@elseif($criteria->pivot->operator == 'not_between')
+            $query->whereNotBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
+@foreach(explode(',', $criteria->pivot->value) as $v)
+                '{!! $v !!}',
+@endforeach
+            ]);
+@elseif($criteria->pivot->operator == 'is_null')
+            $query->whereNull('{!! $criteria->relation->foreign_key_field->name !!}');
+@elseif($criteria->pivot->operator == 'is_not_null')
+            $query->whereNotNull('{!! $criteria->relation->foreign_key_field->name !!}');
 @else
-where('{!! $field->name !!}', 'like', '%' . $keyword . '%');
+            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', {!! $criteria->pivot->operator !!}, {!! $criteria->pivot->value !!});
+@endif
+@endif
+@endif
+@endforeach
+        });
+@endif
+@else
+
+        foreach ($filters as $filter_name => $filter_value) {
+
+            if (!empty($filter_value))
+                $data = $data->where($filter_name, '=', $filter_value);
+
+        }
+
+        $data = $data->orWhere('{!! $field->name !!}', 'like', '%' . $keyword . '%');
+
+@endif
+@endif
 @foreach($menu->field_criterias as $criteria_index => $criteria)
 @if(!empty($criteria->pivot->operator))
 @if($criteria->pivot->operator == 'like%')
@@ -506,90 +591,13 @@ where('{!! $field->name !!}', 'like', '%' . $keyword . '%');
 @endif
 @endif
 @endforeach
-@endif
-@endif
         foreach ($filters as $filter_name => $filter_value) {
 
             if (!empty($filter_value))
                 $data = $data->where($filter_name, '=', $filter_value);
 
         }
-@if($field_index > 0)
-@if(!empty($field->relation))
-@if($field->relation->relation_type == "belongsto")
-        $data = $data->orWhereHas('{!! str_singular($field->relation->table->name) !!}', function ($query) use ($keyword) {
-            $query->where('{!! $field->relation->foreign_key_display_field->name !!}', 'like', '%' . $keyword . '%');
-@foreach($menu->field_criterias as $criteria_index => $criteria)
-@if(!empty($criteria->relation))
-@if($criteria->pivot->operator == 'like%')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '%{!! $criteria->pivot->value !!}%');
-@elseif($criteria->pivot->operator == 'like')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'like', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'not_like')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', 'not like', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == '=')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', {!! $criteria->pivot->value !!});
-@elseif($criteria->pivot->operator == '!=')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', {!! $criteria->pivot->value !!});
-@elseif($criteria->pivot->operator == 'single_quotes=')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == '!single_quotes=')
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', '!=', '{!! $criteria->pivot->value !!}');
-@elseif($criteria->pivot->operator == 'in')
-            $query->whereIn('{!! $criteria->relation->foreign_key_field->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
 @endforeach
-            ]);
-@elseif($criteria->pivot->operator == 'not_in')
-            $query->whereNotIn('{!! $criteria->relation->foreign_key_field->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
-@endforeach
-            ]);
-@elseif($criteria->pivot->operator == 'between')
-            $query->whereBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
-@endforeach
-            ]);
-@elseif($criteria->pivot->operator == 'not_between')
-            $query->whereNotBetween('{!! $criteria->relation->foreign_key_field->name !!}', [
-@foreach(explode(',', $criteria->pivot->value) as $v)
-                '{!! $v !!}',
-@endforeach
-            ]);
-@elseif($criteria->pivot->operator == 'is_null')
-            $query->whereNull('{!! $criteria->relation->foreign_key_field->name !!}');
-@elseif($criteria->pivot->operator == 'is_not_null')
-            $query->whereNotNull('{!! $criteria->relation->foreign_key_field->name !!}');
-@else
-            $query->where('{!! $criteria->relation->foreign_key_field->name !!}', {!! $criteria->pivot->operator !!}, {!! $criteria->pivot->value !!});
-@endif
-@endif
-@endforeach
-        });
-@endif
-@else
-
-        foreach ($filters as $filter_name => $filter_value) {
-
-            if (!empty($filter_value))
-                $data = $data->where($filter_name, '=', $filter_value);
-
-        }
-
-        $data = $data->orWhere('{!! $field->name !!}', 'like', '%' . $keyword . '%');
-
-@endif
-@endif
-@endforeach
-        foreach ($filters as $filter_name => $filter_value) {
-
-            if (!empty($filter_value))
-                $data = $data->where($filter_name, '=', $filter_value);
-
-        }
 
         $data = QueryHelpers::getDataByQueryBuilder($request, $data);
 
@@ -668,6 +676,10 @@ $criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('fiel
         ${!! snake_case($menu->name) !!} = new {!! ucfirst(camel_case(str_singular($menu->table->name))) !!};
 
 @foreach($menu->table->fields as $field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
 @if ($field->ai)
 @elseif($field->name == "updated_by")
         ${!! snake_case($menu->name) !!}->{!! $field->name !!} = Auth::id();
@@ -705,8 +717,71 @@ $criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('fiel
 @else
         ${!! snake_case($menu->name) !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @endif
+@endif
 @endforeach
         ${!! snake_case($menu->name) !!}->save();
+
+@php
+    if(!empty($menu->table)) {
+        $menu_relation_criterias = App\MenuRelationCriteria::where('menu_id', $menu->id)->get();
+    }
+@endphp
+@foreach($menu_relation_criterias as $menu_relation_criteria)
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = new {!! ucfirst(camel_case(str_singular($menu_relation_criteria->relation->table->name))) !!}();
+
+@if($menu_relation_criteria->operator == 'like%')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', 'like', '%{!! $menu_relation_criteria->value !!}%');
+@elseif($menu_relation_criteria->operator == 'like')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', 'like', '{!! $menu_relation_criteria->value !!}');
+@elseif($menu_relation_criteria->operator == 'not_like')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', 'not like', '{!! $menu_relation_criteria->value !!}');
+@elseif($menu_relation_criteria->operator == '=')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', '=', {!! $menu_relation_criteria->value !!});
+@elseif($menu_relation_criteria->operator == '!=')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', '!=', {!! $menu_relation_criteria->value !!});
+@elseif($menu_relation_criteria->operator == 'single_quotes=')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', '=', '{!! $menu_relation_criteria->value !!}');
+@elseif($menu_relation_criteria->operator == '!single_quotes=')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', '!=', '{!! $menu_relation_criteria->value !!}');
+@elseif($menu_relation_criteria->operator == 'in')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->whereIn('{!! $menu_relation_criteria->relation_field->name !!}', [
+@foreach(explode(',', $menu_relation_criteria->value) as $v)
+            '{!! $v !!}',
+@endforeach
+        ]);
+@elseif($menu_relation_criteria->operator == 'not_in')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->whereNotIn('{!! $menu_relation_criteria->relation_field->name !!}', [
+@foreach(explode(',', $menu_relation_criteria->value) as $v)
+            '{!! $v !!}',
+@endforeach
+        ]);
+@elseif($menu_relation_criteria->operator == 'between')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->whereBetween('{!! $menu_relation_criteria->relation_field->name !!}', [
+@foreach(explode(',', $menu_relation_criteria->value) as $v)
+            '{!! $v !!}',
+@endforeach
+        ]);
+@elseif($menu_relation_criteria->operator == 'not_between')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->whereNotBetween('{!! $menu_relation_criteria->relation_field->name !!}', [
+@foreach(explode(',', $menu_relation_criteria->value) as $v)
+            '{!! $v !!}',
+@endforeach
+        ]);
+@elseif($menu_relation_criteria->operator == 'is_null')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->whereNull('{!! $menu_relation_criteria->relation_field->name !!}');
+@elseif($menu_relation_criteria->operator == 'is_not_null')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->whereNotNull('{!! $menu_relation_criteria->relation_field->name !!}');
+@elseif($menu_relation_criteria->operator == 'default')
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', '=', @if($menu_relation_criteria->value == 'current_user_id')Auth::id()@else{!! $menu_relation_criteria->value !!}@endif);
+@else
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = ${!! str_singular($menu_relation_criteria->relation->table->name) !!}->where('{!! $menu_relation_criteria->relation_field->name !!}', {!! $menu_relation_criteria->operator !!}, {!! $menu_relation_criteria->value !!});
+@endif
+        ${!! str_singular($menu_relation_criteria->relation->table->name) !!} = QueryHelpers::getSingleData($request, ${!! str_singular($menu_relation_criteria->relation->table->name) !!});
+
+        if(!empty(${!! str_singular($menu_relation_criteria->relation->table->name) !!})) {
+            ${!! snake_case($menu->name) !!}->{!! !empty($menu_relation_criteria->relation->relation_name) ? $menu_relation_criteria->relation->relation_name : $menu_relation_criteria->relation->table->name !!}()->attach(${!! str_singular($menu_relation_criteria->relation->table->name) !!}->{!! $menu_relation_criteria->relation->local_key_field->name !!});
+        }
+@endforeach
 
 @if(!empty($menu->table))
 @foreach($menu->table->relations as $relation_index => $relation)
@@ -763,6 +838,10 @@ $criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('fiel
         ${!! snake_case($menu->name) !!} = {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}::find($id);
 
 @foreach($menu->table->fields as $field)
+@php
+$criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('field_id', $field->id)->first();
+@endphp
+@if((!empty($criteria) && $criteria->show_in_form) || empty($criteria))
 @if ($field->ai)
 @elseif($field->name == "updated_by")
         ${!! snake_case($menu->name) !!}->{!! $field->name !!} = Auth::id();
@@ -799,6 +878,7 @@ $criteria = DB::table('menu_criteria')->where('menu_id', $menu->id)->where('fiel
         ${!! snake_case($menu->name) !!}->{!! $field->name !!} = $request->{!! $field->name !!};
 @else
         ${!! snake_case($menu->name) !!}->{!! $field->name !!} = $request->{!! $field->name !!};
+@endif
 @endif
 @endforeach
         ${!! snake_case($menu->name) !!}->save();

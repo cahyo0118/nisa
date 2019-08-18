@@ -5,9 +5,65 @@ namespace App\Helpers;
 use App\GlobalVariable;
 use App\Menu;
 use App\Project;
+use DB;
 
 class QueryHelpers
 {
+    public static function castTo($type)
+    {
+        $result = "";
+
+        switch ($type) {
+            case "image":
+                $result = "String";
+                break;
+            case "file":
+                $result = "String";
+                break;
+            case "text":
+                $result = "String";
+                break;
+            case "varchar":
+                $result = "String";
+                break;
+            case "integer":
+                $result = "int";
+                break;
+            case "float":
+                $result = "float";
+                break;
+            case "double":
+                $result = "double";
+                break;
+            case "decimal":
+                $result = "decimal";
+                break;
+            case "char":
+                $result = "char";
+                break;
+            case "date":
+                $result = "Date";
+                break;
+            case "datetime":
+                $result = "Timestamp";
+                break;
+            case "timestamp":
+                $result = "Timestamp";
+                break;
+            case "time":
+                $result = "Timestamp";
+                break;
+            case "bigint":
+                $result = "BigInteger";
+                break;
+            case "tinyint":
+                $result = "boolean";
+                break;
+        }
+
+        return $result;
+    }
+
     public static function getData($request, $model, $with = [])
     {
         $data = $model;
@@ -135,6 +191,58 @@ class QueryHelpers
         }
 
         $criteria = $menu->relation_criterias()->where('menu_id', $menu_id)->where('relation_id', $relation_id)->first();
+
+        if (!empty($criteria)) {
+            return $criteria;
+        } else {
+            return null;
+        }
+    }
+
+    public static function getMenuRelationCriteria($menu_id, $relation_id, $relation_field_id)
+    {
+
+        $menu = Menu::find($menu_id);
+
+        if (empty($menu)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ], 400);
+        }
+
+        $criteria = DB::table('menu_relation_criteria')
+            ->where('menu_id', $menu->id)
+            ->where('relation_id', $relation_id)
+            ->where('relation_field_id', $relation_field_id)
+            ->first();
+
+        error_log("getMenuRelationCriteria = " . (!empty($criteria) ? $criteria->value : "bbbb"));
+
+        if (!empty($criteria)) {
+            return $criteria;
+        } else {
+            return null;
+        }
+    }
+
+    public static function getMenuDatasetCriteria($menu_id, $relation_id, $relation_field_id)
+    {
+
+        $menu = Menu::find($menu_id);
+
+        if (empty($menu)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ], 400);
+        }
+
+        $criteria = DB::table('menu_dataset_criterias')
+            ->where('menu_id', $menu->id)
+            ->where('relation_id', $relation_id)
+            ->where('relation_field_id', $relation_field_id)
+            ->first();
 
         if (!empty($criteria)) {
             return $criteria;

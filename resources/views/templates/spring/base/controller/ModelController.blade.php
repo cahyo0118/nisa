@@ -54,6 +54,13 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
 @endif
 @endforeach
 
+@foreach($menu->table->relations as $relation_index => $relation)
+@if($relation->relation_type == "belongstomany")
+    @Autowired
+    private {!! ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name))) !!}Repository {!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!}Repository;
+@endif
+@endforeach
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -76,6 +83,8 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
             @CurrentUser UserPrincipal currentUser,
             @RequestParam(name = "page", required = false) Integer page,
             @RequestParam(name = "with[]", required = false) String[] with,
+            @RequestParam(name = "order_by", required = false) String order_by,
+            @RequestParam(name = "order_type", required = false) String order_type,
             HttpServletRequest request,
             HttpServletResponse response
     ) {
@@ -129,48 +138,46 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
         List<Map<String, Object>> {!! str_plural(camel_case($menu->name)) !!} = db.select(
                 "SELECT * FROM {!! $menu->table->name !!}"
 @if(count($menu->field_criterias) > 0)
-                        + " WHERE"
+                        + " WHERE 1 = 1"
 @foreach($menu->field_criterias as $criteria_index => $criteria)
 @if(!empty($criteria->pivot->operator))
 @if(!empty($criteria->relation))
 @else
 @if(empty($criteria->pivot->operator))
 @elseif($criteria->pivot->operator == 'like%')
-@if($criteria_index)
-
-@endif
-+ " {!! $criteria->name !!} LIKE %:{!! $criteria->name !!}%"
+                        + " AND {!! $criteria->name !!} LIKE %:{!! $criteria->name !!}%"
 @elseif($criteria->pivot->operator == 'like')
-                        + " {!! $criteria->name !!} LIKE :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} LIKE :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == 'not_like')
-                        + " {!! $criteria->name !!} NOT LIKE :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} NOT LIKE :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == '=')
-                        + " {!! $criteria->name !!} = :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} = :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == '!=')
-                        + " {!! $criteria->name !!} != :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} != :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == 'single_quotes=')
-                        + " {!! $criteria->name !!} = :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} = :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == '!single_quotes=')
-                        + " {!! $criteria->name !!} != :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} != :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == 'in')
-                        + " {!! $criteria->name !!} IN :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} IN :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == 'not_in')
-                        + " {!! $criteria->name !!} NOT IN :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} NOT IN :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == 'between')
-                        + " {!! $criteria->name !!} BETWEEN :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} BETWEEN :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == 'not_between')
-                        + " {!! $criteria->name !!} NOT BETWEEN :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} NOT BETWEEN :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == 'is_null')
-                        + " {!! $criteria->name !!} IS NULL :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} IS NULL :{!! $criteria->name !!}"
 @elseif($criteria->pivot->operator == 'is_not_null')
-                        + " {!! $criteria->name !!} IS NOT NULL :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} IS NOT NULL :{!! $criteria->name !!}"
 @else
-                        + " {!! $criteria->name !!} = :{!! $criteria->name !!}"
+                        + " AND {!! $criteria->name !!} = :{!! $criteria->name !!}"
 @endif
 @endif
 @endif
 @endforeach
 @endif
+                        + ((order_by != null && order_type != null) ? " ORDER BY " + order_by + " " + order_type : "")
                 , queryParams
         );
 
@@ -193,17 +200,20 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
                         o.put(w, relationResult);
                     }
 
-@else
-                    if (w.equals("{!! !empty($field->relation->relation_name) ? snake_case($field->relation->relation_name) : camel_case(str_singular($field->relation->table->name)) !!}")) {
+@endif
+@endif
+@endforeach
+@foreach($menu->table->relations as $relation_index => $relation)
+@if($relation->relation_type == "belongstomany")
+                    if (w.equals("{!! !empty($relation->relation_name) ? snake_case($relation->relation_name) : camel_case(str_singular($relation->table->name)) !!}")) {
                         Map<String, Object> relationQueryParams = new HashMap<String, Object>();
-                        relationQueryParams.put("{!! camel_case(str_singular($field->relation->foreign_key_field->name)) !!}", o.get("{!! $field->name !!}"));
+                        relationQueryParams.put("{!! camel_case(str_singular($relation->foreign_key_field->name)) !!}", o.get("{!! $field->name !!}"));
 
-                        List<Map<String, Object>> relationResults = db.select("SELECT * FROM {!! $field->relation->table->name !!} WHERE {!! camel_case(str_singular($field->relation->foreign_key_field->name)) !!} = :{!! camel_case(str_singular($field->relation->foreign_key_field->name)) !!}", relationQueryParams);
+                        List<Map<String, Object>> relationResults = db.select("SELECT * FROM {!! $relation->table->name !!} WHERE {!! camel_case(str_singular($relation->foreign_key_field->name)) !!} = :{!! camel_case(str_singular($relation->foreign_key_field->name)) !!}", relationQueryParams);
 
                         o.put(w, relationResults);
                     }
 
-@endif
 @endif
 @endforeach
                 }
@@ -221,6 +231,119 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
                 ), HashMap.class)
         );
     }
+
+@foreach($menu->table->relations as $relation_index => $relation)
+@if($relation->relation_type == "belongstomany")
+    @RequestMapping(path = "/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}", method = RequestMethod.GET)
+    public ApiResponseHelper<{!! "?" !!}> getAll{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}Relation(
+            @CurrentUser UserPrincipal currentUser,
+            @PathVariable(name = "id", required = false) long id,
+            @RequestParam(name = "page", required = false) Integer page,
+            @RequestParam(name = "with[]", required = false) String[] with,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+
+        if (!checkPermission.hasPermission("{!! str_plural(snake_case($menu->name)) !!}_read", currentUser.getId())) {
+            response.setStatus(403);
+            return new ApiResponseHelper<>(
+                    null,
+                    false,
+                    "Permission Denied !"
+            );
+        }
+
+        List<{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}> relationResults = {!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!}Repository.find{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}By{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}{!! ucfirst(camel_case(str_singular($relation->local_key_field->name))) !!}(id);
+
+        return new ApiResponseHelper<>(
+                oMapper.convertValue(new PageableHelper<>(
+                        relationResults,
+                        (page != null {!! "?" !!} (page) : 1),
+                        itemPerPage,
+                        {!! camel_case(str_singular($menu->table->name)) !!}Repository.countAll().intValue()
+                ), HashMap.class)
+        );
+    }
+
+    @RequestMapping(path = "/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}/store", method = RequestMethod.POST)
+    public ApiResponseHelper<{!! "?" !!}> add{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}(
+            @CurrentUser UserPrincipal currentUser,
+            @PathVariable(name = "id", required = false) long id,
+            @RequestParam(name = "page", required = false) Integer page,
+            @RequestParam(name = "with[]", required = false) String[] with,
+            @RequestBody HashMap<String, Object> body,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+
+        if (!checkPermission.hasPermission("{!! str_plural(snake_case($menu->name)) !!}_update", currentUser.getId())) {
+            response.setStatus(403);
+            return new ApiResponseHelper<>(
+                    null,
+                    false,
+                    "Permission Denied !"
+            );
+        }
+
+        {!! ucfirst(camel_case(str_singular($menu->table->name))) !!} {!! camel_case($menu->name) !!} = {!! camel_case(str_singular($menu->table->name)) !!}Repository.findById(id);
+
+        if ({!! camel_case($menu->name) !!} == null) {
+            response.setStatus(400);
+            return new ApiResponseHelper<>(
+                    null,
+                    false,
+                    "Oops, Data not found !"
+            );
+        }
+
+        if ({!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!}Repository.findBy{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}{!! ucfirst(camel_case(str_singular($relation->local_key_field->name))) !!}And{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}{!! ucfirst(camel_case(str_singular($relation->foreign_key_field->name))) !!}(id, ((Integer) body.get("id")).longValue()) == null) {
+            {!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!}Repository.save(new {!! ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name))) !!}(id, ((Integer) body.get("id")).longValue()));
+        }
+
+        return new ApiResponseHelper<>({!! camel_case($menu->name) !!});
+    }
+
+    @RequestMapping(path = "/{id}/relations/{!! !empty($relation->relation_name) ? kebab_case(str_plural($relation->relation_name)) : kebab_case(str_plural($relation->table->name)) !!}/{itemId}/remove", method = RequestMethod.DELETE)
+    public ApiResponseHelper<{!! "?" !!}> remove{!! !empty($relation->relation_name) ? ucfirst(camel_case(str_plural($relation->relation_name))) : ucfirst(camel_case(str_plural($relation->table->name))) !!}(
+            @CurrentUser UserPrincipal currentUser,
+            @PathVariable(name = "id", required = false) long id,
+            @PathVariable(name = "itemId", required = false) long itemId,
+            @RequestParam(name = "page", required = false) Integer page,
+            @RequestParam(name = "with[]", required = false) String[] with,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+
+        if (!checkPermission.hasPermission("{!! str_plural(snake_case($menu->name)) !!}_update", currentUser.getId())) {
+            response.setStatus(403);
+            return new ApiResponseHelper<>(
+                    null,
+                    false,
+                    "Permission Denied !"
+            );
+        }
+
+        {!! ucfirst(camel_case(str_singular($menu->table->name))) !!} {!! camel_case($menu->name) !!} = {!! camel_case(str_singular($menu->table->name)) !!}Repository.findById(id);
+
+        if ({!! camel_case($menu->name) !!} == null) {
+            response.setStatus(400);
+            return new ApiResponseHelper<>(
+                    null,
+                    false,
+                    "Oops, Data not found !"
+            );
+        }
+
+        {!! ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name))) !!} {!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!} = {!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!}Repository.findBy{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}{!! ucfirst(camel_case(str_singular($relation->local_key_field->name))) !!}And{!! ucfirst(camel_case(str_singular($relation->table->name))) !!}{!! ucfirst(camel_case(str_singular($relation->foreign_key_field->name))) !!}(id, itemId);
+        if ({!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!} != null) {
+            {!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!}Repository.delete({!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!});
+        }
+
+        return new ApiResponseHelper<>({!! camel_case($menu->name) !!});
+    }
+
+@endif
+@endforeach
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ApiResponseHelper<{!! "?" !!}> getOne(
@@ -327,7 +450,8 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
     @RequestMapping(path = "/store", method = RequestMethod.POST)
     public ApiResponseHelper<{!! "?" !!}> store(
             @CurrentUser UserPrincipal currentUser,
-            @RequestBody {!! ucfirst(camel_case(str_singular($menu->table->name))) !!} {!! camel_case($menu->name) !!},
+            // @RequestBody {!! ucfirst(camel_case(str_singular($menu->table->name))) !!} {!! camel_case($menu->name) !!},
+            @RequestBody HashMap<String, Object> body,
             HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
@@ -341,15 +465,16 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
             );
         }
 
+        {!! ucfirst(camel_case(str_singular($menu->table->name))) !!} {!! camel_case($menu->name) !!} = new {!! ucfirst(camel_case(str_singular($menu->table->name))) !!}();
 @foreach($menu->table->fields as $field)
 @if ($field->ai)
 @elseif($field->name == "updated_by")
         {!! camel_case($menu->name) !!}.set{!! ucfirst(camel_case($field->name)) !!}(currentUser.getId().intValue());
 @elseif($field->input_type == "hidden")
 @elseif($field->input_type == "password")
-        {!! camel_case($menu->name) !!}.set{!! ucfirst(camel_case($field->name)) !!}(passwordEncoder.encode({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}()));
+        {!! camel_case($menu->name) !!}.set{!! ucfirst(camel_case($field->name)) !!}(passwordEncoder.encode(({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}")));
 @elseif($field->input_type == "image")
-        if ({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}() != null) {
+        if (({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}") != null) {
 
             File directory = new File(contextPath + "files/{!! str_plural(str_replace('-', '_', $menu->name)) !!}/photos/");
 
@@ -357,11 +482,11 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
                 directory.mkdirs();
             }
 
-            byte[] bytes = Base64.getMimeDecoder().decode(({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}().split(",")[1]));
+            byte[] bytes = Base64.getMimeDecoder().decode(((({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}")).split(",")[1]));
 
             String filename = new Date().getTime()
                     + "." + RandomString.make(6)
-                    + "." + Helpers.extractMimeType({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}()).split("/")[1];
+                    + "." + Helpers.extractMimeType(({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}")).split("/")[1];
 
             Path path = Paths.get(
                     contextPath
@@ -374,7 +499,7 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
             {!! camel_case($menu->name) !!}.set{!! ucfirst(camel_case($field->name)) !!}("files/{!! str_plural(str_replace('-', '_', $menu->name)) !!}/photos/" + filename);
         }
 @elseif($field->input_type == "file")
-        if ({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}() != null) {
+        if (({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}") != null) {
 
             File directory = new File(contextPath + "files/{!! str_plural(str_replace('-', '_', $menu->name)) !!}/documents/");
 
@@ -382,11 +507,11 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
                 directory.mkdirs();
             }
 
-            byte[] bytes = Base64.getMimeDecoder().decode(({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}().split(",")[1]));
+            byte[] bytes = Base64.getMimeDecoder().decode(((({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}")).split(",")[1]));
 
             String filename = new Date().getTime()
                     + "." + RandomString.make(6)
-                    + "." + Helpers.extractMimeType({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}()).split("/")[1];
+                    + "." + Helpers.extractMimeType(({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}")).split("/")[1];
 
             Path path = Paths.get(
                     contextPath
@@ -401,12 +526,21 @@ public class {!! ucfirst(camel_case($menu->name)) !!}Controller {
 
         }
 @elseif($field->type == "varchar")
-        {!! camel_case($menu->name) !!}.set{!! ucfirst(camel_case($field->name)) !!}({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}());
+        {!! camel_case($menu->name) !!}.set{!! ucfirst(camel_case($field->name)) !!}(({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}"));
 @else
-        {!! camel_case($menu->name) !!}.set{!! ucfirst(camel_case($field->name)) !!}({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case($field->name)) !!}());
+        {!! camel_case($menu->name) !!}.set{!! ucfirst(camel_case($field->name)) !!}(({!! QueryHelpers::castTo($field->type) !!}) body.get("{!! $field->name !!}"));
 @endif
 @endforeach
         {!! camel_case(str_singular($menu->table->name)) !!}Repository.save({!! camel_case($menu->name) !!});
+
+@foreach($menu->table->relations as $relation_index => $relation)
+@if($relation->relation_type == "belongstomany")
+        ((ArrayList<Integer>) body.get("{!! !empty($relation->relation_name) ? $relation->relation_name : $relation->table->name !!}")).forEach({!! camel_case(str_singular($relation->table->name)) !!}{!! ucfirst(camel_case(str_singular($relation->foreign_key_field->name))) !!} -> {
+            {!! camel_case(str_singular($relation->local_table->name)) . ucfirst(camel_case(str_singular($relation->table->name))) !!}Repository.save(new {!! ucfirst(camel_case(str_singular($relation->local_table->name))) . ucfirst(camel_case(str_singular($relation->table->name))) !!}({!! camel_case($menu->name) !!}.get{!! ucfirst(camel_case(str_singular($relation->local_key_field->name))) !!}(), Long.valueOf({!! camel_case(str_singular($relation->table->name)) !!}{!! ucfirst(camel_case(str_singular($relation->foreign_key_field->name))) !!})));
+        });
+
+@endif
+@endforeach
 
         HashMap<String, Object> data = oMapper.convertValue({!! camel_case($menu->name) !!}, HashMap.class);
 

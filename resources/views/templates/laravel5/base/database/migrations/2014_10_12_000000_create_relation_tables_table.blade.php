@@ -33,6 +33,29 @@ class Create{!! ucfirst(camel_case(str_singular($relation->local_table->name))) 
         Schema::dropIfExists('{!! str_singular($relation->local_table->name) !!}_{!! str_singular($relation->table->name) !!}');
     }
 }
+@elseif($relation->relation_type == "hasmany")
+class AddForeign{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}Table extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+
+    }
+}
 @elseif($relation->relation_type == "belongsto")
 class AddForeign{!! ucfirst(camel_case(str_singular($relation->local_table->name))) !!}Table extends Migration
 {
