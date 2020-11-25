@@ -17,7 +17,8 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
         "slydeath/laravel5-blade-spaceless": "^1.2",
-        "zanysoft/laravel-zip": "^1.0"
+        "zanysoft/laravel-zip": "^1.0",
+        "laravel/passport": "^6.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

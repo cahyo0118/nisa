@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('login');
-})->name('landing');
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// })->name('landing');
 
 
 Auth::routes();
