@@ -25,6 +25,26 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function getOne($id)
+    {
+        $project = Project::find($id);
+
+        if (empty($project)) {
+            return response()->json([
+                'success' => false,
+                'data' => null,
+                'message' => 'Failed get data, data not found',
+            ], 400);
+        }
+
+        return response()->json([
+            'success' => true,
+            'body' => $project,
+            'message' => 'Successfully get data'
+        ]);
+
+    }
+
     public function store(Request $request)
     {
 
@@ -191,7 +211,8 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function initDefaultRelations($project_id) {
+    public function initDefaultRelations($project_id)
+    {
 
         /*Default table for new project*/
         $user_role_relation = new Relation();

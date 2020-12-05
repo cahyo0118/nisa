@@ -22,9 +22,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="add landing and account end-point">
+    <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="add project validation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Project.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Project.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/api/Project/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/api/Project/ProjectController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -353,7 +353,7 @@
       <workItem from="1606168699490" duration="328000" />
       <workItem from="1606169406389" duration="7835000" />
       <workItem from="1606243086435" duration="5666000" />
-      <workItem from="1607148926914" duration="291000" />
+      <workItem from="1607148926914" duration="6016000" />
     </task>
     <task id="LOCAL-00001" summary="add landing and account end-point">
       <created>1606345052795</created>
@@ -362,7 +362,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606345052795</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add project validation">
+      <created>1607149287121</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1607149287121</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,24 +389,30 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add landing and account end-point" />
-    <option name="LAST_COMMIT_MESSAGE" value="add landing and account end-point" />
+    <MESSAGE value="add project validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="add project validation" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606348218066">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="-253" y="-1080" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607150907731">
+      <screen x="-253" y="-1080" width="1920" height="1080" />
     </state>
+    <state x="-253" y="-1080" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607150907731" />
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1606348218066" />
-    <state x="578" y="284" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606345604164">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="408" y="-788" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1607159118301">
+      <screen x="-253" y="-1080" width="1920" height="1080" />
     </state>
+    <state x="408" y="-788" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607156749155" />
+    <state x="408" y="-788" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-253.-1080.1920.1080/0.25.1680.1025@-253.-1080.1920.1080" timestamp="1607159118301" />
     <state x="578" y="284" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1606345604164" />
-    <state x="541" y="157" width="597" height="735" key="find.popup" timestamp="1606345380752">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="365" y="-919" width="683" height="756" key="find.popup" timestamp="1607156696970">
+      <screen x="-253" y="-1080" width="1920" height="1080" />
     </state>
+    <state x="365" y="-919" width="683" height="756" key="find.popup/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607156696970" />
     <state x="541" y="157" width="597" height="735" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606345380752" />
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1606348432812">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup" timestamp="1607156630501">
+      <screen x="-253" y="-1080" width="1920" height="1080" />
     </state>
+    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607156630501" />
     <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606348432812" />
   </component>
 </project>

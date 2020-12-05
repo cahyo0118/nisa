@@ -39,13 +39,43 @@ Route::group(['middleware' => ['auth:api']], function () {
 
         Route::get('', 'api\Project\ProjectController@getAll');
 
+        Route::get('{id}/detail', 'api\Project\ProjectController@getOne');
+
         Route::post('store', 'api\Project\ProjectController@store');
 
         Route::put('{id}/update', 'api\Project\ProjectController@update');
 
         Route::delete('{id}/delete', 'api\Project\ProjectController@delete');
 
+        /*Generate Options & Global Variables*/
+        Route::group(['prefix' => '{id}/generate-options'], function () {
+
+            Route::get(
+                '{generate_option_id}/global-variables',
+                'api\Project\ProjectGenerateOptionController@getGlobalVariables'
+            );
+
+        });
+
     });
+
+    /*Project Generate Options & Global Variables*/
+
+    Route::post(
+        'global-variable-values/store',
+        'api\Project\VariableValueController@store'
+    );
+
+    Route::put(
+        'global-variable-values/{global_variable_id}/update',
+        'api\Project\VariableValueController@update'
+    );
+
+    Route::delete(
+        'global-variable-values/{global_variable_id}/delete',
+        'api\Project\VariableValueController@delete'
+    );
+
 
     Route::group(['prefix' => 'generate-options'], function () {
 
