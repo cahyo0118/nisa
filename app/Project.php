@@ -10,6 +10,7 @@ class Project extends Model
         'store' => [
             'name' => 'required|max:50',
             'display_name' => 'required',
+            'item_per_page' => 'required',
         ],
         'update' => [
             'name' => 'required|max:50',

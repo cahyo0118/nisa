@@ -35,8 +35,22 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     });
 
-});
+    Route::group(['prefix' => 'projects'], function () {
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+        Route::get('', 'api\Project\ProjectController@getAll');
+
+        Route::post('store', 'api\Project\ProjectController@store');
+
+        Route::put('{id}/update', 'api\Project\ProjectController@update');
+
+        Route::delete('{id}/delete', 'api\Project\ProjectController@delete');
+
+    });
+
+    Route::group(['prefix' => 'generate-options'], function () {
+
+        Route::get('', 'api\GenerateOption\GenerateOptionController@getAll');
+
+    });
+
+});

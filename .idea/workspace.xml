@@ -3,18 +3,29 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/nisa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nisa.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="add landing and account end-point">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Project.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Project.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,72 +49,6 @@
     </option>
     <expand />
     <select />
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>relation/</find>
-      <find>relation/{code}/</find>
-      <find>}/fields</find>
-      <find>fieldRelationTemplate</find>
-      <find>relation/{code}/tables</find>
-      <find>getAllFieldsSelectInput</find>
-      <find>th</find>
-      <find>customize-menu-modal</find>
-      <find>customize</find>
-      <find>datasetsetti</find>
-      <find>$field</find>
-      <find>ajaxupdate</find>
-      <find>ajaxUpdate</find>
-      <find>['operator']</find>
-      <find>$if</find>
-      <find>id</find>
-      <find>relation_field_</find>
-      <find>$relation</find>
-      <find>relation_ids</find>
-      <find>$relation_id</find>
-      <find>dataset_field_id</find>
-      <find>$dataset_relation_id</find>
-      <find>dataset_field_ids</find>
-      <find>dataset_field_</find>
-      <find>menu_relation_criteria</find>
-      <find>onUpdateDatasetMenu</find>
-      <find>dataset_field_operator</find>
-      <find>$criteria =</find>
-      <find>criterias</find>
-      <find>-&gt;pivot</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>$field</replace>
-      <replace>{!! $criteria-&gt;name !!}</replace>
-      <replace>{!! $criteria-&gt;pivot-&gt;value !!}</replace>
-      <replace>{!! $relation-&gt;relation_type == 'belongstomany' ? (ucfirst(camel_case(str_singular($relation-&gt;local_table-&gt;name))) . ucfirst(camel_case(str_singular($relation-&gt;table-&gt;name)))) : (ucfirst(camel_case(str_singular($relation-&gt;local_table-&gt;name))) . ucfirst(camel_case(str_singular($relation-&gt;table-&gt;name)))) !!}</replace>
-      <replace>$relation</replace>
-      <replace>&quot;{!! $criteria-&gt;pivot-&gt;value !!}&quot;</replace>
-      <replace>{!! ucfirst(camel_case(str_singular($relation-&gt;local_table-&gt;name))) . ucfirst(camel_case(str_singular($relation-&gt;table-&gt;name))) !!}</replace>
-      <replace>body.get(&quot;{!! ucfirst(camel_case($field-&gt;name)) !!}&quot;)</replace>
-      <replace>body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
-      <replace>body</replace>
-      <replace>(Que) body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
-      <replace>({!! QueryHelpers:: !!}) body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
-      <replace>({!! QueryHelpers::castTo() !!}) body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
-      <replace>order_type</replace>
-      <replace>({!! QueryHelpers::castTo($field-&gt;type) !!}) body.get(&quot;{!! $field-&gt;name !!}&quot;)</replace>
-      <replace>$relation_id</replace>
-      <replace>$relation_field_id</replace>
-      <replace>$menu_relation_criteria</replace>
-      <replace>$menu_relation_criteria-&gt;value</replace>
-      <replace>{!! $menu_relation_criteria-&gt;relation_field-&gt;name !!}</replace>
-      <replace>${!! str_singular($menu_relation_criteria-&gt;relation-&gt;table-&gt;name) !!}</replace>
-      <replace>${!! str_singular($menu_relation_criteria-&gt;relation-&gt;table-&gt;name) !!}</replace>
-      <replace>${!! str_singular($menu_relation_criteria-&gt;relation-&gt;table-&gt;name) !!} = ${!! str_singular($menu_relation_criteria-&gt;relation-&gt;table-&gt;name) !!}</replace>
-      <replace>$item</replace>
-      <replace>$if</replace>
-      <replace>$f</replace>
-      <replace>dataset_field_</replace>
-      <replace>$dataset_relation_ids</replace>
-      <replace>$dataset_relation_id</replace>
-      <replace>dataset_</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -243,7 +188,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers/api" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -252,19 +197,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/api" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/api/Project" />
+      <recent name="$PROJECT_DIR$/resources/views/menu/modals" />
+      <recent name="$PROJECT_DIR$/resources/views/menu/inputs" />
+      <recent name="$PROJECT_DIR$/resources/views/templates/spring/base/repository" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/templates/spring/base/repository" />
       <recent name="$PROJECT_DIR$/resources/views/generate-options/partials" />
       <recent name="$PROJECT_DIR$/resources/views/templates/angular7/base/src/app" />
       <recent name="$PROJECT_DIR$/public/outputs/seo-angular7/src/app/user-profile" />
       <recent name="$PROJECT_DIR$/public/templates" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/menu/modals" />
-      <recent name="$PROJECT_DIR$/resources/views/menu/inputs" />
-      <recent name="$PROJECT_DIR$/resources/views/templates/spring/base/repository" />
-      <recent name="$PROJECT_DIR$/resources/views/templates/spring/base/model" />
-      <recent name="$PROJECT_DIR$/resources/views/templates/spring/base/controller" />
     </key>
   </component>
   <component name="RunManager">
@@ -407,21 +352,54 @@
       <workItem from="1603479291017" duration="35000" />
       <workItem from="1606168699490" duration="328000" />
       <workItem from="1606169406389" duration="7835000" />
-      <workItem from="1606243086435" duration="1914000" />
+      <workItem from="1606243086435" duration="5666000" />
+      <workItem from="1607148926914" duration="291000" />
     </task>
+    <task id="LOCAL-00001" summary="add landing and account end-point">
+      <created>1606345052795</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606345052795</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add landing and account end-point" />
+    <option name="LAST_COMMIT_MESSAGE" value="add landing and account end-point" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="578" y="284" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606183307710">
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606348218066">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="578" y="284" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1606183307710" />
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1606290471729">
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1606348218066" />
+    <state x="578" y="284" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606345604164">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606290471729" />
+    <state x="578" y="284" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1606345604164" />
+    <state x="541" y="157" width="597" height="735" key="find.popup" timestamp="1606345380752">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="541" y="157" width="597" height="735" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606345380752" />
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1606348432812">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606348432812" />
   </component>
 </project>
