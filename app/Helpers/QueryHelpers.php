@@ -255,6 +255,12 @@ class QueryHelpers
     {
         $text = 'ignore everything except this (text)';
         preg_match('#\((.*?)\)#', $string, $match);
-        return $match[1];
+
+        if (empty($match[1])) {
+            return null;
+        } else {
+            return $match[1];
+        }
+
     }
 }

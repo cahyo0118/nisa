@@ -116,15 +116,24 @@ Route::group(['middleware' => ['auth:api']], function () {
     });
 
     /*Import DB*/
-    Route::post(
-        'import-db/upload-temp',
-        'api\Project\ImportDB\ImportDBController@uploadTemp'
-    );
+    Route::group(['prefix' => 'import-db'], function () {
 
-    Route::get(
-        'import-db/read-db',
-        'api\Project\ImportDB\ImportDBController@readDB'
-    );
+        Route::post(
+            'upload-temp',
+            'api\Project\ImportDB\ImportDBController@uploadTemp'
+        );
+
+        Route::get(
+            'read-db',
+            'api\Project\ImportDB\ImportDBController@readDB'
+        );
+
+        Route::post(
+            'to-project/{project_id}',
+            'api\Project\ImportDB\ImportDBController@importDBToProject'
+        );
+
+    });
 
     Route::group(['prefix' => 'generate-options'], function () {
 
