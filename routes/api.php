@@ -57,25 +57,74 @@ Route::group(['middleware' => ['auth:api']], function () {
 
         });
 
+        /*Menus*/
+        Route::group(['prefix' => '{id}/menus'], function () {
+
+            Route::get(
+                '',
+                'api\Project\Menu\MenuController@getAllByProjectId'
+            );
+
+        });
+
     });
 
     /*Project Generate Options & Global Variables*/
+    Route::group(['prefix' => 'global-variable-values'], function () {
+        Route::post(
+            'store',
+            'api\Project\VariableValueController@store'
+        );
 
+        Route::put(
+            '{global_variable_id}/update',
+            'api\Project\VariableValueController@update'
+        );
+
+        Route::delete(
+            '{global_variable_id}/delete',
+            'api\Project\VariableValueController@delete'
+        );
+    });
+
+    /*Menus*/
+    Route::group(['prefix' => 'menus'], function () {
+        Route::get(
+            '{id}/detail',
+            'api\Project\Menu\MenuController@getOne'
+        );
+
+        Route::get(
+            '{id}/sub-menus',
+            'api\Project\Menu\MenuController@getAllSubMenu'
+        );
+
+        Route::post(
+            'store',
+            'api\Project\Menu\MenuController@store'
+        );
+
+        Route::put(
+            '{id}/update',
+            'api\Project\Menu\MenuController@update'
+        );
+
+        Route::delete(
+            '{id}/delete',
+            'api\Project\Menu\MenuController@delete'
+        );
+    });
+
+    /*Import DB*/
     Route::post(
-        'global-variable-values/store',
-        'api\Project\VariableValueController@store'
+        'import-db/upload-temp',
+        'api\Project\ImportDB\ImportDBController@uploadTemp'
     );
 
-    Route::put(
-        'global-variable-values/{global_variable_id}/update',
-        'api\Project\VariableValueController@update'
+    Route::get(
+        'import-db/read-db',
+        'api\Project\ImportDB\ImportDBController@readDB'
     );
-
-    Route::delete(
-        'global-variable-values/{global_variable_id}/delete',
-        'api\Project\VariableValueController@delete'
-    );
-
 
     Route::group(['prefix' => 'generate-options'], function () {
 

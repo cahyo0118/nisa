@@ -8,10 +8,12 @@ class Menu extends Model
 {
     public static $validation = [
         'store' => [
+            'project_id' => 'required',
             'name' => 'required|max:50',
             'display_name' => 'required',
         ],
         'update' => [
+            'project_id' => 'required',
             'name' => 'required|max:50',
             'display_name' => 'required',
         ]
