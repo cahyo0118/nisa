@@ -196,4 +196,5 @@ class MenuController extends Controller
             'message' => 'Successfully delete data'
         ]);
     }
+
 }

@@ -113,6 +113,19 @@ Route::group(['middleware' => ['auth:api']], function () {
             '{id}/delete',
             'api\Project\Menu\MenuController@delete'
         );
+
+    });
+
+    /*Menu Data Setting*/
+    Route::group(['prefix' => 'menu-data-settings'], function () {
+
+        Route::get(
+            '{menu_id}/fields',
+            'api\Project\Menu\DataSettingController@getFields'
+        );
+
+
+
     });
 
     /*Import DB*/
