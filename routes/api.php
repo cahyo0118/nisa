@@ -124,7 +124,15 @@ Route::group(['middleware' => ['auth:api']], function () {
             'api\Project\Menu\DataSettingController@getFields'
         );
 
+        Route::put(
+            'update-criteria',
+            'api\Project\Menu\DataSettingController@updateCriteria'
+        );
 
+        Route::put(
+            'update-datasets-criteria',
+            'api\Project\Menu\DataSettingController@updateDatasetCriteria'
+        );
 
     });
 

@@ -38,7 +38,23 @@ class Relation extends Model
 
     public function menu_criterias()
     {
-        return $this->belongsToMany('App\Menu', 'relation_criterias', 'relation_id', 'menu_id')
-            ->withPivot(['show_in_list', 'show_in_single', 'show_in_form']);
+        return $this->belongsToMany(
+            'App\Menu',
+            'relation_criterias',
+            'relation_id',
+            'menu_id'
+        )->withPivot([
+            'show_in_list',
+            'show_in_single',
+            'show_in_form'
+        ]);
+    }
+
+    public function dataset_criterias()
+    {
+        return $this->hasMany(
+            'App\MenuDatasetCriteria',
+            'relation_id'
+        );
     }
 }
