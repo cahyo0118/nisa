@@ -24,10 +24,7 @@
   <component name="ChangeListManager">
     <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="read dump database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Field.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Field.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/api/Project/Menu/DataSettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/api/Project/Menu/DataSettingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Relation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Relation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/StaticDataset.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/StaticDataset.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -345,7 +342,7 @@
       <workItem from="1606243086435" duration="5666000" />
       <workItem from="1607148926914" duration="21711000" />
       <workItem from="1607334053037" duration="1161000" />
-      <workItem from="1607439901949" duration="6882000" />
+      <workItem from="1607439901949" duration="7682000" />
     </task>
     <task id="LOCAL-00001" summary="add landing and account end-point">
       <created>1606345052795</created>
@@ -429,10 +426,10 @@
     </state>
     <state x="365" y="-919" width="683" height="756" key="find.popup/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607442460318" />
     <state x="541" y="157" width="597" height="735" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606345380752" />
-    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup" timestamp="1607447563360">
+    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup" timestamp="1607448882308">
       <screen x="-253" y="-1080" width="1920" height="1080" />
     </state>
-    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607447563360" />
+    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607448882308" />
     <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606348432812" />
   </component>
 </project>

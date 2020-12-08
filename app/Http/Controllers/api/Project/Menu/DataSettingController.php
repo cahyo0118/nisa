@@ -6,6 +6,7 @@ use App\Field;
 use App\Menu;
 use App\MenuCriteria;
 use App\MenuDatasetCriteria;
+use App\MenuLoadReference;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -139,7 +140,7 @@ class DataSettingController extends Controller
                 ->first();
 
             if (empty($data)) {
-                $data = new MenuCriteria();
+                $data = new MenuDatasetCriteria();
             }
 
             $data->menu_id = $request->menu_id;
@@ -150,6 +151,70 @@ class DataSettingController extends Controller
             $data->value = $request->value;
 
             $data->save();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'body' => $data,
+                'message' => 'Successfully update data'
+            ]);
+
+        } catch (\Exception $exception) {
+
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false,
+                'data' => null,
+                'message' => 'Failed update data',
+                'messageSystem' => $exception->getMessage(),
+            ], 400);
+        }
+
+    }
+
+    public function updateLoadReference(Request $request)
+    {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'menu_id' => 'required',
+                'field_id' => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'data' => $validator->errors(),
+                'message' => 'Failed update criteria data',
+            ], 400);
+        }
+
+        try {
+
+            DB::beginTransaction();
+
+            $data = MenuLoadReference::where('menu_id', $request->menu_id)
+                ->where('field_id', $request->field_id)
+                ->first();
+
+            if (empty($data)) {
+                $data = new MenuLoadReference();
+            }
+
+            $data->menu_id = $request->menu_id;
+            $data->field_id = $request->field_id;
+            $data->field_reference_id = $request->field_reference_id;
+
+            if (empty($request->field_reference_id)) {
+                $data->delete();
+            } else {
+                $data->save();
+            }
+
 
             DB::commit();
 

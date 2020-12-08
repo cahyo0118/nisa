@@ -134,6 +134,11 @@ Route::group(['middleware' => ['auth:api']], function () {
             'api\Project\Menu\DataSettingController@updateDatasetCriteria'
         );
 
+        Route::put(
+            'update-load-reference',
+            'api\Project\Menu\DataSettingController@updateLoadReference'
+        );
+
     });
 
     /*Import DB*/
