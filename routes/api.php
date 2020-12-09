@@ -67,6 +67,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 
         });
 
+        /*Generate Project*/
+        Route::post('{id}/{template}/generate', 'api\Project\GenerateController@generateProject');
+
     });
 
     /*Project Generate Options & Global Variables*/

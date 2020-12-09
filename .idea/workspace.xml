@@ -24,7 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="678d53d1-fbdc-4564-b7cd-f82df6a7a761" name="Default Changelist" comment="read dump database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/api/Project/Menu/DataSettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/api/Project/Menu/DataSettingController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -342,7 +341,7 @@
       <workItem from="1606243086435" duration="5666000" />
       <workItem from="1607148926914" duration="21711000" />
       <workItem from="1607334053037" duration="1161000" />
-      <workItem from="1607439901949" duration="7682000" />
+      <workItem from="1607439901949" duration="9374000" />
     </task>
     <task id="LOCAL-00001" summary="add landing and account end-point">
       <created>1606345052795</created>
@@ -403,10 +402,10 @@
     </state>
     <state x="-253" y="-1080" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607150907731" />
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1606348218066" />
-    <state x="408" y="-788" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1607444911837">
+    <state x="408" y="-788" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1607449522168">
       <screen x="-253" y="-1080" width="1920" height="1080" />
     </state>
-    <state x="408" y="-788" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607444911837" />
+    <state x="408" y="-788" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607449522168" />
     <state x="408" y="-788" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-253.-1080.1920.1080/0.25.1680.1025@-253.-1080.1920.1080" timestamp="1607159118301" />
     <state x="578" y="284" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1606345604164" />
     <state x="216" y="-904" key="SettingsEditor" timestamp="1607161141421">
@@ -426,10 +425,10 @@
     </state>
     <state x="365" y="-919" width="683" height="756" key="find.popup/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607442460318" />
     <state x="541" y="157" width="597" height="735" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606345380752" />
-    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup" timestamp="1607448882308">
+    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup" timestamp="1607449460700">
       <screen x="-253" y="-1080" width="1920" height="1080" />
     </state>
-    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607448882308" />
+    <state x="324" y="-840" width="766" height="696" key="search.everywhere.popup/-253.-1080.1920.1080/0.0.1680.1050@-253.-1080.1920.1080" timestamp="1607449460700" />
     <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1606348432812" />
   </component>
 </project>
